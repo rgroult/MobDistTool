@@ -14,17 +14,17 @@ class UserError extends StateError {
 
   var userCollection = objectory[MDTUser];
 
-  Future authenticateUser(String email, Sring password) async {
-    if !email || !password {
-     return null
+  Future authenticateUser(String email, String password) async {
+    if (email.isEmpty || password.isEmpty) {
+     return null;
     }
     var user = await userCollection.findOne (where.eq("email", email));
-    if user {
-      if user.password === _generated(password) {
-          return user
+    if (user != null) {
+      if (user.password == _generateHash(password)) {
+          return user;
       }
     }
-   return null
+   return null;
   }
 
   Future findUserByUuid(String uuid) async {

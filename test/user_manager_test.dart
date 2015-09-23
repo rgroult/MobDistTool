@@ -30,6 +30,15 @@ Future main() async {
       expect(user.password, equals(password));
       expect(user.isSystemAdmin, equals(false));
     });
+    test("authenticate user KO", () async {
+      var user = await user_mgr.authenticateUser(email,'badpassword');
+      expect(user, isNull);
+    });
+    test("authenticate user OK", () async {
+      var user = await user_mgr.authenticateUser(email,password);
+      expect(user.name, equals(name));
+      expect(user.email, equals(email));
+    });
     test("modify user", () async {
       var user = await user_mgr.findUserByEmail(email);
       var newname = "newName";
