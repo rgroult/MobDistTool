@@ -1,0 +1,47 @@
+//apis
+    //APis externe (authentication by token or session)
+//User
+Login/Lgout/register/activate
+
+//applications
+//create/update/delete/list
+
+//artifact
+//get/delete
+
+
+    //Apis Interne
+//User
+//create/update/list/delete
+
+//application => externe api
+
+//artifact
+//put/update/delete with appKey
+
+//misceleanous
+//log/stats
+
+
+//Data model
+User
+ - email
+ - password
+ - isSystemAdmin
+ - displayName
+ - uuid
+
+ //Application
+ - appDisplayName
+ - platform
+ - adminUsers
+ - lastVersionArtifact
+  - uuid
+
+ Artifact
+ - application
+ - version
+ - sortIdentifier
+ - displayName
+ - storageUrl
+ - uuid
