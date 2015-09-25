@@ -14,8 +14,16 @@ Future main() async {
     var password = 'password';
     var name = 'user name';
 
+    test("Create user empty fields", () async {
+      expect(new Future.error(new StateError("bad state")), throwsStateError);
+      var user = user_mgr.createUser(name, null, password);
+      expect(user, throwsStateError);
+      user =  user_mgr.createUser(name, email, null);
+      expect(user, throwsStateError);
+    });
+
     test("Create user", () async {
-      var user = await user_mgr.createUser(name, email, password);
+      var user =  user_mgr.createUser(name, email, password);
       expect(user, isNotNull);
     });
     test("Create same user", () async {
@@ -24,11 +32,15 @@ Future main() async {
       expect(sameUser, throwsStateError);
     });
     test("retrieve user", () async {
-      var user = await user_mgr.findUserByEmail(email);
+      var user =  await user_mgr.findUserByEmail(email);
       expect(user.name, equals(name));
       expect(user.email, equals(email));
       expect(user.password, equals(password));
       expect(user.isSystemAdmin, equals(false));
+    });
+    test("authenticate user Not found", () async {
+      var user = await user_mgr.authenticateUser("anotheremail",'badpassword');
+      expect(user, isNull);
     });
     test("authenticate user KO", () async {
       var user = await user_mgr.authenticateUser(email,'badpassword');
