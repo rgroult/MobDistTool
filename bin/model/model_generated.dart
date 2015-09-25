@@ -5,8 +5,9 @@ class $MDTUser {
   static String get name => 'name';
   static String get email => 'email';
   static String get password => 'password';
+  static String get externalTokenId => 'externalTokenId';
   static String get isSystemAdmin => 'isSystemAdmin';
-  static final List<String> allFields = [name, email, password, isSystemAdmin];
+  static final List<String> allFields = [name, email, password, externalTokenId, isSystemAdmin];
 }
 
 class MDTUser extends PersistentObject {
@@ -16,6 +17,8 @@ class MDTUser extends PersistentObject {
   set email (String value) => setProperty('email',value);
   String get password => getProperty('password');
   set password (String value) => setProperty('password',value);
+  String get externalTokenId => getProperty('externalTokenId');
+  set externalTokenId (String value) => setProperty('externalTokenId',value);
   bool get isSystemAdmin => getProperty('isSystemAdmin');
   set isSystemAdmin (bool value) => setProperty('isSystemAdmin',value);
 }
@@ -59,19 +62,22 @@ class MDTArtifact extends PersistentObject {
 }
 
 class $MDTApplication {
+  static String get apiKey => 'apiKey';
   static String get name => 'name';
   static String get platform => 'platform';
   static String get adminUsers => 'adminUsers';
   static String get lastVersion => 'lastVersion';
-  static final List<String> allFields = [name, platform, adminUsers, lastVersion];
+  static final List<String> allFields = [apiKey, name, platform, adminUsers, lastVersion];
 }
 
 class MDTApplication extends PersistentObject {
+  String get apiKey => getProperty('apiKey');
+  set apiKey (String value) => setProperty('apiKey',value);
   String get name => getProperty('name');
   set name (String value) => setProperty('name',value);
   String get platform => getProperty('platform');
   set platform (String value) => setProperty('platform',value);
-  List<String> get adminUsers => getPersistentList(String,'adminUsers');
+  List<MDTUser> get adminUsers => getPersistentList(MDTUser,'adminUsers');
   MDTArtifact get lastVersion => getLinkedObject('lastVersion');
   set lastVersion (MDTArtifact value) => setLinkedObject('lastVersion',value);
 }

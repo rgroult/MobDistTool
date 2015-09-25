@@ -20,6 +20,7 @@ class MDTUser extends MDTBaseObject {
 
 //enum platformType { IOS, ANDROID }
 class MDTApplication extends MDTBaseObject {
+  String apiKey;
   String name;
   String platform;
   List<MDTUser> adminUsers;
@@ -36,5 +37,5 @@ class MDTArtifact extends MDTBaseObject {
 }
 
 main() {
-  new ModelGenerator(#MDT_model_proto).generateTo('model_generated.dart');
+  new ModelGenerator(#MDT_model_proto).generateTo('bin/model/model_generated.dart');
 }

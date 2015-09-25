@@ -15,7 +15,7 @@ Future main() async {
     var name = 'user name';
 
     test("Create user empty fields", () async {
-      expect(new Future.error(new StateError("bad state")), throwsStateError);
+      //expect(new Future.error(new StateError("bad state")), throwsStateError);
       var user = user_mgr.createUser(name, null, password);
       expect(user, throwsStateError);
       user =  user_mgr.createUser(name, email, null);
@@ -26,11 +26,13 @@ Future main() async {
       var user =  user_mgr.createUser(name, email, password);
       expect(user, isNotNull);
     });
+
     test("Create same user", () async {
       //try to create same user
       var sameUser =  user_mgr.createUser(name, email, password);
       expect(sameUser, throwsStateError);
     });
+
     test("retrieve user", () async {
       var user =  await user_mgr.findUserByEmail(email);
       expect(user.name, equals(name));
@@ -38,19 +40,23 @@ Future main() async {
       expect(user.password, equals(password));
       expect(user.isSystemAdmin, equals(false));
     });
+
     test("authenticate user Not found", () async {
       var user = await user_mgr.authenticateUser("anotheremail",'badpassword');
       expect(user, isNull);
     });
+
     test("authenticate user KO", () async {
       var user = await user_mgr.authenticateUser(email,'badpassword');
       expect(user, isNull);
     });
+
     test("authenticate user OK", () async {
       var user = await user_mgr.authenticateUser(email,password);
       expect(user.name, equals(name));
       expect(user.email, equals(email));
     });
+
     test("modify user", () async {
       var user = await user_mgr.findUserByEmail(email);
       var newname = "newName";
@@ -62,9 +68,25 @@ Future main() async {
       expect(user.name, equals(newname));
       expect(user.isSystemAdmin, equals(true));
     });
-    /* test("String.trim() removes surrounding whitespace", () {
-    var string = "  foo ";
-    expect(string.trim(), equals("foo"));
-  });*/
+
+    test("delete user", () async {
+      var user = await user_mgr.findUserByEmail(email);
+      expect(user.email, equals(email));
+      await user_mgr.deleteUserByEmail(email);
+      //retrieve user ?
+      user = await user_mgr.findUserByEmail(email);
+      expect(user,isNull);
+    });
+
+    test("delete user again", () async {
+      var result = false;
+      try {
+        var result = await user_mgr.deleteUserByEmail(email);
+      }on StateError catch (e){
+        result = true;
+       expect((e is  user_mgr.UserError), isTrue);
+    }
+      expect(result,isTrue);
+    });
   });
 }

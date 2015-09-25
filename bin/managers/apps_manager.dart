@@ -18,7 +18,8 @@ class AppError extends StateError {
 
 var appCollection = objectory[MDTApplication];
 
-Future<MDTApplication> createApplication(String name, String platform,{MTDUser adminUser}) async {
+Future<MDTApplication> createApplication(String name, String platform,
+    {MTDUser adminUser}) async {
   if (name == null || name.isEmpty) {
     //return new Future.error(new StateError("bad state"));
     throw new AppError('name must be not null');
@@ -28,7 +29,8 @@ Future<MDTApplication> createApplication(String name, String platform,{MTDUser a
   }
 
   //find another app
-  var existingApp = await appCollection.findOne(where.eq('name', name,'platform',platform));
+  var existingApp = await findApplication(name,platform);
+      //await appCollection.findOne(where.eq('name', name, 'platform', platform));
   if (existingApp != null) {
     //app already exist
     throw new AppError('App already exist with this name and platform');
@@ -38,8 +40,44 @@ Future<MDTApplication> createApplication(String name, String platform,{MTDUser a
     ..name = name
     ..platform = platform;
 
-  if (adminUser != null)
-    createdApp.adminUsers.add(adminUser);
+  if (adminUser != null) createdApp.adminUsers.add(adminUser);
 
-  return await createdApp.save();
+  await createdApp.save();
+  return createdApp;
+}
+
+Future<MDTApplication> findApplicationByApiKey(String apiKey) async {
+  return await appCollection.findOne(where.eq("apiKey", apiKey));
+}
+
+Future<MDTApplication> findApplication(String name, String platform) async {
+  return await appCollection.findOne(where.eq('name', name).eq('platform', platform));
+}
+
+Bool deleteApplication(String name, String platform) async {
+  var app = await findApplication(name,platform);
+  if (app != null) {
+    await app.remove();
+    return true;
+  }
+  return false;
+}
+
+Future<MDTApplication> addAdminApplication(MDTApplication app, MDTUser user) async {
+  if (app.adminUsers.contains(user)) {
+    //do nothing
+    return new Future(app);
+  }
+  app.adminUsers.add(user)
+  return app.save();
+}
+
+Future<MDTApplication> removeAdminApplication(MDTApplication app, MDTUser user) async {
+  if (app.adminUsers.contains(user) == false) {
+    //do nothing
+    return new Future(app);
+  }
+  app.adminUsers.remove(user);
+  app.save();
+  return app;
 }

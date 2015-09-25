@@ -34,6 +34,14 @@ Future<MDTUser> findUserByEmail(String email) async {
   return await userCollection.findOne(where.eq("email", email));
 }
 
+Future deleteUserByEmail(String email) async {
+  var user = await findUserByEmail(email);
+  if (user == null) {
+    throw new UserError('user not found');
+  }
+  return user.remove();
+}
+
 Future<MDTUser> createUser(String name, String email, String password,
     {bool isSystemAdmin: false}) async {
   if (email == null || email.isEmpty) {
