@@ -63,21 +63,38 @@ Bool deleteApplication(String name, String platform) async {
   return false;
 }
 
+Future deleteUserFromAdminUsers(MDTUser user) async {
+  //Good way
+  /*var apps = await appCollection.find(where.eq('adminUsers.email',user.email));
+  for (app in apps) {
+    removeAdminApplication(app,user);
+  }*/
+  //bad way
+  var allApps = await appCollection.find();
+  var toWait = [];
+  for (var app in allApps){
+    await removeAdminApplication(app,user);
+   // toWait.add(removeAdminApplication(app,user));
+  }
+  //return await Future.wait(toWait);
+  return new Future.value(null);
+}
+
 Future<MDTApplication> addAdminApplication(MDTApplication app, MDTUser user) async {
   if (app.adminUsers.contains(user)) {
     //do nothing
-    return new Future(app);
+    return new Future.value(app);
   }
-  app.adminUsers.add(user)
-  return app.save();
+  app.adminUsers.add(user);
+  return await app.save();
 }
 
 Future<MDTApplication> removeAdminApplication(MDTApplication app, MDTUser user) async {
   if (app.adminUsers.contains(user) == false) {
     //do nothing
-    return new Future(app);
+    return new Future.value(app);
   }
   app.adminUsers.remove(user);
-  app.save();
-  return app;
+  return await app.save();
 }
+

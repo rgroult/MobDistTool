@@ -56,5 +56,40 @@ Future main() async {
       expect(app.platform, equals(appAndroid));
       expect(app.adminUsers.isEmpty,isTrue);
     });
+    test("search app", () async {
+      var app = await app_mgr.findApplication(appName,appIOS);
+      expect(app.name, equals(appName));
+      expect(app.platform, equals(appIOS));
+      expect(app.adminUsers.isEmpty,isTrue);
+
+      app = await app_mgr.findApplication(appName,appAndroid);
+      expect(app.name, equals(appName));
+      expect(app.platform, equals(appAndroid));
+      expect(app.adminUsers.isEmpty,isTrue);
+    });
+    test("Add admin user to app", () async {
+        var email = "test@user.com";
+        var user = await user_mgr.createUser("user1",email,"password");
+        var app = await app_mgr.findApplication(appName,appIOS);
+        app.adminUsers.add(user);
+        await app.save();
+        expect(app.adminUsers.isEmpty,isFalse);
+        //chech user
+        var adminUser = app.adminUsers.first;
+        expect(adminUser.email, equals(email));
+
+        //retrieve other app
+        app = await app_mgr.findApplication(appName,appAndroid);
+        expect(app.adminUsers.isEmpty,isTrue);
+
+        //delete user
+        await user_mgr.deleteUserByEmail(email);
+        //check user deleted
+        user = await user_mgr.findUserByEmail(email);
+        expect(user,isNull);
+        //retrieve app and check admin users is empty
+        app = await app_mgr.findApplication(appName,appIOS);
+        expect(app.adminUsers.isEmpty,isTrue);
+    });
   });
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:objectory/objectory_console.dart';
 import '../model/model.dart';
+import 'apps_manager.dart' as app_mgr;
 import 'errors.dart';
 
 class UserError extends StateError {
@@ -36,10 +37,12 @@ Future<MDTUser> findUserByEmail(String email) async {
 
 Future deleteUserByEmail(String email) async {
   var user = await findUserByEmail(email);
+  //delete user reference in apps
+  await app_mgr.deleteUserFromAdminUsers(user);
   if (user == null) {
     throw new UserError('user not found');
   }
-  return user.remove();
+  return await user.remove();
 }
 
 Future<MDTUser> createUser(String name, String email, String password,
@@ -64,7 +67,9 @@ Future<MDTUser> createUser(String name, String email, String password,
     ..password = _generateHash(password)
     ..isSystemAdmin = isSystemAdmin;
 
-  return await createdUser.save();
+  await createdUser.save();
+
+  return createdUser;
 }
 
 String _generateHash(String password) {
