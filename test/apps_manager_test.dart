@@ -5,8 +5,16 @@ import '../bin/managers/apps_manager.dart' as app_mgr;
 import '../bin/managers/users_manager.dart' as user_mgr;
 import '../bin/config/mongo.dart' as mongo;
 
-Future main() async {
+main() async {
   await mongo.initialize();
+  //.then((_){});
+  var result = await allTests();
+  print(result);
+  //return result;
+}
+
+
+Future allTests() async {
   test("Clean database", () async {
     await objectory.dropCollections();
   });
@@ -71,12 +79,16 @@ Future main() async {
         var email = "test@user.com";
         var user = await user_mgr.createUser("user1",email,"password");
         var app = await app_mgr.findApplication(appName,appIOS);
-        app.adminUsers.add(user);
-        await app.save();
+        await app_mgr.addAdminApplication(app,user);
+        expect(app.adminUsers.first.email,equals(email));
+       // app.adminUsers.add(user);
+     //   await app.save();
+        app = await app_mgr.findApplication(appName,appIOS);
         expect(app.adminUsers.isEmpty,isFalse);
         //chech user
         var adminUser = app.adminUsers.first;
         expect(adminUser.email, equals(email));
+        adminUser = null;
 
         //retrieve other app
         app = await app_mgr.findApplication(appName,appAndroid);
@@ -90,6 +102,18 @@ Future main() async {
         //retrieve app and check admin users is empty
         app = await app_mgr.findApplication(appName,appIOS);
         expect(app.adminUsers.isEmpty,isTrue);
+    });
+    test("alls apps", () async {
+      var allApps = await app_mgr.allApplications();
+      expect(allApps.length,equals(2));
+    });
+
+    test("delete app", () async {
+      var app = await app_mgr.findApplication(appName,appIOS);
+      expect(app,isNotNull);
+      await app_mgr.deleteApplication(appName,appIOS);
+      app = await app_mgr.findApplication(appName,appIOS);
+      expect(app,isNull);
     });
   });
 }

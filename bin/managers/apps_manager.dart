@@ -18,6 +18,10 @@ class AppError extends StateError {
 
 var appCollection = objectory[MDTApplication];
 
+Future<List<MDTApplication>> allApplications() {
+  return appCollection.find();
+}
+
 Future<MDTApplication> createApplication(String name, String platform,
     {MTDUser adminUser}) async {
   if (name == null || name.isEmpty) {
@@ -54,13 +58,12 @@ Future<MDTApplication> findApplication(String name, String platform) async {
   return await appCollection.findOne(where.eq('name', name).eq('platform', platform));
 }
 
-Bool deleteApplication(String name, String platform) async {
+Future deleteApplication(String name, String platform) async {
   var app = await findApplication(name,platform);
   if (app != null) {
-    await app.remove();
-    return true;
+    return  app.remove();
   }
-  return false;
+  return new Future.value(null);
 }
 
 Future deleteUserFromAdminUsers(MDTUser user) async {
@@ -74,9 +77,10 @@ Future deleteUserFromAdminUsers(MDTUser user) async {
   var toWait = [];
   for (var app in allApps){
     await removeAdminApplication(app,user);
-   // toWait.add(removeAdminApplication(app,user));
+    //toWait.add(removeAdminApplication(app,user));
   }
-  //return await Future.wait(toWait);
+  await Future.wait(toWait);//.then(print("fini"));
+  var newallApps = await appCollection.find();
   return new Future.value(null);
 }
 
@@ -86,7 +90,7 @@ Future<MDTApplication> addAdminApplication(MDTApplication app, MDTUser user) asy
     return new Future.value(app);
   }
   app.adminUsers.add(user);
-  return await app.save();
+  return app.save();
 }
 
 Future<MDTApplication> removeAdminApplication(MDTApplication app, MDTUser user) async {
@@ -95,6 +99,7 @@ Future<MDTApplication> removeAdminApplication(MDTApplication app, MDTUser user) 
     return new Future.value(app);
   }
   app.adminUsers.remove(user);
-  return await app.save();
+  app.setDirty("adminUsers");
+  return app.save();
 }
 

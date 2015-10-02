@@ -10,6 +10,10 @@ class UserError extends StateError {
 
 var userCollection = objectory[MDTUser];
 
+Future<List<MDTUser>> allUsers() {
+  return userCollection.find();
+}
+
 Future<MDTUser> authenticateUser(String email, String password) async {
   if (email.isEmpty || password.isEmpty) {
     return null;
@@ -37,12 +41,15 @@ Future<MDTUser> findUserByEmail(String email) async {
 
 Future deleteUserByEmail(String email) async {
   var user = await findUserByEmail(email);
-  //delete user reference in apps
-  await app_mgr.deleteUserFromAdminUsers(user);
+
   if (user == null) {
     throw new UserError('user not found');
   }
-  return await user.remove();
+
+  //delete user reference in apps
+  await app_mgr.deleteUserFromAdminUsers(user);
+
+  return user.remove();
 }
 
 Future<MDTUser> createUser(String name, String email, String password,

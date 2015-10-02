@@ -4,7 +4,47 @@ import 'package:objectory/objectory_console.dart';
 import '../bin/managers/users_manager.dart' as user_mgr;
 import '../bin/config/mongo.dart' as mongo;
 
-Future main() async {
+main() async {
+  await mongo.initialize();
+   await allTests();
+
+  return 0;
+}
+
+ main1()  {
+   mongo.initialize()
+    .then((_) {
+     allTests()
+      .then((_) { })
+      .whenComplete(print('Uers Tests done'));
+   });
+
+   resync(20); // waiting with a timeout as maximum limit
+  /*
+
+   var result;
+   asyncFunction()
+   .then(() { result = ...; })
+   .whenComplete(() { continueResync() }); // the "Done" message
+
+   resync(timeout); // waiting with a timeout as maximum limit
+
+   // Either we arrive here with the [result] filled in or a with a [TimeoutException].
+   return result;
+
+   new Future.sync((){
+      mongo.initialize().then((_) {
+        allTests().then((_) {
+          print("end");
+          return;
+        });
+      });
+   });*/
+  // mongo.initialize().then(allTests().then());
+  //await allTests();
+}
+
+Future allTests() async {
   await mongo.initialize();
   test ("Clean database", ()async {
     await objectory.dropCollections();
@@ -67,6 +107,11 @@ Future main() async {
       user = await user_mgr.findUserByEmail(email);
       expect(user.name, equals(newname));
       expect(user.isSystemAdmin, equals(true));
+    });
+
+    test("alls users", () async {
+      var allUsers = await user_mgr.allUsers();
+      expect(allUsers.length,equals(1));
     });
 
     test("delete user", () async {
