@@ -7,12 +7,13 @@ import '../bin/config/mongo.dart' as mongo;
 
 main() async {
   await mongo.initialize();
-  //.then((_){});
   var result = await allTests();
-  print(result);
-  //return result;
+  //await objectory.close();
 }
-
+main2() {
+  mongo.initialize().then((_){allTests().whenComplete(print('fini tests'));})
+        .whenComplete(print('fini init'));
+}
 
 Future allTests() async {
   test("Clean database", () async {
@@ -88,11 +89,14 @@ Future allTests() async {
         //chech user
         var adminUser = app.adminUsers.first;
         expect(adminUser.email, equals(email));
-        adminUser = null;
+        //adminUser = null;
 
         //retrieve other app
         app = await app_mgr.findApplication(appName,appAndroid);
         expect(app.adminUsers.isEmpty,isTrue);
+
+        //alls apps for user
+        var allApps = await app_mgr.findAllApplicationsForUser(adminUser);
 
         //delete user
         await user_mgr.deleteUserByEmail(email);

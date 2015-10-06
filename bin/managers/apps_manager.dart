@@ -44,6 +44,8 @@ Future<MDTApplication> createApplication(String name, String platform,
     ..name = name
     ..platform = platform;
 
+  var adminUsers = createdApp.adminUsers;
+
   if (adminUser != null) createdApp.adminUsers.add(adminUser);
 
   await createdApp.save();
@@ -56,6 +58,10 @@ Future<MDTApplication> findApplicationByApiKey(String apiKey) async {
 
 Future<MDTApplication> findApplication(String name, String platform) async {
   return await appCollection.findOne(where.eq('name', name).eq('platform', platform));
+}
+
+Future<List<MDTApplication>> findAllApplicationsForUser(MDTUser user) {
+  return appCollection.find(where.eq('adminUsers',user.dbRef));
 }
 
 Future deleteApplication(String name, String platform) async {
@@ -73,7 +79,7 @@ Future deleteUserFromAdminUsers(MDTUser user) async {
     removeAdminApplication(app,user);
   }*/
   //bad way
-  var allApps = await appCollection.find();
+  var allApps = await findAllApplicationsForUser(user);
   var toWait = [];
   for (var app in allApps){
     await removeAdminApplication(app,user);
@@ -89,6 +95,7 @@ Future<MDTApplication> addAdminApplication(MDTApplication app, MDTUser user) asy
     //do nothing
     return new Future.value(app);
   }
+ // app.adminUsers.add(app.adminUsers.internValue(user));
   app.adminUsers.add(user);
   return app.save();
 }

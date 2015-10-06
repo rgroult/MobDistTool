@@ -3,18 +3,22 @@ version: 0.0.1
 description: A web server built using the shelf package.
 #author: Your Name <email@example.com>
 #homepage: https://www.example.com
+  #objectory: "^0.3.22"
 
 environment:
   sdk: '>=1.0.0 <2.0.0'
 
 dependencies:
+  objectory:
+      git:
+        url: git://github.com/vadimtsushko/objectory.git
+        ref: master
   args: '>=0.10.0 <0.14.0'
   shelf: '>=0.6.0 <0.7.0'
   rpc: "^0.5.3"
   shelf_rpc: "^0.0.3+2"
   shelf_route: ">0.13.0"
   logging_handlers: "^0.8.0"
-  objectory: "^0.3.22"
   test: "^0.12.4+8"
 
 
