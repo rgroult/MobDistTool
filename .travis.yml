@@ -1,4 +1,7 @@
 language: dart
 dart:
   - stable
-
+cache:
+  directories:
+  - $HOME/.pub-cache
+script: pub run test
