@@ -1,6 +1,8 @@
 language: dart
 dart:
   - stable
+services:
+  - mongodb
 cache:
   directories:
   - $HOME/.pub-cache
