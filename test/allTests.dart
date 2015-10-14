@@ -1,12 +1,21 @@
+import 'package:test/test.dart';
 import 'dart:async';
+import 'package:objectory/objectory_console.dart';
 import 'apps_manager_test.dart' as app_test;
 import 'users_manager_test.dart' as user_test;
+import 'artifacts_manager_test.dart' as artifact_test;
 import '../bin/config/mongo.dart' as mongo;
 
- Future main() async {
-    await mongo.initialize();
-    await user_test.allTests();
-    print("users tests done!");
-    await app_test.allTests();
-    print("apps tests done!");
+void main() {
+   test("init database", () async {
+      var value = await mongo.initialize();
+   });
+
+   user_test.allTests();
+   app_test.allTests();
+   artifact_test.allTests();
+
+   test("close database", () async {
+      var value = await objectory.close();
+   });
 }

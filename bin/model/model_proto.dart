@@ -28,6 +28,7 @@ class MDTApplication extends MDTBaseObject {
 }
 
 class MDTArtifact extends MDTBaseObject {
+  String branch;
   String name;
   DateTime creationDate;
   MDTApplication application;

@@ -5,17 +5,19 @@ import '../bin/managers/apps_manager.dart' as app_mgr;
 import '../bin/managers/users_manager.dart' as user_mgr;
 import '../bin/config/mongo.dart' as mongo;
 
-main() async {
-  await mongo.initialize();
-  var result = await allTests();
-  //await objectory.close();
-}
-main2() {
-  mongo.initialize().then((_){allTests().whenComplete(print('fini tests'));})
-        .whenComplete(print('fini init'));
+void main() {
+  test("init database", () async {
+    var value = await mongo.initialize();
+  });
+
+  allTests();
+
+  test("close database", () async {
+    var value = await objectory.close();
+  });
 }
 
-Future allTests() async {
+void allTests()  {
   test("Clean database", () async {
     await objectory.dropCollections();
   });
