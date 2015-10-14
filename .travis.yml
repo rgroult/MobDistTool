@@ -2,6 +2,3 @@ language: dart
 dart:
   - stable
 
-pub get
-
-
