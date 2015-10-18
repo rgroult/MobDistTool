@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:objectory/objectory_console.dart';
 import '../model/model.dart';
+import 'yes_storage_manager.dart';
 import 'errors.dart';
 
 /*
@@ -16,7 +17,7 @@ class MDTArtifact extends MDTBaseObject {
 }
  */
 
-var defaultStorage = new BaseStorageManager();
+var defaultStorage = new YesStorageManager();
 
 class ArtifactError extends StateError {
   ArtifactError(String msg) : super(msg);
@@ -26,6 +27,14 @@ var artifactCollection = objectory[MDTArtifact];
 
 Future<List<MDTArtifact>> allArtifacts() {
   return artifactCollection.find();
+}
+
+Future<List<MDTArtifact>> findAllArtifacts(MDTApplication app) async {
+  return artifactCollection.find(where.eq('application',app.id));
+}
+
+Future<MDTArtifact> findArtifact(String uuid)async{
+  return artifactCollection.find(where.eq('uuid',uuid));
 }
 
 Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version, {String sortIdentifier, Map tags}) async {
@@ -42,11 +51,12 @@ Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version
   if (tags != null) {
     // TO DO
   }
-  return artifact.save();
+  await artifact.save();
+  return artifact;
 }
 
 //if previous file found, delete it before
-Future<MDTArtifact> addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager storageMgr) async{
+Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager storageMgr) async {
   //delete previous file
   await deleteArtifactFile(artifact,storageMgr);
 
@@ -60,20 +70,20 @@ Future<MDTArtifact> addFileToArtifact(File file,MDTArtifact artifact,BaseStorage
   }
 }
 
-Future<MDTArtifact> deleteArtifactFile(MDTArtifact artifact,BaseStorageManager storageMgr) async{
+Future deleteArtifactFile(MDTArtifact artifact,BaseStorageManager storageMgr) async {
   if (artifact.storageInfos == null) {
-    return new Future(artifact);
+    return new Future.value(true);
   }
   try {
-    await storageMgr.deleteFile(artifact.storageInfos);
+    await storageMgr.deleteFileFromInfos(artifact.storageInfos);
     artifact.storageInfos = null;
-    await artifact.save();
+    return artifact.save();
   } on ArtifactError catch (e) {
     throw new ArtifactError('Unable to delete file artifact:'+e.message);
   }
 }
 
-Future deleteArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async{
+Future deleteArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
   try {
     await deleteArtifactFile(artifact, storageMgr);
     return artifact.remove();
@@ -82,11 +92,8 @@ Future deleteArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async{
   }
 }
 
-Future<List<MDTArtifact>> findAllArtifacts(MDTApplication app)async{
-  return artifactCollection.find(where.eq('application',app.dbRef));
-}
 
-Future deleteAllArtifacts(MDTApplication app,BaseStorageManager storageMgr) async{
+Future deleteAllArtifacts(MDTApplication app,BaseStorageManager storageMgr) async {
   List<MDTArtifact> artifacts = await findAllArtifacts(app);
   //delete all artifact
   var toWait = [];
@@ -102,7 +109,6 @@ Future deleteAllArtifacts(MDTApplication app,BaseStorageManager storageMgr) asyn
 
 
 class BaseStorageManager {
-  //static var sharedInstance => new StorageManager()
 
   bool canHandleStorageUrl(){
     throw new ArtifactError('Not implemented');

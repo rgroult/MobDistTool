@@ -50,15 +50,17 @@ class MDTBaseObject extends PersistentObject {
 }
 
 class $MDTArtifact {
+  static String get branch => 'branch';
   static String get name => 'name';
   static String get creationDate => 'creationDate';
   static String get application => 'application';
   static String get version => 'version';
   static String get sortIdentifier => 'sortIdentifier';
   static String get storageInfos => 'storageInfos';
-  static final List<String> allFields = [name, creationDate, application, version, sortIdentifier, storageInfos];
+  static final List<String> allFields = [branch, name, creationDate, application, version, sortIdentifier, storageInfos];
   static final List<PropertyDescriptor> simpleFields = [
-    const PropertyDescriptor('name', PropertyType.String, 'name')
+    const PropertyDescriptor('branch', PropertyType.String, 'branch')
+    ,const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('creationDate', PropertyType.DateTime, 'creationDate')
     ,const PropertyDescriptor('version', PropertyType.String, 'version')
     ,const PropertyDescriptor('sortIdentifier', PropertyType.String, 'sortIdentifier')
@@ -68,6 +70,8 @@ class $MDTArtifact {
 
 class MDTArtifact extends PersistentObject {
   String get collectionName => 'MDTArtifact';
+  String get branch => getProperty('branch');
+  set branch (String value) => setProperty('branch',value);
   String get name => getProperty('name');
   set name (String value) => setProperty('name',value);
   DateTime get creationDate => getProperty('creationDate');
