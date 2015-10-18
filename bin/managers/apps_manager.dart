@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:objectory/objectory_console.dart';
 import '../model/model.dart';
 import 'errors.dart';
+import 'artifacts_manager.dart' as artifact_mgr;
 
 /*
 class MDTApplication extends MDTBaseObject {
@@ -67,6 +68,8 @@ Future<List<MDTApplication>> findAllApplicationsForUser(MDTUser user) {
 Future deleteApplication(String name, String platform) async {
   var app = await findApplication(name,platform);
   if (app != null) {
+    //delete artifacts
+    await artifact_mgr.deleteAllArtifacts(app,artifact_mgr.defaultStorage);
     return  app.remove();
   }
   return new Future.value(null);
