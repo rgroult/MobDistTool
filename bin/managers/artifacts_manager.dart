@@ -70,6 +70,24 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
   }
 }
 
+Future<File> fileFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
+  if (artifact == null || artifact.storageInfos == null) {
+    throw new ArtifactError('Unable to find file artifact:'+e.message);
+  }
+  return storageMgr.storageFile(artifact.storageInfos);
+}
+
+Future<Uri> uriFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
+  if (artifact == null || artifact.storageInfos == null) {
+    throw new ArtifactError('Unable to find file artifact');
+  }
+
+  if (!storageMgr.canHandleStorageUrl()){
+    throw new ArtifactError('Unable to handle storage Uri');
+  }
+  return storageMgr.storageUrI(artifact.storageInfos);
+}
+
 Future deleteArtifactFile(MDTArtifact artifact,BaseStorageManager storageMgr) async {
   if (artifact.storageInfos == null) {
     return new Future.value(true);
@@ -113,6 +131,10 @@ class BaseStorageManager {
   bool canHandleStorageUrl(){
     throw new ArtifactError('Not implemented');
     return false;
+  }
+
+  Future<Uri> storageUrI(String infos) {
+    throw new ArtifactError('Not implemented');
   }
 
   Future<File> storageFile(String infos) {

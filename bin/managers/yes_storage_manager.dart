@@ -11,12 +11,17 @@ class YesStorageManager extends BaseStorageManager {
   }
 
   bool canHandleStorageUrl(){
-    return false;
+    return true;
   }
 
-  Future<File> storageFile(String infos) {
+  Future<Uri> storageUrI(String infos) {
+    var uri = Uri.parse("https://github.com/rgroult/MobDistTool/blob/master/test/artifactFile.txt");
+    return new Future.value(uri);
+  }
+
+  Future<File> storageFile(String infos) async {
     if (checkInfos(infos)){
-      return new File("yes_storage_sample.txt");
+      return new File(Directory.current.path+ "/yes_storage_sample.txt");
     }
     throw new ArtifactError('Bad infos');
   }

@@ -56,6 +56,19 @@ void allTests()  {
 
   });
 
+  test("retrieve file artifact", () async {
+    var allArtifact = await arts_mgr.allArtifacts();
+    var artifact = allArtifact.first;
+    var file = await arts_mgr.fileFromArtifact(artifact,arts_mgr.defaultStorage);
+    var content = await (file.readAsString());
+    expect(content,isNotNull);
+
+    var uri = await arts_mgr.uriFromArtifact(artifact,arts_mgr.defaultStorage);
+    file = File.fromUri(uri);
+    content = await (file.readAsString());
+    expect(content,isNotNull);
+  });
+
   test("Delete artifact", () async {
     var app = await app_mgr.findApplication(appName,appIOS);
     var allArtifact = await arts_mgr.findAllArtifacts(app);
