@@ -7,6 +7,15 @@ import 'dart:async';
 import 'model/model.dart';
 import 'managers/users_manager.dart';
 
+func authenticateUser(String username, String password ) async =>
+   new Some(new Principal(username));
+
+
+func usernameLookup(String username) async =>
+   new Some(new Principal(username));
+
+
+
 
 //usefull
 // http://stackoverflow.com/questions/32255622/using-dart-rpc-and-shelf-auth-for-some-procedures

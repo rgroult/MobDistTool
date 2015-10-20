@@ -21,6 +21,10 @@ packages:
     description: barback
     source: hosted
     version: "0.15.2+7"
+  bignum:
+    description: bignum
+    source: hosted
+    version: "0.0.7"
   browser:
     description: browser
     source: hosted
@@ -33,6 +37,10 @@ packages:
     description: charcode
     source: hosted
     version: "1.1.0"
+  cipher:
+    description: cipher
+    source: hosted
+    version: "0.7.1"
   collection:
     description: collection
     source: hosted
@@ -53,6 +61,10 @@ packages:
     description: csslib
     source: hosted
     version: "0.12.1"
+  dart_jwt:
+    description: dart_jwt
+    source: hosted
+    version: "0.4.4"
   discoveryapis_generator:
     description: discoveryapis_generator
     source: hosted
@@ -64,7 +76,7 @@ packages:
   fixnum:
     description: fixnum
     source: hosted
-    version: "0.10.2"
+    version: "0.9.1+2"
   gcloud:
     description: gcloud
     source: hosted
@@ -89,6 +101,10 @@ packages:
     description: http
     source: hosted
     version: "0.11.3+2"
+  http_exception:
+    description: http_exception
+    source: hosted
+    version: "0.1.0"
   http_multi_server:
     description: http_multi_server
     source: hosted
@@ -162,7 +178,7 @@ packages:
   pool:
     description: pool
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   pub_semver:
     description: pub_semver
     source: hosted
@@ -179,6 +195,10 @@ packages:
     description: shelf
     source: hosted
     version: "0.6.3"
+  shelf_auth:
+    description: shelf_auth
+    source: hosted
+    version: "0.7.0"
   shelf_path:
     description: shelf_path
     source: hosted
@@ -222,7 +242,7 @@ packages:
   test:
     description: test
     source: hosted
-    version: "0.12.4+9"
+    version: "0.12.5+1"
   uri:
     description: uri
     source: hosted
@@ -231,6 +251,10 @@ packages:
     description: utf
     source: hosted
     version: "0.9.0+2"
+  uuid:
+    description: uuid
+    source: hosted
+    version: "0.5.0"
   watcher:
     description: watcher
     source: hosted

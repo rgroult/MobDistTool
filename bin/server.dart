@@ -8,6 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:logging_handlers/server_logging_handlers.dart';
 import 'package:rpc/rpc.dart';
 import 'package:shelf_rpc/shelf_rpc.dart' as shelf_rpc;
+import 'package:shelf_auth/shelf_auth.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_route/shelf_route.dart' as shelf_route;
@@ -19,8 +20,9 @@ import 'model/model.dart';
 import 'user_authentication_service.dart';
 
 const _API_PREFIX = '/api';
-final ApiServer _apiServer =
-new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: true);
+const _STATELESS_PREFIX = _API_PREFIX+'/stateless';
+final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: true);
+final ApiServer _statelessApiServer = new ApiServer(apiPrefix: _STATELESS_PREFIX, prettyPrint: true);
 
 Future main() async {
   // Add a simple log handler to log information to a server side file.
@@ -35,11 +37,19 @@ Future main() async {
   _apiServer.addApi(new UserAuthenticationService());
   _apiServer.enableDiscoveryApi();
 
+  //authentication
+  var loginMiddleware = authenticate([new UsernamePasswordAuthenticator(lookupByUsernamePassword)],
+  sessionHandler: new JwtSessionHandler('MobDistTool', 'qsdqfsdvdf secret', usernameLookup), allowHttp: true);
+
+
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
 
-  var apiRouter = shelf_route.router();
-  apiRouter.add(_API_PREFIX, null, apiHandler, exactMatch: false);
+  var apiRouter = shelf_route.router()
+      ..add(_STATELESS_PREFIX, null,apiHandler,exactMatch: false)
+      ..add(_API_PREFIX, null, apiHandler, exactMatch: false,middleware: loginMiddleware);
+
+  //apiRouter.add(_API_PREFIX, null, apiHandler, exactMatch: false);
   var handler = const shelf.Pipeline()
   .addMiddleware(shelf.logRequests())
   .addHandler(apiRouter.handler);
@@ -47,3 +57,11 @@ Future main() async {
   var server = await shelf_io.serve(handler, '0.0.0.0', 8080);
   print('Listening at port ${server.port}.');
 }
+
+
+/// Stub implementation
+lookupByUsernamePassword(String username, String password) async =>
+new Some(new Principal(username));
+/// Stub implementation
+usernameLookup(String username) async =>
+new Some(new Principal(username));
