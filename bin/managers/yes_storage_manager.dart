@@ -21,7 +21,7 @@ class YesStorageManager extends BaseStorageManager {
 
   Future<File> storageFile(String infos) async {
     if (checkInfos(infos)){
-      return new File(Directory.current.path+ "/yes_storage_sample.txt");
+      return new File(Directory.current.path+"/bin/managers/" +"/yes_storage_sample.txt");
     }
     throw new ArtifactError('Bad infos');
   }
