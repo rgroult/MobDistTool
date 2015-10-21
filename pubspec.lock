@@ -199,10 +199,18 @@ packages:
     description: shelf_auth
     source: hosted
     version: "0.7.0"
+  shelf_exception_handler:
+    description: shelf_exception_handler
+    source: hosted
+    version: "0.1.0"
   shelf_path:
     description: shelf_path
     source: hosted
     version: "0.1.7"
+  shelf_response_formatter:
+    description: shelf_response_formatter
+    source: hosted
+    version: "0.1.0"
   shelf_route:
     description: shelf_route
     source: hosted
@@ -259,6 +267,10 @@ packages:
     description: watcher
     source: hosted
     version: "0.9.7"
+  xml:
+    description: xml
+    source: hosted
+    version: "2.4.0"
   yaml:
     description: yaml
     source: hosted
