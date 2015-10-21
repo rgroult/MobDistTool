@@ -51,18 +51,15 @@ Future main() async {
   _apiServer.enableDiscoveryApi();
 
   //authentication
+  var sessionHandler = new JwtSessionHandler('MobDistTool', 'qsdqfsdvdf secret', usernameLookup);
   var loginMiddleware = authenticate([new UsernamePasswordAuthenticator(authenticateUser)],
-  sessionHandler: new JwtSessionHandler('MobDistTool', 'qsdqfsdvdf secret', usernameLookup), allowHttp: true);
+  sessionHandler:sessionHandler , allowHttp: true);
 
-  var authenticatedMiddleware = authenticate([new AuthenticatedOnlyAuthoriser()]);
-/*
-  //login handler
-  var loginApiHandler = shelf_rpc.createRpcHandler(_apiServer);
-  //signed request handler, used for provisionning artifacts
-  var signedRequestApiHandler = shelf_rpc.createRpcHandler(_apiServer);
-  //Others routes, authorized by session or auth token
-  var authorizedApiHandler = shelf_rpc.createRpcHandler(_apiServer);
-*/
+  var defaultAuthMiddleware = authenticate([],
+  sessionHandler: sessionHandler, allowHttp: true,
+  allowAnonymousAccess: false);
+
+  var authenticatedMiddleware = authorise([new AuthenticatedOnlyAuthoriser()]);
 
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
@@ -70,13 +67,10 @@ Future main() async {
   var apiRouter = shelf_route.router()
       ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
       ..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
-      ..add(_AUTHORIZED_PREFIX,null,apiHandler,exactMatch: false);
+      //disable authent for discovery ?
+      ..add('api/discovery',null,apiHandler,exactMatch: false)
+      ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
-
-    /*  ..add(_STATELESS_PREFIX, null,apiHandler,exactMatch: false)
-      ..add(_API_PREFIX, null, apiHandler, exactMatch: false,middleware: loginMiddleware);*/
-
-  //apiRouter.add(_API_PREFIX, null, apiHandler, exactMatch: false);
   var handler = const shelf.Pipeline()
       .addMiddleware(exceptionHandler())
       .addMiddleware(shelf.logRequests())
