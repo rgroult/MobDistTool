@@ -27,8 +27,8 @@ import '../server/managers/managers.dart';
 //import 'package:rpc-examples/toyapi.dart';
 //import '../server/model';
 
-//import '../server/services/user_authentication_service.dart';
-//import '../server/services/application_service.dart';
+import '../server/services/user_authentication_service.dart';
+import '../server/services/application_service.dart';
 
 const _API_PREFIX = '/api';
 const _SIGNED_PREFIX = _API_PREFIX+'/in';
@@ -38,7 +38,7 @@ const _LOGIN_PREFIX = _API_PREFIX+'/users';
 final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: true);
 //final ApiServer _statelessApiServer = new ApiServer(apiPrefix: _STATELESS_PREFIX, prettyPrint: true);
 
-Future main() async {
+Future<HttpServer> startServer() async {
   // Add a simple log handler to log information to a server side file.
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen(new SyncFileLoggingHandler('myLogFile.txt'));
@@ -78,8 +78,16 @@ Future main() async {
       .addMiddleware(shelf.logRequests())
       .addHandler(apiRouter.handler);
 
-  var server = await shelf_io.serve(handler, '0.0.0.0', 8080);
-  print('Listening at port ${server.port}.');
+  var server =  shelf_io.serve(handler, '0.0.0.0', 8080);
+  server.then((server) =>  print('Listening at port ${server.port}.'));
+//  print('Listening at port ${await server.port}.');
+
+  return server;
+  //return new Future(server;
+}
+
+Future main() async{
+  var server = await startServer();
 }
 
 

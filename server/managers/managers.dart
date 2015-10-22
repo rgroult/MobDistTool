@@ -5,6 +5,6 @@ export 'errors.dart';
 export '../model/model.dart';
 
 
-import 'src/artifacts_manager.dart' as artifacts;
+//import 'src/artifacts_manager.dart' as artifacts;
 
 //artifacts.defaultStorage = new YesStorageManager();

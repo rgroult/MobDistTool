@@ -53,17 +53,17 @@ void allTests()  {
     });
 
     test("authenticate user Not found", () async {
-      var user = await mdt_mgr.authenticateUser("anotheremail",'badpassword');
+      var user = await mdt_mgr.findUser("anotheremail",'badpassword');
       expect(user, isNull);
     });
 
     test("authenticate user KO", () async {
-      var user = await mdt_mgr.authenticateUser(email,'badpassword');
+      var user = await mdt_mgr.findUser(email,'badpassword');
       expect(user, isNull);
     });
 
     test("authenticate user OK", () async {
-      var user = await mdt_mgr.authenticateUser(email,password);
+      var user = await mdt_mgr.findUser(email,password);
       expect(user.name, equals(name));
       expect(user.email, equals(email));
     });
