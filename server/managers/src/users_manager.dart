@@ -10,7 +10,7 @@ Future<List<MDTUser>> allUsers() {
   return userCollection.find();
 }
 
-Future<MDTUser> authenticateUser(String email, String password) async {
+Future<MDTUser> findUser(String email, String password) async {
   if (email.isEmpty || password.isEmpty) {
     return null;
   }

@@ -1,21 +1,14 @@
 import 'dart:io';
 import 'dart:async';
-import '../../packages/option/option.dart';
-import '../../packages/rpc/rpc.dart';
-import '../../packages/rpc/src/context.dart' as context;
-import '../../packages/shelf_auth/shelf_auth.dart';
+import 'package:option/option.dart';
+import 'package:rpc/rpc.dart';
+import 'package:rpc/src/context.dart' as context;
+import 'package:shelf_auth/shelf_auth.dart';
 
 import '../model/model.dart';
 import '../managers/src/users_manager.dart' as users;
-import '../../packages/shelf_exception_handler/shelf_exception_handler.dart';
+import 'package:shelf_exception_handler/shelf_exception_handler.dart';
 
-class User extends Principal {
-  final MDTUser dbUser;
-  User(MDTUser user ){
-    super(user.email);
-    dbUser = user;
-  }
-}
 
 Future<Option<User>> authenticateUser(String username, String password ) async {
   //return new Some(new Principal(("toto")));

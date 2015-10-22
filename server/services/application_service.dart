@@ -1,21 +1,21 @@
 import 'dart:io';
 import 'dart:async';
-import '../../packages/rpc/rpc.dart';
-import '../../packages/rpc/src/context.dart' as context;
+import 'package:rpc/rpc.dart';
+//import '../../packages/rpc/src/context.dart' as context;
 import '../managers/managers.dart';
 
 @ApiClass(name: 'applications' , version: 'v1')
 class ApplicationService {
-  @ApiMethod(method: 'GET', path: '/')
+  @ApiMethod(method: 'GET', path: 'all')
   List<ApplicationResponse> allApplications({String platform}) async{
     return new List();
     //retrieve user
     //var user = context
   }
 
-  @ApiMethod(method: 'GET', path: 'all')
-  AppResponse userLogin() {
-    return new AppResponse()
+  @ApiMethod(method: 'GET', path: 'all1')
+  ApplicationResponse userLogin() {
+    return new ApplicationResponse(null)
       ..result="Hello world";
   }
 }
