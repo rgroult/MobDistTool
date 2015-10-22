@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'dart:async';
 import '../../packages/option/option.dart';
 import '../../packages/rpc/rpc.dart';
 import '../../packages/rpc/src/context.dart' as context;
 import '../../packages/shelf_auth/shelf_auth.dart';
-import 'dart:async';
-import '../model';
+
+import '../model/model.dart';
 import '../managers/src/users_manager.dart' as users;
 import '../../packages/shelf_exception_handler/shelf_exception_handler.dart';
 
@@ -29,8 +30,14 @@ Future<Option<User>> authenticateUser(String username, String password ) async {
 
 func usernameLookup(String username) async =>
    new Some(new Principal(username));
+/*
+MDTUser currentAuthenticatedUser(){
+  var user = authenticatedSessionContext()
+      .flatMap((SessionAuthenticatedContext context) => context.principal)
+      .flatMap((User user) => user.dbUser).orNull();
 
-
+  return user;
+}*/
 
 
 //usefull

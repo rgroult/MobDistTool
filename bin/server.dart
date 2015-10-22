@@ -27,8 +27,8 @@ import '../server/managers/managers.dart';
 //import 'package:rpc-examples/toyapi.dart';
 //import '../server/model';
 
-//import '../server/services/user_authentication_service.dart';
-//import '../server/services/application_service.dart';
+import '../server/services/user_authentication_service.dart';
+import '../server/services/application_service.dart';
 
 const _API_PREFIX = '/api';
 const _SIGNED_PREFIX = _API_PREFIX+'/in';
