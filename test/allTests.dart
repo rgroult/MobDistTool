@@ -4,7 +4,7 @@ import 'package:objectory/objectory_console.dart';
 import 'apps_manager_test.dart' as app_test;
 import 'users_manager_test.dart' as user_test;
 import 'artifacts_manager_test.dart' as artifact_test;
-import '../bin/config/mongo.dart' as mongo;
+import '../server/config/src/mongo.dart' as mongo;
 
 void main() {
    test("init database", () async {

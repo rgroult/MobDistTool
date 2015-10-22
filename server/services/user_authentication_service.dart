@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:option/option.dart';
-import 'package:rpc/rpc.dart';
-import 'package:rpc/src/context.dart' as context;
-import 'package:shelf_auth/shelf_auth.dart';
+import '../../packages/option/option.dart';
+import '../../packages/rpc/rpc.dart';
+import '../../packages/rpc/src/context.dart' as context;
+import '../../packages/shelf_auth/shelf_auth.dart';
 import 'dart:async';
-import 'model/model.dart';
-import 'managers/users_manager.dart' as users;
-import 'package:shelf_exception_handler/shelf_exception_handler.dart';
+import '../model';
+import '../managers/src/users_manager.dart' as users;
+import '../../packages/shelf_exception_handler/shelf_exception_handler.dart';
 
 class User extends Principal {
   final MDTUser dbUser;

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'artifacts_manager.dart';
+import '../artifacts_manager.dart';
 
 class YesStorageManager extends BaseStorageManager {
   //static var sharedInstance => new StorageManager()
@@ -21,7 +21,7 @@ class YesStorageManager extends BaseStorageManager {
 
   Future<File> storageFile(String infos) async {
     if (checkInfos(infos)){
-      return new File(Directory.current.path+"/bin/managers/" +"/yes_storage_sample.txt");
+      return new File(Directory.current.path+"/server/managers/src/storage" +"/yes_storage_sample.txt");
     }
     throw new ArtifactError('Bad infos');
   }

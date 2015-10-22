@@ -20,13 +20,15 @@ import 'package:shelf_auth/src/authorisers/authenticated_only_authoriser.dart';
 //server
 import 'package:shelf/shelf_io.dart' as shelf_io;
 //mongo DB
-import 'config/mongo.dart' as mongo;
+import '../server/config/src/mongo.dart' as mongo;
+//API
+import '../server/managers/managers.dart';
 
 //import 'package:rpc-examples/toyapi.dart';
-import 'model/model.dart';
+//import '../server/model';
 
-import 'user_authentication_service.dart';
-import 'application_service.dart';
+//import '../server/services/user_authentication_service.dart';
+//import '../server/services/application_service.dart';
 
 const _API_PREFIX = '/api';
 const _SIGNED_PREFIX = _API_PREFIX+'/in';

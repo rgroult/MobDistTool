@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:objectory/objectory_console.dart';
-import '../model/model.dart';
+import '../../../packages/objectory/objectory_console.dart';
+import '../../model/model.dart';
 import 'apps_manager.dart' as app_mgr;
-import 'errors.dart';
+import '../errors.dart';
 
 var userCollection = objectory[MDTUser];
 

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:objectory/objectory_console.dart';
-import '../model/model.dart';
-import 'yes_storage_manager.dart';
-import 'errors.dart';
+import '../../../packages/objectory/objectory_console.dart';
+import '../../model/model.dart';
+import 'storage/yes_storage_manager.dart';
+import '../errors.dart';
 
 /*
 class MDTArtifact extends MDTBaseObject {
@@ -17,7 +17,7 @@ class MDTArtifact extends MDTBaseObject {
 }
  */
 
-var defaultStorage = new YesStorageManager();
+BaseStorageManager defaultStorage = new YesStorageManager();
 
 var artifactCollection = objectory[MDTArtifact];
 

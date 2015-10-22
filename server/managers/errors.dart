@@ -1,4 +1,4 @@
-import "package:rpc/rpc.dart";
+import "../../packages/rpc/rpc.dart";
 
 class MDTError extends RpcError {
 

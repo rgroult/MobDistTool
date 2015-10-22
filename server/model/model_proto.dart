@@ -1,5 +1,5 @@
 library MDT_model_proto;
-import 'package:objectory/src/domain_model_generator.dart';
+import '../../packages/objectory/src/domain_model_generator.dart';
 
 //typedef UUID  = String;
 //type UUID = String;

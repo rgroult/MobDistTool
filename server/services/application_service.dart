@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:rpc/rpc.dart';
-import 'package:rpc/src/context.dart' as context;
+import '../../packages/rpc/rpc.dart';
+import '../../packages/rpc/src/context.dart' as context;
 
 @ApiClass(name: 'apps' , version: 'v1')
 class ApplicationService {

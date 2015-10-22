@@ -1,7 +1,7 @@
-import 'package:mongo_dart/mongo_dart.dart';
+import '../../../packages/mongo_dart/mongo_dart.dart';
 import 'dart:async';
-import 'package:objectory/objectory_console.dart';
-import '../model/model.dart';
+import '../../../packages/objectory/objectory_console.dart';
+import '../../model/model.dart';
 
 Db mongoDb = null;
 

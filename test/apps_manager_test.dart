@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'dart:async';
 import 'package:objectory/objectory_console.dart';
-import '../bin/config/mongo.dart' as mongo;
+import '../server/config/src/mongo.dart' as mongo;
 import '../server/managers/managers.dart' as mdt_mgr;
 /*
 import '../bin/managers/apps_manager.dart' as app_mgr;
