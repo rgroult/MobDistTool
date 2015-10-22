@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'dart:async';
 import 'package:objectory/objectory_console.dart';
-import '../bin/managers/users_manager.dart' as user_mgr;
+import '../server/managers/managers.dart' as mdt_mgr;
 import '../bin/config/mongo.dart' as mongo;
 
 void main() {
@@ -27,25 +27,25 @@ void allTests()  {
 
     test("Create user empty fields", () async {
       //expect(new Future.error(new StateError("bad state")), throwsStateError);
-      var user = user_mgr.createUser(name, null, password);
+      var user = mdt_mgr.createUser(name, null, password);
       expect(user, throwsStateError);
-      user =  user_mgr.createUser(name, email, null);
+      user =  mdt_mgr.createUser(name, email, null);
       expect(user, throwsStateError);
     });
 
     test("Create user", () async {
-      var user =  user_mgr.createUser(name, email, password);
+      var user =  mdt_mgr.createUser(name, email, password);
       expect(user, isNotNull);
     });
 
     test("Create same user", () async {
       //try to create same user
-      var sameUser =  user_mgr.createUser(name, email, password);
+      var sameUser =  mdt_mgr.createUser(name, email, password);
       expect(sameUser, throwsStateError);
     });
 
     test("retrieve user", () async {
-      var user =  await user_mgr.findUserByEmail(email);
+      var user =  await mdt_mgr.findUserByEmail(email);
       expect(user.name, equals(name));
       expect(user.email, equals(email));
       expect(user.password, equals(password));
@@ -53,54 +53,54 @@ void allTests()  {
     });
 
     test("authenticate user Not found", () async {
-      var user = await user_mgr.authenticateUser("anotheremail",'badpassword');
+      var user = await mdt_mgr.authenticateUser("anotheremail",'badpassword');
       expect(user, isNull);
     });
 
     test("authenticate user KO", () async {
-      var user = await user_mgr.authenticateUser(email,'badpassword');
+      var user = await mdt_mgr.authenticateUser(email,'badpassword');
       expect(user, isNull);
     });
 
     test("authenticate user OK", () async {
-      var user = await user_mgr.authenticateUser(email,password);
+      var user = await mdt_mgr.authenticateUser(email,password);
       expect(user.name, equals(name));
       expect(user.email, equals(email));
     });
 
     test("modify user", () async {
-      var user = await user_mgr.findUserByEmail(email);
+      var user = await mdt_mgr.findUserByEmail(email);
       var newname = "newName";
       user.name = newname;
       user.isSystemAdmin = true;
       user.save();
 
-      user = await user_mgr.findUserByEmail(email);
+      user = await mdt_mgr.findUserByEmail(email);
       expect(user.name, equals(newname));
       expect(user.isSystemAdmin, equals(true));
     });
 
     test("alls users", () async {
-      var allUsers = await user_mgr.allUsers();
+      var allUsers = await mdt_mgr.allUsers();
       expect(allUsers.length,equals(1));
     });
 
     test("delete user", () async {
-      var user = await user_mgr.findUserByEmail(email);
+      var user = await mdt_mgr.findUserByEmail(email);
       expect(user.email, equals(email));
-      await user_mgr.deleteUserByEmail(email);
+      await mdt_mgr.deleteUserByEmail(email);
       //retrieve user ?
-      user = await user_mgr.findUserByEmail(email);
+      user = await mdt_mgr.findUserByEmail(email);
       expect(user,isNull);
     });
 
     test("delete user again", () async {
       var result = false;
       try {
-        var result = await user_mgr.deleteUserByEmail(email);
+        var result = await mdt_mgr.deleteUserByEmail(email);
       }on StateError catch (e){
         result = true;
-       expect((e is  user_mgr.UserError), isTrue);
+       expect((e is  mdt_mgr.UserError), isTrue);
     }
       expect(result,isTrue);
     });

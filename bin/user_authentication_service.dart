@@ -15,17 +15,14 @@ class User extends Principal {
     dbUser = user;
   }
 }
-/*lookupByUsernamePassword(String username, String password) async =>
-  authenticateUser(username,password);
-*/
+
 Future<Option<User>> authenticateUser(String username, String password ) async {
-  return new Some(new Principal(("toto")));
+  //return new Some(new Principal(("toto")));
   //search user
   var user = await users.authenticateUser(username, password);
   if (user!=null) {
     return new Some(new User(user));
   }
-  //throw new RpcError(401, 'InvalidUser', 'User does not exist or bad password');
   return new None();
 }
 

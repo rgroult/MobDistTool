@@ -4,19 +4,6 @@ import '../model/model.dart';
 import 'errors.dart';
 import 'artifacts_manager.dart' as artifact_mgr;
 
-/*
-class MDTApplication extends MDTBaseObject {
-  String name;
-  String platform;
-  List<MDTUser> adminUsers;
-  MDTArtifact lastVersion;
-}
- */
-
-class AppError extends StateError {
-  AppError(String msg) : super(msg);
-}
-
 var appCollection = objectory[MDTApplication];
 
 Future<List<MDTApplication>> allApplications() {

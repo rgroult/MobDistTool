@@ -4,10 +4,6 @@ import '../model/model.dart';
 import 'apps_manager.dart' as app_mgr;
 import 'errors.dart';
 
-class UserError extends StateError {
-  UserError(String msg) : super(msg);
-}
-
 var userCollection = objectory[MDTUser];
 
 Future<List<MDTUser>> allUsers() {

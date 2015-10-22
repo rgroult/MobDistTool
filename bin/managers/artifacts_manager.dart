@@ -19,10 +19,6 @@ class MDTArtifact extends MDTBaseObject {
 
 var defaultStorage = new YesStorageManager();
 
-class ArtifactError extends StateError {
-  ArtifactError(String msg) : super(msg);
-}
-
 var artifactCollection = objectory[MDTArtifact];
 
 Future<List<MDTArtifact>> allArtifacts() {
@@ -72,7 +68,7 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
 
 Future<File> fileFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
   if (artifact == null || artifact.storageInfos == null) {
-    throw new ArtifactError('Unable to find file artifact:'+e.message);
+    throw new ArtifactError('Unable to find file artifact:'+artifact.name);
   }
   return storageMgr.storageFile(artifact.storageInfos);
 }

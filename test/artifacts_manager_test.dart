@@ -2,8 +2,7 @@ import 'package:test/test.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:objectory/objectory_console.dart';
-import '../bin/managers/apps_manager.dart' as app_mgr;
-import '../bin/managers/artifacts_manager.dart' as arts_mgr;
+import '../server/managers/managers.dart' as mdt_mgr;
 import '../bin/config/mongo.dart' as mongo;
 
 void main() {
@@ -26,13 +25,13 @@ void allTests()  {
   var appIOS = "IOS";
   var appAndroid = "Android";
   test("Create artifact", () async {
-    var app = await app_mgr.createApplication(appName,appIOS);
+    var app = await mdt_mgr.createApplication(appName,appIOS);
     expect(app, isNotNull);
 
-    var artifact = await arts_mgr.createArtifact(app,"test","0.1.0",sortIdentifier:"sort 01.10");
+    var artifact = await mdt_mgr.createArtifact(app,"test","0.1.0",sortIdentifier:"sort 01.10");
     expect(artifact,isNotNull);
     expect(artifact.storageInfos,isNull);
-    await arts_mgr.addFileToArtifact(new File("artifact_sample.txt"),artifact,arts_mgr.defaultStorage);
+    await mdt_mgr.addFileToArtifact(new File("artifact_sample.txt"),artifact,mdt_mgr.defaultStorage);
     expect(artifact.storageInfos,isNotNull);
     expect(artifact.version,equals("0.1.0"));
     expect(artifact.name,equals("test"));
@@ -41,11 +40,11 @@ void allTests()  {
   });
 
   test("Find artifact", () async {
-    var allArtifact = await arts_mgr.allArtifacts();
+    var allArtifact = await mdt_mgr.allArtifacts();
     expect(allArtifact.length,equals(1));
 
-    var app = await app_mgr.findApplication(appName,appIOS);
-    allArtifact = await arts_mgr.findAllArtifacts(app);
+    var app = await mdt_mgr.findApplication(appName,appIOS);
+    allArtifact = await mdt_mgr.findAllArtifacts(app);
     expect(allArtifact.length,equals(1));
 
     /* TO DO
@@ -57,13 +56,13 @@ void allTests()  {
   });
 
   test("retrieve file artifact", () async {
-    var allArtifact = await arts_mgr.allArtifacts();
+    var allArtifact = await mdt_mgr.allArtifacts();
     var artifact = allArtifact.first;
-    var file = await arts_mgr.fileFromArtifact(artifact,arts_mgr.defaultStorage);
+    var file = await mdt_mgr.fileFromArtifact(artifact,mdt_mgr.defaultStorage);
     var content = await (file.readAsString());
     expect(content,isNotNull);
 
-    var uri = await arts_mgr.uriFromArtifact(artifact,arts_mgr.defaultStorage);
+    var uri = await mdt_mgr.uriFromArtifact(artifact,mdt_mgr.defaultStorage);
     //file = new File.fromUri(uri);
      //content = await HttpRequest.getString(uri);
     //content = await (file.readAsString());
@@ -72,23 +71,23 @@ void allTests()  {
   });
 
   test("Delete artifact", () async {
-    var app = await app_mgr.findApplication(appName,appIOS);
-    var allArtifact = await arts_mgr.findAllArtifacts(app);
+    var app = await mdt_mgr.findApplication(appName,appIOS);
+    var allArtifact = await mdt_mgr.findAllArtifacts(app);
     var artifact = allArtifact.first;
     expect(artifact.storageInfos,isNotNull);
-    await arts_mgr.deleteArtifactFile(artifact,arts_mgr.defaultStorage);
+    await mdt_mgr.deleteArtifactFile(artifact,mdt_mgr.defaultStorage);
     expect(artifact.storageInfos,isNull);
 
-    await arts_mgr.deleteArtifact(artifact,arts_mgr.defaultStorage);
-    allArtifact = await arts_mgr.findAllArtifacts(app);
+    await mdt_mgr.deleteArtifact(artifact,mdt_mgr.defaultStorage);
+    allArtifact = await mdt_mgr.findAllArtifacts(app);
     expect(allArtifact.length,equals(0));
 
-    artifact = await arts_mgr.createArtifact(app,"test","0.1.0",sortIdentifier:"sort 01.10");
-    allArtifact = await arts_mgr.findAllArtifacts(app);
+    artifact = await mdt_mgr.createArtifact(app,"test","0.1.0",sortIdentifier:"sort 01.10");
+    allArtifact = await mdt_mgr.findAllArtifacts(app);
     expect(allArtifact.length,equals(1));
 
-    await arts_mgr.deleteAllArtifacts(app,arts_mgr.defaultStorage);
-    allArtifact = await arts_mgr.findAllArtifacts(app);
+    await mdt_mgr.deleteAllArtifacts(app,mdt_mgr.defaultStorage);
+    allArtifact = await mdt_mgr.findAllArtifacts(app);
     expect(allArtifact.length,equals(0));
 
   });

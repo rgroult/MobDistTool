@@ -1,6 +1,5 @@
 library MDT_model_proto;
 import 'package:objectory/src/domain_model_generator.dart';
-import 'dart:mirrors';
 
 //typedef UUID  = String;
 //type UUID = String;
