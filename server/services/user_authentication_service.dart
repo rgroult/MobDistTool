@@ -4,16 +4,18 @@ import 'package:option/option.dart';
 import 'package:rpc/rpc.dart';
 import 'package:rpc/src/context.dart' as context;
 import 'package:shelf_auth/shelf_auth.dart';
-
+import 'package:shelf_exception_handler/shelf_exception_handler.dart';
 import '../model/model.dart';
 import '../managers/src/users_manager.dart' as users;
-import 'package:shelf_exception_handler/shelf_exception_handler.dart';
+import 'json_convertor.dart';
+import 'model.dart';
+
 
 
 Future<Option<User>> authenticateUser(String username, String password ) async {
   //return new Some(new Principal(("toto")));
   //search user
-  var user = await users.authenticateUser(username, password);
+  var user = await users.findUser(username, password);
   if (user!=null) {
     return new Some(new User(user));
   }
@@ -23,14 +25,14 @@ Future<Option<User>> authenticateUser(String username, String password ) async {
 
 func usernameLookup(String username) async =>
    new Some(new Principal(username));
-/*
+
 MDTUser currentAuthenticatedUser(){
   var user = authenticatedSessionContext()
       .flatMap((SessionAuthenticatedContext context) => context.principal)
       .flatMap((User user) => user.dbUser).orNull();
 
   return user;
-}*/
+}
 
 
 //usefull
@@ -45,16 +47,22 @@ class UserAuthenticationService {
   @ApiMethod(method: 'GET', path: 'login')
   EchoResponse userGetLogin() {
     var test = context.context;
-    return new EchoResponse()
-        ..result="login "+"login" + " password :"+"password" + " type :"+"type" ;
+    return new Response(200,toJson(currentAuthenticatedUser));
   }
 
   @ApiMethod(method: 'POST', path: 'login')
   EchoResponse userPostLogin(EmptyMessage message) {
-    var test = context.context;
-    var authentContext = authenticatedContext;
-    return new EchoResponse()
-      ..result="login "+"login" + " password :"+"password" + " type :"+"type" ;
+    /*var test = context.context;
+    var authentContext = authenticatedContext;*/
+    return new Response(200,toJson(currentAuthenticatedUser));
+  }
+
+  @ApiMethod(method: 'GET', path: 'me')
+  EchoResponse userMe() {
+    //var jsonResp =
+    /*var test = context.context;
+    var authentContext = authenticatedContext;*/
+    return new Response(200,toJson(currentAuthenticatedUser));
   }
 
   ///*{String login , String password,String type token or session}*/

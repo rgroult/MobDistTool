@@ -7,7 +7,8 @@ class $MDTUser {
   static String get password => 'password';
   static String get externalTokenId => 'externalTokenId';
   static String get isSystemAdmin => 'isSystemAdmin';
-  static final List<String> allFields = [name, email, password, externalTokenId, isSystemAdmin];
+  static String get exportProperties => 'exportProperties';
+  static final List<String> allFields = [name, email, password, externalTokenId, isSystemAdmin, exportProperties];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('email', PropertyType.String, 'email')
@@ -29,6 +30,7 @@ class MDTUser extends PersistentObject {
   set externalTokenId (String value) => setProperty('externalTokenId',value);
   bool get isSystemAdmin => getProperty('isSystemAdmin');
   set isSystemAdmin (bool value) => setProperty('isSystemAdmin',value);
+  List<String> get exportProperties => getPersistentList(String,'exportProperties');
 }
 
 class $MDTBaseObject {
