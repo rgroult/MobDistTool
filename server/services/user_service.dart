@@ -40,7 +40,7 @@ MDTUser currentAuthenticatedUser(){
 // https://pub.dartlang.org/packages/shelf_auth
 //discovery : http://localhost:8080/api/discovery/v1/apis/users/v1/rest
 @ApiClass(name: 'users' , version: 'v1')
-class UserAuthenticationService {
+class UserService {
 
   //user/login
   //http://localhost:8080/api/users/v1/login?login=toto&password=titi&type=test
