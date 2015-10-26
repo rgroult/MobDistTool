@@ -1,10 +1,13 @@
 import '../model/model.dart';
+import '../../packages/objectory/objectory.dart';
 
 Map propertiePerClass = {
-  MTDUser.runtimeType.toString() :  ['name,email'],
-  MTDAppliction.toString() :  ['name','email','lastVersion'],
-  'admin_${MTDAppliction.toString()}' :  ['apiKey'],
-  MDTArtifact.toString() : ['branch','branch','creationDate','version','sortIdentifier']
+  "MDTUser" :  ['name','email'],
+  "admin_MDTUser" :  ['isSystemAdmin'],
+  'MDTAppliction' :  ['name','platform','lastVersion','adminUsers'],
+  'admin_MDTAppliction' :  ['apiKey'],
+  'MDTArtifact' : ['branch','branch','creationDate','version','sortIdentifier'],
+  'admin_MDTArtifact' :  [],
 };
 
 /*
@@ -25,15 +28,33 @@ return {};
 }
 */
 
-Map toJson(PersistentObject object, {Bool isAdmin:false}){
+Map toJsonStringValues(PersistentObject object, List<String> properties){
+  var json = {};
+  for (var property in listProperties) {
+    var value = object.getProperty(property);
+    if (value is List) {
+      //nothing
+    } else if (value is PersistentObject) {
+      //mongodb object
+      //nothing
+    } else {
+      //value
+      json[property] = value;
+    }
+  }
+  return json;
+}
+
+Map toJson(PersistentObject object, {bool isAdmin:false}){
   var json = {};
   if (object != null) {
-    var listProperties = new List<String>();
-    listProperties.addAll(object.runtimeType.toString());
+    var listProperties =  [];
+    var classProperties = propertiePerClass[object.runtimeType.toString()];
+    listProperties.addAll(classProperties);
     if (isAdmin) {
-      listProperties.addAll('admin_${object.toString()}');
+      listProperties.addAll(propertiePerClass['admin_${object.toString()}']);
     }
-    for (property in listProperties) {
+    for (var property in listProperties) {
       var value = object.getProperty(property);
       if (value is List) {
         //list of object

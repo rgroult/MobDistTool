@@ -6,36 +6,37 @@ import 'dart:async';
 var lastAuthorizationHeader = '';
 var baseUrlHost = 'http://localhost';
 
-Map allHeaders(){
-  var initialHeaders = {'content-type': 'application/json'};
+Map allHeaders({String contentType : 'application/json'}){
+  var initialHeaders = {HttpHeaders.CONTENT_TYPE: contentType,HttpHeaders.ACCEPT:'application/json'};
   if (lastAuthorizationHeader.length > 0){
     initialHeaders['authorization'] = lastAuthorizationHeader;
   }
-
+  return initialHeaders;
 }
 
-Map parseResponse(Response response){
+Map parseResponse(http.Response response){
   return JSON.decode(response.body);
 }
 
-Future<Response> sendRequest(String method, String path, {String query, String body}) {
+Future<http.Response> sendRequest(String method, String path, {String query, String body,String contentType}) {
   var url = '$baseUrlHost$path';
   if (query != null){
     url = '$url$query';
   }
+  var headers = contentType == null? allHeaders(): allHeaders(contentType:contentType);
   switch (method) {
     case 'GET':
-      return http.get(url,headers:allHeaders());
+      return http.get(url,headers:allHeaders(contentType:contentType));
     case 'POST':
       var httpBody = body;
       if (body ==null) {
         httpBody ='';
       }
-      return http.post(url,headers:allHeaders(),body:httpBody);
+      return http.post(url,headers:headers,body:httpBody);
     case 'PUT':
-      return http.put(url,headers:allHeaders(),body:httpBody);
+      return http.put(url,headers:headers,body:httpBody);
     case 'DELETE':
-      return http.delete(url,headers:allHeaders());
+      return http.delete(url,headers:headers);
   }
 
   return null;

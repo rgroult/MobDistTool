@@ -2,8 +2,8 @@ import 'package:test/test.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:objectory/objectory_console.dart';
-import '../server/managers/managers.dart' as mdt_mgr;
-import '../server/config/src/mongo.dart' as mongo;
+import '../../server/managers/managers.dart' as mdt_mgr;
+import '../../server/config/src/mongo.dart' as mongo;
 
 void main() {
   test("init database", () async {

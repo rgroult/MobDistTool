@@ -1,15 +1,15 @@
 import 'package:shelf_auth/shelf_auth.dart';
+import '../model/model.dart';
 
 class User extends Principal {
-  final MDTUser dbUser;
-  User(MDTUser user ){
-    super(user.email);
-    dbUser = user;
+  MDTUser dbUser;
+  User(MDTUser user ):super(user.email){
+     this.dbUser = user;
   }
 }
 
 class Response {
   int status;
-  Map data;
+  Map<String,String> data;
   Response(this.status,this.data);
 }
