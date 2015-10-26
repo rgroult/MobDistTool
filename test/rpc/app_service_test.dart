@@ -21,6 +21,7 @@ void main() {
     print('baseUrlHost : $baseUrlHost');
   });
 
+  createAndLogin();
   allTests();
 
   /* test("stop server", () async {
@@ -29,8 +30,20 @@ void main() {
   });*/
 }
 
-void allTests() {
-  var userRegistration = {"email":"test@test.com","password":"passwd","name":"toto"};
+var userRegistration = {"email":"test@test.com","password":"passwd","name":"toto"};
+
+void createAndLogin(){
+  //register
+  test("Register", () async {
+    await registerUser(userRegistration,mustSuccessful:true);
+  });
+
   //login
+  test("Login", () async {
+    await loginTest(userRegistration["email"], userRegistration["password"], mustSuccessful:true,name:userRegistration["name"]);
+  });
+}
+
+void allTests() {
 
 }

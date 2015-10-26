@@ -43,14 +43,22 @@ Future loginTest(String login, String password, {bool mustSuccessful:true, Strin
   }
 }
 
+Future registerUser(Map userInfos,{bool mustSuccessful:true}) async{
+  var response = await sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userInfos));
+  if (mustSuccessful){
+    expect(response.statusCode, equals(200));
+    var responseJson = parseResponse(response);
+    expect(responseJson["data"]["name"], equals(userInfos["name"]));
+    expect(responseJson["data"]["email"], equals(userInfos["email"]));
+  }else {
+    expect(response.statusCode, equals(400));
+  }
+}
+
 void allTests() {
 
   test("Authent KO", () async {
     await loginTest("toto", "titi", mustSuccessful:false);
-    /*var response =  await sendRequest('POST','/api/users/v1/login',body:'login=toto&password=titi',contentType:'application/x-www-form-urlencoded');
-    //var responseJson = parseResponse(response);
-    print("response ${response.body}");
-    expect(response.statusCode, equals(401));*/
   });
 
   var userRegistration = {"email":"test@test.com", "password":"passwd", "name":"toto"};
@@ -88,22 +96,16 @@ void allTests() {
   });
 
   test("Register OK", () async {
-    var response = await sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userRegistration));
+    await registerUser(userRegistration,mustSuccessful:true);
+    /*var response = await sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userRegistration));
     //print("response ${response.body}");
     expect(response.statusCode, equals(200));
     var responseJson = parseResponse(response);
     expect(responseJson["data"]["name"], equals(userRegistration["name"]));
-    expect(responseJson["data"]["email"], equals(userRegistration["email"]));
+    expect(responseJson["data"]["email"], equals(userRegistration["email"]));*/
   });
 
   test("Authent OK", () async {
     await loginTest(userRegistration["email"], userRegistration["password"], mustSuccessful:true,name:userRegistration["name"]);
-/*
-    var response =  await sendRequest('POST','/api/users/v1/login',body:'username=${userRegistration["email"]}&password=${userRegistration["password"]}',contentType:'application/x-www-form-urlencoded');
-    print("response ${response.body}");
-    var responseJson = parseResponse(response);
-    expect(response.statusCode, equals(200));
-    expect(responseJson["data"]["name"], equals(userRegistration["name"]));
-    expect(responseJson["data"]["email"], equals(userRegistration["email"]));*/
   });
 }
