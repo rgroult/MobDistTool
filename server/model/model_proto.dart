@@ -29,6 +29,7 @@ class MDTApplication /*extends MDTBaseObject */{
 }
 
 class MDTArtifact/* extends MDTBaseObject*/ {
+  String uuid;
   String branch;
   String name;
   DateTime creationDate;

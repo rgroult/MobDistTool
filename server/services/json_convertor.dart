@@ -6,7 +6,7 @@ Map propertiePerClass = {
   "admin_MDTUser" :  ['isSystemAdmin'],
   'MDTAppliction' :  ['name','platform','lastVersion','adminUsers','uuid'],
   'admin_MDTAppliction' :  ['apiKey'],
-  'MDTArtifact' : ['branch','branch','creationDate','version','sortIdentifier'],
+  'MDTArtifact' : ['uuid','branch','name','creationDate','version','sortIdentifier'],
   'admin_MDTArtifact' :  [],
 };
 

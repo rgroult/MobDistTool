@@ -32,6 +32,7 @@ class MDTUser extends PersistentObject {
 }
 
 class $MDTArtifact {
+  static String get uuid => 'uuid';
   static String get branch => 'branch';
   static String get name => 'name';
   static String get creationDate => 'creationDate';
@@ -39,9 +40,10 @@ class $MDTArtifact {
   static String get version => 'version';
   static String get sortIdentifier => 'sortIdentifier';
   static String get storageInfos => 'storageInfos';
-  static final List<String> allFields = [branch, name, creationDate, application, version, sortIdentifier, storageInfos];
+  static final List<String> allFields = [uuid, branch, name, creationDate, application, version, sortIdentifier, storageInfos];
   static final List<PropertyDescriptor> simpleFields = [
-    const PropertyDescriptor('branch', PropertyType.String, 'branch')
+    const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
+    ,const PropertyDescriptor('branch', PropertyType.String, 'branch')
     ,const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('creationDate', PropertyType.DateTime, 'creationDate')
     ,const PropertyDescriptor('version', PropertyType.String, 'version')
@@ -52,6 +54,8 @@ class $MDTArtifact {
 
 class MDTArtifact extends PersistentObject {
   String get collectionName => 'MDTArtifact';
+  String get uuid => getProperty('uuid');
+  set uuid (String value) => setProperty('uuid',value);
   String get branch => getProperty('branch');
   set branch (String value) => setProperty('branch',value);
   String get name => getProperty('name');

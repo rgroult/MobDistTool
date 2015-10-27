@@ -87,14 +87,51 @@ class ApplicationService {
     return new OKResponse();
   }
 
-  /*@ApiMethod(method: 'PUT', path: 'app/{appId}/adminUser')
+  @ApiMethod(method: 'PUT', path: 'app/{appId}/adminUser')
+  Future<Response> addAdminUserApplication(String appId,AddAdminUserMessage msg) async {
+    var adminEmail = msg.email;
+    if (adminEmail == null){
+      throw new RpcError(400, 'InvalidRequest', 'new admin user email not found');
+    }
+    var application = await findApplicationByAppId(appId);
+    var currentuser = userService.currentAuthenticatedUser();
+    if (mgrs.isAdminForApp(application,currentuser) == false){
+      throw new NotApplicationAdministrator();
+    }
+    //find user to add
+    var user = await mgrs.findUserByEmail(adminEmail);
+    if (user == null){
+      throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
+    }
+    await mgrs.addAdminApplication(application,user);
+    return new OKResponse();
+  }
 
   @ApiMethod(method: 'DELETE', path: 'app/{appId}/adminUser')
+  Future<Response> deleteAdminUserApplication(String appId,{String adminEmail}) async {
+    if (adminEmail == null){
+      throw new RpcError(400, 'InvalidRequest', 'admin user email not found');
+    }
+    var application = await findApplicationByAppId(appId);
+    var currentuser = userService.currentAuthenticatedUser();
+    if (mgrs.isAdminForApp(application,currentuser) == false){
+      throw new NotApplicationAdministrator();
+    }
+    //find user to add
+    var user = await mgrs.findUserByEmail(adminEmail);
+    if (user == null){
+      throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
+    }
+    await mgrs.removeAdminApplication(application,user);
+    return new OKResponse();
+  }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions')
-
-  @ApiMethod(method: 'GET', path: 'app/{appId}/versions/{version}')
-*/
+  Future<Response> getApplicationVersions(String appId,{int pageIndex, int limitPerPage,String branch}) async {
+    var application = await findApplicationByAppId(appId);
+    var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch);
+    return return new Response(200, toJson(allVersions));
+  }
 }
 
 class UpdateApplication {
@@ -114,6 +151,11 @@ class CreateApplication {
   @ApiProperty(required: true)
   String platform;
   CreateApplication();
+}
+
+class AddAdminUserMessage{
+  @ApiProperty(required: false)
+  String email;
 }
 
 /*
