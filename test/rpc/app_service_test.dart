@@ -30,7 +30,7 @@ void main() {
   });*/
 }
 
-var userRegistration = {"email":"test@test.com","password":"passwd","name":"toto"};
+var userRegistration = {"email":"apptest@test.com","password":"passwd","name":"app user"};
 
 void createAndLogin(){
   //register

@@ -7,8 +7,7 @@ class $MDTUser {
   static String get password => 'password';
   static String get externalTokenId => 'externalTokenId';
   static String get isSystemAdmin => 'isSystemAdmin';
-  static String get exportProperties => 'exportProperties';
-  static final List<String> allFields = [name, email, password, externalTokenId, isSystemAdmin, exportProperties];
+  static final List<String> allFields = [name, email, password, externalTokenId, isSystemAdmin];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('email', PropertyType.String, 'email')
@@ -30,25 +29,6 @@ class MDTUser extends PersistentObject {
   set externalTokenId (String value) => setProperty('externalTokenId',value);
   bool get isSystemAdmin => getProperty('isSystemAdmin');
   set isSystemAdmin (bool value) => setProperty('isSystemAdmin',value);
-  List<String> get exportProperties => getPersistentList(String,'exportProperties');
-}
-
-class $MDTBaseObject {
-  static String get objectType => 'objectType';
-  static String get uuid => 'uuid';
-  static final List<String> allFields = [objectType, uuid];
-  static final List<PropertyDescriptor> simpleFields = [
-    const PropertyDescriptor('objectType', PropertyType.String, 'objectType')
-    ,const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
-  ];
-}
-
-class MDTBaseObject extends PersistentObject {
-  String get collectionName => 'MDTBaseObject';
-  String get objectType => getProperty('objectType');
-  set objectType (String value) => setProperty('objectType',value);
-  String get uuid => getProperty('uuid');
-  set uuid (String value) => setProperty('uuid',value);
 }
 
 class $MDTArtifact {
@@ -89,27 +69,35 @@ class MDTArtifact extends PersistentObject {
 }
 
 class $MDTApplication {
+  static String get uuid => 'uuid';
   static String get apiKey => 'apiKey';
   static String get name => 'name';
   static String get platform => 'platform';
+  static String get description => 'description';
   static String get adminUsers => 'adminUsers';
   static String get lastVersion => 'lastVersion';
-  static final List<String> allFields = [apiKey, name, platform, adminUsers, lastVersion];
+  static final List<String> allFields = [uuid, apiKey, name, platform, description, adminUsers, lastVersion];
   static final List<PropertyDescriptor> simpleFields = [
-    const PropertyDescriptor('apiKey', PropertyType.String, 'apiKey')
+    const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
+    ,const PropertyDescriptor('apiKey', PropertyType.String, 'apiKey')
     ,const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('platform', PropertyType.String, 'platform')
+    ,const PropertyDescriptor('description', PropertyType.String, 'description')
   ];
 }
 
 class MDTApplication extends PersistentObject {
   String get collectionName => 'MDTApplication';
+  String get uuid => getProperty('uuid');
+  set uuid (String value) => setProperty('uuid',value);
   String get apiKey => getProperty('apiKey');
   set apiKey (String value) => setProperty('apiKey',value);
   String get name => getProperty('name');
   set name (String value) => setProperty('name',value);
   String get platform => getProperty('platform');
   set platform (String value) => setProperty('platform',value);
+  String get description => getProperty('description');
+  set description (String value) => setProperty('description',value);
   List<MDTUser> get adminUsers => getPersistentList(MDTUser,'adminUsers');
   MDTArtifact get lastVersion => getLinkedObject('lastVersion', MDTArtifact);
   set lastVersion (MDTArtifact value) => setLinkedObject('lastVersion',value);
@@ -117,7 +105,6 @@ class MDTApplication extends PersistentObject {
 
 registerClasses() {
   objectory.registerClass(MDTUser,()=>new MDTUser(),()=>new List<MDTUser>(), {});
-  objectory.registerClass(MDTBaseObject,()=>new MDTBaseObject(),()=>new List<MDTBaseObject>(), {});
   objectory.registerClass(MDTArtifact,()=>new MDTArtifact(),()=>new List<MDTArtifact>(), {'application': MDTApplication});
   objectory.registerClass(MDTApplication,()=>new MDTApplication(),()=>new List<MDTApplication>(), {'lastVersion': MDTArtifact});
 }
