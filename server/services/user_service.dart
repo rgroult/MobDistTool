@@ -22,9 +22,16 @@ Future<Option<User>> authenticateUser(String username, String password) async {
   return new None();
 }
 
+Future<Option<User>> findUser(String username) async {
+  var user = await users.findUserByEmail(username);
+  if (user != null) {
+    return new Some(new User(user));
+  }
+  return new None();
+}
 
-func usernameLookup(String username) async =>
-new Some(new Principal(username));
+usernameLookup(String username) async =>
+  findUser(username);
 
 MDTUser currentAuthenticatedUser() {
   var user = authenticatedContext().get().principal.dbUser;

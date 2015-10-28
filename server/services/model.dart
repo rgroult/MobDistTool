@@ -15,6 +15,12 @@ class Response {
   Response(this.status,this.data);
 }
 
+class ResponseList {
+  int status;
+  List<Map<String,String>> list;
+  ResponseList(this.status,this.list);
+}
+
 class OKResponse extends Response {
   OKResponse():super(200,{});
 }

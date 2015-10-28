@@ -6,16 +6,29 @@ import 'dart:async';
 var lastAuthorizationHeader = '';
 var baseUrlHost = 'http://localhost';
 
-Map allHeaders({String contentType : 'application/json'}){
-  var initialHeaders = {HttpHeaders.CONTENT_TYPE: contentType,HttpHeaders.ACCEPT:'application/json'};
+Map allHeaders({String contentType}){
+  var requestContentType = contentType!=null ? contentType : 'application/json; charset=utf-8';
+  var initialHeaders = {HttpHeaders.CONTENT_TYPE: requestContentType,HttpHeaders.ACCEPT:'application/json'};
   if (lastAuthorizationHeader.length > 0){
     initialHeaders['authorization'] = lastAuthorizationHeader;
+  }else {
+    initialHeaders.remove('authorization');
   }
   return initialHeaders;
 }
 
 Map parseResponse(http.Response response){
+  checkAuthorizationHeader(response);
   return JSON.decode(response.body);
+}
+
+void checkAuthorizationHeader(http.Response response){
+  var newHeader = response.headers['authorization'];
+  if (newHeader != null) {
+    lastAuthorizationHeader = newHeader;
+  }else {
+    lastAuthorizationHeader = '';
+  }
 }
 
 Future<http.Response> sendRequest(String method, String path, {String query, String body,String contentType}) {
@@ -24,21 +37,20 @@ Future<http.Response> sendRequest(String method, String path, {String query, Str
     url = '$url$query';
   }
   var headers = contentType == null? allHeaders(): allHeaders(contentType:contentType);
+  var httpBody = body;
+  if (body ==null) {
+    httpBody ='';
+  }
   switch (method) {
     case 'GET':
       return http.get(url,headers:allHeaders(contentType:contentType));
     case 'POST':
-      var httpBody = body;
-      if (body ==null) {
-        httpBody ='';
-      }
       return http.post(url,headers:headers,body:httpBody);
     case 'PUT':
       return http.put(url,headers:headers,body:httpBody);
     case 'DELETE':
       return http.delete(url,headers:headers);
   }
-
   return null;
 }
 /*

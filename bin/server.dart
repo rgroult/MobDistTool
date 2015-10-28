@@ -100,5 +100,7 @@ Future main() async{
 lookupByUsernamePassword(String username, String password) async =>
 new Future.value(new Option(new Principal(username)));*/
 /// Stub implementation
+/*
 usernameLookup(String username) async =>
 new Future.value(new Option(new Principal(username)));
+*/

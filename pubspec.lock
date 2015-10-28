@@ -4,11 +4,11 @@ packages:
   _discoveryapis_commons:
     description: _discoveryapis_commons
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   analyzer:
     description: analyzer
     source: hosted
-    version: "0.26.1+7"
+    version: "0.26.1+16"
   args:
     description: args
     source: hosted
@@ -53,6 +53,10 @@ packages:
     description: console_log_handler
     source: hosted
     version: "0.1.4"
+  convert:
+    description: convert
+    source: hosted
+    version: "1.0.0"
   crypto:
     description: crypto
     source: hosted
@@ -60,7 +64,7 @@ packages:
   csslib:
     description: csslib
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   dart_jwt:
     description: dart_jwt
     source: hosted
@@ -112,7 +116,7 @@ packages:
   http_parser:
     description: http_parser
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   intl:
     description: intl
     source: hosted
@@ -136,10 +140,10 @@ packages:
   mongo_dart:
     description:
       ref: null
-      resolved-ref: eecb36176e31cbe3576eabedb14f4afdf4e4e5c4
+      resolved-ref: ddf74e8b83f0813d335ebb9995d9d39fa7e5ad8b
       url: "https://github.com/vadimtsushko/mongo_dart.git"
     source: git
-    version: "0.2.4"
+    version: "0.2.5-dev"
   mongo_dart_query:
     description: mongo_dart_query
     source: hosted
@@ -147,11 +151,11 @@ packages:
   more:
     description: more
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0"
   objectory:
     description:
       ref: master
-      resolved-ref: "3a882e0aa02ac44a6e77bb708e2ef1dbf19a34b1"
+      resolved-ref: "6bd74a30c5a57c11c42742cc7d21414d77271873"
       url: "git://github.com/vadimtsushko/objectory.git"
     source: git
     version: "0.4.3-dev"
@@ -170,7 +174,7 @@ packages:
   petitparser:
     description: petitparser
     source: hosted
-    version: "1.4.3"
+    version: "1.5.0"
   plugin:
     description: plugin
     source: hosted
@@ -190,11 +194,11 @@ packages:
   rpc:
     description: rpc
     source: hosted
-    version: "0.5.4"
+    version: "0.5.5"
   shelf:
     description: shelf
     source: hosted
-    version: "0.6.3"
+    version: "0.6.4"
   shelf_auth:
     description: shelf_auth
     source: hosted
@@ -251,6 +255,10 @@ packages:
     description: test
     source: hosted
     version: "0.12.5+1"
+  typed_data:
+    description: typed_data
+    source: hosted
+    version: "1.0.0"
   uri:
     description: uri
     source: hosted
@@ -274,4 +282,4 @@ packages:
   yaml:
     description: yaml
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"

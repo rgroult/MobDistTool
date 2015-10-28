@@ -51,12 +51,14 @@ void allTests()  {
     var description = 'blah blah blah';
     var description2 = 'blah blah blah again';
     test("Create app", () async {
-      var app = await mdt_mgr.createApplication(appName,appIOS,description:description);
+      var email = "testApp@user.com";
+      var user = await mdt_mgr.createUser("usertemp",email,"password");
+      var app = await mdt_mgr.createApplication(appName,appIOS,description:description,adminUser:user);
       expect(app.name, equals(appName));
       expect(app.platform, equals(appIOS));
       expect(app.description, equals(description));
       expect(app.uuid, isNotNull);
-      expect(app.adminUsers.isEmpty,isTrue);
+      expect(app.adminUsers.isEmpty,isFalse);
     });
     test("Create same app", () async {
       var result = false;
@@ -78,7 +80,7 @@ void allTests()  {
       var app = await mdt_mgr.findApplication(appName,appIOS);
       expect(app.name, equals(appName));
       expect(app.platform, equals(appIOS));
-      expect(app.adminUsers.isEmpty,isTrue);
+      expect(app.adminUsers.isEmpty,isFalse);
 
       app = await mdt_mgr.findApplication(appName,appAndroid);
       expect(app.name, equals(appName));
@@ -95,33 +97,29 @@ void allTests()  {
     test("Add admin user to app", () async {
         var email = "test@user.com";
         var user = await mdt_mgr.createUser("user1",email,"password");
-        var app = await mdt_mgr.findApplication(appName,appIOS);
-        await mdt_mgr.addAdminApplication(app,user);
-        expect(app.adminUsers.first.email,equals(email));
+        var appiOS = await mdt_mgr.findApplication(appName,appIOS);
+        await mdt_mgr.addAdminApplication(appiOS,user);
+        expect(appiOS.adminUsers.contains(user),isTrue);
        // app.adminUsers.add(user);
      //   await app.save();
-        app = await mdt_mgr.findApplication(appName,appIOS);
-        expect(app.adminUsers.isEmpty,isFalse);
-        //chech user
-        var adminUser = app.adminUsers.first;
-        expect(adminUser.email, equals(email));
-        //adminUser = null;
+        appiOS = await mdt_mgr.findApplication(appName,appIOS);
+        expect(appiOS.adminUsers.contains(user),isTrue);
 
         //retrieve other app
-        app = await mdt_mgr.findApplication(appName,appAndroid);
-        expect(app.adminUsers.isEmpty,isTrue);
+        var applicationAndroid = await mdt_mgr.findApplication(appName,appAndroid);
+        expect(applicationAndroid.adminUsers.isEmpty,isTrue);
 
         //alls apps for user
-        var allApps = await mdt_mgr.findAllApplicationsForUser(adminUser);
-
+        var allApps = await mdt_mgr.findAllApplicationsForUser(user);
+        var currentAdminUserNbre = appiOS.adminUsers.length;
         //delete user
         await mdt_mgr.deleteUserByEmail(email);
         //check user deleted
         user = await mdt_mgr.findUserByEmail(email);
         expect(user,isNull);
         //retrieve app and check admin users is empty
-        app = await mdt_mgr.findApplication(appName,appIOS);
-        expect(app.adminUsers.isEmpty,isTrue);
+        appiOS = await mdt_mgr.findApplication(appName,appIOS);
+        expect(appiOS.adminUsers.length,equals(currentAdminUserNbre-1));
     });
     test("alls apps", () async {
       var allApps = await mdt_mgr.allApplications();

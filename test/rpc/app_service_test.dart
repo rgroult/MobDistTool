@@ -8,6 +8,8 @@ import 'rpc_commons.dart';
 import '../../server/managers/managers.dart' as mgrs;
 import 'user_service_test.dart';
 
+var baseAppUri = "/api/applications/v1";
+
 void main() {
   //start server
   HttpServer httpServer = null;
@@ -21,7 +23,7 @@ void main() {
     print('baseUrlHost : $baseUrlHost');
   });
 
-  createAndLogin();
+
   allTests();
 
   /* test("stop server", () async {
@@ -30,20 +32,110 @@ void main() {
   });*/
 }
 
-var userRegistration = {"email":"apptest@test.com","password":"passwd","name":"app user"};
+var userRegistration1 = {"email":"apptest@test.com", "password":"passwd", "name":"app user 1"};
+var userRegistration2 = {"email":"apptest2@test.com", "password":"passwd", "name":"app user 2"};
+var applicationCreation = {"name":"Application test", "description":"Full app description", "platform":"ios"};
 
 void createAndLogin(){
   //register
   test("Register", () async {
-    await registerUser(userRegistration,mustSuccessful:true);
+    await registerUser(userRegistration1,mustSuccessful:true);
+    await registerUser(userRegistration2,mustSuccessful:true);
   });
 
   //login
   test("Login", () async {
-    await loginTest(userRegistration["email"], userRegistration["password"], mustSuccessful:true,name:userRegistration["name"]);
+    await loginTest(userRegistration1["email"], userRegistration1["password"], mustSuccessful:true,name:userRegistration1["name"]);
   });
 }
 
 void allTests() {
+  createAndLogin();
 
+  test("Create app KO bad platform", () async {
+    var appInfos = new Map.from(applicationCreation);
+    appInfos["platform"] = "fakePlatform";
+
+    var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(400));
+
+    expect(responseJson["error"]["code"], equals(400));
+  });
+
+  test("Create app KO missing platform", () async {
+    var appInfos = new Map.from(applicationCreation);
+    appInfos.remove("platform");
+
+    var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(400));
+
+    expect(responseJson["error"]["code"], equals(400));
+  });
+
+  test("Create app OK", () async {
+    var appInfos = new Map.from(applicationCreation);
+
+    var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+    expect(responseJson["data"]["name"],equals(appInfos["name"]));
+    expect(responseJson["data"]["description"],equals(appInfos["description"]));
+    expect(responseJson["data"]["platform"],equals(appInfos["platform"]));
+    expect(responseJson["data"]["adminUsers"].length,equals(1));
+  });
+
+  test("Create app KO duplicate app", () async {
+    var appInfos = new Map.from(applicationCreation);
+
+    var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(400));
+
+    expect(responseJson["error"]["code"], equals(400));
+  });
+
+  test("Search app KO", () async {
+    var response = await sendRequest('GET', '${baseAppUri}/search?platform=fakePlatform');
+    expect(response.statusCode, equals(400));
+    var responseJson = parseResponse(response);
+    expect(responseJson["error"]["code"], equals(400));
+  });
+
+  test("Search app", () async {
+    //create another app
+    var appInfos = new Map.from(applicationCreation);
+    appInfos["platform"] = "android";
+    var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+
+    var allIosApps = await sendRequest('GET', '${baseAppUri}/search?platform=ios');
+    responseJson = parseResponse(allIosApps);
+    expect(allIosApps.statusCode, equals(200));
+    responseJson = parseResponse(allIosApps);
+    expect(responseJson["list"].length, equals(1));
+
+    var allAndroidApps = await sendRequest('GET', '${baseAppUri}/search?platform=android');
+    expect(allAndroidApps.statusCode, equals(200));
+    responseJson = parseResponse(allAndroidApps);
+    expect(responseJson["list"].length, equals(1));
+
+    var allApps = await sendRequest('GET', '${baseAppUri}/search');
+    expect(allApps.statusCode, equals(200));
+    responseJson = parseResponse(allApps);
+    expect(responseJson["list"].length, equals(2));
+
+  });
+
+  //ar applicationCreation = {"name":"Application test", "description":"Full app description", "platform":"ios"};
+  test("Update app OK", () async {
+    var appInfos = new Map.from(applicationCreation);
+    var newDesc = "new description";
+    appInfos["description"] = newDesc;
+
+    var response = await sendRequest('PUT', '${baseAppUri}/create', body: JSON.encode(appInfos));
+    expect(allApps.statusCode, equals(200));
+  });
 }

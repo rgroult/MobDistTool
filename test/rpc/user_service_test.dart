@@ -29,7 +29,7 @@ void main() {
 }
 
 Future loginTest(String login, String password, {bool mustSuccessful:true, String name}) async {
-  var response = await sendRequest('POST', '/api/users/v1/login', body:'username=${login}&password=${password}', contentType:'application/x-www-form-urlencoded');
+  var response =  await sendRequest('POST', '/api/users/v1/login', body:'username=${login}&password=${password}', contentType:'application/x-www-form-urlencoded');
   print("response ${response.body}");
   var responseJson = parseResponse(response);
   if (mustSuccessful) {
@@ -66,7 +66,7 @@ void allTests() {
     var userWithoutEmail = new Map.from(userRegistration);
     userWithoutEmail.remove("email");
 
-    var response = await sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userWithoutEmail));
+    var response = sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userWithoutEmail));
     expect(response.statusCode, equals(400));
     var responseJson = parseResponse(response);
     expect(responseJson["error"]["code"], equals(400));
@@ -108,4 +108,11 @@ void allTests() {
   test("Authent OK", () async {
     await loginTest(userRegistration["email"], userRegistration["password"], mustSuccessful:true,name:userRegistration["name"]);
   });
+/*
+  test("Me", () async {
+    var response = await sendRequest('GET', '/api/users/v1/me');
+    var responseJson = parseResponse(response);
+    expect(responseJson["data"]["name"], equals(userRegistration["name"]));
+    expect(responseJson["data"]["email"], equals(userRegistration["email"]));
+  });*/
 }

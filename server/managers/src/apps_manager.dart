@@ -10,16 +10,17 @@ var UuidGenerator = new Uuid();
 
 Future<List<MDTApplication>> allApplications({String platform}) async{
   if (platform == null) {
+    //var all =  appCollection.find();
     return appCollection.find();
   }else {
-    return await appCollection.find(where.eq("platform", platform));
+    return  appCollection.find(where.eq("platform", platform));
   }
 }
 
 
 
 Future<MDTApplication> createApplication(String name, String platform,
-    {MTDUser adminUser,String description}) async {
+    {String description,MDTUser adminUser}) async {
   if (name == null || name.isEmpty) {
     //return new Future.error(new StateError("bad state"));
     throw new AppError('name must be not null');
@@ -40,6 +41,7 @@ Future<MDTApplication> createApplication(String name, String platform,
     ..name = name
     ..platform = platform
     ..apiKey = UuidGenerator.v4()
+    ..description = description
     ..uuid = UuidGenerator.v4();
 
   if (description != null) createdApp.description = description;
@@ -120,7 +122,7 @@ Future deleteUserFromAdminUsers(MDTUser user) async {
     await removeAdminApplication(app,user);
     //toWait.add(removeAdminApplication(app,user));
   }
-  await Future.wait(toWait);//.then(print("fini"));
+  await Future.wait(toWait);
   var newallApps = await appCollection.find();
   return new Future.value(null);
 }

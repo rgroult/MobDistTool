@@ -4,6 +4,7 @@ import 'package:rpc/rpc.dart';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
 import 'model.dart';
+import 'json_convertor.dart';
 
 @ApiClass(name: 'applications' , version: 'v1')
 class ApplicationService {
@@ -14,7 +15,7 @@ class ApplicationService {
     if (supportedPlatform.contains(lowerCasePlatform)){
       return lowerCasePlatform;
     }
-    throw new RpcError(400, 'InvalidRequest', 'Unsuported platform, only $supportedPlatform supported');
+    throw new RpcError(400, 'BadRequest', 'Unsuported platform, only ${supportedPlatform.toString()} supported');
   }
 
   Future<MDTApplication> findApplicationByAppId(String appId) async {
@@ -31,7 +32,8 @@ class ApplicationService {
     var currentuser = userService.currentAuthenticatedUser();
     try {
       var appCreated = await mgrs.createApplication(createMsg.name,platform,description:createMsg.description,adminUser:currentuser);
-      return new Response(200, toJson(appCreated, isAdmin:true));
+      var response = toJson(appCreated, isAdmin:true);
+      return new Response(200, response);
     } on StateError catch (e) {
       var error = e;
       //  throw new BadRequestError( e.message);
@@ -41,14 +43,15 @@ class ApplicationService {
   }
 
   @ApiMethod(method: 'GET', path: 'search')
-  Future<Response> allApplications({String platform}) async{
+  Future<ResponseList> allApplications({String platform}) async{
     var _platform = platform;
     if (_platform != null){
       _platform = checkSupportedPlatform(_platform);
     }
-    List<ApplicationResponse> allApps = await mgrs.allApplications(platform:_platform);
+    var allApps = await mgrs.allApplications(platform:_platform);
     var currentuser = userService.currentAuthenticatedUser();
-    return new Response(200, toJson(allApps,isAdmin:currentuser.isSystemAdmin));
+    var responseJson = listToJson(allApps,isAdmin:currentuser.isSystemAdmin);
+    return new ResponseList(200, responseJson);
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}')

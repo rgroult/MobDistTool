@@ -1,32 +1,16 @@
+import 'dart:mirrors';
 import '../model/model.dart';
+import 'package:bson/bson.dart';
 import '../../packages/objectory/objectory.dart';
 
 Map propertiePerClass = {
   "MDTUser" :  ['name','email'],
   "admin_MDTUser" :  ['isSystemAdmin'],
-  'MDTAppliction' :  ['name','platform','lastVersion','adminUsers','uuid'],
-  'admin_MDTAppliction' :  ['apiKey'],
+  'MDTApplication' :  ['name','platform','lastVersion','adminUsers','uuid','description'],
+  'admin_MDTApplication' :  ['apiKey'],
   'MDTArtifact' : ['uuid','branch','name','creationDate','version','sortIdentifier'],
   'admin_MDTArtifact' :  [],
 };
-
-/*
-Map toJson(MTDUser user) {
-  return {};
-}
-
-Map toJson(MDTApplication app) {
-  return {};
-}
-
-Map toJson(MDTArtifact artifact) {
-  return {};
-}
-
-Map toJson<T>(List<T> listElt) {
-return {};
-}
-*/
 
 Map toJsonStringValues(PersistentObject object, List<String> properties){
   var json = {};
@@ -52,17 +36,23 @@ Map toJson(PersistentObject object, {bool isAdmin:false}){
     var classProperties = propertiePerClass[object.runtimeType.toString()];
     listProperties.addAll(classProperties);
     if (isAdmin) {
-      listProperties.addAll(propertiePerClass['admin_${object.toString()}']);
+      listProperties.addAll(propertiePerClass['admin_${object.runtimeType.toString()}']);
     }
     for (var property in listProperties) {
       var value = object.getProperty(property);
       if (value is List) {
         //list of object
-        json[property] = listToJson(value, isAdmin:isAdmin);
+        json[property] = listToJson(value);
+        /*
+        if (value.length > 0) {
+          var first = value.first;
+          var test = new Symbol(value.first.collection);
+          json[property] = listToJson(object.getPersistentList(reflect(value.first.collection), property), isAdmin:isAdmin);
+        }*/
       } else if (value is PersistentObject) {
         //mongodb object
         json[property] = toJson(value, isAdmin:isAdmin);
-      } else {
+      } else  if (value != null) {
         //value
         json[property] = value;
       }
@@ -71,12 +61,21 @@ Map toJson(PersistentObject object, {bool isAdmin:false}){
   return json;
 }
 
-List listToJson(List<PersistentObject> objects, {Bool isAdmin:false}){
+List listToJson(List<PersistentObject> objects, {bool isAdmin:false}){
+  /*if (value is DbRef) {
+      return objectory.dbRef2Object(value);
+    }*/
   var result = [];
   if (objects != null) {
-    for (object in objects) {
-      result.add(toJson(object, isAdmin:isAdmin));
+    for (var object in objects) {
+      var elt = object;
+      if (object is DbRef) {
+        elt = objectory.dbRef2Object(object);
+      }
+      result.add(toJson(elt, isAdmin:isAdmin));
     }
   }
   return result;
 }
+
+//PersistentObject objectById
