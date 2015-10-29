@@ -59,7 +59,7 @@ Future updateApplication(MDTApplication app, {String name, String platform, Stri
   var newName = name!=null ? name : app.name;
   var newPlatform = platform!=null? platform : app.platform;
   var alreadyPresentApp = await findApplication(newName, platform);
-  if (alreadyPresentApp != null) {
+  if (alreadyPresentApp != null && alreadyPresentApp.uuid != app.uuid) {
     throw new AppError('App already exist with this name and platform');
   }else {
     app.name = newName;

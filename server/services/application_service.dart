@@ -74,7 +74,7 @@ class ApplicationService {
     }on StateError catch (e) {
       var error = e;
       //  throw new BadRequestError( e.message);
-      throw new RpcError(400, 'InvalidRequest', 'Unable to update app')
+      throw new RpcError(500, 'Update Error', 'Unable to update app')
         ..errors.add(new RpcErrorDetail(reason: e.message));
     }
   }

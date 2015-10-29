@@ -34,7 +34,8 @@ void main() {
 
 var userRegistration1 = {"email":"apptest@test.com", "password":"passwd", "name":"app user 1"};
 var userRegistration2 = {"email":"apptest2@test.com", "password":"passwd", "name":"app user 2"};
-var applicationCreation = {"name":"Application test", "description":"Full app description", "platform":"ios"};
+var applicationCreationiOS = {"name":"Application test ios", "description":"Full app description", "platform":"ios"};
+var applicationCreationAndroid = {"name":"Application test android", "description":"Full app description", "platform":"android"};
 
 void createAndLogin(){
   //register
@@ -53,7 +54,7 @@ void allTests() {
   createAndLogin();
 
   test("Create app KO bad platform", () async {
-    var appInfos = new Map.from(applicationCreation);
+    var appInfos = new Map.from(applicationCreationiOS);
     appInfos["platform"] = "fakePlatform";
 
     var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
@@ -64,7 +65,7 @@ void allTests() {
   });
 
   test("Create app KO missing platform", () async {
-    var appInfos = new Map.from(applicationCreation);
+    var appInfos = new Map.from(applicationCreationiOS);
     appInfos.remove("platform");
 
     var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
@@ -75,7 +76,7 @@ void allTests() {
   });
 
   test("Create app OK", () async {
-    var appInfos = new Map.from(applicationCreation);
+    var appInfos = new Map.from(applicationCreationiOS);
 
     var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
     var responseJson = parseResponse(response);
@@ -87,7 +88,7 @@ void allTests() {
   });
 
   test("Create app KO duplicate app", () async {
-    var appInfos = new Map.from(applicationCreation);
+    var appInfos = new Map.from(applicationCreationiOS);
 
     var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
     var responseJson = parseResponse(response);
@@ -105,8 +106,7 @@ void allTests() {
 
   test("Search app", () async {
     //create another app
-    var appInfos = new Map.from(applicationCreation);
-    appInfos["platform"] = "android";
+    var appInfos = new Map.from(applicationCreationAndroid);
     var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
     var responseJson = parseResponse(response);
     expect(response.statusCode, equals(200));
@@ -131,11 +131,27 @@ void allTests() {
 
   //ar applicationCreation = {"name":"Application test", "description":"Full app description", "platform":"ios"};
   test("Update app OK", () async {
+    var allIosApps = await sendRequest('GET', '${baseAppUri}/search?platform=ios');
+    var responseJson = parseResponse(allIosApps);
+    var app = responseJson["list"].first;
+
     var appInfos = new Map.from(applicationCreation);
     var newDesc = "new description";
     appInfos["description"] = newDesc;
 
-    var response = await sendRequest('PUT', '${baseAppUri}/create', body: JSON.encode(appInfos));
-    expect(allApps.statusCode, equals(200));
+    var response = await sendRequest('PUT', '${baseAppUri}/app/${app["uuid"]}', body: JSON.encode(appInfos));
+    expect(response.statusCode, equals(200));
+    responseJson = parseResponse(response);
+  });
+
+  test("Update app KO", () async {
+    var allIosApps = await sendRequest('GET', '${baseAppUri}/search?platform=ios');
+    var responseJson = parseResponse(allIosApps);
+    var appIOS = responseJson["list"].first;
+
+    var response = await sendRequest('PUT', '${baseAppUri}/app/${appIOS["uuid"]}', body: JSON.encode(applicationCreationAndroid));
+    expect(response.statusCode, equals(500));
+    responseJson = parseResponse(response);
+
   });
 }
