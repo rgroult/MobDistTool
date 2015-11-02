@@ -3,13 +3,13 @@ import '../../packages/objectory/src/domain_model_generator.dart';
 
 //typedef UUID  = String;
 //type UUID = String;
-
+/*
 class MDTBaseObject {
   String objectType;
   String uuid;
 }
-
-class MDTUser extends MDTBaseObject {
+*/
+class MDTUser/* extends MDTBaseObject*/ {
   String name;
   String email;
   String password;
@@ -18,15 +18,18 @@ class MDTUser extends MDTBaseObject {
 }
 
 //enum platformType { IOS, ANDROID }
-class MDTApplication extends MDTBaseObject {
+class MDTApplication /*extends MDTBaseObject */{
+  String uuid;
   String apiKey;
   String name;
   String platform;
+  String description;
   List<MDTUser> adminUsers;
   MDTArtifact lastVersion;
 }
 
-class MDTArtifact extends MDTBaseObject {
+class MDTArtifact/* extends MDTBaseObject*/ {
+  String uuid;
   String branch;
   String name;
   DateTime creationDate;

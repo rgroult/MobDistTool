@@ -2,8 +2,8 @@ import 'package:test/test.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:objectory/objectory_console.dart';
-import '../server/managers/managers.dart' as mdt_mgr;
-import '../server/config/src/mongo.dart' as mongo;
+import '../../server/managers/managers.dart' as mdt_mgr;
+import '../../server/config/src/mongo.dart' as mongo;
 
 void main() {
   test("init database", () async {
@@ -28,7 +28,7 @@ void allTests()  {
     var app = await mdt_mgr.createApplication(appName,appIOS);
     expect(app, isNotNull);
 
-    var artifact = await mdt_mgr.createArtifact(app,"test","0.1.0",sortIdentifier:"sort 01.10");
+    var artifact = await mdt_mgr.createArtifact(app,"test","0.1.0","branch",sortIdentifier:"sort 01.10");
     expect(artifact,isNotNull);
     expect(artifact.storageInfos,isNull);
     await mdt_mgr.addFileToArtifact(new File("artifact_sample.txt"),artifact,mdt_mgr.defaultStorage);
@@ -55,6 +55,8 @@ void allTests()  {
 
   });
 
+
+
   test("retrieve file artifact", () async {
     var allArtifact = await mdt_mgr.allArtifacts();
     var artifact = allArtifact.first;
@@ -70,7 +72,7 @@ void allTests()  {
     expect(uri,isNotNull);
   });
 
-  test("Delete artifact", () async {
+  test("Delete artifact File", () async {
     var app = await mdt_mgr.findApplication(appName,appIOS);
     var allArtifact = await mdt_mgr.findAllArtifacts(app);
     var artifact = allArtifact.first;
@@ -81,14 +83,39 @@ void allTests()  {
     await mdt_mgr.deleteArtifact(artifact,mdt_mgr.defaultStorage);
     allArtifact = await mdt_mgr.findAllArtifacts(app);
     expect(allArtifact.length,equals(0));
+  });
 
-    artifact = await mdt_mgr.createArtifact(app,"test","0.1.0",sortIdentifier:"sort 01.10");
-    allArtifact = await mdt_mgr.findAllArtifacts(app);
+  test("search artifacts", () async {
+    var app = await  mdt_mgr.findApplication(appName,appIOS);
+    //add artifacts
+    var artifactsCreated = [];
+    for (int i = 0; i<30;i++){
+      artifactsCreated.add(await mdt_mgr.createArtifact(app,"test","version 0.0.$i","master"));
+    }
+
+    //search artifacts
+    List artifacts = await mdt_mgr.searchArtifacts(app, pageIndex:1,branch:"develop");
+    expect(artifacts.length,equals(0));
+
+    artifacts = await mdt_mgr.searchArtifacts(app, pageIndex:1,branch:"master",limitPerPage:20);
+    expect(artifacts,isNotNull);
+    expect(artifacts.length,equals(20));
+
+    artifacts = await mdt_mgr.searchArtifacts(app, pageIndex:2,branch:"master",limitPerPage:20);
+    expect(artifacts.length,equals(10));
+    var artifact = artifacts.first;
+    expect(artifact.version,equals("version 0.0.9"));
+  });
+
+  test("Delete artifact", () async {
+    var app = await mdt_mgr.createApplication(appName,appAndroid);
+
+    var artifact = await mdt_mgr.createArtifact(app,"test","0.1.0","master",sortIdentifier:"sort 01.10");
+    var allArtifact = await mdt_mgr.findAllArtifacts(app);
     expect(allArtifact.length,equals(1));
 
     await mdt_mgr.deleteAllArtifacts(app,mdt_mgr.defaultStorage);
     allArtifact = await mdt_mgr.findAllArtifacts(app);
     expect(allArtifact.length,equals(0));
-
   });
 }

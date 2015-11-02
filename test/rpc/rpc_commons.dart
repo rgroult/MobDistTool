@@ -6,38 +6,51 @@ import 'dart:async';
 var lastAuthorizationHeader = '';
 var baseUrlHost = 'http://localhost';
 
-Map allHeaders(){
-  var initialHeaders = {'content-type': 'application/json'};
+Map allHeaders({String contentType}){
+  var requestContentType = contentType!=null ? contentType : 'application/json; charset=utf-8';
+  var initialHeaders = {HttpHeaders.CONTENT_TYPE: requestContentType,HttpHeaders.ACCEPT:'application/json'};
   if (lastAuthorizationHeader.length > 0){
     initialHeaders['authorization'] = lastAuthorizationHeader;
+  }else {
+    initialHeaders.remove('authorization');
   }
-
+  return initialHeaders;
 }
 
-Map parseResponse(Response response){
+Map parseResponse(http.Response response){
+  checkAuthorizationHeader(response);
   return JSON.decode(response.body);
 }
 
-Future<Response> sendRequest(String method, String path, {String query, String body}) {
+void checkAuthorizationHeader(http.Response response){
+  var newHeader = response.headers['authorization'];
+  if (newHeader != null) {
+    lastAuthorizationHeader = newHeader;
+  }else {
+    lastAuthorizationHeader = '';
+  }
+}
+
+Future<http.Response> sendRequest(String method, String path, {String query, String body,String contentType}) {
   var url = '$baseUrlHost$path';
   if (query != null){
     url = '$url$query';
   }
+  var headers = contentType == null? allHeaders(): allHeaders(contentType:contentType);
+  var httpBody = body;
+  if (body ==null) {
+    httpBody ='';
+  }
   switch (method) {
     case 'GET':
-      return http.get(url,headers:allHeaders());
+      return http.get(url,headers:allHeaders(contentType:contentType));
     case 'POST':
-      var httpBody = body;
-      if (body ==null) {
-        httpBody ='';
-      }
-      return http.post(url,headers:allHeaders(),body:httpBody);
+      return http.post(url,headers:headers,body:httpBody);
     case 'PUT':
-      return http.put(url,headers:allHeaders(),body:httpBody);
+      return http.put(url,headers:headers,body:httpBody);
     case 'DELETE':
-      return http.delete(url,headers:allHeaders());
+      return http.delete(url,headers:headers);
   }
-
   return null;
 }
 /*

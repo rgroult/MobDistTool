@@ -31,25 +31,8 @@ class MDTUser extends PersistentObject {
   set isSystemAdmin (bool value) => setProperty('isSystemAdmin',value);
 }
 
-class $MDTBaseObject {
-  static String get objectType => 'objectType';
-  static String get uuid => 'uuid';
-  static final List<String> allFields = [objectType, uuid];
-  static final List<PropertyDescriptor> simpleFields = [
-    const PropertyDescriptor('objectType', PropertyType.String, 'objectType')
-    ,const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
-  ];
-}
-
-class MDTBaseObject extends PersistentObject {
-  String get collectionName => 'MDTBaseObject';
-  String get objectType => getProperty('objectType');
-  set objectType (String value) => setProperty('objectType',value);
-  String get uuid => getProperty('uuid');
-  set uuid (String value) => setProperty('uuid',value);
-}
-
 class $MDTArtifact {
+  static String get uuid => 'uuid';
   static String get branch => 'branch';
   static String get name => 'name';
   static String get creationDate => 'creationDate';
@@ -57,9 +40,10 @@ class $MDTArtifact {
   static String get version => 'version';
   static String get sortIdentifier => 'sortIdentifier';
   static String get storageInfos => 'storageInfos';
-  static final List<String> allFields = [branch, name, creationDate, application, version, sortIdentifier, storageInfos];
+  static final List<String> allFields = [uuid, branch, name, creationDate, application, version, sortIdentifier, storageInfos];
   static final List<PropertyDescriptor> simpleFields = [
-    const PropertyDescriptor('branch', PropertyType.String, 'branch')
+    const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
+    ,const PropertyDescriptor('branch', PropertyType.String, 'branch')
     ,const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('creationDate', PropertyType.DateTime, 'creationDate')
     ,const PropertyDescriptor('version', PropertyType.String, 'version')
@@ -70,6 +54,8 @@ class $MDTArtifact {
 
 class MDTArtifact extends PersistentObject {
   String get collectionName => 'MDTArtifact';
+  String get uuid => getProperty('uuid');
+  set uuid (String value) => setProperty('uuid',value);
   String get branch => getProperty('branch');
   set branch (String value) => setProperty('branch',value);
   String get name => getProperty('name');
@@ -87,27 +73,35 @@ class MDTArtifact extends PersistentObject {
 }
 
 class $MDTApplication {
+  static String get uuid => 'uuid';
   static String get apiKey => 'apiKey';
   static String get name => 'name';
   static String get platform => 'platform';
+  static String get description => 'description';
   static String get adminUsers => 'adminUsers';
   static String get lastVersion => 'lastVersion';
-  static final List<String> allFields = [apiKey, name, platform, adminUsers, lastVersion];
+  static final List<String> allFields = [uuid, apiKey, name, platform, description, adminUsers, lastVersion];
   static final List<PropertyDescriptor> simpleFields = [
-    const PropertyDescriptor('apiKey', PropertyType.String, 'apiKey')
+    const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
+    ,const PropertyDescriptor('apiKey', PropertyType.String, 'apiKey')
     ,const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('platform', PropertyType.String, 'platform')
+    ,const PropertyDescriptor('description', PropertyType.String, 'description')
   ];
 }
 
 class MDTApplication extends PersistentObject {
   String get collectionName => 'MDTApplication';
+  String get uuid => getProperty('uuid');
+  set uuid (String value) => setProperty('uuid',value);
   String get apiKey => getProperty('apiKey');
   set apiKey (String value) => setProperty('apiKey',value);
   String get name => getProperty('name');
   set name (String value) => setProperty('name',value);
   String get platform => getProperty('platform');
   set platform (String value) => setProperty('platform',value);
+  String get description => getProperty('description');
+  set description (String value) => setProperty('description',value);
   List<MDTUser> get adminUsers => getPersistentList(MDTUser,'adminUsers');
   MDTArtifact get lastVersion => getLinkedObject('lastVersion', MDTArtifact);
   set lastVersion (MDTArtifact value) => setLinkedObject('lastVersion',value);
@@ -115,7 +109,6 @@ class MDTApplication extends PersistentObject {
 
 registerClasses() {
   objectory.registerClass(MDTUser,()=>new MDTUser(),()=>new List<MDTUser>(), {});
-  objectory.registerClass(MDTBaseObject,()=>new MDTBaseObject(),()=>new List<MDTBaseObject>(), {});
   objectory.registerClass(MDTArtifact,()=>new MDTArtifact(),()=>new List<MDTArtifact>(), {'application': MDTApplication});
   objectory.registerClass(MDTApplication,()=>new MDTApplication(),()=>new List<MDTApplication>(), {'lastVersion': MDTArtifact});
 }

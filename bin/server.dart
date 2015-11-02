@@ -27,7 +27,7 @@ import '../server/managers/managers.dart';
 //import 'package:rpc-examples/toyapi.dart';
 //import '../server/model';
 
-import '../server/services/user_authentication_service.dart';
+import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
 
 const _API_PREFIX = '/api';
@@ -48,7 +48,7 @@ Future<HttpServer> startServer() async {
   mongo.initialize();
 
   //_apiServer.addApi(new ToyApi());
-  _apiServer.addApi(new UserAuthenticationService());
+  _apiServer.addApi(new UserService());
   _apiServer.addApi(new ApplicationService());
   _apiServer.enableDiscoveryApi();
 
@@ -67,10 +67,13 @@ Future<HttpServer> startServer() async {
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
 
   var apiRouter = shelf_route.router()
+      //disable authent for register
+      ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
       ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
       ..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
       //disable authent for discovery ?
       ..add('api/discovery',null,apiHandler,exactMatch: false)
+
       ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
   var handler = const shelf.Pipeline()
@@ -97,5 +100,7 @@ Future main() async{
 lookupByUsernamePassword(String username, String password) async =>
 new Future.value(new Option(new Principal(username)));*/
 /// Stub implementation
+/*
 usernameLookup(String username) async =>
 new Future.value(new Option(new Principal(username)));
+*/

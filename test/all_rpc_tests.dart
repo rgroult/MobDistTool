@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:core';
 import 'package:test/test.dart';
 import 'dart:io';
-import '../bin/server.dart' as server;
-import 'rpc_commons.dart';
+import 'dart:convert';
+import 'rpc/user_service_test.dart' as users;
+import 'rpc/app_service_test.dart' as apps;
+import 'rpc/rpc_commons.dart';
 
 void main()  {
   //start server
@@ -17,19 +20,12 @@ void main()  {
     print('baseUrlHost : $baseUrlHost');
   });
 
-test("Authent KO", () async {
-    var response =  await sendRequest('POST','/api/users/v1/login',body:'login=toto&password=titi');
-    expect(response.statusCode, equals(401));
-    //print('response : $response');
-  });
+  users.allTests();
+  apps.allTests();
 
-  test("start server", () async {
-    print('all RPC tests');
-  });
-
-
+/*
   test("stop server", () async {
    // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
     var result =  httpServer.close(force:true);
-  });
+  });*/
 }

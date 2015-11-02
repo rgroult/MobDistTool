@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
+import 'package:uuid/uuid.dart';
 import '../../../packages/objectory/objectory_console.dart';
 import '../../model/model.dart';
 import 'storage/yes_storage_manager.dart';
@@ -18,6 +20,7 @@ class MDTArtifact extends MDTBaseObject {
  */
 
 BaseStorageManager defaultStorage = new YesStorageManager();
+var UuidGenerator = new Uuid();
 
 var artifactCollection = objectory[MDTArtifact];
 
@@ -33,11 +36,14 @@ Future<MDTArtifact> findArtifact(String uuid)async{
   return artifactCollection.find(where.eq('uuid',uuid));
 }
 
-Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version, {String sortIdentifier, Map tags}) async {
+Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version, String branch,{String sortIdentifier, Map tags}) async {
   var artifact = new MDTArtifact()
     ..application = app
     ..name = name
-    ..version = version;
+    ..version = version
+    ..branch = branch
+    ..creationDate = new DateTime.now()
+    ..uuid = UuidGenerator.v4();
 
   if (sortIdentifier != null){
     artifact.sortIdentifier = sortIdentifier;
@@ -64,6 +70,18 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
   }on Error catch(e){
     throw new ArtifactError('Unable to store file:'+e.toString());
   }
+}
+
+//first page : pageIndex = 1
+Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int limitPerPage:25,String branch}) async{
+  var page = pageIndex!=null?pageIndex:1;
+  page = max(1,page);
+  var numberToSkip = (page-1)*limitPerPage;
+  var query = where.eq('application',app.id).sortBy("creationDate",descending:true).skip(numberToSkip).limit(limitPerPage);
+  if (branch!=null){
+    query=query.eq('branch',branch);
+  }
+  return artifactCollection.find(query);
 }
 
 Future<File> fileFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {

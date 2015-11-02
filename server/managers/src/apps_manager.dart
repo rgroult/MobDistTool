@@ -1,17 +1,26 @@
 import 'dart:async';
+import 'package:uuid/uuid.dart';
 import '../../../packages/objectory/objectory_console.dart';
 import '../../model/model.dart';
 import '../errors.dart';
 import 'artifacts_manager.dart' as artifact_mgr;
 
 var appCollection = objectory[MDTApplication];
+var UuidGenerator = new Uuid();
 
-Future<List<MDTApplication>> allApplications() {
-  return appCollection.find();
+Future<List<MDTApplication>> allApplications({String platform}) async{
+  if (platform == null) {
+    //var all =  appCollection.find();
+    return appCollection.find();
+  }else {
+    return  appCollection.find(where.eq("platform", platform));
+  }
 }
 
+
+
 Future<MDTApplication> createApplication(String name, String platform,
-    {MTDUser adminUser}) async {
+    {String description,MDTUser adminUser}) async {
   if (name == null || name.isEmpty) {
     //return new Future.error(new StateError("bad state"));
     throw new AppError('name must be not null');
@@ -30,7 +39,12 @@ Future<MDTApplication> createApplication(String name, String platform,
 
   var createdApp = new MDTApplication()
     ..name = name
-    ..platform = platform;
+    ..platform = platform
+    ..apiKey = UuidGenerator.v4()
+    ..description = description
+    ..uuid = UuidGenerator.v4();
+
+  if (description != null) createdApp.description = description;
 
   var adminUsers = createdApp.adminUsers;
 
@@ -40,8 +54,37 @@ Future<MDTApplication> createApplication(String name, String platform,
   return createdApp;
 }
 
+Future updateApplication(MDTApplication app, {String name, String platform, String description}) async {
+  //find if other app with same name/platform
+  var newName = name!=null ? name : app.name;
+  var newPlatform = platform!=null? platform : app.platform;
+  var alreadyPresentApp = await findApplication(newName, platform);
+  if (alreadyPresentApp != null && alreadyPresentApp.uuid != app.uuid) {
+    throw new AppError('App already exist with this name and platform');
+  }else {
+    app.name = newName;
+    app.platform = newPlatform;
+    if (description != null){
+      app.description = description;
+    }
+  }
+
+  await app.save();
+  return app;
+}
+
+bool isAdminForApp(MDTApplication app, MDTUser user){
+  if (user.isSystemAdmin) return true;
+
+  return app.adminUsers.contains(user);
+}
+
 Future<MDTApplication> findApplicationByApiKey(String apiKey) async {
   return await appCollection.findOne(where.eq("apiKey", apiKey));
+}
+
+Future<MDTApplication> findApplicationByUuid(String uuid) async {
+  return await appCollection.findOne(where.eq("uuid", uuid));
 }
 
 Future<MDTApplication> findApplication(String name, String platform) async {
@@ -54,6 +97,10 @@ Future<List<MDTApplication>> findAllApplicationsForUser(MDTUser user) {
 
 Future deleteApplication(String name, String platform) async {
   var app = await findApplication(name,platform);
+  return deleteApplicationByObject(app);
+}
+
+Future deleteApplicationByObject(MDTApplication app) async {
   if (app != null) {
     //delete artifacts
     await artifact_mgr.deleteAllArtifacts(app,artifact_mgr.defaultStorage);
@@ -75,13 +122,13 @@ Future deleteUserFromAdminUsers(MDTUser user) async {
     await removeAdminApplication(app,user);
     //toWait.add(removeAdminApplication(app,user));
   }
-  await Future.wait(toWait);//.then(print("fini"));
+  await Future.wait(toWait);
   var newallApps = await appCollection.find();
   return new Future.value(null);
 }
 
 Future<MDTApplication> addAdminApplication(MDTApplication app, MDTUser user) async {
-  if (app.adminUsers.contains(user)) {
+  if (isAdminForApp(app,user)) {
     //do nothing
     return new Future.value(app);
   }
@@ -91,7 +138,7 @@ Future<MDTApplication> addAdminApplication(MDTApplication app, MDTUser user) asy
 }
 
 Future<MDTApplication> removeAdminApplication(MDTApplication app, MDTUser user) async {
-  if (app.adminUsers.contains(user) == false) {
+  if (isAdminForApp(app,user) == false) {
     //do nothing
     return new Future.value(app);
   }
