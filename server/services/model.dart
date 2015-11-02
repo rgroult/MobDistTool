@@ -28,3 +28,22 @@ class OKResponse extends Response {
 class NotApplicationAdministrator extends RpcError {
   NotApplicationAdministrator():super(401, 'Forbidden', 'You are not administrator on this app');
 }
+
+
+// request message
+class BaseArtifactMsg {
+  @ApiProperty(required: true)
+  String version;
+  @ApiProperty(required: true)
+  String artifactName;
+}
+
+class ArtifactMsg extends BaseArtifactMsg {
+  @ApiProperty(required: true)
+  String branch;
+  @ApiProperty(required: false)
+  String sortIdentifier;
+  @ApiProperty(required: false)
+  String tags;
+  CreateArtifactMsg();
+}

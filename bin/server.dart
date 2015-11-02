@@ -29,6 +29,7 @@ import '../server/managers/managers.dart';
 
 import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
+import '../server/services/artifact_service.dart';
 
 const _API_PREFIX = '/api';
 const _SIGNED_PREFIX = _API_PREFIX+'/in';
@@ -50,6 +51,7 @@ Future<HttpServer> startServer() async {
   //_apiServer.addApi(new ToyApi());
   _apiServer.addApi(new UserService());
   _apiServer.addApi(new ApplicationService());
+  _apiServer.addApi(new ArtifactService());
   _apiServer.enableDiscoveryApi();
 
   //authentication
