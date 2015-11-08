@@ -71,6 +71,7 @@ Future<HttpServer> startServer() async {
   var apiRouter = shelf_route.router()
       //disable authent for register
       ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
+      ..add('/api/art/',null,apiHandler,exactMatch: false)
       ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
       ..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
       //disable authent for discovery ?

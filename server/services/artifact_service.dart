@@ -7,7 +7,7 @@ import 'model.dart';
 import 'json_convertor.dart';
 
 
-@ApiClass( version: 'v1')
+@ApiClass( name:'art' , version: 'v1')
 class ArtifactService {
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/versions')
   Future<Response> addArtifactByAppKey(String apiKey, ArtifactMsg artifactsMsg) async{

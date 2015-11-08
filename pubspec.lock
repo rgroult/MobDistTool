@@ -8,7 +8,7 @@ packages:
   analyzer:
     description: analyzer
     source: hosted
-    version: "0.26.1+16"
+    version: "0.26.2+1"
   args:
     description: args
     source: hosted
@@ -16,7 +16,7 @@ packages:
   async:
     description: async
     source: hosted
-    version: "1.3.0"
+    version: "1.4.0"
   barback:
     description: barback
     source: hosted
@@ -56,7 +56,7 @@ packages:
   convert:
     description: convert
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   crypto:
     description: crypto
     source: hosted
@@ -140,10 +140,10 @@ packages:
   mongo_dart:
     description:
       ref: null
-      resolved-ref: ddf74e8b83f0813d335ebb9995d9d39fa7e5ad8b
+      resolved-ref: "3899a9853554f464530c9309f96477a19d804997"
       url: "https://github.com/vadimtsushko/mongo_dart.git"
     source: git
-    version: "0.2.5-dev"
+    version: "0.2.5-beta"
   mongo_dart_query:
     description: mongo_dart_query
     source: hosted
@@ -155,7 +155,7 @@ packages:
   objectory:
     description:
       ref: master
-      resolved-ref: "6bd74a30c5a57c11c42742cc7d21414d77271873"
+      resolved-ref: ccd7a9b0c04d8e0e0c02543e555920c7fd78381d
       url: "git://github.com/vadimtsushko/objectory.git"
     source: git
     version: "0.4.3-dev"
@@ -182,11 +182,11 @@ packages:
   pool:
     description: pool
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   pub_semver:
     description: pub_semver
     source: hosted
-    version: "1.2.2"
+    version: "1.2.3"
   quiver:
     description: quiver
     source: hosted
@@ -198,7 +198,7 @@ packages:
   shelf:
     description: shelf
     source: hosted
-    version: "0.6.4"
+    version: "0.6.4+1"
   shelf_auth:
     description: shelf_auth
     source: hosted
@@ -246,7 +246,7 @@ packages:
   stack_trace:
     description: stack_trace
     source: hosted
-    version: "1.4.2"
+    version: "1.5.0"
   string_scanner:
     description: string_scanner
     source: hosted
@@ -258,7 +258,7 @@ packages:
   typed_data:
     description: typed_data
     source: hosted
-    version: "1.0.0"
+    version: "1.1.1"
   uri:
     description: uri
     source: hosted

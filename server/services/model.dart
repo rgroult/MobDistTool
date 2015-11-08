@@ -1,4 +1,5 @@
 import 'package:shelf_auth/shelf_auth.dart';
+import 'dart:io';
 import 'package:rpc/rpc.dart';
 import '../model/model.dart';
 
@@ -40,10 +41,12 @@ class BaseArtifactMsg {
 
 class ArtifactMsg extends BaseArtifactMsg {
   @ApiProperty(required: true)
+  File file;
+  @ApiProperty(required: true)
   String branch;
   @ApiProperty(required: false)
   String sortIdentifier;
   @ApiProperty(required: false)
   String tags;
-  CreateArtifactMsg();
+  ArtifactMsg();
 }
