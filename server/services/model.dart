@@ -30,6 +30,10 @@ class NotApplicationAdministrator extends RpcError {
   NotApplicationAdministrator():super(401, 'Forbidden', 'You are not administrator on this app');
 }
 
+class ArtifactMsg {
+  @ApiProperty(required: true)
+  MediaMessage file;
+}
 
 // request message
 class BaseArtifactMsg {
@@ -39,9 +43,9 @@ class BaseArtifactMsg {
   String artifactName;
 }
 
-class ArtifactMsg extends BaseArtifactMsg {
+class ArtifactMsg1 extends BaseArtifactMsg {
   @ApiProperty(required: true)
-  File file;
+  MediaMessage file;
   @ApiProperty(required: true)
   String branch;
   @ApiProperty(required: false)

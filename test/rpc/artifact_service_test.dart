@@ -63,7 +63,10 @@ void allTests() {
     //var stream = new ByteStream(file.openRead());
     //httprequest.fields['user'] = 'john@doe.com';
     //static Future<MultipartFile> fromPath(String field, String filePath, //{String filename, MediaType contentType}) {
-    httprequest.files.add(await http.MultipartFile.fromPath('package', Directory.current.path+'/test/core/artifact_sample.txt', filename:'artifact_sample.txt'));
+   // httprequest.files.add(new http.MultipartFile.fromPath('file', Directory.current.path+'/test/core/artifact_sample.txt', filename:'artifact_sample.txt'));
+    //httprequest.files.add(new http.MultipartFile.fromFile('package', new File(Directory.current.path+'/test/core/artifact_sample.txt'), contentType: new ContentType('application', 'txt')));
+    var filePart = await http.MultipartFile.fromPath('file', Directory.current.path+'/test/core/artifact_sample.txt');
+    httprequest.files.add(filePart);
 
     /*(new http.MultipartFile.fromFile(
         'package',

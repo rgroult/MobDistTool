@@ -12,6 +12,7 @@ class ArtifactService {
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/versions')
   Future<Response> addArtifactByAppKey(String apiKey, ArtifactMsg artifactsMsg) async{
     var application = await mgrs.findApplicationByApiKey(apiKey);
+    var file = artifactsMsg.file;
     if (application == null){
       throw new NotFoundError('Application not found');
     }
