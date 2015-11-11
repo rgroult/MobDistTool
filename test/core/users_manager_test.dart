@@ -73,7 +73,7 @@ void allTests()  {
       var newname = "newName";
       user.name = newname;
       user.isSystemAdmin = true;
-      user.save();
+      await user.save();
 
       user = await mdt_mgr.findUserByEmail(email);
       expect(user.name, equals(newname));
