@@ -103,12 +103,11 @@ class MDTApplication extends PersistentObject {
   String get description => getProperty('description');
   set description (String value) => setProperty('description',value);
   List<MDTUser> get adminUsers => getPersistentList(MDTUser,'adminUsers');
-  MDTArtifact get lastVersion => getLinkedObject('lastVersion', MDTArtifact);
-  set lastVersion (MDTArtifact value) => setLinkedObject('lastVersion',value);
+  List<MDTArtifact> get lastVersion => getPersistentList(MDTArtifact,'lastVersion');
 }
 
 registerClasses() {
   objectory.registerClass(MDTUser,()=>new MDTUser(),()=>new List<MDTUser>(), {});
   objectory.registerClass(MDTArtifact,()=>new MDTArtifact(),()=>new List<MDTArtifact>(), {'application': MDTApplication});
-  objectory.registerClass(MDTApplication,()=>new MDTApplication(),()=>new List<MDTApplication>(), {'lastVersion': MDTArtifact});
+  objectory.registerClass(MDTApplication,()=>new MDTApplication(),()=>new List<MDTApplication>(), {});
 }

@@ -32,25 +32,23 @@ class NotApplicationAdministrator extends RpcError {
 
 class ArtifactMsg {
   @ApiProperty(required: true)
-  MediaMessage file;
+  MediaMessage artifactFile;
+  @ApiProperty(required: false)
+  String sortIdentifier;
+  @ApiProperty(required: false)
+  String jsonTags;
 }
 
-// request message
-class BaseArtifactMsg {
+class FullArtifactMsg {
   @ApiProperty(required: true)
   String version;
   @ApiProperty(required: true)
   String artifactName;
-}
-
-class ArtifactMsg1 extends BaseArtifactMsg {
   @ApiProperty(required: true)
-  MediaMessage file;
-  @ApiProperty(required: true)
-  String branch;
+  MediaMessage artifactFile;
   @ApiProperty(required: false)
   String sortIdentifier;
   @ApiProperty(required: false)
-  String tags;
-  ArtifactMsg();
+  String jsonTags;
 }
+

@@ -36,6 +36,10 @@ Future<MDTArtifact> findArtifact(String uuid)async{
   return artifactCollection.find(where.eq('uuid',uuid));
 }
 
+Future<MDTArtifact> findArtifactByInfos(MDTApplication app,String branch,String version, String artifactName)async{
+  return artifactCollection.find(where.eq('application',app.id).eq('branch', branch).eq('version', version).eq('name', artifactName));
+}
+
 Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version, String branch,{String sortIdentifier, Map tags}) async {
   var artifact = new MDTArtifact()
     ..application = app
@@ -56,6 +60,24 @@ Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version
   await artifact.save();
   return artifact;
 }
+
+Future<MDTArtifact> createLastVersionArtifact(MDTApplication app,String name,{ Map tags}) async {
+  //check in app lastversion contains name artifact
+  if (app.lastVersion.contains(name)){
+    
+  }
+  var artifact = new MDTArtifact()
+    ..name = name
+    ..creationDate = new DateTime.now()
+    ..uuid = UuidGenerator.v4();
+
+  if (tags != null) {
+    // TO DO
+  }
+  await artifact.save();
+  return artifact;
+}
+
 
 //if previous file found, delete it before
 Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager storageMgr) async {

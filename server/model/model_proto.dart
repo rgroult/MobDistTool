@@ -25,7 +25,7 @@ class MDTApplication /*extends MDTBaseObject */{
   String platform;
   String description;
   List<MDTUser> adminUsers;
-  MDTArtifact lastVersion;
+  List<MDTArtifact> lastVersion;
 }
 
 class MDTArtifact/* extends MDTBaseObject*/ {
