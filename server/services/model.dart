@@ -41,10 +41,12 @@ class ArtifactMsg {
 
 class FullArtifactMsg {
   @ApiProperty(required: true)
+  String branch;
+  @ApiProperty(required: true)
   String version;
   @ApiProperty(required: true)
   String artifactName;
-  @ApiProperty(required: true)
+  @ApiProperty(required: false)
   MediaMessage artifactFile;
   @ApiProperty(required: false)
   String sortIdentifier;

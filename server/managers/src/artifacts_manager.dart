@@ -37,10 +37,11 @@ Future<MDTArtifact> findArtifact(String uuid)async{
 }
 
 Future<MDTArtifact> findArtifactByInfos(MDTApplication app,String branch,String version, String artifactName)async{
-  return artifactCollection.find(where.eq('application',app.id).eq('branch', branch).eq('version', version).eq('name', artifactName));
+  var query = where.eq('application',app.id).eq('branch', branch).eq('version', version).eq('name', artifactName);
+  return artifactCollection.findOne(query);
 }
 
-Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version, String branch,{String sortIdentifier, Map tags}) async {
+Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version, String branch,{String sortIdentifier, String tags}) async {
   var artifact = new MDTArtifact()
     ..application = app
     ..name = name
@@ -55,16 +56,16 @@ Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version
     artifact.sortIdentifier = version;
   }
   if (tags != null) {
-    // TO DO
+    artifact.metaDataTags = tags;
   }
   await artifact.save();
   return artifact;
 }
-
+/*
 Future<MDTArtifact> createLastVersionArtifact(MDTApplication app,String name,{ Map tags}) async {
   //check in app lastversion contains name artifact
   if (app.lastVersion.contains(name)){
-    
+
   }
   var artifact = new MDTArtifact()
     ..name = name
@@ -77,7 +78,7 @@ Future<MDTArtifact> createLastVersionArtifact(MDTApplication app,String name,{ M
   await artifact.save();
   return artifact;
 }
-
+*/
 
 //if previous file found, delete it before
 Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager storageMgr) async {
@@ -95,13 +96,16 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
 }
 
 //first page : pageIndex = 1
-Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int limitPerPage:25,String branch}) async{
+Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int limitPerPage:25,String branch,excludeBranch branchToExclude}) async{
   var page = pageIndex!=null?pageIndex:1;
   page = max(1,page);
   var numberToSkip = (page-1)*limitPerPage;
   var query = where.eq('application',app.id).sortBy("creationDate",descending:true).skip(numberToSkip).limit(limitPerPage);
   if (branch!=null){
     query=query.eq('branch',branch);
+  }
+  if (excludeBranch != null) {
+    query=query.ne('branch',excludeBranch);
   }
   return artifactCollection.find(query);
 }

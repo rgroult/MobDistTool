@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
+import 'dart:convert';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
 import 'model.dart';
@@ -9,32 +10,34 @@ import 'json_convertor.dart';
 
 @ApiClass( name:'art' , version: 'v1')
 class ArtifactService {
+  static String lastVersionBranchName = "@@@@LAST####";
+  static String lastVersionName = "lastest";
+
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
   Future<Response> addArtifactByAppKey(String apiKey,String branch,String version, String artifactName, ArtifactMsg artifactsMsg) async{
     var application = await mgrs.findApplicationByApiKey(apiKey);
-    var file = artifactsMsg.file;
+    var mediaMsg = artifactsMsg.artifactFile;
     if (application == null){
       throw new NotFoundError('Application not found');
     }
 
     //find existng artifact
-    var existingArtifact = await mgrs.findArtifactByInfos(app,branch,version,artifactName,mgrs.defaultStorage);
+    var existingArtifact = await mgrs.findArtifactByInfos(application,branch,version,artifactName);
     if (existingArtifact != null) {
       throw new RpcError(400, 'Already Exist', 'artifact exist with provided infos');
     }
 
-    var parsedTags = null
+    var parsedTags = null;
     if (artifactsMsg.jsonTags != null){
-      //parse string to map
-      //parsedTags = JSON.de
+      parsedTags= parseTags(artifactsMsg.jsonTags);
     }
-    var createdArtifact = await mgrs.createArtifact(app,artifactName,version,branch,sortIdentifier:artifactsMsg.sortIdentifier,tags:parsedTags,mgrs.defaultStorage);
+    var createdArtifact = await mgrs.createArtifact(application,artifactName,version,branch,sortIdentifier:artifactsMsg.sortIdentifier,tags:parsedTags);
     //add file
     try {
-      await mgrs.addFileToArtifact(artifactsMsg.artifactFile,createdArtifact,mgrs.defaultStorage);
+      await mgrs.addFileToArtifact(mediaMsg.bytes,createdArtifact,mgrs.defaultStorage);
     }on ArtifactError catch(e){
       //delete created artifact
-      mgrs.deleteArtifact(createdArtifact,mgrs.defaultStorage);
+      await mgrs.deleteArtifact(createdArtifact,mgrs.defaultStorage);
       throw new RpcError(500, 'Add Error', 'Unable to add artifact')
         ..errors.add(new RpcErrorDetail(reason: e.message));
     }
@@ -57,39 +60,78 @@ class ArtifactService {
 
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/last/{artifactName}')
   Future<Response> addLastArtifactByAppKey(String apiKey, String artifactName, ArtifactMsg artifactsMsg) async{
-    var application = await mgrs.findApplicationByApiKey(apiKey);
-    if (application == null){
-      throw new NotFoundError('Application not found');
-    }
-
-    return new Response(500,{});
+    return addArtifactByAppKey(apiKey,lastVersionBranchName, lastVersionName, artifactName, artifactsMsg);
   }
 
   @ApiMethod(method: 'DELETE', path: 'artifacts/{apiKey}/last/{artifactName}')
   Future<Response> deleteLastArtifactByAppKey(String apiKey,String artifactName) async{
-    var application = await mgrs.findApplicationByApiKey(apiKey);
-    if (application == null){
-      throw new NotFoundError('Application not found');
-    }
-
-    return new Response(500,{});
+    return deleteArtifactByAppKey(apiKey,lastVersionBranchName, lastVersionName,artifactName);
   }
 
   @ApiMethod(method: 'PUT', path: 'artifacts/{idArtifact}')
   Future<Response> addArtifact(String idArtifact,  FullArtifactMsg artifactsMsg) async{
+    //current user
+    var currentuser = userService.currentAuthenticatedUser();
+    //artifact
+    var artifact = findArtifact(idArtifact);
+    if (artifact == null ){
+      return NotFoundError;
+    }
+    if (mgrs.isAdminForApp(artifact.application,currentuser) == false){
+      throw new NotApplicationAdministrator();
+    }
+    artifact.branch = artifactsMsg.branch;
+    artifact.version = artifactsMsg.version;
+    artifact.artifactName = artifactsMsg.artifactName;
 
-    return new Response(500,{});
+    if(artifactsMsg.sortIdentifier != null){
+      artifact.sortIdentifier= artifactsMsg.sortIdentifier;
+    }
+
+    if(artifactsMsg.jsonTags != null){
+      artifact.metaDataTags= parseTags(artifactsMsg.jsonTags);
+    }
+
+    if(artifactsMsg.artifactFile != null){
+      try {
+        mgrs.addFileToArtifact(artifactsMsg.artifactFile,artifactsMsg,mgrs.defaultStorage);
+      }on ArtifactError catch(e){
+        throw new RpcError(500, 'Update failed', 'Unable to update artifact');
+      }
+    }
+
+    await artifact.save();
+    return new Response(200, toJson(artifact,isAdmin:true));
   }
 
   @ApiMethod(method: 'DELETE', path: 'artifacts/{idArtifact}')
   Future<Response> deleteArtifact(String idArtifact) async{
+    //current user
+    var currentuser = userService.currentAuthenticatedUser();
+    //artifact
+    var artifact = findArtifact(idArtifact);
+    if (artifact == null ){
+      return NotFoundError;
+    }
+    if (mgrs.isAdminForApp(artifact.application,currentuser) == false){
+      throw new NotApplicationAdministrator();
+    }
+    try {
+      await mgrs.deleteArtifact(artifact,,mgrs.defaultStorage);
+    }on ArtifactError catch(e){
 
-    return new Response(500,{});
+    }
+    return new OKResponse();
+  }
+
+  String parseTags(String tags){
+    if (tags == null){
+      return null;
+    }
+    var object =  JSON.decode(tags);
+    if (object != null){
+      return JSON.encode(object);
+    }
+    return null;
   }
 }
-
-
-
-
-
-//MDTApplication app,String name,String version, String branch,{String sortIdentifier, Map tags}

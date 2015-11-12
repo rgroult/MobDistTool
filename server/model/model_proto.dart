@@ -37,6 +37,7 @@ class MDTArtifact/* extends MDTBaseObject*/ {
   String version;
   String sortIdentifier;
   String storageInfos;
+  String metaDataTags;
 }
 
 main() {

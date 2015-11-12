@@ -59,21 +59,17 @@ void allTests() {
 
     var apiKey = application["apiKey"];
 
-    var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/art/v1/artifacts/${apiKey}/versions"));
-    //var stream = new ByteStream(file.openRead());
-    //httprequest.fields['user'] = 'john@doe.com';
-    //static Future<MultipartFile> fromPath(String field, String filePath, //{String filename, MediaType contentType}) {
-   // httprequest.files.add(new http.MultipartFile.fromPath('file', Directory.current.path+'/test/core/artifact_sample.txt', filename:'artifact_sample.txt'));
-    //httprequest.files.add(new http.MultipartFile.fromFile('package', new File(Directory.current.path+'/test/core/artifact_sample.txt'), contentType: new ContentType('application', 'txt')));
-    var filePart = await http.MultipartFile.fromPath('file', Directory.current.path+'/test/core/artifact_sample.txt');
+    var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/art/v1/artifacts/${apiKey}/master/versionBeta/prodArtifact"));
+    var filePart = await http.MultipartFile.fromPath('artifactFile', Directory.current.path+'/test/core/artifact_sample.txt');
     httprequest.files.add(filePart);
+    httprequest.fields['sortIdentifier'] = 'sortId';
+    var tags = new Map();
+    tags['tag1'] = "test tag1";
+    tags['tag2'] = "test tag2";
+    httprequest.fields['jsonTags'] = JSON.encode(tags);
 
-    /*(new http.MultipartFile.fromFile(
-        'package',
-        new File("../core/artifact_sample.txt"),
-        contentType: new ContentType('application', 'x-tar')));
-*/
     var response = await httprequest.send();
+    var responseJson = parseResponse(response);
 /*
     final FormData formdata = new FormData();
     FormData.append('file',new File("../core/artifact_sample.txt"));

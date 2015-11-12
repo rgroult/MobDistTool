@@ -40,7 +40,8 @@ class $MDTArtifact {
   static String get version => 'version';
   static String get sortIdentifier => 'sortIdentifier';
   static String get storageInfos => 'storageInfos';
-  static final List<String> allFields = [uuid, branch, name, creationDate, application, version, sortIdentifier, storageInfos];
+  static String get metaDataTags => 'metaDataTags';
+  static final List<String> allFields = [uuid, branch, name, creationDate, application, version, sortIdentifier, storageInfos, metaDataTags];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
     ,const PropertyDescriptor('branch', PropertyType.String, 'branch')
@@ -49,6 +50,7 @@ class $MDTArtifact {
     ,const PropertyDescriptor('version', PropertyType.String, 'version')
     ,const PropertyDescriptor('sortIdentifier', PropertyType.String, 'sortIdentifier')
     ,const PropertyDescriptor('storageInfos', PropertyType.String, 'storageInfos')
+    ,const PropertyDescriptor('metaDataTags', PropertyType.String, 'metaDataTags')
   ];
 }
 
@@ -70,6 +72,8 @@ class MDTArtifact extends PersistentObject {
   set sortIdentifier (String value) => setProperty('sortIdentifier',value);
   String get storageInfos => getProperty('storageInfos');
   set storageInfos (String value) => setProperty('storageInfos',value);
+  String get metaDataTags => getProperty('metaDataTags');
+  set metaDataTags (String value) => setProperty('metaDataTags',value);
 }
 
 class $MDTApplication {
