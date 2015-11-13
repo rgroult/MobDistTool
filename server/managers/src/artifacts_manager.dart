@@ -96,7 +96,7 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
 }
 
 //first page : pageIndex = 1
-Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int limitPerPage:25,String branch,excludeBranch branchToExclude}) async{
+Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int limitPerPage:25,String branch,String branchToExclude}) async{
   var page = pageIndex!=null?pageIndex:1;
   page = max(1,page);
   var numberToSkip = (page-1)*limitPerPage;
@@ -104,8 +104,8 @@ Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int
   if (branch!=null){
     query=query.eq('branch',branch);
   }
-  if (excludeBranch != null) {
-    query=query.ne('branch',excludeBranch);
+  if (branchToExclude != null) {
+    query=query.ne('branch',branchToExclude);
   }
   return artifactCollection.find(query);
 }

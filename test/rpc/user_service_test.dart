@@ -66,7 +66,7 @@ void allTests() {
     var userWithoutEmail = new Map.from(userRegistration);
     userWithoutEmail.remove("email");
 
-    var response = sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userWithoutEmail));
+    var response = await sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userWithoutEmail));
     expect(response.statusCode, equals(400));
     var responseJson = parseResponse(response);
     expect(responseJson["error"]["code"], equals(400));

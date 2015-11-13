@@ -21,6 +21,10 @@ Map parseResponse(http.Response response){
   checkAuthorizationHeader(response);
   return JSON.decode(response.body);
 }
+/*
+Map parseResponse(http.StreamedResponse response){
+
+}*/
 
 void checkAuthorizationHeader(http.Response response){
   var newHeader = response.headers['authorization'];

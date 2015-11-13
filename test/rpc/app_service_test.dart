@@ -135,7 +135,7 @@ void allTests() {
     var responseJson = parseResponse(allIosApps);
     var app = responseJson["list"].first;
 
-    var appInfos = new Map.from(applicationCreation);
+    var appInfos = new Map.from(applicationCreationiOS);
     var newDesc = "new description";
     appInfos["description"] = newDesc;
 

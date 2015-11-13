@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'rpc/user_service_test.dart' as users;
 import 'rpc/app_service_test.dart' as apps;
 import 'rpc/rpc_commons.dart';
+import '../bin/server.dart' as server;
 
 void main()  {
   //start server

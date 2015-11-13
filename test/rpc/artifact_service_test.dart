@@ -68,8 +68,9 @@ void allTests() {
     tags['tag2'] = "test tag2";
     httprequest.fields['jsonTags'] = JSON.encode(tags);
 
-    var response = await httprequest.send();
+    var response = await http.Response.fromStream(await httprequest.send());
     var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
 /*
     final FormData formdata = new FormData();
     FormData.append('file',new File("../core/artifact_sample.txt"));

@@ -4,5 +4,5 @@ import "all_rpc_tests.dart" as rpc;
 
 void main() {
   core.main();
- // rpc.main();
+  rpc.main();
 }

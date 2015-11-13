@@ -34,7 +34,10 @@ class ArtifactService {
     var createdArtifact = await mgrs.createArtifact(application,artifactName,version,branch,sortIdentifier:artifactsMsg.sortIdentifier,tags:parsedTags);
     //add file
     try {
-      await mgrs.addFileToArtifact(mediaMsg.bytes,createdArtifact,mgrs.defaultStorage);
+      //Create temp file
+      var tempDir = Directory.systemTemp.createTempSync("art");
+      var tempFile = await new File(artifactName).writeAsBytes(mediaMsg.bytes,flush:true);
+      await mgrs.addFileToArtifact(tempFile,createdArtifact,mgrs.defaultStorage);
     }on ArtifactError catch(e){
       //delete created artifact
       await mgrs.deleteArtifact(createdArtifact,mgrs.defaultStorage);
@@ -42,6 +45,7 @@ class ArtifactService {
         ..errors.add(new RpcErrorDetail(reason: e.message));
     }
 
+    var jsonResponse = toJson(createdArtifact,isAdmin:true);
     return new Response(200, toJson(createdArtifact,isAdmin:true));
   }
 
