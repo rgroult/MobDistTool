@@ -9,10 +9,14 @@ packages:
     description: analyzer
     source: hosted
     version: "0.26.2+1"
+  angular:
+    description: angular
+    source: hosted
+    version: "1.1.2+2"
   args:
     description: args
     source: hosted
-    version: "0.13.2"
+    version: "0.12.2+6"
   async:
     description: async
     source: hosted
@@ -41,6 +45,14 @@ packages:
     description: cipher
     source: hosted
     version: "0.7.1"
+  cli_util:
+    description: cli_util
+    source: hosted
+    version: "0.0.1+2"
+  code_transformers:
+    description: code_transformers
+    source: hosted
+    version: "0.2.9+4"
   collection:
     description: collection
     source: hosted
@@ -69,6 +81,10 @@ packages:
     description: dart_jwt
     source: hosted
     version: "0.4.4"
+  di:
+    description: di
+    source: hosted
+    version: "3.3.5+1"
   discoveryapis_generator:
     description: discoveryapis_generator
     source: hosted
@@ -101,6 +117,10 @@ packages:
     description: html
     source: hosted
     version: "0.12.2"
+  html5lib:
+    description: html5lib
+    source: hosted
+    version: "0.12.1"
   http:
     description: http
     source: hosted
@@ -117,10 +137,14 @@ packages:
     description: http_parser
     source: hosted
     version: "1.1.0"
+  initialize:
+    description: initialize
+    source: hosted
+    version: "0.2.0"
   intl:
     description: intl
     source: hosted
-    version: "0.12.4+2"
+    version: "0.8.10+4"
   logging:
     description: logging
     source: hosted
@@ -133,6 +157,10 @@ packages:
     description: matcher
     source: hosted
     version: "0.12.0+1"
+  meta:
+    description: meta
+    source: hosted
+    version: "0.8.8"
   mime:
     description: mime
     source: hosted
@@ -159,6 +187,10 @@ packages:
       url: "git://github.com/vadimtsushko/objectory.git"
     source: git
     version: "0.4.3-dev"
+  observe:
+    description: observe
+    source: hosted
+    version: "0.13.1+2"
   option:
     description: option
     source: hosted
@@ -171,6 +203,10 @@ packages:
     description: path
     source: hosted
     version: "1.3.6"
+  perf_api:
+    description: perf_api
+    source: hosted
+    version: "0.0.9"
   petitparser:
     description: petitparser
     source: hosted
@@ -191,6 +227,10 @@ packages:
     description: quiver
     source: hosted
     version: "0.19.0+1"
+  route_hierarchical:
+    description: route_hierarchical
+    source: hosted
+    version: "0.6.2"
   rpc:
     description: rpc
     source: hosted
@@ -231,6 +271,10 @@ packages:
     description: shelf_web_socket
     source: hosted
     version: "0.0.1+4"
+  smoke:
+    description: smoke
+    source: hosted
+    version: "0.3.5"
   source_map_stack_trace:
     description: source_map_stack_trace
     source: hosted
@@ -275,6 +319,18 @@ packages:
     description: watcher
     source: hosted
     version: "0.9.7"
+  web_components:
+    description: web_components
+    source: hosted
+    version: "0.10.1"
+  when:
+    description: when
+    source: hosted
+    version: "0.2.0"
+  which:
+    description: which
+    source: hosted
+    version: "0.1.3"
   xml:
     description: xml
     source: hosted

@@ -9,6 +9,9 @@ environment:
   sdk: '>=1.0.0 <2.0.0'
 
 dependencies:
+  angular: any
+  web_components: "0.10.1"
+  browser: any
   objectory:
       git:
         url: git://github.com/vadimtsushko/objectory.git
@@ -24,5 +27,10 @@ dependencies:
   option: "^1.1.0"
   test: "^0.12.5+1"
   uuid: "0.5.0"
-  
+transformers:
+- angular:
+    html_files:
+      - web/pages/home.html
+      - web/pages/apps.html
+      - web/pages/artifacts.html
 
