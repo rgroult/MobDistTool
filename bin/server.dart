@@ -46,7 +46,7 @@ Future<HttpServer> startServer() async {
   if (stdout.hasTerminal) {
     Logger.root.onRecord.listen(new LogPrintHandler());
   }
-  mongo.initialize();
+  await mongo.initialize();
 
   //_apiServer.addApi(new ToyApi());
   _apiServer.addApi(new UserService());

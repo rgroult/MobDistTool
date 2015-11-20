@@ -7,6 +7,7 @@ import 'rpc/user_service_test.dart' as users;
 import 'rpc/app_service_test.dart' as apps;
 import 'rpc/rpc_commons.dart';
 import '../bin/server.dart' as server;
+import 'package:objectory/objectory_console.dart';
 
 void main()  {
 
@@ -17,9 +18,11 @@ void main()  {
     httpServer =  await server.startServer();
   });
 
-  test ("Clean database", ()async {
+  test ("Clean database", () async {
     await objectory.dropCollections();
   });
+
+
 
   test("configure values", () async {
     baseUrlHost = "http://${httpServer.address.host}:${httpServer.port}";
