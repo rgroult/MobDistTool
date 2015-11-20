@@ -1,0 +1,296 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "fa444769c041cafdb5a06bebbc548b989b4d26cf",
+ "discoveryVersion": "v1",
+ "id": "art:v1",
+ "name": "art",
+ "version": "v1",
+ "revision": "0",
+ "protocol": "rest",
+ "baseUrl": "http://localhost:8080/art/v1/",
+ "basePath": "/art/v1/",
+ "rootUrl": "http://localhost:8080/",
+ "servicePath": "art/v1/",
+ "parameters": {},
+ "schemas": {
+  "ArtifactMsg": {
+   "id": "ArtifactMsg",
+   "type": "object",
+   "properties": {
+    "artifactFile": {
+     "$ref": "MediaMessage",
+     "required": true
+    },
+    "sortIdentifier": {
+     "type": "string"
+    },
+    "jsonTags": {
+     "type": "string"
+    }
+   }
+  },
+  "MediaMessage": {
+   "id": "MediaMessage",
+   "type": "object",
+   "properties": {
+    "bytes": {
+     "type": "array",
+     "items": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "updated": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "contentType": {
+     "type": "string"
+    },
+    "cacheControl": {
+     "type": "string"
+    },
+    "contentEncoding": {
+     "type": "string"
+    },
+    "contentLanguage": {
+     "type": "string"
+    },
+    "md5Hash": {
+     "type": "string"
+    },
+    "metadata": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "Response": {
+   "id": "Response",
+   "type": "object",
+   "properties": {
+    "status": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "data": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "FullArtifactMsg": {
+   "id": "FullArtifactMsg",
+   "type": "object",
+   "properties": {
+    "branch": {
+     "type": "string",
+     "required": true
+    },
+    "version": {
+     "type": "string",
+     "required": true
+    },
+    "artifactName": {
+     "type": "string",
+     "required": true
+    },
+    "artifactFile": {
+     "$ref": "MediaMessage"
+    },
+    "sortIdentifier": {
+     "type": "string"
+    },
+    "jsonTags": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "methods": {
+  "addArtifactByAppKey": {
+   "id": "ArtifactService.addArtifactByAppKey",
+   "path": "artifacts/{apiKey}/{branch}/{version}/{artifactName}",
+   "httpMethod": "POST",
+   "parameters": {
+    "apiKey": {
+     "type": "string",
+     "description": "Path parameter: 'apiKey'.",
+     "required": true,
+     "location": "path"
+    },
+    "branch": {
+     "type": "string",
+     "description": "Path parameter: 'branch'.",
+     "required": true,
+     "location": "path"
+    },
+    "version": {
+     "type": "string",
+     "description": "Path parameter: 'version'.",
+     "required": true,
+     "location": "path"
+    },
+    "artifactName": {
+     "type": "string",
+     "description": "Path parameter: 'artifactName'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "apiKey",
+    "branch",
+    "version",
+    "artifactName"
+   ],
+   "request": {
+    "$ref": "ArtifactMsg"
+   },
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "deleteArtifactByAppKey": {
+   "id": "ArtifactService.deleteArtifactByAppKey",
+   "path": "artifacts/{apiKey}/{branch}/{version}/{artifactName}",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "apiKey": {
+     "type": "string",
+     "description": "Path parameter: 'apiKey'.",
+     "required": true,
+     "location": "path"
+    },
+    "branch": {
+     "type": "string",
+     "description": "Path parameter: 'branch'.",
+     "required": true,
+     "location": "path"
+    },
+    "version": {
+     "type": "string",
+     "description": "Path parameter: 'version'.",
+     "required": true,
+     "location": "path"
+    },
+    "artifactName": {
+     "type": "string",
+     "description": "Path parameter: 'artifactName'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "apiKey",
+    "branch",
+    "version",
+    "artifactName"
+   ],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "addLastArtifactByAppKey": {
+   "id": "ArtifactService.addLastArtifactByAppKey",
+   "path": "artifacts/{apiKey}/last/{artifactName}",
+   "httpMethod": "POST",
+   "parameters": {
+    "apiKey": {
+     "type": "string",
+     "description": "Path parameter: 'apiKey'.",
+     "required": true,
+     "location": "path"
+    },
+    "artifactName": {
+     "type": "string",
+     "description": "Path parameter: 'artifactName'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "apiKey",
+    "artifactName"
+   ],
+   "request": {
+    "$ref": "ArtifactMsg"
+   },
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "deleteLastArtifactByAppKey": {
+   "id": "ArtifactService.deleteLastArtifactByAppKey",
+   "path": "artifacts/{apiKey}/last/{artifactName}",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "apiKey": {
+     "type": "string",
+     "description": "Path parameter: 'apiKey'.",
+     "required": true,
+     "location": "path"
+    },
+    "artifactName": {
+     "type": "string",
+     "description": "Path parameter: 'artifactName'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "apiKey",
+    "artifactName"
+   ],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "addArtifact": {
+   "id": "ArtifactService.addArtifact",
+   "path": "artifacts/{idArtifact}",
+   "httpMethod": "PUT",
+   "parameters": {
+    "idArtifact": {
+     "type": "string",
+     "description": "Path parameter: 'idArtifact'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "idArtifact"
+   ],
+   "request": {
+    "$ref": "FullArtifactMsg"
+   },
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "deleteArtifact": {
+   "id": "ArtifactService.deleteArtifact",
+   "path": "artifacts/{idArtifact}",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "idArtifact": {
+     "type": "string",
+     "description": "Path parameter: 'idArtifact'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "idArtifact"
+   ],
+   "response": {
+    "$ref": "Response"
+   }
+  }
+ },
+ "resources": {}
+}

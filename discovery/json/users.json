@@ -1,0 +1,104 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "f99567950d2310206d15c4c624514d0fa3a22c71",
+ "discoveryVersion": "v1",
+ "id": "users:v1",
+ "name": "users",
+ "version": "v1",
+ "revision": "0",
+ "protocol": "rest",
+ "baseUrl": "http://localhost:8080/users/v1/",
+ "basePath": "/users/v1/",
+ "rootUrl": "http://localhost:8080/",
+ "servicePath": "users/v1/",
+ "parameters": {},
+ "schemas": {
+  "RegisterMessage": {
+   "id": "RegisterMessage",
+   "type": "object",
+   "properties": {
+    "email": {
+     "type": "string",
+     "required": true
+    },
+    "password": {
+     "type": "string",
+     "required": true
+    },
+    "name": {
+     "type": "string",
+     "required": true
+    }
+   }
+  },
+  "Response": {
+   "id": "Response",
+   "type": "object",
+   "properties": {
+    "status": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "data": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ },
+ "methods": {
+  "userRegister": {
+   "id": "UserService.userRegister",
+   "path": "register",
+   "httpMethod": "POST",
+   "parameters": {},
+   "parameterOrder": [],
+   "request": {
+    "$ref": "RegisterMessage"
+   },
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "userGetLogin": {
+   "id": "UserService.userGetLogin",
+   "path": "login",
+   "httpMethod": "GET",
+   "parameters": {},
+   "parameterOrder": [],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "userPostLogin": {
+   "id": "UserService.userPostLogin",
+   "path": "login",
+   "httpMethod": "POST",
+   "parameters": {},
+   "parameterOrder": [],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "userMe": {
+   "id": "UserService.userMe",
+   "path": "me",
+   "httpMethod": "GET",
+   "parameters": {},
+   "parameterOrder": [],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "userLgout": {
+   "id": "UserService.userLgout",
+   "path": "logout",
+   "httpMethod": "GET",
+   "parameters": {},
+   "parameterOrder": []
+  }
+ },
+ "resources": {}
+}

@@ -1,0 +1,271 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "f40dd5af56627e9737f364400bce24b4c160f2e0",
+ "discoveryVersion": "v1",
+ "id": "applications:v1",
+ "name": "applications",
+ "version": "v1",
+ "revision": "0",
+ "protocol": "rest",
+ "baseUrl": "http://localhost:8080/applications/v1/",
+ "basePath": "/applications/v1/",
+ "rootUrl": "http://localhost:8080/",
+ "servicePath": "applications/v1/",
+ "parameters": {},
+ "schemas": {
+  "CreateApplication": {
+   "id": "CreateApplication",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string",
+     "required": true
+    },
+    "description": {
+     "type": "string",
+     "required": true
+    },
+    "platform": {
+     "type": "string",
+     "required": true
+    }
+   }
+  },
+  "Response": {
+   "id": "Response",
+   "type": "object",
+   "properties": {
+    "status": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "data": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "ResponseList": {
+   "id": "ResponseList",
+   "type": "object",
+   "properties": {
+    "status": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "list": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "UpdateApplication": {
+   "id": "UpdateApplication",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "description": {
+     "type": "string"
+    },
+    "platform": {
+     "type": "string"
+    }
+   }
+  },
+  "AddAdminUserMessage": {
+   "id": "AddAdminUserMessage",
+   "type": "object",
+   "properties": {
+    "email": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "methods": {
+  "createApplication": {
+   "id": "ApplicationService.createApplication",
+   "path": "create",
+   "httpMethod": "POST",
+   "parameters": {},
+   "parameterOrder": [],
+   "request": {
+    "$ref": "CreateApplication"
+   },
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "allApplications": {
+   "id": "ApplicationService.allApplications",
+   "path": "search",
+   "httpMethod": "GET",
+   "parameters": {
+    "platform": {
+     "type": "string",
+     "description": "Query parameter: 'platform'.",
+     "required": false,
+     "location": "query"
+    }
+   },
+   "parameterOrder": [],
+   "response": {
+    "$ref": "ResponseList"
+   }
+  },
+  "applicationDetail": {
+   "id": "ApplicationService.applicationDetail",
+   "path": "app/{appId}",
+   "httpMethod": "GET",
+   "parameters": {
+    "appId": {
+     "type": "string",
+     "description": "Path parameter: 'appId'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "appId"
+   ],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "updateApplication": {
+   "id": "ApplicationService.updateApplication",
+   "path": "app/{appId}",
+   "httpMethod": "PUT",
+   "parameters": {
+    "appId": {
+     "type": "string",
+     "description": "Path parameter: 'appId'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "appId"
+   ],
+   "request": {
+    "$ref": "UpdateApplication"
+   },
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "deleteApplication": {
+   "id": "ApplicationService.deleteApplication",
+   "path": "app/{appId}",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "appId": {
+     "type": "string",
+     "description": "Path parameter: 'appId'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "appId"
+   ],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "addAdminUserApplication": {
+   "id": "ApplicationService.addAdminUserApplication",
+   "path": "app/{appId}/adminUser",
+   "httpMethod": "PUT",
+   "parameters": {
+    "appId": {
+     "type": "string",
+     "description": "Path parameter: 'appId'.",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "appId"
+   ],
+   "request": {
+    "$ref": "AddAdminUserMessage"
+   },
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "deleteAdminUserApplication": {
+   "id": "ApplicationService.deleteAdminUserApplication",
+   "path": "app/{appId}/adminUser",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "appId": {
+     "type": "string",
+     "description": "Path parameter: 'appId'.",
+     "required": true,
+     "location": "path"
+    },
+    "adminEmail": {
+     "type": "string",
+     "description": "Query parameter: 'adminEmail'.",
+     "required": false,
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "appId"
+   ],
+   "response": {
+    "$ref": "Response"
+   }
+  },
+  "getApplicationVersions": {
+   "id": "ApplicationService.getApplicationVersions",
+   "path": "app/{appId}/versions",
+   "httpMethod": "GET",
+   "parameters": {
+    "appId": {
+     "type": "string",
+     "description": "Path parameter: 'appId'.",
+     "required": true,
+     "location": "path"
+    },
+    "pageIndex": {
+     "type": "integer",
+     "description": "Query parameter: 'pageIndex'.",
+     "required": false,
+     "location": "query"
+    },
+    "limitPerPage": {
+     "type": "integer",
+     "description": "Query parameter: 'limitPerPage'.",
+     "required": false,
+     "location": "query"
+    },
+    "branch": {
+     "type": "string",
+     "description": "Query parameter: 'branch'.",
+     "required": false,
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "appId"
+   ],
+   "response": {
+    "$ref": "Response"
+   }
+  }
+ },
+ "resources": {}
+}
