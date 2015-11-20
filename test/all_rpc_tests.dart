@@ -9,11 +9,16 @@ import 'rpc/rpc_commons.dart';
 import '../bin/server.dart' as server;
 
 void main()  {
+
   //start server
   HttpServer httpServer = null;
 
   test("start server", () async {
     httpServer =  await server.startServer();
+  });
+
+  test ("Clean database", ()async {
+    await objectory.dropCollections();
   });
 
   test("configure values", () async {
