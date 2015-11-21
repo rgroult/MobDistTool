@@ -93,7 +93,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   server.then((server) =>  print('Listening at port ${server.port}.'));
 //  print('Listening at port ${await server.port}.');
 
-  return server;
+  return new Future.value(server);
+  //return server;
   //return new Future(server;
 }
 
