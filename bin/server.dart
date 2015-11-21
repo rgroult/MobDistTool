@@ -39,7 +39,7 @@ const _LOGIN_PREFIX = _API_PREFIX+'/users';
 final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: true);
 //final ApiServer _statelessApiServer = new ApiServer(apiPrefix: _STATELESS_PREFIX, prettyPrint: true);
 
-Future<HttpServer> startServer() async {
+Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   // Add a simple log handler to log information to a server side file.
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen(new SyncFileLoggingHandler('myLogFile.txt'));
@@ -47,6 +47,11 @@ Future<HttpServer> startServer() async {
     Logger.root.onRecord.listen(new LogPrintHandler());
   }
   await mongo.initialize();
+  if (resetDatabaseContent == true) {
+    print ('reseting database content...');
+    await mongo.resetDatabaseContent();
+    print ('reseting database content... Done');
+  }
 
   //_apiServer.addApi(new ToyApi());
   _apiServer.addApi(new UserService());

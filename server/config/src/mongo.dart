@@ -19,3 +19,6 @@ Db mongoDb = null;
  // return await mongoDb.open();
 }
 
+Future resetDatabaseContent() async {
+ return objectory.dropCollections();
+}

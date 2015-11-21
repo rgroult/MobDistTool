@@ -15,13 +15,14 @@ void main()  {
   HttpServer httpServer = null;
 
   test("start server", () async {
-    httpServer =  await server.startServer();
-  });
+    httpServer =  await server.startServer(resetDatabaseContent:true);
 
+  });
+/*
   test ("Clean database", () async {
     await objectory.dropCollections();
   });
-
+*/
 
 
   test("configure values", () async {
