@@ -33,9 +33,13 @@ void main()  {
   users.allTests();
   apps.allTests();
 
-/*
-  test("stop server", () async {
+
+  test("stop server", ()  {
    // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
-    var result =  httpServer.close(force:true);
-  });*/
+    server.stopServer(force:true).then((_) => print('server stopped'));
+  });
+
+  test("close database", () async {
+    var value = await objectory.close();
+  });
 }

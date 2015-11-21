@@ -39,6 +39,12 @@ const _LOGIN_PREFIX = _API_PREFIX+'/users';
 final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: true);
 //final ApiServer _statelessApiServer = new ApiServer(apiPrefix: _STATELESS_PREFIX, prettyPrint: true);
 
+HttpServer httpServer;
+
+Future stopServer({bool force:false}) async {
+  await httpServer.close(force:true);
+}
+
 Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   // Add a simple log handler to log information to a server side file.
   Logger.root.level = Level.ALL;
@@ -85,8 +91,9 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
       .addHandler(apiRouter.handler);
 
   var server =  shelf_io.serve(handler, '0.0.0.0', 8080);
-  server.then((server) =>  print('Listening at port ${server.port}.'));
+  server.then((server) { print('Listening at port ${server.port}.');httpServer=server;});
 //  print('Listening at port ${await server.port}.');
+
 
   return new Future.value(server);
   //return server;
