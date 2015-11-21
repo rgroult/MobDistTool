@@ -46,12 +46,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   if (stdout.hasTerminal) {
     Logger.root.onRecord.listen(new LogPrintHandler());
   }
-  await mongo.initialize();
-  if (resetDatabaseContent == true) {
-    print ('reseting database content...');
-    await mongo.resetDatabaseContent();
-    print ('reseting database content... Done');
-  }
+  await mongo.initialize(dropCollectionOnStartup:resetDatabaseContent);
 
   //_apiServer.addApi(new ToyApi());
   _apiServer.addApi(new UserService());
