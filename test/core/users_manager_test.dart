@@ -34,13 +34,16 @@ void allTests()  {
     });
 
     test("Create user", () async {
-      var user =  mdt_mgr.createUser(name, email, password);
+      var user =  await mdt_mgr.createUser(name, email, password);
       expect(user, isNotNull);
+      expect(user.name, equals(name));
+      expect(user.email, equals(email));
+      expect(user.password, equals(password));
     });
 
     test("Create same user", () async {
       //try to create same user
-      var sameUser =  mdt_mgr.createUser(name, email, password);
+      var sameUser = mdt_mgr.createUser(name, email, password);
       expect(sameUser, throwsStateError);
     });
 
