@@ -9,6 +9,7 @@ Db mongoDb = null;
 
  Future initialize() async {
   if (objectory != null) {
+   await objectory.ensureInitialized();
     return new Future.value(null);
   }
   //mongoDb =  new Db("mongodb://localhost:27017/mdt_dev");
@@ -20,5 +21,6 @@ Db mongoDb = null;
 }
 
 Future resetDatabaseContent() async {
+ await objectory.ensureInitialized();
  return objectory.dropCollections();
 }
