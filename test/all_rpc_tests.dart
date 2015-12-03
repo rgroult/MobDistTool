@@ -7,10 +7,18 @@ import 'rpc/user_service_test.dart' as users;
 import 'rpc/app_service_test.dart' as apps;
 import 'rpc/rpc_commons.dart';
 import '../bin/server.dart' as server;
-import 'package:objectory/objectory_console.dart';
+import '../server/config/src/mongo.dart' as mongo;
 
 void main()  {
 
+  allTests();
+
+  test("close database", ()  {
+     mongo.close();
+  });
+}
+
+void allTests() {
   //start server
   HttpServer httpServer = null;
 
@@ -35,11 +43,7 @@ void main()  {
 
 
   test("stop server", ()  {
-   // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
+    // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
     server.stopServer(force:true).then((_) => print('server stopped'));
-  });
-
-  test("close database", () async {
-    var value = await objectory.close();
   });
 }

@@ -17,9 +17,6 @@ void main() {
 }
 
 void allTests()  {
-  test ("Clean database", ()async {
-    await objectory.dropCollections();
-  });
   group ("User", () {
     var email = 'test@test.com';
     var password = 'password';
