@@ -8,12 +8,14 @@ Db mongoDb = null;
 //Objectory globalObjectory = nil;
 
  Future initialize({bool dropCollectionOnStartup:false}) async {
+  print("mongo initialize $objectory");
   if (objectory != null) {
-   await objectory.ensureInitialized();
+   return objectory.ensureInitialized();
     return new Future.value(null);
   }
   //mongoDb =  new Db("mongodb://localhost:27017/mdt_dev");
   const Uri = "mongodb://localhost:27017/mdt_dev";
+  //const Uri = "mongodb://192.168.99.100:32768";
   objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,true);
   if (dropCollectionOnStartup == true) {
   objectory.dropCollectionsOnStartup = true;
@@ -21,4 +23,9 @@ Db mongoDb = null;
   //globalObjectory = objectory;
   return objectory.initDomainModel();
  // return await mongoDb.open();
+}
+
+void close() {
+ objectory.close();
+ objectory=null;
 }
