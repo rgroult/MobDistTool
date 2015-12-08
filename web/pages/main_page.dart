@@ -1,6 +1,46 @@
 import 'package:angular/angular.dart';
+import 'package:angular_ui/angular_ui.dart';
 import 'dart:convert';
 import 'dart:html';
+
+
+@Component(
+  selector: 'register_comp',
+  templateUrl: 'Users/register.html',
+  exportExpressions: const ["registerUser", "displayRegisterPopup"],
+  useShadowDom: false
+)
+class RegisterComponent implements ScopeAware {
+  String username;
+  String email;
+  String password;
+  MainComponent mainComp;
+  String backdrop = 'true';
+
+  void registerUser(String email, String password,String username) async {
+    String url = "${mdtServerUrl}/api/users/v1/register";
+    var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
+    var response =  await mainComp.sendRequest(_http,'POST', url, body:JSON.encode(userRegistration));
+    if (response.status == 200){
+      querySelector('#registerModal').setAttribute('modal','hide');
+    }else{
+      displayErrorFromResponse(response);
+    }
+    print("response ${response}");
+
+  }
+
+  RegisterComponent(this.mainComp){
+    print("RegisterComponent created");
+  }
+  Scope scope;
+/*
+  ModalInstance getModalInstance() {
+    return modal.open(new ModalOptions(template:template, backdrop: backdrop), scope);
+  }*/
+
+
+}
 
 @Component(
     selector: 'main_comp',
@@ -15,7 +55,16 @@ class MainComponent implements ScopeAware {
   var lastAuthorizationHeader = '';
 
   Modal modal;
+  ModalInstance modalInstance;
   Scope scope;
+  String backdrop = 'true';
+
+  void displayRegisterPopup(){
+
+  modalInstance = modal.open(new ModalOptions(template:"<register_comp></register_comp>", backdrop: backdrop), scope);
+   // modalInstance = modal.open(new ModalOptions(templateUrl:'pages/Users/register.html', backdrop: backdrop), scope);
+  }
+
 
   Map allHeaders({String contentType}){
     var requestContentType = contentType!=null ? contentType : 'application/json; charset=utf-8';
@@ -28,7 +77,7 @@ class MainComponent implements ScopeAware {
     return initialHeaders;
   }
 
-  MainComponent(this._http){
+  MainComponent(this._http,this.modal){
     print("Main component created $this");
   }
 

@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:logging/logging.dart';
 import 'package:angular/application_factory.dart';
+import 'package:angular_ui/angular_ui.dart';
 import 'dart:async';
 import 'pages/users_list.dart';
 import 'pages/apps_list.dart';
@@ -57,6 +58,7 @@ class MDTAppModule extends Module {
     bind(TestComponent);
     bind(TestSiblingComponent);
     bind(MainComponent);
+    bind(RegisterComponent);
     bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));
   }
 }
@@ -67,6 +69,7 @@ void main() {
 
   print("main");
   applicationFactory()
+  .addModule(new AngularUIModule())
   .addModule(new MDTAppModule())
   .rootContextType(globalComponent)
   .run();
