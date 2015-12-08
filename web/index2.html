@@ -1,0 +1,87 @@
+<html ng-app>
+
+<head>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
+    <link href="css/roboto.min.css" rel="stylesheet">
+    <link href="css/material.min.css" rel="stylesheet">
+    <link href="css/ripples.min.css" rel="stylesheet">
+    <link href="mdt.css" rel="stylesheet">
+
+    <script src="packages/web_components/webcomponents.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>
+
+</head>
+<body>
+<main_comp>
+
+
+</main_comp>
+<test_comp>
+    </test_comp>
+
+
+<test_sibling_comp>
+  <!--  <div class="col-lg-12">
+        <div class="bs-component">
+            <div class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-responsive-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="javascript:void(0)">MDT
+                        <div class="ripple-wrapper"></div>
+                    </a>
+                </div>
+                <div class="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#loginModal" data-toggle="modal">Login</a></li>
+                        <li><a href="#registerModal" data-toggle="modal">Register</a></li>
+                        <li class="dropdown">
+                            <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               aria-expanded="false">Account <b class="caret"></b>
+
+                                <div class="ripple-wrapper"></div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)">Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:void(0)">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> -->
+ <!--   <test_comp>
+        <h1>TEST H1</h1>
+    </test_comp> -->
+</test_sibling_comp>
+
+
+<div id="pageContent" class="col-lg-12">
+    <ng-view></ng-view>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script src="js/ripples.min.js"></script>
+<script src="js/material.min.js"></script>
+<script type="application/dart" src="mdt.dart"></script>
+<script src="packages/browser/dart.js"></script>
+<script>
+    $(document).ready(function () {
+        // This command is used to initialize some elements and make them work properly
+        $.material.init();
+    });
+</script>
+
+</body>
+
+</html>

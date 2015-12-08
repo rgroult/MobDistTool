@@ -1,18 +1,3 @@
-<html ng-app>
-
-<head>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
-    <link href="css/roboto.min.css" rel="stylesheet">
-    <link href="css/material.min.css" rel="stylesheet">
-    <link href="css/ripples.min.css" rel="stylesheet">
-    <link href="mdt.css" rel="stylesheet">
-
-    <script src="packages/web_components/webcomponents.js"></script>
-    <script src="packages/web_components/dart_support.js"></script>
-
-</head>
-<body>
 <div class="col-lg-12">
     <div class="bs-component">
         <div class="navbar navbar-default">
@@ -50,20 +35,9 @@
     </div>
 </div>
 
-<div class="col-lg-12">
-    <ul class="breadcrumb" style="margin-bottom: 5px;">
-        <li><a href="#/home">Home</a></li>
-        <li><a href="#/apps">Applications</a></li>
-        <li class="active">Data</li>
-    </ul>
-</div>
-
 <div id="pageContent" class="col-lg-12">
     <ng-view></ng-view>
 </div>
-
-<test_comp>
-    </test_comp>
 
 <div class="row">
     <div id="loginModal" class="modal fade" >
@@ -77,7 +51,7 @@
                                 <label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
                                 <div class="col-lg-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="email">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -85,7 +59,7 @@
 
                                 <div class="col-lg-10">
                                     <input type="password" class="form-control" id="inputPassword"
-                                           placeholder="Password">
+                                           placeholder="Password" ng-model="password">
                                 </div>
                             </div>
                         </fieldset>
@@ -93,7 +67,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="testUser()" class="btn btn-primary">Login</button>
+                    <button type="button" ng-click="login()" class="btn btn-primary">Login</button>
                 </div>
             </div>
         </div>
@@ -109,14 +83,14 @@
                                 <label for="inputUsername" class="col-lg-2 control-label">User Name</label>
 
                                 <div class="col-lg-10">
-                                    <input type="email" class="form-control" id="inputUsername" placeholder="Username">
+                                    <input type="email" class="form-control" id="inputUsername" placeholder="Username" ng-model="username">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
                                 <div class="col-lg-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email"  ng-model="email">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -124,7 +98,7 @@
 
                                 <div class="col-lg-10">
                                     <input type="password" class="form-control" id="inputPassword"
-                                           placeholder="Password">
+                                           placeholder="Password"  ng-model="password">
                                 </div>
                             </div>
                         </fieldset>
@@ -132,78 +106,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Register</button>
+                    <button type="button" class="btn btn-primary" ng-click="register()" >Register</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h3 class="panel-title">Panel success</h3>
-        </div>
-        <div class="panel-body">
-            Panel content
-        </div>
-    </div>
 </div>
-
-
-<!--
-<div id="adminUsers" class="isSysAdmin">
-
-</div>
-
-<div id="applicationList" class="isConnected">
-
-</div>
-
-<div id="artifactList" class="isConnected">
-
-</div>
-
-Your site -->
-
-<div class="alert alert-dismissable alert-warning">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <h4>Warning!</h4>
-
-    <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo
-        cursus magna, <a href="javascript:void(0)" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
-</div>
-
-<h1>You can add your site here.</h1>
-
-<h2>To ensure that material-design theme is working, check out the buttons below.</h2>
-
-<h3 class="text-muted">If you can see the ripple effect on clicking them, then you are good to go!</h3>
-
-
-<p class="bs-component">
-    <a href="javascript:void(0)" class="btn btn-default">Default</a>
-    <a href="javascript:void(0)" class="btn btn-primary">Primary</a>
-    <a href="javascript:void(0)" class="btn btn-success">Success</a>
-    <a href="javascript:void(0)" class="btn btn-info">Info</a>
-    <a href="javascript:void(0)" class="btn btn-warning">Warning</a>
-    <a href="javascript:void(0)" class="btn btn-danger">Danger</a>
-    <a href="javascript:void(0)" class="btn btn-link">Link</a>
-</p>
-
-<!-- Your site ends -->
-
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<script src="js/ripples.min.js"></script>
-<script src="js/material.min.js"></script>
-<script type="application/dart" src="main.dart"></script>
-<script src="packages/browser/dart.js"></script>
-<script>
-    $(document).ready(function () {
-        // This command is used to initialize some elements and make them work properly
-        $.material.init();
-    });
-</script>
-
-</body>
-
-</html>

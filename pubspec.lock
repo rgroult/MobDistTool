@@ -8,7 +8,7 @@ packages:
   analyzer:
     description: analyzer
     source: hosted
-    version: "0.26.2+1"
+    version: "0.26.3"
   angular:
     description: angular
     source: hosted
@@ -64,7 +64,7 @@ packages:
   console_log_handler:
     description: console_log_handler
     source: hosted
-    version: "0.1.4"
+    version: "0.2.1"
   convert:
     description: convert
     source: hosted
@@ -113,6 +113,10 @@ packages:
     description: googleapis_beta
     source: hosted
     version: "0.19.1"
+  hammock:
+    description: hammock
+    source: hosted
+    version: "0.4.0"
   html:
     description: html
     source: hosted
@@ -168,7 +172,7 @@ packages:
   mongo_dart:
     description:
       ref: null
-      resolved-ref: "3899a9853554f464530c9309f96477a19d804997"
+      resolved-ref: "3a43f4e0dd19a6fa9e2dffad772ea624a017e359"
       url: "https://github.com/vadimtsushko/mongo_dart.git"
     source: git
     version: "0.2.5-beta"
@@ -183,10 +187,10 @@ packages:
   objectory:
     description:
       ref: master
-      resolved-ref: ccd7a9b0c04d8e0e0c02543e555920c7fd78381d
+      resolved-ref: eaf5725cebec04249f7989b56be2007b5b423693
       url: "git://github.com/vadimtsushko/objectory.git"
     source: git
-    version: "0.4.3-dev"
+    version: "0.4.4-dev"
   observe:
     description: observe
     source: hosted
@@ -202,7 +206,7 @@ packages:
   path:
     description: path
     source: hosted
-    version: "1.3.6"
+    version: "1.3.9"
   perf_api:
     description: perf_api
     source: hosted
@@ -238,7 +242,7 @@ packages:
   shelf:
     description: shelf
     source: hosted
-    version: "0.6.4+1"
+    version: "0.6.4+2"
   shelf_auth:
     description: shelf_auth
     source: hosted
@@ -298,7 +302,7 @@ packages:
   test:
     description: test
     source: hosted
-    version: "0.12.5+1"
+    version: "0.12.6"
   typed_data:
     description: typed_data
     source: hosted
