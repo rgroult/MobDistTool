@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   angular: any
+  angular_ui: any
   web_components: "0.10.1"
   browser: any
   objectory:

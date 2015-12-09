@@ -52,10 +52,10 @@ Future<MDTUser> createUser(String name, String email, String password,
     {bool isSystemAdmin: false}) async {
   if (email == null || email.isEmpty) {
     //return new Future.error(new StateError("bad state"));
-    throw new UserError('email must be not null');
+    throw new UserError('email must be not null or empty');
   }
   if (password == null || password.isEmpty) {
-    throw new UserError('password must be not null');
+    throw new UserError('password must be not null or empty');
   }
   //find another user
   var existingUser = await userCollection.findOne(where.eq('email', email));

@@ -13,6 +13,10 @@ packages:
     description: angular
     source: hosted
     version: "1.1.2+2"
+  angular_ui:
+    description: angular_ui
+    source: hosted
+    version: "0.6.11"
   args:
     description: args
     source: hosted

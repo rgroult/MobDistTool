@@ -32,7 +32,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="registerUser(username,email,password)" >Register</button>
+                    <loading_comp ng-if="isHttpLoading" >  </loading_comp>
+                    <button ng-unless="isHttpLoading" type="button" class="btn btn-primary" ng-click="registerUser(username,email,password)" >Register</button>
+
+                    <div collapse="isCollapsed" class="modal-footer">
+                        <div class="well well-large">{{ message }}</div>
+                    </div>
                 </div>
             </div>
         </div>

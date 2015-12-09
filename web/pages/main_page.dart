@@ -7,31 +7,36 @@ import 'dart:html';
 @Component(
   selector: 'register_comp',
   templateUrl: 'Users/register.html',
-  exportExpressions: const ["registerUser", "displayRegisterPopup"],
+  exportExpressions: const ["registerUser", "displayRegisterPopup","isHttpLoading","isCollapsed"],
   useShadowDom: false
 )
 class RegisterComponent implements ScopeAware {
-  String username;
-  String email;
-  String password;
+  String username ="";
+  String email="";
+  String password="";
   MainComponent mainComp;
   String backdrop = 'true';
+  //@NgTwoWay('isHttpLoading')
+  bool isHttpLoading = false;
+  @NgTwoWay('isCollapsed')
+  bool isCollapsed = true;
+  String message ="mesage";
 
-  void registerUser(String email, String password,String username) async {
-    String url = "${mdtServerUrl}/api/users/v1/register";
+  void registerUser(String username,String email, String password) async {
+    print("register ${scope.rootScope.context.globalValue}");
+    String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/register";
     var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
-    var response =  await mainComp.sendRequest(_http,'POST', url, body:JSON.encode(userRegistration));
+    isHttpLoading = true;
+    var response =  await mainComp.sendRequest('POST', url, body:JSON.encode(userRegistration));
+    message = response.responseText;
+    isCollapsed = false;
     if (response.status == 200){
-      querySelector('#registerModal').setAttribute('modal','hide');
-    }else{
-      displayErrorFromResponse(response);
+      message = "Registration completed :${response.responseText[data]}";
     }
-    print("response ${response}");
-
   }
 
   RegisterComponent(this.mainComp){
-    print("RegisterComponent created");
+    print("RegisterComponent created: ");
   }
   Scope scope;
 /*
@@ -47,7 +52,7 @@ class RegisterComponent implements ScopeAware {
     templateUrl: 'main_page.html',
     useShadowDom: false)
 class MainComponent implements ScopeAware {
-  String mdtServerUrl = "http://localhost:8080";
+  //String mdtServerUrl = "http://localhost:8080";
   String email;
   String username;
   String password;
@@ -60,8 +65,7 @@ class MainComponent implements ScopeAware {
   String backdrop = 'true';
 
   void displayRegisterPopup(){
-
-  modalInstance = modal.open(new ModalOptions(template:"<register_comp></register_comp>", backdrop: backdrop), scope);
+    modalInstance = modal.open(new ModalOptions(template:"<register_comp></register_comp>", backdrop: backdrop), scope);
    // modalInstance = modal.open(new ModalOptions(templateUrl:'pages/Users/register.html', backdrop: backdrop), scope);
   }
 
@@ -84,7 +88,7 @@ class MainComponent implements ScopeAware {
   displayErrorFromResponse(HttpResponse response){
 
   }
-
+/*
   login() async{
     print("login : $username , password $password");
     await loginUser(username,password);
@@ -113,9 +117,10 @@ class MainComponent implements ScopeAware {
     var response =  await sendRequest(_http,'POST', '${mdtServerUrl}/api/users/v1/login', body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
     print("response ${response.body}");
   }
-
-  Future<http.Response> sendRequest(Http http,String method, String url, {String query, String body,String contentType}) {
+*/
+  http.Response sendRequest(String method, String url, {String query, String body,String contentType}) async {
     //var url = '$baseUrlHost$path';
+    Http http = this._http;
     if (query != null){
       url = '$url$query';
     }
@@ -124,15 +129,20 @@ class MainComponent implements ScopeAware {
     if (body ==null) {
       httpBody ='';
     }
+    try{
     switch (method) {
       case 'GET':
-        return http.get(url,headers:allHeaders(contentType:contentType));
+        return await http.get(url,headers:allHeaders(contentType:contentType));
       case 'POST':
-        return http.post(url,httpBody,headers:headers);
+        return await http.post(url,httpBody,headers:headers);
       case 'PUT':
-        return http.put(url,httpBody,headers:headers);
+        return await http.put(url,httpBody,headers:headers);
       case 'DELETE':
-        return http.delete(url,headers:headers);
+        return await http.delete(url,headers:headers);
+    }
+    } catch (e) {
+      print("error $e");
+      return e;
     }
     return null;
   }

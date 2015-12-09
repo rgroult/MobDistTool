@@ -37,12 +37,27 @@ class TestSiblingComponent {
   }
 }
 
+@Component(
+    selector: 'loading_comp',
+    template:'<div><h1>Loading...</h1></div>'
+)
+class LoadingComponent {
+  LoadingComponent(){
+  }
+}
+
+
 @Injectable(
 )
 class globalComponent {
   final Http _http;
+  Boolean isUserConnected = false;
+  Boolean isHttpLoading = false;
+  Map currentUser = null;
   String currentAuthenticationHeader;
   String globalValue = "globalValue";
+  final String mdtServerUrl = "http://localhost:8080/";
+  final String mdtServerApiRootUrl = "http://localhost:8080/api";
 
   void testfunc(){
     print("testfunc");
@@ -53,7 +68,7 @@ class globalComponent {
 }
 
 class MDTAppModule extends Module {
-  final String mdtServerUrl = "http://localhost:8080/";
+
   MDTAppModule() {
     bind(TestComponent);
     bind(TestSiblingComponent);
