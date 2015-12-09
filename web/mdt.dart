@@ -74,6 +74,7 @@ class MDTAppModule extends Module {
     bind(TestSiblingComponent);
     bind(MainComponent);
     bind(RegisterComponent);
+    bind(LoginComponent);
     bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));
   }
 }

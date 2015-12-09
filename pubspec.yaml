@@ -23,6 +23,7 @@ dependencies:
   shelf_rpc: "^0.0.3+2"
   shelf_route: ">0.13.0"
   shelf_auth: "^0.7.0"
+  shelf_cors: "^0.2.1"
   logging_handlers: "^0.8.0"
   shelf_exception_handler: "^0.1.0"
   option: "^1.1.0"

@@ -251,6 +251,10 @@ packages:
     description: shelf_auth
     source: hosted
     version: "0.7.0"
+  shelf_cors:
+    description: shelf_cors
+    source: hosted
+    version: "0.2.1"
   shelf_exception_handler:
     description: shelf_exception_handler
     source: hosted

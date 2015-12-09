@@ -12,6 +12,7 @@ import 'package:rpc/rpc.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_rpc/shelf_rpc.dart' as shelf_rpc;
 import 'package:shelf_route/shelf_route.dart' as shelf_route;
+import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
 import 'package:shelf_exception_handler/shelf_exception_handler.dart';
 //authentication / authorisation
 import 'package:shelf_auth/shelf_auth.dart';
@@ -86,6 +87,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
       ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
   var handler = const shelf.Pipeline()
+      .addMiddleware(shelf_cors.createCorsHeadersMiddleware())
       .addMiddleware(exceptionHandler())
       .addMiddleware(shelf.logRequests())
       .addHandler(apiRouter.handler);

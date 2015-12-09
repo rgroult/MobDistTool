@@ -5,6 +5,49 @@ import 'dart:html';
 
 
 @Component(
+    selector: 'login_comp',
+    templateUrl: 'Users/login.html',
+    useShadowDom: false
+)
+class LoginComponent implements ScopeAware {
+  String email="";
+  String password="";
+
+  String backdrop = 'true';
+  //@NgTwoWay('isHttpLoading')
+  bool isHttpLoading = false;
+  @NgTwoWay('isCollapsed')
+  bool isCollapsed = true;
+  String errorMessage ="message";
+  Scope scope;
+
+  MainComponent mainComp(){
+    return scope.parentScope.context;
+  }
+
+  void loginUser(String email, String password) async {
+    String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/login";
+    var userLogin = {"email":"$email", "password":"$password"};
+    isHttpLoading = true;
+    var response =  await mainComp().sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
+    isCollapsed = false;
+    if (response.status == 200){
+      //hide popup
+      scope.rootScope.context.isUserConnected= true;
+      scope.rootScope.context.currentUser = response.responseText["data"];
+      mainComp.hidePopup();
+    }else {
+      errorMessage = "Login failed :${response.responseText}";
+    }
+  }
+
+  LoginComponent(){
+    print("LoginComponent created: ");
+   // mainComp = scope.parentScope.context;
+  }
+}
+
+@Component(
   selector: 'register_comp',
   templateUrl: 'Users/register.html',
   exportExpressions: const ["registerUser", "displayRegisterPopup","isHttpLoading","isCollapsed"],
@@ -14,37 +57,33 @@ class RegisterComponent implements ScopeAware {
   String username ="";
   String email="";
   String password="";
-  MainComponent mainComp;
   String backdrop = 'true';
   //@NgTwoWay('isHttpLoading')
   bool isHttpLoading = false;
   @NgTwoWay('isCollapsed')
   bool isCollapsed = true;
   String message ="mesage";
+  Scope scope;
+
+  MainComponent mainComp(){
+    return scope.parentScope.context;
+  }
 
   void registerUser(String username,String email, String password) async {
     print("register ${scope.rootScope.context.globalValue}");
     String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/register";
     var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
     isHttpLoading = true;
-    var response =  await mainComp.sendRequest('POST', url, body:JSON.encode(userRegistration));
-    message = response.responseText;
+    var response =  await mainComp().sendRequest('POST', url, body:JSON.encode(userRegistration));
     isCollapsed = false;
     if (response.status == 200){
-      message = "Registration completed :${response.responseText[data]}";
+      message = "Registration completed :${response.responseText["data"]}";
     }
   }
 
-  RegisterComponent(this.mainComp){
+  RegisterComponent(){
     print("RegisterComponent created: ");
   }
-  Scope scope;
-/*
-  ModalInstance getModalInstance() {
-    return modal.open(new ModalOptions(template:template, backdrop: backdrop), scope);
-  }*/
-
-
 }
 
 @Component(
@@ -65,8 +104,21 @@ class MainComponent implements ScopeAware {
   String backdrop = 'true';
 
   void displayRegisterPopup(){
-    modalInstance = modal.open(new ModalOptions(template:"<register_comp></register_comp>", backdrop: backdrop), scope);
-   // modalInstance = modal.open(new ModalOptions(templateUrl:'pages/Users/register.html', backdrop: backdrop), scope);
+    displayPopup("<register_comp></register_comp>");
+    //modalInstance = modal.open(new ModalOptions(template:, backdrop: backdrop), scope);
+  }
+  void displayLoginPopup(){
+    displayPopup("<login_comp></login_comp>");
+    //modalInstance = modal.open(new ModalOptions(template:, backdrop: backdrop), scope);
+  }
+
+
+  void displayPopup(String template){
+    modalInstance = modal.open(new ModalOptions(template:template, backdrop: backdrop),scope);
+  }
+
+  void hidePopup(){
+    modalInstance.hide();
   }
 
 
