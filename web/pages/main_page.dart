@@ -2,14 +2,14 @@ import 'package:angular/angular.dart';
 import 'package:angular_ui/angular_ui.dart';
 import 'dart:convert';
 import 'dart:html';
-
+import 'BaseComponents.dart';
 
 @Component(
     selector: 'login_comp',
     templateUrl: 'Users/login.html',
     useShadowDom: false
 )
-class LoginComponent implements ScopeAware {
+class LoginComponent extends BaseComponent {
   String email="";
   String password="";
 
@@ -19,29 +19,29 @@ class LoginComponent implements ScopeAware {
   @NgTwoWay('isCollapsed')
   bool isCollapsed = true;
   String errorMessage ="message";
-  Scope scope;
-
-  MainComponent mainComp(){
-    return scope.parentScope.context;
-  }
+  NgRoutingHelper locationService;
 
   void loginUser(String email, String password) async {
     String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/login";
     var userLogin = {"email":"$email", "password":"$password"};
     isHttpLoading = true;
     var response =  await mainComp().sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
-    isCollapsed = false;
     if (response.status == 200){
       //hide popup
-      scope.rootScope.context.isUserConnected= true;
-      scope.rootScope.context.currentUser = response.responseText["data"];
-      mainComp.hidePopup();
+      mainComp().isUserConnected= true;
+      mainComp().currentUser = response.responseText["data"];
+      mainComp().hidePopup();
+      locationService.router.go('apps',{});
+    }else  if (response.status == 401){
+      isCollapsed = false;
+      errorMessage = "Login failed, Bad login or password.";
     }else {
-      errorMessage = "Login failed :${response.responseText}";
+      isCollapsed = false;
+      errorMessage = "Login failed, Error :${response.responseText}";
     }
   }
 
-  LoginComponent(){
+  LoginComponent(this.locationService){
     print("LoginComponent created: ");
    // mainComp = scope.parentScope.context;
   }
@@ -53,21 +53,16 @@ class LoginComponent implements ScopeAware {
   exportExpressions: const ["registerUser", "displayRegisterPopup","isHttpLoading","isCollapsed"],
   useShadowDom: false
 )
-class RegisterComponent implements ScopeAware {
+class RegisterComponent extends BaseComponent  {
   String username ="";
   String email="";
   String password="";
   String backdrop = 'true';
   //@NgTwoWay('isHttpLoading')
-  bool isHttpLoading = false;
+  //bool isHttpLoading = false;
   @NgTwoWay('isCollapsed')
   bool isCollapsed = true;
   String message ="mesage";
-  Scope scope;
-
-  MainComponent mainComp(){
-    return scope.parentScope.context;
-  }
 
   void registerUser(String username,String email, String password) async {
     print("register ${scope.rootScope.context.globalValue}");
@@ -75,9 +70,12 @@ class RegisterComponent implements ScopeAware {
     var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
     isHttpLoading = true;
     var response =  await mainComp().sendRequest('POST', url, body:JSON.encode(userRegistration));
+    isHttpLoading = false;
     isCollapsed = false;
     if (response.status == 200){
       message = "Registration completed :${response.responseText["data"]}";
+    }else {
+      message = "Registration failed :${response.responseText}";
     }
   }
 
@@ -91,17 +89,16 @@ class RegisterComponent implements ScopeAware {
     templateUrl: 'main_page.html',
     useShadowDom: false)
 class MainComponent implements ScopeAware {
-  //String mdtServerUrl = "http://localhost:8080";
-  String email;
-  String username;
-  String password;
+  Boolean isUserConnected = false;
+  Boolean isHttpLoading = false;
+  Map currentUser = null;
   final Http _http;
   var lastAuthorizationHeader = '';
 
   Modal modal;
   ModalInstance modalInstance;
   Scope scope;
-  String backdrop = 'true';
+ // String backdrop = 'true';
 
   void displayRegisterPopup(){
     displayPopup("<register_comp></register_comp>");
@@ -109,22 +106,21 @@ class MainComponent implements ScopeAware {
   }
   void displayLoginPopup(){
     displayPopup("<login_comp></login_comp>");
-    //modalInstance = modal.open(new ModalOptions(template:, backdrop: backdrop), scope);
   }
 
 
   void displayPopup(String template){
-    modalInstance = modal.open(new ModalOptions(template:template, backdrop: backdrop),scope);
+    modalInstance = modal.open(new ModalOptions(template:template, backdrop: true),scope);
   }
 
   void hidePopup(){
-    modalInstance.hide();
+    modal.hide();
   }
 
 
   Map allHeaders({String contentType}){
     var requestContentType = contentType!=null ? contentType : 'application/json; charset=utf-8';
-    var initialHeaders = {"content-type": requestContentType,"accept":'application/json'};
+    var initialHeaders = {"content-type": requestContentType,"accept":'application/json'/*,"Access-Control-Allow-Headers":"*"*/};
     if (lastAuthorizationHeader.length > 0){
       initialHeaders['authorization'] = lastAuthorizationHeader;
     }else {
@@ -140,36 +136,7 @@ class MainComponent implements ScopeAware {
   displayErrorFromResponse(HttpResponse response){
 
   }
-/*
-  login() async{
-    print("login : $username , password $password");
-    await loginUser(username,password);
-  }
 
-  register() async{
-    await registerUser(email,password,username);
-  }
-
-  void registerUser(String email, String password,String username) async {
-    String url = "${mdtServerUrl}/api/users/v1/register";
-    var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
-    var response =  await sendRequest(_http,'POST', url, body:JSON.encode(userRegistration));
-    if (response.status == 200){
-      querySelector('#registerModal').setAttribute('modal','hide');
-    }else{
-      displayErrorFromResponse(response);
-    }
-    print("response ${response}");
-
-  }
-
-  void loginUser(String email, String password) async{
-    print("log user $email, $password");
-
-    var response =  await sendRequest(_http,'POST', '${mdtServerUrl}/api/users/v1/login', body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
-    print("response ${response.body}");
-  }
-*/
   http.Response sendRequest(String method, String url, {String query, String body,String contentType}) async {
     //var url = '$baseUrlHost$path';
     Http http = this._http;

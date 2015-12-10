@@ -13,9 +13,8 @@
                 </a>
             </div>
             <div class="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" data-toggle="modal" ng-click="displayLoginPopup()">Login</a></li>
-                    <li><a href="#" href1="#registerModal" ng-click="displayRegisterPopup()" data-toggle="modal">Register</a></li>
+                <ul ng-if="isUserConnected" class="nav navbar-nav navbar-right">
+                    <li class="navbar-brand">Welcome {{currentUser["email"]}}</li>
                     <li class="dropdown">
                         <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle"
                            data-toggle="dropdown"
@@ -30,6 +29,11 @@
                         </ul>
                     </li>
                 </ul>
+                <ul ng-unless="isUserConnected" class="nav navbar-nav navbar-right">
+                    <li><a href="#" data-toggle="modal" ng-click="displayLoginPopup()">Login</a></li>
+                    <li><a href="#" href1="#registerModal" ng-click="displayRegisterPopup()" data-toggle="modal">Register</a></li>
+
+                </ul>
             </div>
         </div>
     </div>
@@ -37,79 +41,4 @@
 
 <div id="pageContent" class="col-lg-12">
     <ng-view></ng-view>
-</div>
-
-<div class="row">
-
-    <div id="loginModal" class="modal fade" >
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form class="form-horizontal">
-                        <fieldset>
-                            <legend>Login</legend>
-                            <div class="form-group" >
-                                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-
-                                <div class="col-lg-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-
-                                <div class="col-lg-10">
-                                    <input type="password" class="form-control" id="inputPassword"
-                                           placeholder="Password" ng-model="password">
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="login()" class="btn btn-primary">Login</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="registerModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form class="form-horizontal">
-                        <fieldset>
-                            <legend>Register</legend>
-                            <div class="form-group">
-                                <label for="inputUsername" class="col-lg-2 control-label">User Name</label>
-
-                                <div class="col-lg-10">
-                                    <input type="email" class="form-control" id="inputUsername" placeholder="Username" ng-model="username">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-
-                                <div class="col-lg-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email"  ng-model="email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-
-                                <div class="col-lg-10">
-                                    <input type="password" class="form-control" id="inputPassword"
-                                           placeholder="Password"  ng-model="password">
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="register()" >Register</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

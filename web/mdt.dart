@@ -8,6 +8,26 @@ import 'pages/apps_list.dart';
 import 'pages/artifacts_list.dart';
 import 'pages/main_page.dart';
 
+void MDTRouteInitializer(Router router, RouteViewFactory views) {
+  print("views.configure");
+  views.configure({
+    'home': ngRoute(
+        path: '/home',
+        defaultRoute : true,
+        view: 'pages/home.html'),
+    'apps': ngRoute(
+        path: '/apps',
+        view: 'pages/apps_list.html',
+        mount: {
+          'artifacts': ngRoute(
+              path: '/:appId/artifacts',
+              view: 'pages/artifacts.html')}),
+    'users': ngRoute(
+        path: '/users',
+        view: 'pages/users.html')
+  });
+}
+
 @Component(
     selector: 'test_comp')
 class TestComponent {
@@ -16,18 +36,8 @@ class TestComponent {
     print("test component created $this");
   }
 }
-/*
-@Component(
-    selector: 'main_comp',
-    templateUrl: 'main.html',
-    useShadowDom: false)
-class MainComponent {
-  final Http _http;
-  MainComponent(this._http){
-    print("Main component created $this");
-  }
-}
-*/
+
+
 @Component(
     selector: 'test_sibling_comp')
 class TestSiblingComponent {
@@ -39,7 +49,7 @@ class TestSiblingComponent {
 
 @Component(
     selector: 'loading_comp',
-    template:'<div><h1>Loading...</h1></div>'
+    template:'<h2>Loading...</h2>'
 )
 class LoadingComponent {
   LoadingComponent(){
@@ -51,9 +61,6 @@ class LoadingComponent {
 )
 class globalComponent {
   final Http _http;
-  Boolean isUserConnected = false;
-  Boolean isHttpLoading = false;
-  Map currentUser = null;
   String currentAuthenticationHeader;
   String globalValue = "globalValue";
   final String mdtServerUrl = "http://localhost:8080/";
@@ -75,6 +82,8 @@ class MDTAppModule extends Module {
     bind(MainComponent);
     bind(RegisterComponent);
     bind(LoginComponent);
+    bind(LoadingComponent);
+    bind(RouteInitializerFn, toValue: MDTRouteInitializer);
     bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));
   }
 }
