@@ -5,15 +5,21 @@ import 'dart:html';
 //import 'dart:io' show Platform;
 import 'BaseComponents.dart';
 
+
 @Component(
     selector: 'apps_list',
     templateUrl: 'apps_list.html',
-    publishAs: 'AppsCtrl'
-)
+    publishAs: 'AppsCtrl',
+    useShadowDom: false)
 class ApplicationsComponent extends BaseComponent {
     var allApps = new List<MDTApplication>();
     ApplicationsComponent(){
+      print ("ApplicationsComponent created");
         loadAppList();
+    }
+
+    Boolean canAdminApp(MDTApplication app){
+      return (app == allApps[0]);
     }
 
     void loadAppList(){
@@ -31,6 +37,12 @@ class ApplicationsComponent extends BaseComponent {
       app2.description = "test App2";
       app2.name = "appName2";
       app2.platform = "Android";
+      allApps.add(app2);
+
+      allApps.add(app1);
+      allApps.add(app2);
+      allApps.add(app1);
+
       allApps.add(app2);
     }
 

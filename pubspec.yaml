@@ -34,6 +34,7 @@ transformers:
 - angular:
     html_files:
       - web/pages/home.html
-      - web/pages/apps.html
-      - web/pages/artifacts.html
+      - web/pages/apps_list.html
+      - web/pages/artifacts_list.html
+      - web/pages/main_page.html
 

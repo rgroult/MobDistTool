@@ -2,20 +2,28 @@
     <div class="jumbotron">
         <div class="container">
             <h1 class="">Applications </h1>
-            <button class="glyphicon glyphicon glyphicon-plus">Create Application</button>
+
             <div class="row">
-                <div class="col-xs-6 col-md-3">
-                    <img class="thumbnail" ng-repeat="app in AppsCtrl.allApps">
-                        <img src="" alt="Img.." />
-                        <h3>{{app.name}}</h3>
-                    </a>
+                <div class="col-md-6">
+                    <a type="button" class="btn btn-info glyphicon glyphicon glyphicon-plus">Create Application</a>
                 </div>
             </div>
 
-            <table>
-                <tr></tr>
-            </table>
-            <p>TO DO : List applications </p>
-        </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-3" ng-repeat="app in allApps">
+                    <div  class="thumbnail">
+                        <a href="#">
+                        <img  alt="100%x180" src="data:image/svg+xml;base64,P…vdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
+                        </a>
+                            <div class="caption">
+                            <h3>{{app.name}}</h3>
+                            <p>{{app.description}}</p>
+                            <a ng-if="canAdminApp(app)" href="#" class="btn btn-primary" role="button">Button</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <p>TO DO : List applications </p>
+    </div>
     </div>
 </div>
