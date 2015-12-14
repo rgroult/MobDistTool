@@ -2,7 +2,19 @@
     <div class="jumbotron">
         <div class="container">
             <h1 class="">Applications </h1>
+            <button class="glyphicon glyphicon glyphicon-plus">Create Application</button>
+            <div class="row">
+                <div class="col-xs-6 col-md-3">
+                    <img class="thumbnail" ng-repeat="app in AppsCtrl.allApps">
+                        <img src="" alt="Img.." />
+                        <h3>{{app.name}}</h3>
+                    </a>
+                </div>
+            </div>
 
+            <table>
+                <tr></tr>
+            </table>
             <p>TO DO : List applications </p>
         </div>
     </div>

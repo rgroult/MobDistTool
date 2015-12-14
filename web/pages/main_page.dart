@@ -37,7 +37,11 @@ class LoginComponent extends BaseComponent {
       errorMessage = "Login failed, Bad login or password.";
     }else {
       isCollapsed = false;
-      errorMessage = "Login failed, Error :${response.responseText}";
+      if (response.status == 0){
+        errorMessage = "Login failed, Error :${response}";
+      }else {
+        errorMessage = "Login failed, Error :${response.responseText}";
+      }
     }
   }
 
@@ -69,13 +73,18 @@ class RegisterComponent extends BaseComponent  {
     String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/register";
     var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
     isHttpLoading = true;
+    isCollapsed = true;
     var response =  await mainComp().sendRequest('POST', url, body:JSON.encode(userRegistration));
     isHttpLoading = false;
     isCollapsed = false;
     if (response.status == 200){
       message = "Registration completed :${response.responseText["data"]}";
     }else {
-      message = "Registration failed :${response.responseText}";
+      if (response.status == 0){
+        message = "Login failed, Error :${response}";
+      }else {
+        message = "Login failed, Error :${response.responseText}";
+      }
     }
   }
 
