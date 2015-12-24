@@ -12,14 +12,19 @@ import 'BaseComponents.dart';
     publishAs: 'AppsCtrl',
     useShadowDom: false)
 class ApplicationsComponent extends BaseComponent {
+    NgRoutingHelper locationService;
     var allApps = new List<MDTApplication>();
-    ApplicationsComponent(){
+    ApplicationsComponent(this.locationService){
       print ("ApplicationsComponent created");
         loadAppList();
     }
 
     Boolean canAdminApp(MDTApplication app){
       return (app == allApps[0]);
+    }
+
+    void appSelected(String appUUID){
+      locationService.router.go('apps.artifacts', {'appId': appUUID});
     }
 
     void loadAppList(){

@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-xs-6 col-md-3" ng-repeat="app in allApps">
                     <div  class="thumbnail">
-                        <a href="#">
+                        <a href="#/apps/{{app.uuid}}/artifacts">
                         <img  alt="100%x180" src="data:image/svg+xml;base64,P…vdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
                         </a>
                             <div class="caption">
@@ -24,6 +24,9 @@
                 </div>
             </div>
         <p>TO DO : List applications </p>
+            <div>
+            <ng-view></ng-view>
+            </div>
     </div>
     </div>
 </div>

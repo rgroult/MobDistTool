@@ -13,17 +13,19 @@ void MDTRouteInitializer(Router router, RouteViewFactory views) {
   views.configure({
     'home': ngRoute(
         path: '/home',
-
+        defaultRoute : true,
         view: 'pages/home.html'),
     'apps': ngRoute(
         path: '/apps',
-        defaultRoute : true,
+
         viewHtml: '<apps_list></apps_list>',
         //view: 'pages/apps_list.html',
         mount: {
           'artifacts': ngRoute(
               path: '/:appId/artifacts',
-              view: 'pages/artifacts.html')}),
+              viewHtml: '<artifacts_list></artifacts_list>'
+              //view: 'pages/artifacts_list.html'
+          )}),
     'users': ngRoute(
         path: '/users',
         view: 'pages/users.html')
@@ -86,6 +88,7 @@ class MDTAppModule extends Module {
     bind(LoginComponent);
     bind(LoadingComponent);
     bind(ApplicationsComponent);
+    bind(ArtifactsComponent);
     bind(RouteInitializerFn, toValue: MDTRouteInitializer);
     bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));
   }

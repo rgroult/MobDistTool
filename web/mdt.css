@@ -1,3 +1,17 @@
 .isSysAdmin { display: none;}
 .isAppAdmin { display: none;}
 .isConnected { display: none;}
+
+.row-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.truncated_text{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

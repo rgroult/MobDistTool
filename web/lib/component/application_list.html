@@ -1,0 +1,32 @@
+<div class="bs-component">
+    <div class="jumbotron">
+        <div ng-if="isApplicationSelected">
+            <ng-view></ng-view>
+        </div>
+        <div ng-unless="isApplicationSelected" class="container">
+            <h1 class="">Applications </h1>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <a type="button" class="btn btn-info glyphicon glyphicon glyphicon-plus">Create Application</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-md-3" ng-repeat="app in allApps">
+                    <div  class="thumbnail">
+                        <a href1="#/apps/{{app.uuid}}/artifacts" ng-click="appSelected(app.uuid)">
+                            <img  alt="100%x180" src="{{app.appIcon}}" data-holder-rendered="true" class="img-rounded">
+                        </a>
+                        <div class="caption">
+                            <h3 class="truncated_text">{{app.name}}</h3>
+                            <p class="truncated_text">{{app.description}}</p>
+                          <!--   <a ng-if="canAdminApp(app)" href="#" class="btn btn-primary" role="button">Button</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
