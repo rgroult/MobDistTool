@@ -66,7 +66,10 @@ class MDTArtifact{
     branch = map["branch"];
     name = map["name"];
     creationDate = map["creationDate"];
+    version = map["version"];
     sortIdentifier = map["sortIdentifier"];
-    metaDataTags = JSON.decode(map["metaDataTags"]);
+    if (metaDataTags != null) {
+      metaDataTags = JSON.decode(map["metaDataTags"]);
+    }
   }
 }

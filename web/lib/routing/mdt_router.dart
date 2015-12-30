@@ -9,13 +9,14 @@ void MDTRouteInitializer(Router router, RouteViewFactory views) {
         view: 'pages/home.html'),
     'apps': ngRoute(
         path: '/apps',
-        enter: showApplications,
         viewHtml: '<application_list></application_list>',
         //view: 'pages/apps_list.html',
         mount: {
           'artifacts': ngRoute(
               path: '/:appId/artifacts',
-              viewHtml: '<application_detail></application_detail>'
+              viewHtml: '<application_detail></application_detail>',
+              enter: (RouteEnterEvent e) =>
+                print(e)
           //view: 'pages/artifacts_list.html'
           )}),
     'users': ngRoute(

@@ -15,3 +15,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.appDetailIcon {
+    width: 128px;
+    height1: 128px;
+}

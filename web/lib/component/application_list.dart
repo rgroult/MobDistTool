@@ -11,9 +11,15 @@ class ApplicationListComponent extends BaseComponent  {
   var allApps = new List<MDTApplication>();
   var isApplicationSelected = false;
   NgRoutingHelper locationService;
-  ApplicationListComponent(this.locationService){
+  ApplicationListComponent(this.locationService,RouteProvider routeProvider){
     print ("ApplicationsComponent created");
     loadAppList();
+
+  /*  RouteHandle route = routeProvider.route.newHandle();
+    route.onEnter.listen((RouteEvent event) {
+      isApplicationSelected = false;
+    });*/
+
   }
 
   void showApplications(RouteEvent e) {
