@@ -9,7 +9,7 @@ Map propertiePerClass = {
   'MDTApplication' :  ['name','platform','lastVersion','adminUsers','uuid','description'],
   'admin_MDTApplication' :  ['apiKey'],
   //'MDTArtifact' : ['uuid','branch','name','creationDate','version','sortIdentifier','metaDataTags'],
-  'MDTArtifact' : ['uuid','branch','name','version','sortIdentifier','metaDataTags'],
+  'MDTArtifact' : ['uuid','branch','name','version','sortIdentifier','metaDataTags','size'],
   'admin_MDTArtifact' :  [],
 };
 

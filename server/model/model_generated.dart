@@ -19,6 +19,7 @@ class $MDTUser {
 
 class MDTUser extends PersistentObject {
   String get collectionName => 'MDTUser';
+  List<String> get $allFields => $MDTUser.allFields;
   String get name => getProperty('name');
   set name (String value) => setProperty('name',value);
   String get email => getProperty('email');
@@ -36,17 +37,19 @@ class $MDTArtifact {
   static String get branch => 'branch';
   static String get name => 'name';
   static String get creationDate => 'creationDate';
+  static String get size => 'size';
   static String get application => 'application';
   static String get version => 'version';
   static String get sortIdentifier => 'sortIdentifier';
   static String get storageInfos => 'storageInfos';
   static String get metaDataTags => 'metaDataTags';
-  static final List<String> allFields = [uuid, branch, name, creationDate, application, version, sortIdentifier, storageInfos, metaDataTags];
+  static final List<String> allFields = [uuid, branch, name, creationDate, size, application, version, sortIdentifier, storageInfos, metaDataTags];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
     ,const PropertyDescriptor('branch', PropertyType.String, 'branch')
     ,const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('creationDate', PropertyType.DateTime, 'creationDate')
+    ,const PropertyDescriptor('size', PropertyType.int, 'size')
     ,const PropertyDescriptor('version', PropertyType.String, 'version')
     ,const PropertyDescriptor('sortIdentifier', PropertyType.String, 'sortIdentifier')
     ,const PropertyDescriptor('storageInfos', PropertyType.String, 'storageInfos')
@@ -56,6 +59,7 @@ class $MDTArtifact {
 
 class MDTArtifact extends PersistentObject {
   String get collectionName => 'MDTArtifact';
+  List<String> get $allFields => $MDTArtifact.allFields;
   String get uuid => getProperty('uuid');
   set uuid (String value) => setProperty('uuid',value);
   String get branch => getProperty('branch');
@@ -64,6 +68,8 @@ class MDTArtifact extends PersistentObject {
   set name (String value) => setProperty('name',value);
   DateTime get creationDate => getProperty('creationDate');
   set creationDate (DateTime value) => setProperty('creationDate',value);
+  int get size => getProperty('size');
+  set size (int value) => setProperty('size',value);
   MDTApplication get application => getLinkedObject('application', MDTApplication);
   set application (MDTApplication value) => setLinkedObject('application',value);
   String get version => getProperty('version');
@@ -96,6 +102,7 @@ class $MDTApplication {
 
 class MDTApplication extends PersistentObject {
   String get collectionName => 'MDTApplication';
+  List<String> get $allFields => $MDTApplication.allFields;
   String get uuid => getProperty('uuid');
   set uuid (String value) => setProperty('uuid',value);
   String get apiKey => getProperty('apiKey');

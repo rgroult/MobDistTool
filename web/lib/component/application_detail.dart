@@ -12,13 +12,26 @@ class ApplicationDetailComponent extends BaseComponent  {
   ApplicationListComponent _parent;
   String _appId;
   MDTApplication app;
+  //artifact and sort
   Map<String,List<MDTArtifact>> groupedArtifacts = new Map<String,List<MDTArtifact>>();
   List<String> allSortedIdentifier = new List<String>();
+  List<MDTArtifact>  applicationsArtifacts = new List<MDTArtifact>();
+  //branches for filter
   List<MDTArtifact>  applicationsLastestVersion = new List<MDTArtifact>();
   List<String> allAvailableBranches = new List<String>();
   String currentBranchFilter = "";
+  String currentSelectedBranch = "All";
+  void selectFilter(String branch){
+    if (branch == ""){
+      currentBranchFilter = "";
+      currentSelectedBranch = "All";
+    }else {
+      currentBranchFilter = branch;
+      currentSelectedBranch = branch;
+    }
+  }
 
-  List<MDTArtifact>  applicationsArtifacts = new List<MDTArtifact>();
+
   ApplicationDetailComponent(RouteProvider routeProvider,this._parent){
     print("ApplicationDetailComponent created");
     _appId = routeProvider.parameters['appId'];
@@ -33,6 +46,14 @@ class ApplicationDetailComponent extends BaseComponent  {
 
   }
 
+  String versionForSortIdentifier(String sortIdentifier){
+    var artifact = groupedArtifacts[sortIdentifier].first;
+    if (artifact == null) {
+      return "Unknown version - No Branch";
+    }
+    return "${artifact.version} - ${artifact.branch}";
+  }
+
   void sortArtifacts() {
     groupedArtifacts.clear();
     allSortedIdentifier.clear();
@@ -43,7 +64,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       if(groupedArtifacts[key] == null){
         groupedArtifacts[key] = new List<MDTArtifact>();
         allSortedIdentifier.add(key);
-        allAvailableBranches.add("_${artifact.branch}");
+        allAvailableBranches.add(artifact.branch);
       }
       groupedArtifacts[key].add(artifact);
     }
@@ -58,6 +79,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       "name" : "prod",
       "creationDate" : new DateTime(2015),
       "version" : "X.Y.Z",
+      "size" : 20481024,
       "sortIdentifier" : "X.Y.Z"
     });
     var artifact1 = new MDTArtifact({
@@ -66,6 +88,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       "name" : "prod",
       "creationDate" : new DateTime(2015),
       "version" : "X.Y.Z",
+      "size" : 10241356,
       "sortIdentifier" : "X.Y.Z"
     });
     var artifact2 = new MDTArtifact({
@@ -74,6 +97,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       "name" : "dev",
       "creationDate" : new DateTime(2015),
       "version" : "X.Y.Z",
+      "size" : 10241024,
       "sortIdentifier" : "X.Y.Z"
     });
     var artifact3 = new MDTArtifact({

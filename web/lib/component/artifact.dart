@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'dart:core';
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 
@@ -18,6 +19,9 @@ class ArtifactElementComponent extends BaseComponent  {
   Bool displayVersion;
   @NgOneWay('artifact')
   MDTArtifact artifact;
+  int artifactSize(){
+    return (artifact.size/(1024*1024)).round();
+  }
   ArtifactElementComponent(){
 
   }

@@ -55,6 +55,7 @@ class MDTArtifact{
   String uuid;
   String branch;
   String name;
+  int size;
   DateTime creationDate;
   MDTApplication application;
   String version;
@@ -68,6 +69,7 @@ class MDTArtifact{
     creationDate = map["creationDate"];
     version = map["version"];
     sortIdentifier = map["sortIdentifier"];
+    size = map['size']!=null ? map['size']:0;
     if (metaDataTags != null) {
       metaDataTags = JSON.decode(map["metaDataTags"]);
     }

@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'base_component.dart';
+import 'package:angular_ui/angular_ui.dart';
 import '../model/mdt_model.dart';
 
 @Component(
@@ -11,15 +12,22 @@ class ApplicationListComponent extends BaseComponent  {
   var allApps = new List<MDTApplication>();
   var isApplicationSelected = false;
   NgRoutingHelper locationService;
-  ApplicationListComponent(this.locationService,RouteProvider routeProvider){
+  Modal modal;
+  ApplicationListComponent(this.locationService,RouteProvider routeProvider,this.modal){
     print ("ApplicationsComponent created");
     loadAppList();
+  }
 
-  /*  RouteHandle route = routeProvider.route.newHandle();
-    route.onEnter.listen((RouteEvent event) {
-      isApplicationSelected = false;
-    });*/
+  void displayApplicationCreationPopup(){
+     modal.open(new ModalOptions(template:"<application_edition modeEdition=false></application_edition>", backdrop: true),scope);
+  }
 
+  void displayApplicationEditionPopup(){
+     modal.open(new ModalOptions(template:"<application_edition modeEdition=true></application_edition>", backdrop: true),scope);
+  }
+
+  void hideCurrentPopup(){
+    modal.hide();
   }
 
   void showApplications(RouteEvent e) {

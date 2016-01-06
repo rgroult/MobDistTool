@@ -33,6 +33,7 @@ class MDTArtifact/* extends MDTBaseObject*/ {
   String branch;
   String name;
   DateTime creationDate;
+  int size;
   MDTApplication application;
   String version;
   String sortIdentifier;
