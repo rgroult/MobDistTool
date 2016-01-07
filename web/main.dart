@@ -6,6 +6,7 @@ import 'lib/component/application.dart';
 import 'lib/component/user.dart';
 import 'lib/component/artifact.dart';
 import 'lib/routing/mdt_router.dart';
+import 'lib/service/mdt_query.dart';
 
 class MDTAppModule extends Module {
   MDTAppModule() {
@@ -14,6 +15,7 @@ class MDTAppModule extends Module {
     install (new MDTUserModule());
     bind(MainComponent);
     bind(RouteInitializerFn, toValue: MDTRouteInitializer);
+    bind(MDTQueryService, toValue:new MDTQueryService());
     bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));
   }
 }
@@ -63,8 +65,9 @@ class MainComponent implements ScopeAware {
     return initialHeaders;
   }
 
-  MainComponent(this._http,this.modal){
+  MainComponent(this._http,this.modal,MDTQueryService mdtService){
     print("Main component created $this");
+    mdtService.setHttpService(_http);
   }
 
   displayErrorFromResponse(HttpResponse response){

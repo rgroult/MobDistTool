@@ -4,12 +4,20 @@
             <form class="form-horizontal">
                 <fieldset>
                     <legend ng-if="modeEdition">Edit Application</legend>
-                    <legend ng-unless="modeEdition">Creation Application</legend>
+                    <legend ng-unless="modeEdition">Create Application</legend>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Name</label>
 
                         <div class="col-lg-10">
                             <input class="form-control"  placeholder="application name" ng-model="appName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFile" class="col-lg-2 control-label">Icon</label>
+
+                        <div class="col-lg-10">
+                            <input type="text" readonly="" class="form-control" placeholder="Browse (max 200k)...">
+                            <input type="file" id="inputFile" multiple="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -23,7 +31,7 @@
                     <div class="form-group">
                         <label  class="col-lg-2 control-label">Platform</label>
                         <div class="col-lg-10">
-                        <select class="form-control" name="select" ng-model="appPlatform">>
+                        <select class="form-control" placeholder="select application platform" name="select" ng-model="appPlatform">>
                             <option value="Android">Android</option>
                             <option value="iOS" selected>iOS</option>
                         </select>
@@ -31,11 +39,11 @@
                     </div>
                 </fieldset>
             </form>
+            <alert ng-if="message != null" type="message['type']" close="hideMessage()">{{message['msg']}}</alert>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <loading_comp ng-if="isHttpLoading" >  </loading_comp>
-            <button ng-unless="isHttpLoading" type="button" class="btn btn-primary" >Create</button>
+            <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="createApp()">Create  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
 
             <div collapse="isCollapsed" class="modal-footer">
                 <div class="well well-large">{{ message }}</div>
