@@ -55,8 +55,8 @@ class UserService {
     } on StateError catch (e) {
       var error = e;
       //  throw new BadRequestError( e.message);
-      throw new RpcError(400, 'InvalidRequest', 'Unable to register')
-        ..errors.add(new RpcErrorDetail(reason: e.message));
+      throw new RpcError(400, 'REGISTER_ERROR', e.message);
+       // ..errors.add(new RpcErrorDetail(reason: e.message));
     }
   }
 

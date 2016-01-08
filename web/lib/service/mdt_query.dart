@@ -1,10 +1,12 @@
 import 'package:angular/angular.dart';
 import 'dart:async';
 import 'dart:convert';
+import '../model/errors.dart';
 
 final String mdtServerApiRootUrl = "http://localhost:8080/api";
 final String appVersion = "v1";
 final String appPath = "/applications/${appVersion}";
+final String usersPath = "/users/${appVersion}";
 
 @Injectable()
 class MDTQueryService {
@@ -30,18 +32,30 @@ class MDTQueryService {
     return initialHeaders;
   }
 
-  void checkAuthorizationHeader(http.Response response){
-    var newHeader = response.headers['authorization'];
+  void checkAuthorizationHeader(http.Response response) async {
+    if (response.status == 401) {
+      lastAuthorizationHeader = '';
+      return;
+    }
+
+    var newHeader =  response.headers('authorization');
+    print("auth Header $newHeader");
     if (newHeader != null) {
       lastAuthorizationHeader = newHeader;
-    }else {
-      lastAuthorizationHeader = '';
     }
   }
 
   Map parseResponse(http.Response response){
+   /* if (response is Map){
+      return response;
+    }*/
     checkAuthorizationHeader(response);
-    return JSON.decode(response.body);
+
+    var responseData = response.data;
+    if (response.data is Map){
+      return responseData;
+    }
+    return JSON.decode(response.data);
   }
 
   http.Response sendRequest(String method, String url, {String query, String body,String contentType}) async {
@@ -58,13 +72,13 @@ class MDTQueryService {
     try{
       switch (method) {
         case 'GET':
-          return await http.get(url,headers:allHeaders(contentType:contentType));
+          return  await http.get(url,headers:allHeaders(contentType:contentType));
         case 'POST':
-          return await http.post(url,httpBody,headers:headers);
+          return  await http.post(url,httpBody,headers:headers);
         case 'PUT':
-          return await http.put(url,httpBody,headers:headers);
+          return  await http.put(url,httpBody,headers:headers);
         case 'DELETE':
-          return await http.delete(url,headers:headers);
+          return  await http.delete(url,headers:headers);
       }
     } catch (e) {
       print("error $e");
@@ -73,8 +87,31 @@ class MDTQueryService {
     return null;
   }
 
-  void loginUser(String email, String password) async {
-  /*  String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/login";
+  Map registerUser(String username,String email, String password) async {
+    String url = "${mdtServerApiRootUrl}${usersPath}/register";
+    var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
+    var response = await sendRequest('POST', url, body:JSON.encode(userRegistration));
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new RegisterError(responseJson["error"]["message"]);
+    }
+    return responseJson;
+
+  }
+
+  Map loginUser(String email, String password) async {
+    String url = '${mdtServerApiRootUrl}${usersPath}/login';
+    var userLogin = {"email":"$email", "password":"$password"};
+    var response =  await sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
+    var responseJson = parseResponse(response);
+
+    if (responseJson["status"] == 401) {
+      throw new LoginError();
+    }
+    return responseJson;
+
+    /*  String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/login";
     var userLogin = {"email":"$email", "password":"$password"};
     isHttpLoading = true;
     var response =  await mainComp().sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');

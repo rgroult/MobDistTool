@@ -29,15 +29,11 @@
                     </div>
                 </fieldset>
             </form>
+            <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <loading_comp ng-if="isHttpLoading" >  </loading_comp>
-            <button ng-unless="isHttpLoading" type="button" class="btn btn-primary" ng-click="registerUser(username,email,password)" >Register</button>
-
-            <div collapse="isCollapsed" class="modal-footer">
-                <div class="well well-large">{{ message }}</div>
-            </div>
+            <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="registerUser(username,email,password)">Register  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
         </div>
     </div>
 </div>

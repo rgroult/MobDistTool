@@ -1,5 +1,7 @@
 import 'package:angular/angular.dart';
 import 'base_component.dart';
+import '../service/mdt_query.dart';
+import '../model/errors.dart';
 
 @Component(
     selector: 'register_comp',
@@ -10,14 +12,29 @@ class RegisterComponent extends BaseComponent  {
   String username ="";
   String email="";
   String password="";
-  String backdrop = 'true';
-  //@NgTwoWay('isHttpLoading')
-  //bool isHttpLoading = false;
-  @NgTwoWay('isCollapsed')
-  bool isCollapsed = true;
-  String message ="mesage";
+  MDTQueryService mdtQueryService;
 
   void registerUser(String username,String email, String password) async {
+    var response = null;
+    try {
+      isHttpLoading = true;
+      response = await mdtQueryService.registerUser(username,email,password);
+    } on RegisterError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+      return;
+    } catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+      return;
+    } finally {
+      isHttpLoading = false;
+    }
+
+    if (response["status"] == 200){
+      errorMessage = { 'type': 'success', 'msg': 'Registration completed: $response'};
+    }else {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error: $response'};
+    }
+    /*
     print("register ${scope.rootScope.context.globalValue}");
     String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/register";
     var userRegistration = {"email":"$email", "password":"$password", "name":"$username"};
@@ -34,10 +51,10 @@ class RegisterComponent extends BaseComponent  {
       }else {
         message = "Login failed, Error :${response.responseText}";
       }
-    }
+    }*/
   }
 
-  RegisterComponent(){
+  RegisterComponent(this.mdtQueryService){
     print("RegisterComponent created: ");
   }
 }
