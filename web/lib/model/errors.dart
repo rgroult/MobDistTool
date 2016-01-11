@@ -8,13 +8,22 @@ final allErrorsMessageByCode = {
 
 class BaseError extends StateError {
   static String errorCode = "BASE_ERROR";
+  static String generateErrorMessage(String code,{String reason}){
+    var message = allErrorsMessageByCode[code];
+    if (reason != null){
+      message = "$message. Reason: $reason";
+    }
+    return message;
+  }
 
-  BaseError(String code):super(allErrorsMessageByCode[code]){
+  BaseError(String code,{String reason}):super(generateErrorMessage(code,reason:reason)){
 
    // print("error ${this.toString()}, expectedd ${allErrorsMessageByCode[errorCode]}");
   }
-  String toString() => "Error: $message";
+ // String toString() => "Error: $message";
 }
+
+
 
 class LoginError extends BaseError {
   static String errorCode = "LOGIN_ERROR";
@@ -23,14 +32,14 @@ class LoginError extends BaseError {
 
 class RegisterError extends BaseError {
   static String errorCode = "REGISTER_ERROR";
-  String reason;
+  //String reason;
 
-  RegisterError(this.reason):super(errorCode) {
+  RegisterError(String reason):super(errorCode,reason:reason) {
   }
   String toString() => "$message. Reason: $reason";
 }
 
-class CreateApplicationError extends BaseError {
-  static String errorCode = "CREATE_APPLICATION_ERROR";
-  CreateApplicationError():super(errorCode){}
+class ApplicationError extends BaseError {
+  static String errorCode = "APPLICATION_ERROR";
+  ApplicationError(String reason):super(errorCode,reason:reason){}
 }

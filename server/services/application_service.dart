@@ -15,7 +15,8 @@ class ApplicationService {
     if (supportedPlatform.contains(lowerCasePlatform)){
       return lowerCasePlatform;
     }
-    throw new RpcError(400, 'BadRequest', 'Unsuported platform, only ${supportedPlatform.toString()} supported');
+    throw new RpcError(400, 'APPLICATION_ERROR', 'Unsuported platform, only ${supportedPlatform.toString()} supported');
+    //throw new RpcError(400, 'BadRequest', 'Unsuported platform, only ${supportedPlatform.toString()} supported');
   }
 
   Future<MDTApplication> findApplicationByAppId(String appId) async {
@@ -37,8 +38,9 @@ class ApplicationService {
     } on StateError catch (e) {
       var error = e;
       //  throw new BadRequestError( e.message);
-      throw new RpcError(400, 'InvalidRequest', 'Unable to create app')
-        ..errors.add(new RpcErrorDetail(reason: e.message));
+      throw new RpcError(400, 'APPLICATION_ERROR',  e.message);
+    //  throw new RpcError(400, 'InvalidRequest', 'Unable to create app')
+      //  ..errors.add(new RpcErrorDetail(reason: e.message));
     }
   }
 
@@ -74,8 +76,9 @@ class ApplicationService {
     }on StateError catch (e) {
       var error = e;
       //  throw new BadRequestError( e.message);
-      throw new RpcError(500, 'Update Error', 'Unable to update app')
-        ..errors.add(new RpcErrorDetail(reason: e.message));
+      throw new RpcError(500, 'APPLICATION_ERROR',  e.message);
+     /* throw new RpcError(500, 'Update Error', 'Unable to update app')
+        ..errors.add(new RpcErrorDetail(reason: e.message));*/
     }
   }
 
@@ -104,7 +107,8 @@ class ApplicationService {
     //find user to add
     var user = await mgrs.findUserByEmail(adminEmail);
     if (user == null){
-      throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
+      throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
+     // throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
     }
     await mgrs.addAdminApplication(application,user);
     return new OKResponse();
@@ -113,7 +117,8 @@ class ApplicationService {
   @ApiMethod(method: 'DELETE', path: 'app/{appId}/adminUser')
   Future<Response> deleteAdminUserApplication(String appId,{String adminEmail}) async {
     if (adminEmail == null){
-      throw new RpcError(400, 'InvalidRequest', 'admin user email not found');
+      throw new RpcError(400, 'APPLICATION_ERROR',  'admin user email not found');
+      //throw new RpcError(400, 'InvalidRequest', 'admin user email not found');
     }
     var application = await findApplicationByAppId(appId);
     var currentuser = userService.currentAuthenticatedUser();
@@ -123,7 +128,8 @@ class ApplicationService {
     //find user to add
     var user = await mgrs.findUserByEmail(adminEmail);
     if (user == null){
-      throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
+      throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
+      //throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
     }
     await mgrs.removeAdminApplication(application,user);
     return new OKResponse();

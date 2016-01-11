@@ -44,7 +44,9 @@ class LoginComponent extends BaseComponent {
     if (response["status"] == 200){
       //hide popup
       mainComp().isUserConnected= true;
+      mainComp().currentUser = response["data"];
       mainComp().hidePopup();
+      locationService.router.go('apps',{});
     }else {
       errorMessage = { 'type': 'danger', 'msg': 'Unknown error: $response'};
     }

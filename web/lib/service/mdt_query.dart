@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'dart:async';
 import 'dart:convert';
 import '../model/errors.dart';
+import '../model/mdt_model.dart';
 
 final String mdtServerApiRootUrl = "http://localhost:8080/api";
 final String appVersion = "v1";
@@ -35,7 +36,7 @@ class MDTQueryService {
   void checkAuthorizationHeader(http.Response response) async {
     if (response.status == 401) {
       lastAuthorizationHeader = '';
-      return;
+      throw new LoginError();
     }
 
     var newHeader =  response.headers('authorization');
@@ -46,9 +47,6 @@ class MDTQueryService {
   }
 
   Map parseResponse(http.Response response){
-   /* if (response is Map){
-      return response;
-    }*/
     checkAuthorizationHeader(response);
 
     var responseData = response.data;
@@ -106,38 +104,38 @@ class MDTQueryService {
     var response =  await sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
     var responseJson = parseResponse(response);
 
-    if (responseJson["status"] == 401) {
-      throw new LoginError();
-    }
     return responseJson;
-
-    /*  String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/login";
-    var userLogin = {"email":"$email", "password":"$password"};
-    isHttpLoading = true;
-    var response =  await mainComp().sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
-    if (response.status == 200){
-      //hide popup
-      mainComp().isUserConnected= true;
-      mainComp().currentUser = response.responseText["data"];
-      mainComp().hidePopup();
-      locationService.router.go('apps',{});
-    }else  if (response.status == 401){
-      isCollapsed = false;
-      errorMessage = "Login failed, Bad login or password.";
-    }else {
-      isCollapsed = false;
-      if (response.status == 0){
-        errorMessage = "Login failed, Error :${response}";
-      }else {
-        errorMessage = "Login failed, Error :${response.responseText}";
-      }
-    }*/
   }
 
-  void createApplication(String name, String description, String platform, String icon) async{
+  MDTApplication createApplication(String name, String description, String platform, String icon) async{
     var appData = {"name":name, "description":description, "platform":platform};
     var response = await sendRequest('POST', '${mdtServerApiRootUrl}${appPath}/create', body: JSON.encode(appData));
     var responseJson = parseResponse(response);
 
+    if (responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+
+    return MDTApplication(responseJson["data"]);
   }
+
+  List<MDTApplication> getApplications({String platformFilter}) async{
+    var url = '${mdtServerApiRootUrl}${appPath}/search';
+    if (platformFilter != null){
+      url += 'platform=$platformFilter';
+    }
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    var foundAppList = new List<MDTApplication>();
+    var appList = responseJson["list"];
+    if (appList != null) {
+      for(Map app in appList){
+        foundAppList.add(new MDTApplication(app));
+      }
+    }
+
+    return foundAppList;
+  }
+
 }

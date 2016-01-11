@@ -2,6 +2,8 @@ import 'package:angular/angular.dart';
 import 'base_component.dart';
 import 'package:angular_ui/angular_ui.dart';
 import '../model/mdt_model.dart';
+import '../service/mdt_query.dart';
+import '../model/errors.dart';
 
 @Component(
     selector: 'application_list',
@@ -11,11 +13,25 @@ import '../model/mdt_model.dart';
 class ApplicationListComponent extends BaseComponent  {
   var allApps = new List<MDTApplication>();
   var isApplicationSelected = false;
+  final allPlatforms = ['iOS','Android'];
+  var currentPlatformFilter = '';
+  var currentSelectedPlatform = 'All';
   NgRoutingHelper locationService;
+  MDTQueryService mdtQueryService;
   Modal modal;
-  ApplicationListComponent(this.locationService,RouteProvider routeProvider,this.modal){
+  ApplicationListComponent(this.locationService,RouteProvider routeProvider,this.modal,this.mdtQueryService){
     print ("ApplicationsComponent created");
-    loadAppList();
+    loadApps();
+  }
+
+  void selectFilter(String platform){
+    if (platform == ""){
+      currentPlatformFilter = "";
+      currentSelectedPlatform = "All";
+    }else {
+      currentPlatformFilter = platform;
+      currentSelectedPlatform = platform;
+    }
   }
 
   void displayApplicationCreationPopup(){
@@ -41,6 +57,30 @@ class ApplicationListComponent extends BaseComponent  {
   void appSelected(String appUUID){
     locationService.router.go('apps.artifacts', {'appId': appUUID});
     isApplicationSelected = true;
+  }
+
+  void applicationListNeedBeReloaded(){
+
+  }
+
+  void loadApps() async{
+    try {
+      isHttpLoading = true;
+      allApps.clear();
+      List<MTDApplication> apps= await mdtQueryService.getApplications();
+      if (apps.isNotEmpty){
+        allApps.addAll(apps);
+      }else {
+        errorMessage = { 'type': 'warning', 'msg': 'No Application found'};
+      }
+    } on ApplicationError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+    } catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+    } finally {
+      isHttpLoading = false;
+    }
+
   }
 
   void loadAppList(){

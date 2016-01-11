@@ -3,6 +3,8 @@ import 'dart:async';
 import 'base_component.dart';
 import 'application_list.dart';
 import '../service/mdt_query.dart';
+import '../model/errors.dart';
+import '../model/mdt_model.dart';
 
 @Component(
     selector: 'application_edition',
@@ -14,44 +16,56 @@ class ApplicationEditionComponent extends BaseComponent {
   MDTQueryService mdtQueryService;
   bool modeEdition  = false;
   bool isHttpLoading = false;
-  bool isCollapsed = true;
-  var message = null;//{ 'type': 'danger', 'msg': 'Oh snap! Change a few things up and try submitting again.' };
   String appName;
   String appPlatform;
   String appDescription;
 
   void hideMessage(){
-    message = null;
+    errorMessage = null;
   }
 
   bool checkParameter(){
     if (appName == null){
-      message = { 'type': 'warning', 'msg': 'Application name can not be null.' };
+      errorMessage = { 'type': 'warning', 'msg': 'Application name can not be null.' };
       return false;
     }
     if (appDescription == null){
-      message = { 'type': 'warning', 'msg': 'Application description can not be null.' };
+      errorMessage = { 'type': 'warning', 'msg': 'Application description can not be null.' };
       return false;
     }
     if (appPlatform == null){
-      message = { 'type': 'warning', 'msg': 'Please select a platform.' };
+      errorMessage = { 'type': 'warning', 'msg': 'Please select a platform.' };
       return false;
     }
     return true;
   }
 
   void createApp() async{
-    message = null;
+    errorMessage = null;
     if (isHttpLoading){
       return;
     }
-    isHttpLoading = true;
 
     if (checkParameter() == false){
       return;
     }
-    isHttpLoading = true;
-    var response = await mdtQueryService.createApplication(appName,appDescription,appPlatform,"");
+    try {
+      isHttpLoading = true;
+      MTDApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,"");
+      if (appCreated !=null){
+        _parent.applicationListNeedBeReloaded();
+        errorMessage = { 'type': 'sucess', 'msg': ' Application ${appCreated.name} created successfully!'};
+      }else {
+        errorMessage = { 'type': 'danger', 'msg': ' /!\ Unknown error'};
+      }
+    } on ApplicationError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+    } catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+    } finally {
+      isHttpLoading = false;
+    }
+
   }
 
   ApplicationEditionComponent(RouteProvider routeProvide,this._parent,this.mdtQueryService){

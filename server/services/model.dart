@@ -27,7 +27,7 @@ class OKResponse extends Response {
 }
 
 class NotApplicationAdministrator extends RpcError {
-  NotApplicationAdministrator():super(401, 'Forbidden', 'You are not administrator on this app');
+  NotApplicationAdministrator():super(401, 'APPLICATION_ERROR', 'You are not administrator on this app');
 }
 
 class ArtifactMsg {

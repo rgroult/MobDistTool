@@ -39,15 +39,11 @@
                     </div>
                 </fieldset>
             </form>
-            <alert ng-if="message != null" type="message['type']" close="hideMessage()">{{message['msg']}}</alert>
+            <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
         </div>
         <div class="modal-footer">
             <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" ng-click="createApp()">Create  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
-
-            <div collapse="isCollapsed" class="modal-footer">
-                <div class="well well-large">{{ message }}</div>
-            </div>
         </div>
     </div>
 </div>
