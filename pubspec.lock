@@ -8,7 +8,7 @@ packages:
   analyzer:
     description: analyzer
     source: hosted
-    version: "0.26.3"
+    version: "0.26.4"
   angular:
     description: angular
     source: hosted
@@ -24,7 +24,7 @@ packages:
   async:
     description: async
     source: hosted
-    version: "1.4.0"
+    version: "1.6.0"
   barback:
     description: barback
     source: hosted
@@ -56,7 +56,7 @@ packages:
   code_transformers:
     description: code_transformers
     source: hosted
-    version: "0.2.9+4"
+    version: "0.2.11"
   collection:
     description: collection
     source: hosted
@@ -84,7 +84,7 @@ packages:
   dart_jwt:
     description: dart_jwt
     source: hosted
-    version: "0.4.4"
+    version: "0.4.5"
   di:
     description: di
     source: hosted
@@ -104,7 +104,7 @@ packages:
   gcloud:
     description: gcloud
     source: hosted
-    version: "0.2.0+8"
+    version: "0.2.0+9"
   glob:
     description: glob
     source: hosted
@@ -112,11 +112,11 @@ packages:
   googleapis:
     description: googleapis
     source: hosted
-    version: "0.16.1"
+    version: "0.20.0"
   googleapis_beta:
     description: googleapis_beta
     source: hosted
-    version: "0.19.1"
+    version: "0.22.0"
   hammock:
     description: hammock
     source: hosted
@@ -124,7 +124,7 @@ packages:
   html:
     description: html
     source: hosted
-    version: "0.12.2"
+    version: "0.12.2+1"
   html5lib:
     description: html5lib
     source: hosted
@@ -132,7 +132,7 @@ packages:
   http:
     description: http
     source: hosted
-    version: "0.11.3+2"
+    version: "0.11.3+3"
   http_exception:
     description: http_exception
     source: hosted
@@ -140,15 +140,11 @@ packages:
   http_multi_server:
     description: http_multi_server
     source: hosted
-    version: "1.3.2"
+    version: "2.0.0"
   http_parser:
     description: http_parser
     source: hosted
     version: "1.1.0"
-  initialize:
-    description: initialize
-    source: hosted
-    version: "0.2.0"
   intl:
     description: intl
     source: hosted
@@ -176,7 +172,7 @@ packages:
   mongo_dart:
     description:
       ref: null
-      resolved-ref: "3a43f4e0dd19a6fa9e2dffad772ea624a017e359"
+      resolved-ref: dd5e06f2062183b0af68d0f377eb40a238cbcb04
       url: "https://github.com/vadimtsushko/mongo_dart.git"
     source: git
     version: "0.2.5-beta"
@@ -198,7 +194,7 @@ packages:
   observe:
     description: observe
     source: hosted
-    version: "0.13.1+2"
+    version: "0.13.1+3"
   option:
     description: option
     source: hosted
@@ -246,11 +242,11 @@ packages:
   shelf:
     description: shelf
     source: hosted
-    version: "0.6.4+2"
+    version: "0.6.4+3"
   shelf_auth:
     description: shelf_auth
     source: hosted
-    version: "0.7.0"
+    version: "0.7.1"
   shelf_cors:
     description: shelf_cors
     source: hosted
@@ -278,11 +274,11 @@ packages:
   shelf_static:
     description: shelf_static
     source: hosted
-    version: "0.2.3+1"
+    version: "0.2.3+2"
   shelf_web_socket:
     description: shelf_web_socket
     source: hosted
-    version: "0.0.1+4"
+    version: "0.0.1+5"
   smoke:
     description: smoke
     source: hosted
@@ -302,7 +298,7 @@ packages:
   stack_trace:
     description: stack_trace
     source: hosted
-    version: "1.5.0"
+    version: "1.5.1"
   string_scanner:
     description: string_scanner
     source: hosted
@@ -310,11 +306,15 @@ packages:
   test:
     description: test
     source: hosted
-    version: "0.12.6"
+    version: "0.12.6+2"
   typed_data:
     description: typed_data
     source: hosted
     version: "1.1.1"
+  unittest:
+    description: unittest
+    source: hosted
+    version: "0.11.6+1"
   uri:
     description: uri
     source: hosted
@@ -331,10 +331,6 @@ packages:
     description: watcher
     source: hosted
     version: "0.9.7"
-  web_components:
-    description: web_components
-    source: hosted
-    version: "0.10.1"
   when:
     description: when
     source: hosted
