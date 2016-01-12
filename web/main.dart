@@ -20,20 +20,42 @@ class MDTAppModule extends Module {
   }
 }
 
+@Injectable()
+class MDTRootScope {
+  MainComponent mainComp;
+  bool isUserConnected = false;
+  bool isUserAdmin = false;
+  Map currentUser = null;
+  void userLogguedIn(Map user){
+    print("userLogguedIn");
+    currentUser = user;
+    isUserConnected = true;
+    isUserAdmin = (user["isSystemAdmin"] == true);
+  }
+}
+
 @Component(
     selector: 'mdt_comp',
-    templateUrl: 'main_page.html',
+    templateUrl: 'pages/main_page.html',
     useShadowDom: false)
 class MainComponent implements ScopeAware {
-  Boolean isUserConnected = false;
-  Boolean isHttpLoading = false;
-  Map currentUser = null;
+  void get isUserConnected => scope.rootScope.context.isUserConnected;
+ // bool isUserConnected = false;
+  bool isHttpLoading = false;
+  void get  currentUser => scope.rootScope.context.currentUser;
   final Http _http;
   var lastAuthorizationHeader = '';
 
   Modal modal;
   ModalInstance modalInstance;
   Scope scope;
+ /* Scope currentScope;
+
+  get scope => currentUser;
+  void set scope(Scope scope) {
+    currentScope = scope;
+    scope.rootScope.context.mainComp = this;
+  }*/
   // String backdrop = 'true';
 
   void displayRegisterPopup(){
@@ -46,7 +68,7 @@ class MainComponent implements ScopeAware {
 
 
   void displayPopup(String template){
-    modalInstance = modal.open(new ModalOptions(template:template, backdrop: true),scope);
+    modalInstance = modal.open(new ModalOptions(template:template, backdrop: 'true'),scope);
   }
 
   void hidePopup(){
@@ -68,39 +90,11 @@ class MainComponent implements ScopeAware {
   MainComponent(this._http,this.modal,MDTQueryService mdtService){
     print("Main component created $this");
     mdtService.setHttpService(_http);
+    //scope.rootScope.context.mainComp = this;
   }
 
   displayErrorFromResponse(HttpResponse response){
 
-  }
-
-  http.Response sendRequest(String method, String url, {String query, String body,String contentType}) async {
-    //var url = '$baseUrlHost$path';
-    Http http = this._http;
-    if (query != null){
-      url = '$url$query';
-    }
-    var headers = contentType == null? allHeaders(): allHeaders(contentType:contentType);
-    var httpBody = body;
-    if (body ==null) {
-      httpBody ='';
-    }
-    try{
-      switch (method) {
-        case 'GET':
-          return await http.get(url,headers:allHeaders(contentType:contentType));
-        case 'POST':
-          return await http.post(url,httpBody,headers:headers);
-        case 'PUT':
-          return await http.put(url,httpBody,headers:headers);
-        case 'DELETE':
-          return await http.delete(url,headers:headers);
-      }
-    } catch (e) {
-      print("error $e");
-      return e;
-    }
-    return null;
   }
 }
 
@@ -108,9 +102,10 @@ void main() {
   Logger.root..level = Level.FINEST
     ..onRecord.listen((LogRecord r) { print(r.message); });
 
-  print("start main");
+  print("s tart main");
   applicationFactory()
   .addModule(new AngularUIModule())
   .addModule(new MDTAppModule())
+  .rootContextType(MDTRootScope)
   .run();
 }

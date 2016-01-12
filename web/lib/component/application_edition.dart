@@ -14,11 +14,21 @@ import '../model/mdt_model.dart';
 class ApplicationEditionComponent extends BaseComponent {
   ApplicationListComponent _parent;
   MDTQueryService mdtQueryService;
-  bool modeEdition  = false;
+  @NgOneWay('modeEdition')
+  bool modeEdition = true;
   bool isHttpLoading = false;
+  @NgOneWay('application')
+  //MDTApplication application;
+  void set application(MDTApplication app){
+    appName = app.name;
+    appPlatform = app.platform;
+    appDescription = app.description;
+    appUUID = app.uuid;
+  }
   String appName;
   String appPlatform;
   String appDescription;
+  String appUUID;
 
   void hideMessage(){
     errorMessage = null;
@@ -40,6 +50,34 @@ class ApplicationEditionComponent extends BaseComponent {
     return true;
   }
 
+  void updateApp() async{
+    errorMessage = null;
+    if (isHttpLoading){
+      return;
+    }
+
+    if (checkParameter() == false){
+      return;
+    }
+    try {
+      isHttpLoading = true;
+      MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,"");
+      if (appCreated !=null){
+        _parent.applicationListNeedBeReloaded();
+        errorMessage = { 'type': 'sucess', 'msg': ' Application ${appCreated.name} updated successfully!'};
+      }else {
+        errorMessage = { 'type': 'danger', 'msg': ' /!\ Unknown error'};
+      }
+    } on ApplicationError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+    } catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+    } finally {
+      isHttpLoading = false;
+    }
+
+  }
+
   void createApp() async{
     errorMessage = null;
     if (isHttpLoading){
@@ -51,7 +89,7 @@ class ApplicationEditionComponent extends BaseComponent {
     }
     try {
       isHttpLoading = true;
-      MTDApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,"");
+      MDTApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,"");
       if (appCreated !=null){
         _parent.applicationListNeedBeReloaded();
         errorMessage = { 'type': 'sucess', 'msg': ' Application ${appCreated.name} created successfully!'};

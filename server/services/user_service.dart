@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:async';
 import 'package:option/option.dart';
 import 'package:rpc/rpc.dart';

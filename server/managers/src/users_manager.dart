@@ -28,7 +28,7 @@ Future<MDTUser> findUserByUuid(String uuid) async {
 }
 
 Future<MDTUser> findUserByToken(String token) async {
-  return await userCollection.findOne(where.eq("externalTokenId", uuid));
+  return await userCollection.findOne(where.eq("externalTokenId", token));
 }
 
 Future<MDTUser> findUserByEmail(String email) async {

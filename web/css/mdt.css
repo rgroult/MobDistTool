@@ -21,6 +21,29 @@
     height1: 128px;
 }
 
+.platformAndroid {
+    position:relative;
+    top:-20px;
+    right:0px;
+    text-align:right;
+    display:block;
+    width:32px;
+    height:32px;
+    background-image: url(../images/android_64.png);
+    background-size: 100%;
+}
+.platformIOS {
+    position:relative;
+    top:-20px;
+    right:0px;
+    text-align:right;
+    display:block;
+    width:32px;
+    height:32px;
+    background-image: url(../images/apple_64.png);
+    background-size: 100%;
+}
+
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;

@@ -28,12 +28,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div ng-unless="modeEdition" class="form-group">
                         <label  class="col-lg-2 control-label">Platform</label>
                         <div class="col-lg-10">
                         <select class="form-control" placeholder="select application platform" name="select" ng-model="appPlatform">>
                             <option value="Android">Android</option>
-                            <option value="iOS" selected>iOS</option>
+                            <option value="iOS">iOS</option>
                         </select>
                         </div>
                     </div>
@@ -43,7 +43,8 @@
         </div>
         <div class="modal-footer">
             <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" ng-click="createApp()">Create  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
+            <button ng-if="modeEdition" type="button" class="btn btn-primary" ng-click="updateApp()">Update  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
+            <button ng-unless="modeEdition" type="button" class="btn btn-primary" ng-click="createApp()">Create  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
         </div>
     </div>
 </div>

@@ -16,7 +16,9 @@ class MDTArtifactModule extends Module {
 )
 class ArtifactElementComponent extends BaseComponent  {
   @NgOneWay('displayVersion')
-  Bool displayVersion;
+  bool displayVersion;
+  @NgOneWay('canDelete')
+  bool canDelete;
   @NgOneWay('artifact')
   MDTArtifact artifact;
   int artifactSize(){

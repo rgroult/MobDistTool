@@ -33,7 +33,7 @@ class MDTQueryService {
     return initialHeaders;
   }
 
-  void checkAuthorizationHeader(http.Response response) async {
+  void checkAuthorizationHeader(HttpResponse response) async {
     if (response.status == 401) {
       lastAuthorizationHeader = '';
       throw new LoginError();
@@ -46,7 +46,7 @@ class MDTQueryService {
     }
   }
 
-  Map parseResponse(http.Response response){
+  Map parseResponse(HttpResponse response){
     checkAuthorizationHeader(response);
 
     var responseData = response.data;
@@ -56,7 +56,7 @@ class MDTQueryService {
     return JSON.decode(response.data);
   }
 
-  http.Response sendRequest(String method, String url, {String query, String body,String contentType}) async {
+  HttpResponse sendRequest(String method, String url, {String query, String body,String contentType}) async {
     //var url = '$baseUrlHost$path';
     Http http = this._http;
     if (query != null){
@@ -98,7 +98,7 @@ class MDTQueryService {
 
   }
 
-  Map loginUser(String email, String password) async {
+  Future<Map> loginUser(String email, String password) async {
     String url = '${mdtServerApiRootUrl}${usersPath}/login';
     var userLogin = {"email":"$email", "password":"$password"};
     var response =  await sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
@@ -116,7 +116,19 @@ class MDTQueryService {
       throw new ApplicationError(responseJson["error"]["message"]);
     }
 
-    return MDTApplication(responseJson["data"]);
+    return new MDTApplication(responseJson["data"]);
+  }
+
+  MDTApplication updateApplication(String appId, String name, String description, String icon) async{
+    var appData = {"name":name, "description":description};
+    var response = await sendRequest('PUT', '${mdtServerApiRootUrl}${appPath}/app/$appId', body: JSON.encode(appData));
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+
+    return new MDTApplication(responseJson["data"]);
   }
 
   List<MDTApplication> getApplications({String platformFilter}) async{
@@ -138,4 +150,7 @@ class MDTQueryService {
     return foundAppList;
   }
 
+  void deleteApplication(MDTApplication appToDelete) async {
+
+  }
 }

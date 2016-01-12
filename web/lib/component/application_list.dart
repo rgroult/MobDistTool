@@ -21,7 +21,8 @@ class ApplicationListComponent extends BaseComponent  {
   Modal modal;
   ApplicationListComponent(this.locationService,RouteProvider routeProvider,this.modal,this.mdtQueryService){
     print ("ApplicationsComponent created");
-    loadApps();
+    //loadApps();
+    loadAppList();
   }
 
   void selectFilter(String platform){
@@ -35,11 +36,11 @@ class ApplicationListComponent extends BaseComponent  {
   }
 
   void displayApplicationCreationPopup(){
-     modal.open(new ModalOptions(template:"<application_edition modeEdition=false></application_edition>", backdrop: true),scope);
+     modal.open(new ModalOptions(template:"<application_edition modeEdition='false'></application_edition>", backdrop: 'true'),scope);
   }
 
   void displayApplicationEditionPopup(){
-     modal.open(new ModalOptions(template:"<application_edition modeEdition=true></application_edition>", backdrop: true),scope);
+     modal.open(new ModalOptions(template:"<application_edition modeEdition='true'></application_edition>", backdrop: 'true'),scope);
   }
 
   void hideCurrentPopup(){
@@ -60,10 +61,11 @@ class ApplicationListComponent extends BaseComponent  {
   }
 
   void applicationListNeedBeReloaded(){
-
+    loadApps();
   }
 
   void loadApps() async{
+    errorMessage = null;
     try {
       isHttpLoading = true;
       allApps.clear();

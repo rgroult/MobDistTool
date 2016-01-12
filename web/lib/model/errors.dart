@@ -1,4 +1,3 @@
-import '../../../packages/angular/angular.dart';
 
 final allErrorsMessageByCode = {
   "LOGIN_ERROR" : "Bad Login or Password",
@@ -36,7 +35,6 @@ class RegisterError extends BaseError {
 
   RegisterError(String reason):super(errorCode,reason:reason) {
   }
-  String toString() => "$message. Reason: $reason";
 }
 
 class ApplicationError extends BaseError {

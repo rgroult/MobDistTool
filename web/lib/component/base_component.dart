@@ -1,9 +1,8 @@
 import 'package:angular/angular.dart';
-import '../service/mdt_query.dart';
 
 class BaseComponent  implements ScopeAware {
  bool isHttpLoading = false;
- Map errorMessage = null;
+ var errorMessage = null;
 
  void hideMessage(){
   errorMessage = null;
@@ -13,6 +12,12 @@ class BaseComponent  implements ScopeAware {
   }*/
 
   MainComponent mainComp(){
+ /*  return scope.rootScope.context.mainComp;
+   var currentScope = scope.parentScope;
+   while (!(currentScope.context is MainComponent) && currentScope!= scope.rootScope){
+    currentScope = currentScope.parentScope;
+   }
+   return currentScope.context;*/
     return scope.parentScope.context;
   }
   //MDTQueryService _mdtService;

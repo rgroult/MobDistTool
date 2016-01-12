@@ -46,7 +46,7 @@ Future<MDTApplication> createApplication(String name, String platform,
 
   if (description != null) createdApp.description = description;
 
-  var adminUsers = createdApp.adminUsers;
+  //var adminUsers = createdApp.adminUsers;
 
   if (adminUser != null) createdApp.adminUsers.add(adminUser);
 
@@ -123,7 +123,7 @@ Future deleteUserFromAdminUsers(MDTUser user) async {
     //toWait.add(removeAdminApplication(app,user));
   }
   await Future.wait(toWait);
-  var newallApps = await appCollection.find();
+  //var newallApps = await appCollection.find();
   return new Future.value(null);
 }
 

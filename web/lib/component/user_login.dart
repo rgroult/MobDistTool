@@ -1,4 +1,6 @@
 import 'package:angular/angular.dart';
+import 'package:angular_ui/angular_ui.dart';
+import 'dart:async';
 import 'base_component.dart';
 import '../service/mdt_query.dart';
 import '../model/errors.dart';
@@ -9,9 +11,9 @@ import '../model/errors.dart';
     useShadowDom: false
 )
 class LoginComponent extends BaseComponent {
+  Modal modal;
   String email="";
   String password="";
-
 
   NgRoutingHelper locationService;
   MDTQueryService mdtQueryService;
@@ -20,36 +22,33 @@ class LoginComponent extends BaseComponent {
   String backdrop = 'true';
   //@NgTwoWay('isHttpLoading')
 
-  @NgTwoWay('isCollapsed')
-  bool isCollapsed = true;
-
-
-
-  void loginUser(String email, String password) async {
+  Future loginUser(String email, String password) async {
     var response = null;
     try {
       isHttpLoading = true;
       response = await mdtQueryService.loginUser(email, password);
+
+      if (response["status"] == 200){
+        //hide popup
+        // mainComp().isUserConnected= true;
+        // mainComp().currentUser = response["data"];
+        scope.rootScope.context.userLogguedIn(response["data"]);
+        modal.close(true);
+        //mainComp().hidePopup();
+        locationService.router.go('apps',{});
+      }else {
+        errorMessage = { 'type': 'danger', 'msg': 'Unknown error: $response'};
+      }
     } on LoginError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
-      return;
     } catch(e) {
       errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
-      return;
     } finally {
       isHttpLoading = false;
     }
 
 
-    if (response["status"] == 200){
-      //hide popup
-      mainComp().isUserConnected= true;
-      mainComp().currentUser = response["data"];
-      mainComp().hidePopup();
-      locationService.router.go('apps',{});
-    }else {
-      errorMessage = { 'type': 'danger', 'msg': 'Unknown error: $response'};
-    }
+
 
       /*
     String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/login";
@@ -77,7 +76,7 @@ class LoginComponent extends BaseComponent {
     }*/
   }
 
-  LoginComponent(this.locationService,this.mdtQueryService){
+  LoginComponent(this.locationService,this.mdtQueryService,this.modal){
     print("LoginComponent created: ");
     // mainComp = scope.parentScope.context;
   }

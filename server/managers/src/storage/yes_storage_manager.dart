@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import '../artifacts_manager.dart';
+import '../../errors.dart';
 
 class YesStorageManager extends BaseStorageManager {
   //static var sharedInstance => new StorageManager()

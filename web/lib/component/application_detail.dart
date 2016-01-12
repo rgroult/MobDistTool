@@ -2,6 +2,8 @@ import 'package:angular/angular.dart';
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 import 'application_list.dart';
+import 'confirmation_popover.dart';
+import 'package:angular_ui/angular_ui.dart';
 
 @Component(
     selector: 'application_detail',
@@ -10,6 +12,7 @@ import 'application_list.dart';
 )
 class ApplicationDetailComponent extends BaseComponent  {
   ApplicationListComponent _parent;
+  Modal modal;
   String _appId;
   MDTApplication app;
   //artifact and sort
@@ -31,8 +34,25 @@ class ApplicationDetailComponent extends BaseComponent  {
     }
   }
 
+  //admin
+  bool canAdmin(){
+    //var currentUser = mainComp().currentUser;
+    return true;
+  }
+  void editApplication(){
+    modal.open(new ModalOptions(template:"<application_edition modeEdition=true application='app''></application_edition>", backdrop: 'true'),scope);
+  }
+  void deleteApplication(){
+    //show confirm popover
+    //var modalInstance = modal.open(new ModalOptions(template:'<confirmation title="Delete application" text="Confirm delete application ${app.name}"></confirmation>', backdrop: false), scope);
+    var modalInstance = ConfirmationComponent.createConfirmation(modal,scope,"Are you sure to delete ${app.name} ?","All versions will be trash. This can't be undone.");
+    modalInstance.result
+      ..then((v) {
+      print('result $v');
+    });
+  }
 
-  ApplicationDetailComponent(RouteProvider routeProvider,this._parent){
+  ApplicationDetailComponent(RouteProvider routeProvider,this._parent,this.modal){
     print("ApplicationDetailComponent created");
     _appId = routeProvider.parameters['appId'];
     app = _parent.allApps.first;

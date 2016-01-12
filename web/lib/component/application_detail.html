@@ -5,13 +5,19 @@
     <div class="media-body">
         <h4 class="media-heading">{{app.name}}</h4>
         {{app.description}}
+        <div ng-if="canAdmin()">
+            apiKey : {{app.apiKey}}
+            <br/>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
+        </div>
     </div>
 </div>
 <hr/>
 <div class="row">
     <div class="col-md-6">
         <accordion-group heading="Lastest Build">
-              <artifact ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" displayVersion="true"></artifact>
+              <artifact ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()" displayVersion="true"></artifact>
         </accordion-group>
     </div>
 </div>
@@ -33,7 +39,7 @@
 <div class="row">
     <div class="col-md-6" ng-repeat="sortIdentifier in allSortedIdentifier | filter:currentBranchFilter">
         <accordion-group heading="{{versionForSortIdentifier(sortIdentifier)}}">
-            <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  artifact="artifact" displayVersion="false"></artifact>
+            <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  artifact="artifact" canDelete="canAdmin()" displayVersion="false"></artifact>
         </accordion-group>
     </div>
 </div>
