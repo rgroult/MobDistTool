@@ -19,10 +19,14 @@ class ApplicationListComponent extends BaseComponent  {
   NgRoutingHelper locationService;
   MDTQueryService mdtQueryService;
   Modal modal;
+  //strange :unable to rename it to another name :S
+  void get app => this;
+
   ApplicationListComponent(this.locationService,RouteProvider routeProvider,this.modal,this.mdtQueryService){
     print ("ApplicationsComponent created");
     //loadApps();
     loadAppList();
+   // currentComp = this;
   }
 
   void selectFilter(String platform){
@@ -35,12 +39,12 @@ class ApplicationListComponent extends BaseComponent  {
     }
   }
 
-  void displayApplicationCreationPopup(){
-     modal.open(new ModalOptions(template:"<application_edition modeEdition='false'></application_edition>", backdrop: 'true'),scope);
+  void applicationEditionSucceed(MDTApplication appCreated){
+    applicationListNeedBeReloaded();
   }
 
-  void displayApplicationEditionPopup(){
-     modal.open(new ModalOptions(template:"<application_edition modeEdition='true'></application_edition>", backdrop: 'true'),scope);
+  void displayApplicationCreationPopup(){
+     modal.open(new ModalOptions(template:"<application_edition modeEdition='false' caller='app' ></application_edition>", backdrop: 'true'),scope);
   }
 
   void hideCurrentPopup(){
@@ -49,6 +53,12 @@ class ApplicationListComponent extends BaseComponent  {
 
   void showApplications(RouteEvent e) {
     isApplicationSelected = false;
+  }
+
+  MDTApplication finByUUID(String appUUID){
+    var app =  allApps.firstWhere((MDTApplication a) => a.uuid == appUUID);
+    return app;
+    //return apps.first;
   }
 
   Boolean canAdminApp(MDTApplication app){

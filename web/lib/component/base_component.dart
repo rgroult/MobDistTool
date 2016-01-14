@@ -6,6 +6,10 @@ class BaseComponent  implements ScopeAware {
 
  void hideMessage(){
   errorMessage = null;
+
+   void hideMessage(){
+     errorMessage = null;
+   }
  }
  /* BaseComponent(this._mdtService){
 

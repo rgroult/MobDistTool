@@ -1,10 +1,37 @@
 import 'package:angular/angular.dart';
 import 'dart:async';
+import 'dart:html';
 import 'base_component.dart';
 import 'application_list.dart';
+import 'application_detail.dart';
 import '../service/mdt_query.dart';
 import '../model/errors.dart';
 import '../model/mdt_model.dart';
+
+@Decorator(
+    selector: 'input[type=file][file-model]',
+    map: const {'file-model': '&filesSelected'})
+class FileModel {
+  Element inputElement;
+  String expression;
+  final Scope scope;
+  String _inputType;
+  List<File> files;
+  var listeners = {};
+
+  FileModel(this.inputElement, this.scope) {
+  }
+
+  initListener(var stream, var handler) {
+    int key = stream.hashCode;
+    if (!listeners.containsKey(key)) {
+      listeners[key] = handler;
+      stream.listen((event) => handler({r"files": (inputElement as InputElement).files}));
+    }
+  }
+
+  set filesSelected(value)  =>  initListener(inputElement.onChange, value);
+}
 
 @Component(
     selector: 'application_edition',
@@ -12,7 +39,9 @@ import '../model/mdt_model.dart';
     useShadowDom: false
 )
 class ApplicationEditionComponent extends BaseComponent {
-  ApplicationListComponent _parent;
+  @NgOneWay('caller')
+  ApplicationListComponent caller;
+ // ApplicationDetailComponent _parentDetail;
   MDTQueryService mdtQueryService;
   @NgOneWay('modeEdition')
   bool modeEdition = true;
@@ -29,9 +58,29 @@ class ApplicationEditionComponent extends BaseComponent {
   String appPlatform;
   String appDescription;
   String appUUID;
+  String appIcon = "images/placeholderImage.jpg";
+  File appIconFile;
 
   void hideMessage(){
     errorMessage = null;
+  }
+
+  void upfilesSelected(dynamic values) async{
+    File file = values.first;
+ /*   if (file.type.isNotEmpty && file.type.matchAsPrefix("image/") == null){
+      appIcon = "images/placeholderImage.jpg";
+      appIconFile = null;
+      return;
+    }*/
+    appIconFile = file;
+    FileReader reader = new FileReader();
+    reader.onLoadEnd.listen((e) => createImageElement(file,reader.result));
+    reader.readAsDataUrl(file);
+  }
+
+  void createImageElement(File file,String base64) {
+    print(base64);
+    appIcon = "$base64";
   }
 
   bool checkParameter(){
@@ -62,9 +111,10 @@ class ApplicationEditionComponent extends BaseComponent {
     try {
       isHttpLoading = true;
       MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,"");
-      if (appCreated !=null){
-        _parent.applicationListNeedBeReloaded();
-        errorMessage = { 'type': 'sucess', 'msg': ' Application ${appCreated.name} updated successfully!'};
+      if (appUpdated !=null){
+        caller.applicationEditionSucceed(appUpdated);
+       // caller.applicationListNeedBeReloaded();
+        errorMessage = { 'type': 'success', 'msg': ' Application ${appUpdated.name} updated successfully!'};
       }else {
         errorMessage = { 'type': 'danger', 'msg': ' /!\ Unknown error'};
       }
@@ -91,7 +141,7 @@ class ApplicationEditionComponent extends BaseComponent {
       isHttpLoading = true;
       MDTApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,"");
       if (appCreated !=null){
-        _parent.applicationListNeedBeReloaded();
+          caller.applicationEditionSucceed(appCreated);
         errorMessage = { 'type': 'sucess', 'msg': ' Application ${appCreated.name} created successfully!'};
       }else {
         errorMessage = { 'type': 'danger', 'msg': ' /!\ Unknown error'};
@@ -106,7 +156,7 @@ class ApplicationEditionComponent extends BaseComponent {
 
   }
 
-  ApplicationEditionComponent(RouteProvider routeProvide,this._parent,this.mdtQueryService){
+  ApplicationEditionComponent(RouteProvider routeProvide,this.mdtQueryService){
     //super(mdtQueryService); MDTQueryService mdtQueryService,
   }
 }

@@ -41,3 +41,8 @@ class ApplicationError extends BaseError {
   static String errorCode = "APPLICATION_ERROR";
   ApplicationError(String reason):super(errorCode,reason:reason){}
 }
+
+class ArtifactsError extends BaseError {
+  static String errorCode = "ARTIFACT_ERROR";
+  ArtifactsError(String reason):super(errorCode,reason:reason){}
+}

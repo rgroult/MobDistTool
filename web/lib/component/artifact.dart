@@ -2,10 +2,12 @@ import 'package:angular/angular.dart';
 import 'dart:core';
 import 'base_component.dart';
 import '../model/mdt_model.dart';
+import 'add_artifact.dart';
 
 class MDTArtifactModule extends Module {
   MDTArtifactModule() {
     bind(ArtifactElementComponent);
+    bind(AddArtifactComponent);
   }
 }
 

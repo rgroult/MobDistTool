@@ -14,11 +14,19 @@
                     </div>
                     <div class="form-group">
                         <label for="inputFile" class="col-lg-2 control-label">Icon</label>
+                        <div class="media">
+                            <div class="col-lg-10">
+                                <div class="media-left">
+                                    <img class="media-object appDetailIcon" src="{{appIcon}}" alt="appIcon">
+                                </div>
+                                <div class="media-body">
+                                    <!-- <input type="file" readonly="" class="form-control" "> -->
+                                    <input type="file" id="inputFile" class="form-control" placeholder="Browse (max 200k)..." file-model="upfilesSelected(files)">
+                                </div>
 
-                        <div class="col-lg-10">
-                            <input type="text" readonly="" class="form-control" placeholder="Browse (max 200k)...">
-                            <input type="file" id="inputFile" multiple="">
+                            </div>
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Description</label>

@@ -1,22 +1,25 @@
 <div class="media">
     <div class="media-left">
-        <img class="media-object appDetailIcon" src="{{app.appIcon}}" alt="appIcon">
+        <img class="media-object appDetailIcon" src="{{currentApp.appIcon}}" alt="appIcon">
     </div>
     <div class="media-body">
-        <h4 class="media-heading">{{app.name}}</h4>
-        {{app.description}}
+        <h4 class="media-heading">{{currentApp.name}}</h4>
+        {{currentApp.description}}
         <div ng-if="canAdmin()">
-            apiKey : {{app.apiKey}}
+            apiKey : {{currentApp.apiKey}}
             <br/>
             <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
             <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="addVersion()"><i class="material-icons">add</i> Add Version</button>
+
         </div>
     </div>
 </div>
 <hr/>
+<alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
 <div class="row">
     <div class="col-md-6">
-        <accordion-group heading="Lastest Build">
+        <accordion-group heading="Latest Build">
               <artifact ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()" displayVersion="true"></artifact>
         </accordion-group>
     </div>

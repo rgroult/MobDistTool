@@ -1,6 +1,8 @@
 import 'package:angular/angular.dart';
 import 'base_component.dart';
 import '../model/mdt_model.dart';
+import '../model/errors.dart';
+import '../service/mdt_query.dart';
 import 'application_list.dart';
 import 'confirmation_popover.dart';
 import 'package:angular_ui/angular_ui.dart';
@@ -12,9 +14,13 @@ import 'package:angular_ui/angular_ui.dart';
 )
 class ApplicationDetailComponent extends BaseComponent  {
   ApplicationListComponent _parent;
+  MDTQueryService mdtQueryService;
   Modal modal;
   String _appId;
-  MDTApplication app;
+  //strange :unable to rename it to another name :S
+  void get app => this;
+  MDTApplication currentApp;
+  bool hadUpdate = false;
   //artifact and sort
   Map<String,List<MDTArtifact>> groupedArtifacts = new Map<String,List<MDTArtifact>>();
   List<String> allSortedIdentifier = new List<String>();
@@ -34,34 +40,69 @@ class ApplicationDetailComponent extends BaseComponent  {
     }
   }
 
+  void loadApp() async{
+    errorMessage = null;
+    try {
+      isHttpLoading = true;
+      MTDApplication app= await mdtQueryService.getApplication(_appId);
+      currentApp = app;
+
+    } on ApplicationError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+    } catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+    } finally {
+      isHttpLoading = false;
+    }
+  }
+
+  void loadAppVersions(){
+
+  }
+
   //admin
   bool canAdmin(){
     //var currentUser = mainComp().currentUser;
     return true;
   }
+
+  void applicationEditionSucceed(MDTApplication updatedApp){
+    currentApp = updatedApp;
+    hadUpdate= true;
+    loadAppVersions();
+  }
+
+  void addVersion(){
+    modal.open(new ModalOptions(template:"<add_artifact app='currentApp' caller='app'></add_artifact>", backdrop: 'true'),scope);
+  }
+
   void editApplication(){
-    modal.open(new ModalOptions(template:"<application_edition modeEdition=true application='app''></application_edition>", backdrop: 'true'),scope);
+    modal.open(new ModalOptions(template:"<application_edition modeEdition=true application='currentApp' caller='app''></application_edition>", backdrop: 'true'),scope);
   }
   void deleteApplication(){
     //show confirm popover
     //var modalInstance = modal.open(new ModalOptions(template:'<confirmation title="Delete application" text="Confirm delete application ${app.name}"></confirmation>', backdrop: false), scope);
-    var modalInstance = ConfirmationComponent.createConfirmation(modal,scope,"Are you sure to delete ${app.name} ?","All versions will be trash. This can't be undone.");
+    var modalInstance = ConfirmationComponent.createConfirmation(modal,scope,"Are you sure to delete ${currentApp.name} ?","All versions will be trash. This can't be undone.");
     modalInstance.result
       ..then((v) {
       print('result $v');
     });
   }
 
-  ApplicationDetailComponent(RouteProvider routeProvider,this._parent,this.modal){
+  ApplicationDetailComponent(RouteProvider routeProvider,this._parent,this.modal,this.mdtQueryService){
     print("ApplicationDetailComponent created");
     _appId = routeProvider.parameters['appId'];
-    app = _parent.allApps.first;
+    currentApp = _parent.finByUUID(_appId);
+    loadApp();
     loadArtifacts();
     sortArtifacts();
 
     RouteHandle route = routeProvider.route.newHandle();
     route.onLeave.listen((RouteEvent event) {
       _parent.isApplicationSelected = false;
+      if (hadUpdate){
+        _parent.applicationListNeedBeReloaded();
+      }
     });
 
   }

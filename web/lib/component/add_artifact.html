@@ -1,0 +1,59 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <form class="form-horizontal" name="htmlForm">
+                <fieldset>
+                    <legend>Add Version </legend>
+                     <div class="form-group">
+                        <label class="col-lg-2 control-label">Version Name</label>
+
+                        <div class="col-lg-10">
+                            <input class="form-control"  placeholder="prod,dev,release..." ng-model="artifactName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Developement Branch</label>
+
+                        <div class="col-lg-10">
+                            <input class="form-control"  placeholder="develop, master, ...." ng-model="artifactBranch"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFile" class="col-lg-2 control-label">File</label>
+                        <div class="col-lg-10">
+                            <input type="file" id="inputFile" class="form-control" placeholder="ipa, apk, ..." file-model="upfilesSelected(files)"/>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Latest</label>
+                        <div class="col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="lastVersion"> Add to latest build
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-unless="lastVersion" class="form-group">
+                        <label class="col-lg-2 control-label">Version</label>
+                        <div class="col-lg-10">
+                            <input class="form-control"  placeholder="ex: X.Y.Z_XXXX" ng-model="artifactVersion">
+                        </div>
+                    </div>
+                    <div ng-unless="lastVersion" class="form-group">
+                        <label class="col-lg-2 control-label">Sort Identifier (optional)</label>
+                        <div class="col-lg-10">
+                            <input class="form-control"  placeholder="Take version if null" ng-model="artifactSortIdentifier">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+                <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="addArtifact()">Add  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
+        </div>
+    </div>
+</div>
