@@ -31,6 +31,9 @@ dependencies:
   uuid: "0.5.0"
   hammock: "^0.4.0"
 transformers:
+- $dart2js:
+    environment:
+      mode: javascript
 - angular:
     html_files:
       - web/pages/home.html

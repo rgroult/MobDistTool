@@ -5,7 +5,8 @@ import 'dart:convert';
 import '../model/errors.dart';
 import '../model/mdt_model.dart';
 
-final String mdtServerApiRootUrl = "http://localhost:8080/api";
+//final String mdtServerApiRootUrl = "http://localhost:8080/api";
+final String mdtServerApiRootUrl = const String.fromEnvironment('mode') == 'javascript' ? "/api" : "http://localhost:8080/api";
 final String appVersion = "v1";
 final String appPath = "/applications/${appVersion}";
 final String artifactsPath = "/art/${appVersion}";
@@ -21,7 +22,9 @@ class MDTQueryService {
   }
 
   MDTQueryService() {
-    print("MDTQueryService constructor");
+    print("MDTQueryService constructor, mode ${const String.fromEnvironment('mode')} base URL $mdtServerApiRootUrl");
+    //var mode = const String.fromEnvironment('mode', defaultValue:'debug');
+   // if
   }
 
   Map allHeaders({String contentType}) {
