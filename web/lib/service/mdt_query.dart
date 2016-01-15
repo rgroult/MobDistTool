@@ -23,8 +23,6 @@ class MDTQueryService {
 
   MDTQueryService() {
     print("MDTQueryService constructor, mode ${const String.fromEnvironment('mode')} base URL $mdtServerApiRootUrl");
-    //var mode = const String.fromEnvironment('mode', defaultValue:'debug');
-   // if
   }
 
   Map allHeaders({String contentType}) {
