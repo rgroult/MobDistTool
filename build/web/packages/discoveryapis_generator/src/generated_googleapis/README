@@ -1,0 +1,37 @@
+This directory contains a copy of package:googleapis v0.1.1 !
+
+On top of the original version a new RestMethod.restPath property was
+introduced.
+
+Here is a diff to it:
+
+--- a/lib/src/generated_googleapis/discovery/v1.dart
++++ b/lib/src/generated_googleapis/discovery/v1.dart
+@@ -1273,6 +1273,7 @@ class RestMethod {
+    * basePath property at the api-level.
+    */
+   core.String path;
++  core.String restPath;
+ 
+   /** The schema for the request. */
+   RestMethodRequest request;
+@@ -1320,6 +1321,9 @@ class RestMethod {
+     if (_json.containsKey("path")) {
+       path = _json["path"];
+     }
++    if (_json.containsKey("restPath")) {
++      restPath = _json["restPath"];
++    }
+     if (_json.containsKey("request")) {
+       request = new RestMethodRequest.fromJson(_json["request"]);
+     }
+@@ -1366,6 +1370,9 @@ class RestMethod {
+     if (path != null) {
+       _json["path"] = path;
+     }
++    if (restPath != null) {
++      _json["restPath"] = restPath;
++    }
+     if (request != null) {
+       _json["request"] = (request).toJson();
+     }

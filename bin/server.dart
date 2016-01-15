@@ -10,6 +10,7 @@ import 'package:logging_handlers/server_logging_handlers.dart';
 //rpc
 import 'package:rpc/rpc.dart';
 import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf_static/shelf_static.dart' as shelf_static;
 import 'package:shelf_rpc/shelf_rpc.dart' as shelf_rpc;
 import 'package:shelf_route/shelf_route.dart' as shelf_route;
 import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
@@ -24,9 +25,6 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 import '../server/config/src/mongo.dart' as mongo;
 //API
 import '../server/managers/managers.dart';
-
-//import 'package:rpc-examples/toyapi.dart';
-//import '../server/model';
 
 import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
@@ -75,6 +73,9 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
 
+  var staticHandler =  shelf_static.createStaticHandler('build/web',
+      defaultDocument: 'index.html');
+
   var apiRouter = shelf_route.router()
       //disable authent for register
       ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
@@ -83,6 +84,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
       ..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
       //disable authent for discovery ?
       ..add('api/discovery',null,apiHandler,exactMatch: false)
+      //gui
+      ..add('web/',null,staticHandler,exactMatch: false)
 
       ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
