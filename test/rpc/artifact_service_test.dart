@@ -49,6 +49,10 @@ void createAndLogin(){
   });
 }
 
+void updloadArtifact(Map app,dynamic filePart,String branch,String version, String name,{String jsonField}){
+
+}
+
 void allTests() {
   //createAndLogin();
   test("Upload artifact OK", () async {
@@ -76,4 +80,7 @@ void allTests() {
     FormData.append('file',new File("../core/artifact_sample.txt"));
     httprequest.send(formdata);*/
   });
+
+
+
 }

@@ -139,7 +139,7 @@ class ApplicationService {
   Future<Response> getApplicationVersions(String appId,{int pageIndex, int limitPerPage,String branch}) async {
     var application = await findApplicationByAppId(appId);
     var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch);
-    return new Response(200, toJson(allVersions));
+    return new Response(200, listToJson(allVersions));
   }
 }
 

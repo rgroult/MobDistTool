@@ -46,6 +46,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       isHttpLoading = true;
       MTDApplication app= await mdtQueryService.getApplication(_appId);
       currentApp = app;
+      loadAppVersions();
 
     } on ApplicationError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
@@ -56,8 +57,25 @@ class ApplicationDetailComponent extends BaseComponent  {
     }
   }
 
-  void loadAppVersions(){
-
+  void loadAppVersions() async{
+    errorMessage = null;
+    try {
+      isHttpLoading = true;
+      applicationsArtifacts.clear();
+      List<MDTArtifact> artifacts = await mdtQueryService.listArtifacts(currentApp.uuid,pageIndex:0,limitPerPage:50);
+      if (artifacts.isNotEmpty){
+        applicationsArtifacts.addAll(artifacts);
+      }else {
+        errorMessage = { 'type': 'warning', 'msg': 'No Artifact found'};
+      }
+    } on ArtifactsError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+    } catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+    } finally {
+      isHttpLoading = false;
+    }
+    sortArtifacts();
   }
 
   //admin
@@ -94,9 +112,9 @@ class ApplicationDetailComponent extends BaseComponent  {
     _appId = routeProvider.parameters['appId'];
     currentApp = _parent.finByUUID(_appId);
     loadApp();
-    loadArtifacts();
+   /* loadArtifacts();
     sortArtifacts();
-
+*/
     RouteHandle route = routeProvider.route.newHandle();
     route.onLeave.listen((RouteEvent event) {
       _parent.isApplicationSelected = false;

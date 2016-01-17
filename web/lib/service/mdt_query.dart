@@ -183,6 +183,10 @@ class MDTQueryService {
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);
 
+    if (responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+
     var foundAppList = new List<MDTApplication>();
     var appList = responseJson["list"];
     if (appList != null) {
@@ -194,7 +198,50 @@ class MDTQueryService {
     return foundAppList;
   }
 
-  bool deleteApplication(MDTApplication appToDelete) async {}
+  bool deleteApplication(MDTApplication appToDelete) async {
+    throw new ApplicationError("Not implemented !");
+  }
+
+  List<MDTArtifact> listArtifacts(String appId, {int pageIndex, int limitPerPage,String branch}) async{
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions';
+    var parameters ={};
+    if (pageIndex != null ){
+      parameters["pageIndex"] = pageIndex;
+    }
+    if (limitPerPage != null ){
+      parameters["limitPerPage"] = limitPerPage;
+    }
+    if (branch != null ){
+      parameters["branch"] = branch;
+    }
+    var separator = "?";
+    parameters.forEach((k,v){url+="$separator$k=$v";separator="&";});
+    print("Loads version url $url");
+
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+
+    var artifactsList = new List<MDTArtifact>();
+
+    var artList = responseJson["list"];
+    if (artList != null) {
+      for (Map app in artList) {
+        artifactsList.add(new MDTArtifact(app));
+      }
+    }
+
+    return artifactsList;
+
+
+
+  /* @ApiMethod(method: 'GET', path: 'app/{appId}/versions')
+  Future<Response> getApplicationVersions(String appId,) async {*/
+
+  }
 
   MDTArtifact addArtifact(String apiKey, File file, String name,
       {bool latest,
@@ -225,25 +272,17 @@ class MDTQueryService {
       formData.append("jsonTags", jsonTags);
     }
     var response = await HttpRequest.request(url, method: "POST", sendData: formData);
+
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new ArtifactsError(responseJson["error"]["message"]);
+    }
+    var artifact = responseJson["data"];
+    if (artifact != null) {
+      return new MDTArtifact(artifact);
+    }
+
+    throw new ArtifactsError("Unable to parse response ${responseJson}");
   }
-/*
-
-    var url = '${mdtServerApiRootUrl}${artifactsPath}/artifacts/${apiKey}/master/versionBeta/prodArtifact'
-    var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/art/v1/artifacts/${apiKey}/master/versionBeta/prodArtifact"));
-    var filePart = await http.MultipartFile.fromPath('artifactFile', Directory.current.path+'/test/core/artifact_sample.txt');
-    httprequest.files.add(filePart);
-    httprequest.fields['sortIdentifier'] = 'sortId';
-    var tags = new Map();
-    tags['tag1'] = "test tag1";
-    tags['tag2'] = "test tag2";
-    httprequest.fields['jsonTags'] = JSON.encode(tags);
-
-    var response = await http.Response.fromStream(await httprequest.send());
-
-    ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/last/{artifactName}')
-  }
-
-  bool deleteArtifact(String artifactId) async{
-  */
-
 }

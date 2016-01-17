@@ -16,9 +16,9 @@ Db mongoDb = null;
   //mongoDb =  new Db("mongodb://localhost:27017/mdt_dev");
   const Uri = "mongodb://localhost:27017/mdt_dev";
   //const Uri = "mongodb://192.168.99.100:32768";
-  objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,true);
+  objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,false);
   if (dropCollectionOnStartup == true) {
-  objectory.dropCollectionsOnStartup = true;
+    objectory.dropCollectionsOnStartup = true;
   }
   //globalObjectory = objectory;
   return objectory.initDomainModel();

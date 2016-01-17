@@ -4,6 +4,7 @@ import 'dart:async';
 import 'base_component.dart';
 import 'application_detail.dart';
 import '../model/mdt_model.dart';
+import '../model/errors.dart';
 import '../service/mdt_query.dart';
 
 @Component(
@@ -36,10 +37,24 @@ class AddArtifactComponent extends BaseComponent {
   }
 
   void addArtifact() async{
+    errorMessage = null;
     if (checkParameter() == false){
       return;
     }
-    var resp = await mdtQueryService.addArtifact(app.apiKey,artifactFile,artifactName,latest:lastVersion,branch:artifactBranch,version:artifactVersion,sortIdentifier:artifactSortIdentifier, jsonTags:artifactTags);
+    try {
+      isHttpLoading = true;
+      MDTArtifact artifact = await mdtQueryService.addArtifact(app.apiKey,artifactFile,artifactName,latest:lastVersion,branch:artifactBranch,version:artifactVersion,sortIdentifier:artifactSortIdentifier, jsonTags:artifactTags);
+      caller.loadAppVersions();
+
+    } on ArtifactsError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+    } catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+    } finally {
+      isHttpLoading = false;
+    }
+
+
     /*MDTArtifact addArtifact(String apiKey, File file, String name,
       {bool latest,
       String branch,

@@ -142,7 +142,7 @@ class ApplicationEditionComponent extends BaseComponent {
       MDTApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,"");
       if (appCreated !=null){
           caller.applicationEditionSucceed(appCreated);
-        errorMessage = { 'type': 'sucess', 'msg': ' Application ${appCreated.name} created successfully!'};
+        errorMessage = { 'type': 'success', 'msg': ' Application ${appCreated.name} created successfully!'};
       }else {
         errorMessage = { 'type': 'danger', 'msg': ' /!\ Unknown error'};
       }
