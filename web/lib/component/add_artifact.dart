@@ -45,7 +45,7 @@ class AddArtifactComponent extends BaseComponent {
       isHttpLoading = true;
       MDTArtifact artifact = await mdtQueryService.addArtifact(app.apiKey,artifactFile,artifactName,latest:lastVersion,branch:artifactBranch,version:artifactVersion,sortIdentifier:artifactSortIdentifier, jsonTags:artifactTags);
       caller.loadAppVersions();
-
+      errorMessage = { 'type': 'success', 'msg': ' Versions ${artifact.name} uploaded successfully!'};
     } on ArtifactsError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
     } catch(e) {
@@ -87,7 +87,7 @@ class AddArtifactComponent extends BaseComponent {
       };
       return false;
     }
-    if (lastVersion) {
+    if (!lastVersion) {
       if (artifactVersion == null) {
         errorMessage = {'type': 'warning', 'msg': 'Version can not be null.'};
         return false;

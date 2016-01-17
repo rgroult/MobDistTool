@@ -53,8 +53,10 @@ class MDTQueryService {
     }
   }
 
-  Map parseResponse(HttpResponse response) {
-    checkAuthorizationHeader(response);
+  Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
+    if (checkAuthorization) {
+      checkAuthorizationHeader(response);
+    }
 
     var responseData = response.data;
     if (response.data is Map) {
@@ -257,7 +259,7 @@ class MDTQueryService {
       url = '$url/last/$name';
     } else {
       if ((branch == null) || (version == null)) {
-        throw new ArtifactsError("Bad parameters");
+        throw new ArtifactsError("Bad parameters, missing branch or version");
       }
       url = '$url/$branch/$version/$name';
     }
@@ -273,7 +275,8 @@ class MDTQueryService {
     }
     var response = await HttpRequest.request(url, method: "POST", sendData: formData);
 
-    var responseJson = parseResponse(response);
+    var responseJson = JSON.decode(response.response);
+    //parseResponse(response.response,checkAuthorization:false);
 
     if (responseJson["error"] != null) {
       throw new ArtifactsError(responseJson["error"]["message"]);

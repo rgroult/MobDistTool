@@ -136,10 +136,12 @@ class ApplicationService {
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions')
-  Future<Response> getApplicationVersions(String appId,{int pageIndex, int limitPerPage,String branch}) async {
+  Future<ResponseList> getApplicationVersions(String appId,{int pageIndex, int limitPerPage,String branch}) async {
     var application = await findApplicationByAppId(appId);
     var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch);
-    return new Response(200, listToJson(allVersions));
+    var responseJson = listToJson(allVersions);
+    return new ResponseList(200, responseJson);
+   // return new ResponseList(200, listToJson(allVersions));
   }
 }
 
