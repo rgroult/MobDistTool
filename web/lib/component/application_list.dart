@@ -21,12 +21,25 @@ class ApplicationListComponent extends BaseComponent  {
   Modal modal;
   //strange :unable to rename it to another name :S
   void get app => this;
-
-  ApplicationListComponent(this.locationService,RouteProvider routeProvider,this.modal,this.mdtQueryService){
+/*
+  void set scope(Scope _scope){
+    super.scope= _scope;
+    scope.rootScope.context.enterRoute("Applications","/apps",1);
+  }
+*/
+  ApplicationListComponent(this.locationService,/*RouteProvider routeProvider,*/this.modal,this.mdtQueryService){
     print ("ApplicationsComponent created");
     //loadApps();
     loadAppList();
    // currentComp = this;
+
+    currentRoute = {"name":"Applications","path":"/apps","level":1};
+/*
+    RouteHandle route = routeProvider.route.newHandle();
+    route.onEnter.listen((RouteEvent e){
+      print("scope $scope");
+      scope.rootScope.context.enterRoute("Applications",e.path,1);
+    });*/
   }
 
   void selectFilter(String platform){

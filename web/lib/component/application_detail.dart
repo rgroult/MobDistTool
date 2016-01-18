@@ -112,6 +112,15 @@ class ApplicationDetailComponent extends BaseComponent  {
     _appId = routeProvider.parameters['appId'];
     currentApp = _parent.finByUUID(_appId);
     loadApp();
+
+/*
+    var route = routeProvider.route.newHandle();
+         route.onEnter.listen((RouteEnterEvent e) {
+          print("Do something when the route is activated.");
+         });
+*/
+    currentRoute = {"name":"${currentApp.name}","path":"/apps/${currentApp.uuid}/artifacts","level":2};
+
    /* loadArtifacts();
     sortArtifacts();
 */
@@ -122,6 +131,11 @@ class ApplicationDetailComponent extends BaseComponent  {
         _parent.applicationListNeedBeReloaded();
       }
     });
+    /*
+    route.onEnter.listen((RouteEvent e){
+      print("Do something when the route is activated.");
+      scope.rootScope.context.enterRoute("Versions",e.path,3);
+    });*/
 
   }
 

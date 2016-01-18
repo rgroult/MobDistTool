@@ -1,30 +1,39 @@
 import 'package:angular/angular.dart';
 
-class BaseComponent  implements ScopeAware {
- bool isHttpLoading = false;
- var errorMessage = null;
+class BaseComponent implements ScopeAware {
+  bool isHttpLoading = false;
+  var errorMessage = null;
 
- void hideMessage(){
-  errorMessage = null;
+  void hideMessage() {
+    errorMessage = null;
 
-   void hideMessage(){
-     errorMessage = null;
-   }
- }
- /* BaseComponent(this._mdtService){
+    void hideMessage() {
+      errorMessage = null;
+    }
+  }
+
+  Scope _scope;
+
+  void get scope => _scope;
+  void set scope(Scope scope) {
+    _scope = scope;
+    if (currentRoute != null) {
+      _scope.rootScope.context.enterRoute(
+          currentRoute["name"], currentRoute["path"], currentRoute["level"]);
+    }
+  }
+
+  Map currentRoute = null;
+
+  /* BaseComponent(this._mdtService){
 
   }*/
 
-  MainComponent mainComp(){
- /*  return scope.rootScope.context.mainComp;
-   var currentScope = scope.parentScope;
-   while (!(currentScope.context is MainComponent) && currentScope!= scope.rootScope){
-    currentScope = currentScope.parentScope;
-   }
-   return currentScope.context;*/
-    return scope.parentScope.context;
+  MainComponent mainComp() {
+    return _scope.parentScope.context;
   }
+
   //MDTQueryService _mdtService;
-  Scope scope;
-  //bool isHttpLoading = false;
+
+//bool isHttpLoading = false;
 }
