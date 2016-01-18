@@ -24,8 +24,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="javascript:void(0)">Settings</a></li>
+                            <li><a><label class="checkbox-inline"><input ng-model="adminOption" type="checkbox" value="">Display Admin Option</label></a></li>
                             <li class="divider"></li>
-                            <li><a href="javascript:void(0)">Logout</a></li>
+                            <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -38,6 +39,7 @@
         </div>
     </div>
 </div>
+
 <ol class="breadcrumb">
     <li ng-repeat="route in routeHistory"><a href="#{{route['path']}}">{{route['name']}}</a></li>
   <!--  <li><a href="#/home">Home</a></li>

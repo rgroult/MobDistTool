@@ -28,11 +28,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Latest</label>
                         <div class="col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model="lastVersion"> Add to latest build
-                                </label>
-                            </div>
+                            <label class="checkbox-inline"><input ng-model="lastVersion" type="checkbox" value="">Add to latest build</label>
                         </div>
                     </div>
                     <div ng-unless="lastVersion" class="form-group">

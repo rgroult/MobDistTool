@@ -80,8 +80,24 @@ class ApplicationDetailComponent extends BaseComponent  {
 
   //admin
   bool canAdmin(){
+    bool displayAdminOption  = scope.rootScope.context.adminOptionsDisplayed;
+    if (scope.rootScope.context.isUserAdmin && displayAdminOption){
+      return true;
+    }
+    var email = scope.rootScope.context.currentUser["email"].toLowerCase();
+    var adminFound =  currentApp.adminUsers.firstWhere((o) => (o.email.toLowerCase() == email), orElse: () => null);
+
+    if (adminFound != null && displayAdminOption){
+        return true;
+    }
+    /*
+    bool isUserConnected = false;
+  bool isUserAdmin = false;
+  Map currentUser = null;
+  bool adminOptionsDisplayed = false;
+     */
     //var currentUser = mainComp().currentUser;
-    return true;
+    return false;
   }
 
   void applicationEditionSucceed(MDTApplication updatedApp){
@@ -113,17 +129,6 @@ class ApplicationDetailComponent extends BaseComponent  {
     currentApp = _parent.finByUUID(_appId);
     loadApp();
 
-/*
-    var route = routeProvider.route.newHandle();
-         route.onEnter.listen((RouteEnterEvent e) {
-          print("Do something when the route is activated.");
-         });
-*/
-    currentRoute = {"name":"${currentApp.name}","path":"/apps/${currentApp.uuid}/artifacts","level":2};
-
-   /* loadArtifacts();
-    sortArtifacts();
-*/
     RouteHandle route = routeProvider.route.newHandle();
     route.onLeave.listen((RouteEvent event) {
       _parent.isApplicationSelected = false;

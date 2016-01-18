@@ -29,17 +29,8 @@ class ApplicationListComponent extends BaseComponent  {
 */
   ApplicationListComponent(this.locationService,/*RouteProvider routeProvider,*/this.modal,this.mdtQueryService){
     print ("ApplicationsComponent created");
-    //loadApps();
-    loadAppList();
-   // currentComp = this;
-
-    currentRoute = {"name":"Applications","path":"/apps","level":1};
-/*
-    RouteHandle route = routeProvider.route.newHandle();
-    route.onEnter.listen((RouteEvent e){
-      print("scope $scope");
-      scope.rootScope.context.enterRoute("Applications",e.path,1);
-    });*/
+    loadApps();
+    //loadAppListFake();
   }
 
   void selectFilter(String platform){
@@ -108,7 +99,7 @@ class ApplicationListComponent extends BaseComponent  {
 
   }
 
-  void loadAppList(){
+  void loadAppListFake(){
     var app1Data = {
     "uuid" : "dsfsdfsdfsdf",
     "apiKey" : "aîkey12345",
