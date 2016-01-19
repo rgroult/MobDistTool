@@ -23,6 +23,8 @@ import 'package:shelf_auth/src/authorisers/authenticated_only_authoriser.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 //mongo DB
 import '../server/config/src/mongo.dart' as mongo;
+//config
+import '../server/config/config.dart' as config;
 //API
 import '../server/managers/managers.dart';
 
@@ -45,12 +47,15 @@ Future stopServer({bool force:false}) async {
 }
 
 Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
+  config.loadConfig();
+
   // Add a simple log handler to log information to a server side file.
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen(new SyncFileLoggingHandler('myLogFile.txt'));
   if (stdout.hasTerminal) {
     Logger.root.onRecord.listen(new LogPrintHandler());
   }
+
   await mongo.initialize(dropCollectionOnStartup:resetDatabaseContent);
 
   //_apiServer.addApi(new ToyApi());

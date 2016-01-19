@@ -2,6 +2,7 @@ import '../../../packages/mongo_dart/mongo_dart.dart';
 import 'dart:async';
 import '../../../packages/objectory/objectory_console.dart';
 import '../../model/model.dart';
+import '../config.dart' as config;
 
 Db mongoDb = null;
 
@@ -14,8 +15,9 @@ Db mongoDb = null;
     return new Future.value(null);
   }
   //mongoDb =  new Db("mongodb://localhost:27017/mdt_dev");
-  const Uri = "mongodb://localhost:27017/mdt_dev";
-  //const Uri = "mongodb://192.168.99.100:32768";
+
+  //const Uri = "mongodb://localhost:27017/mdt_dev";
+  var Uri = config.currentLoadedConfig["mongoURL"];
   objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,false);
   if (dropCollectionOnStartup == true) {
     objectory.dropCollectionsOnStartup = true;
