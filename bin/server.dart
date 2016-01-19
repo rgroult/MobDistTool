@@ -90,7 +90,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
       ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
   var handler = const shelf.Pipeline()
-      //.addMiddleware(shelf_cors.createCorsHeadersMiddleware())
+      .addMiddleware(shelf_cors.createCorsHeadersMiddleware(corsHeaders:{'Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'}))
       .addMiddleware(exceptionHandler())
       .addMiddleware(shelf.logRequests())
       .addHandler(apiRouter.handler);
