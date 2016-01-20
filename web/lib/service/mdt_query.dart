@@ -204,6 +204,30 @@ class MDTQueryService {
     throw new ApplicationError("Not implemented !");
   }
 
+  List<MDTArtifact> listLatestArtifacts(String appId) async {
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions/last';
+
+    print("Loads latest version url $url");
+
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+
+    var artifactsList = new List<MDTArtifact>();
+
+    var artList = responseJson["list"];
+    if (artList != null) {
+      for (Map app in artList) {
+        artifactsList.add(new MDTArtifact(app));
+      }
+    }
+
+    return artifactsList;
+  }
+
   List<MDTArtifact> listArtifacts(String appId, {int pageIndex, int limitPerPage,String branch}) async{
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions';
     var parameters ={};

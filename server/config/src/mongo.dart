@@ -9,7 +9,7 @@ Db mongoDb = null;
 //Objectory globalObjectory = nil;
 
  Future initialize({bool dropCollectionOnStartup:false}) async {
-  print("mongo initialize $objectory");
+
   if (objectory != null) {
    return objectory.ensureInitialized();
     return new Future.value(null);
@@ -18,6 +18,7 @@ Db mongoDb = null;
 
   //const Uri = "mongodb://localhost:27017/mdt_dev";
   var Uri = config.currentLoadedConfig["mongoURL"];
+  print("mongo initializing on  $Uri");
   objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,false);
   if (dropCollectionOnStartup == true) {
     objectory.dropCollectionsOnStartup = true;

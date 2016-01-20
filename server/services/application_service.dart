@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:rpc/rpc.dart';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
+import 'artifact_service.dart' as artifactMgr;
 import 'model.dart';
 import 'json_convertor.dart';
 
@@ -138,10 +139,19 @@ class ApplicationService {
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions')
   Future<ResponseList> getApplicationVersions(String appId,{int pageIndex, int limitPerPage,String branch}) async {
     var application = await findApplicationByAppId(appId);
-    var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch);
+    var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch,branchToExclude:artifactMgr.ArtifactService.lastVersionBranchName);
     var responseJson = listToJson(allVersions);
     return new ResponseList(200, responseJson);
    // return new ResponseList(200, listToJson(allVersions));
+  }
+
+  @ApiMethod(method: 'GET', path: 'app/{appId}/versions/last')
+  Future<ResponseList> getApplicationLastVersions(String appId) async {
+    var application = await findApplicationByAppId(appId);
+    var allVersions = await mgrs.searchArtifacts(application, branch:artifactMgr.ArtifactService.lastVersionBranchName);
+    var responseJson = listToJson(allVersions);
+    return new ResponseList(200, responseJson);
+    // return new ResponseList(200, listToJson(allVersions));
   }
 }
 
