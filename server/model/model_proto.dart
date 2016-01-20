@@ -21,11 +21,12 @@ class MDTUser/* extends MDTBaseObject*/ {
 class MDTApplication /*extends MDTBaseObject */{
   String uuid;
   String apiKey;
+  String base64IconData;
   String name;
   String platform;
   String description;
   List<MDTUser> adminUsers;
-  List<MDTArtifact> lastVersion;
+  //List<MDTArtifact> lastVersion;
 }
 
 class MDTArtifact/* extends MDTBaseObject*/ {

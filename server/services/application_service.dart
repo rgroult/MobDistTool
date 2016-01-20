@@ -144,6 +144,16 @@ class ApplicationService {
     return new ResponseList(200, responseJson);
    // return new ResponseList(200, listToJson(allVersions));
   }
+/*
+  @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
+  Future<String> getApplicationIcon(String appId) async{
+    var application = await findApplicationByAppId(appId);
+    //var imageTypeindex = application.bas
+    return 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+    /*'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='*/
+
+    throw new NotFoundError("Icon not found");
+  }*/
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions/last')
   Future<ResponseList> getApplicationLastVersions(String appId) async {
@@ -162,6 +172,8 @@ class UpdateApplication {
   String description;
   @ApiProperty(required: false)
   String platform;
+  @ApiProperty(required: false)
+  String base64IconData;
   UpdateApplication();
 }
 class CreateApplication {
@@ -171,6 +183,8 @@ class CreateApplication {
   String description;
   @ApiProperty(required: true)
   String platform;
+  @ApiProperty(required: false)
+  String base64IconData;
   CreateApplication();
 }
 

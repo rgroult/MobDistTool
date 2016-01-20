@@ -85,7 +85,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       return true;
     }
     var email = scope.rootScope.context.currentUser["email"].toLowerCase();
-    var adminFound =  currentApp.adminUsers.firstWhere((o) => (o.email.toLowerCase() == email), orElse: () => null);
+    var adminFound =  currentApp.adminUsers.firstWhere((o) => o.email!=null ? (o.email.toLowerCase() == email) : false, orElse: () => null);
 
     if (adminFound != null && displayAdminOption){
         return true;
