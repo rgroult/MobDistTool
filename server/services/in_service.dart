@@ -8,9 +8,8 @@ import 'model.dart';
 import 'json_convertor.dart';
 
 
-@ApiClass( name:'art' , version: 'v1')
-class ArtifactService {
-  /*
+@ApiClass( name:'in' , version: 'v1')
+class InService {
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "lastest";
 
@@ -58,7 +57,7 @@ class ArtifactService {
     }
     var existingArtifact = await mgrs.findArtifactByInfos(app,branch,version,artifactName);
     if (existingArtifact != null) {
-        await mgrs.deleteArtifact(existingArtifact,mgrs.defaultStorage);
+      await mgrs.deleteArtifact(existingArtifact,mgrs.defaultStorage);
     }
     return new OKResponse();
   }
@@ -72,66 +71,15 @@ class ArtifactService {
   Future<Response> deleteLastArtifactByAppKey(String apiKey,String artifactName) async{
     return deleteArtifactByAppKey(apiKey,lastVersionBranchName, lastVersionName,artifactName);
   }
-*/
-  @ApiMethod(method: 'PUT', path: 'artifacts/{idArtifact}')
-  Future<Response> addArtifact(String idArtifact,  FullArtifactMsg artifactsMsg) async{
-    //current user
-    var currentuser = userService.currentAuthenticatedUser();
-    //artifact
-    var artifact = findArtifact(idArtifact);
-    if (artifact == null ){
-      return NotFoundError;
-    }
-    if (mgrs.isAdminForApp(artifact.application,currentuser) == false){
-      throw new NotApplicationAdministrator();
-    }
-    artifact.branch = artifactsMsg.branch;
-    artifact.version = artifactsMsg.version;
-    artifact.artifactName = artifactsMsg.artifactName;
 
-    if(artifactsMsg.sortIdentifier != null){
-      artifact.sortIdentifier= artifactsMsg.sortIdentifier;
-    }
 
-    if(artifactsMsg.jsonTags != null){
-      artifact.metaDataTags= parseTags(artifactsMsg.jsonTags);
-    }
+  @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/ios_plist')
+  Future<MediaMessage> getArtifactDescriptor(String idArtifact,{String token}) async{
 
-    if(artifactsMsg.artifactFile != null){
-      try {
-        mgrs.addFileToArtifact(artifactsMsg.artifactFile,artifactsMsg,mgrs.defaultStorage);
-      }on ArtifactError catch(e){
-        throw new RpcError(500, 'Update failed', 'Unable to update artifact');
-      }
-    }
-
-    await artifact.save();
-    return new Response(200, toJson(artifact,isAdmin:true));
   }
 
-  @ApiMethod(method: 'DELETE', path: 'artifacts/{idArtifact}')
-  Future<Response> deleteArtifact(String idArtifact) async{
-    //current user
-    var currentuser = userService.currentAuthenticatedUser();
-    //artifact
-    var artifact = findArtifact(idArtifact);
-    if (artifact == null ){
-      return NotFoundError;
-    }
-    if (mgrs.isAdminForApp(artifact.application,currentuser) == false){
-      throw new NotApplicationAdministrator();
-    }
-    try {
-      await mgrs.deleteArtifact(artifact,,mgrs.defaultStorage);
-    }on ArtifactError catch(e){
-
-    }
-    return new OKResponse();
-  }
-
-
-  @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/download')
-  Future<DownloadInfo> getArtifactDescriptor(String idArtifact) async{
+  @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/file')
+  Future<MediaMessage> deleteArtifact(String idArtifact,{String token}) async{
 
   }
 }

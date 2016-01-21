@@ -79,4 +79,15 @@ List listToJson(List<PersistentObject> objects, {bool isAdmin:false}){
   return result;
 }
 
+String parseTags(String tags){
+  if (tags == null){
+    return null;
+  }
+  var object =  JSON.decode(tags);
+  if (object != null){
+    return JSON.encode(object);
+  }
+  return null;
+}
+
 //PersistentObject objectById
