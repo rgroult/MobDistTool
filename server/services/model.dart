@@ -16,6 +16,11 @@ class Response {
   Response(this.status,this.data);
 }
 
+class DownloadInfo {
+  String downloadUrl;
+  String token;
+}
+
 class ResponseList {
   int status;
   List<Map<String,String>> list;

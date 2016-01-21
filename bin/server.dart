@@ -31,11 +31,12 @@ import '../server/managers/managers.dart';
 import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
 import '../server/services/artifact_service.dart';
+import '../server/services/in_service.dart';
 
 const _API_PREFIX = '/api';
-const _SIGNED_PREFIX = _API_PREFIX+'/in';
+/*const _SIGNED_PREFIX = _API_PREFIX+'/in';
 const _AUTHORIZED_PREFIX = _API_PREFIX;
-const _LOGIN_PREFIX = _API_PREFIX+'/users';
+const _LOGIN_PREFIX = _API_PREFIX+'/users';*/
 
 final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: true);
 //final ApiServer _statelessApiServer = new ApiServer(apiPrefix: _STATELESS_PREFIX, prettyPrint: true);
@@ -62,6 +63,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   _apiServer.addApi(new UserService());
   _apiServer.addApi(new ApplicationService());
   _apiServer.addApi(new ArtifactService());
+  _apiServer.addApi(new InService());
   _apiServer.enableDiscoveryApi();
 
   //authentication
@@ -84,15 +86,17 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   var apiRouter = shelf_route.router()
       //disable authent for register
       ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
-      ..add('/api/art/',null,apiHandler,exactMatch: false)
+      ..add('/api/in/',null,apiHandler,exactMatch: false)
       ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
-      ..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
+      //..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
       //disable authent for discovery ?
       ..add('api/discovery',null,apiHandler,exactMatch: false)
       //gui
       ..add('web/',null,staticHandler,exactMatch: false)
-
+      //authenticate api
       ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
+
+  shelf_route.printRoutes(apiRouter);
 
   var handler = const shelf.Pipeline()
       //.addMiddleware(shelf_cors.createCorsHeadersMiddleware(corsHeaders:{'Access-Control-Allow-Origin': '*' /*, 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, authorization','Access-Control-Allow-Credentials':'true'*/}))
