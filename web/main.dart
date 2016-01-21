@@ -97,9 +97,10 @@ class MainComponent implements ScopeAware {
     return initialHeaders;
   }
 */
-  MainComponent(this._http,this.modal,this.mdtService,this.locationService){
+  MainComponent(this._http,HttpInterceptors interceptors,this.modal,this.mdtService,this.locationService){
     print("Main component created $this");
     mdtService.setHttpService(_http);
+    mdtService.configureInjector(interceptors);
     //scope.rootScope.context.mainComp = this;
 /*
     RouteHandle route = routeProvider.route.newHandle();

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
+import 'package:crypto/crypto.dart';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
 import 'artifact_service.dart' as artifactMgr;
@@ -33,7 +34,7 @@ class ApplicationService {
     var platform = checkSupportedPlatform(createMsg.platform);
     var currentuser = userService.currentAuthenticatedUser();
     try {
-      var appCreated = await mgrs.createApplication(createMsg.name,platform,description:createMsg.description,adminUser:currentuser);
+      var appCreated = await mgrs.createApplication(createMsg.name,platform,description:createMsg.description,adminUser:currentuser,base64Icon:createMsg.base64IconData);
       var response = toJson(appCreated, isAdmin:true);
       return new Response(200, response);
     } on StateError catch (e) {
@@ -72,7 +73,7 @@ class ApplicationService {
       throw new NotApplicationAdministrator();
     }
     try {
-      application = await mgrs.updateApplication(application,name:updateMsg.name,platform:updateMsg.platform,description:updateMsg.description);
+      application = await mgrs.updateApplication(application,name:updateMsg.name,platform:updateMsg.platform,description:updateMsg.description,base64Icon:updateMsg.base64IconData);
       return new Response(200, toJson(application,isAdmin:true));
     }on StateError catch (e) {
       var error = e;
@@ -144,16 +145,34 @@ class ApplicationService {
     return new ResponseList(200, responseJson);
    // return new ResponseList(200, listToJson(allVersions));
   }
-/*
+
   @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
-  Future<String> getApplicationIcon(String appId) async{
+  Future<MediaMessage> getApplicationIcon(String appId) async {
     var application = await findApplicationByAppId(appId);
+
+    String base64icon = application.base64IconData;
+    if (base64icon != null) {}
+    var dataTypeIndex = base64icon.indexOf('data:');
+    var dataBytesIndex = base64icon.indexOf(';base64,');
+    var endDataTypeIndex= dataBytesIndex;
+    if (dataTypeIndex != -1 && dataBytesIndex != -1) {
+      dataTypeIndex += 5;
+      dataBytesIndex += 8;
+
+      var imageType = base64icon.substring(dataBytesIndex,endDataTypeIndex);
+      var base64 = base64icon.substring(dataTypeIndex);
+      var result = new MediaMessage();
+      result.contentType = imageType;
+      result.bytes = CryptoUtils.base64StringToBytes(base64);
+      return result;
+    }
+
     //var imageTypeindex = application.bas
-    return 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+   // return 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
     /*'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='*/
 
     throw new NotFoundError("Icon not found");
-  }*/
+  }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions/last')
   Future<ResponseList> getApplicationLastVersions(String appId) async {

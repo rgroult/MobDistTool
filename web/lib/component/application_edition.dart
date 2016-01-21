@@ -58,7 +58,7 @@ class ApplicationEditionComponent extends BaseComponent {
   String appPlatform;
   String appDescription;
   String appUUID;
-  String appIcon = "images/placeholderImage.jpg";
+  String appIcon;
   File appIconFile;
 
   void hideMessage(){
@@ -79,7 +79,7 @@ class ApplicationEditionComponent extends BaseComponent {
   }
 
   void createImageElement(File file,String base64) {
-    print(base64);
+    //print(base64);
     appIcon = "$base64";
   }
 
@@ -110,7 +110,7 @@ class ApplicationEditionComponent extends BaseComponent {
     }
     try {
       isHttpLoading = true;
-      MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,"");
+      MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,appIcon);
       if (appUpdated !=null){
         caller.applicationEditionSucceed(appUpdated);
        // caller.applicationListNeedBeReloaded();
@@ -139,7 +139,7 @@ class ApplicationEditionComponent extends BaseComponent {
     }
     try {
       isHttpLoading = true;
-      MDTApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,"");
+      MDTApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,appIcon);
       if (appCreated !=null){
           caller.applicationEditionSucceed(appCreated);
         errorMessage = { 'type': 'success', 'msg': ' Application ${appCreated.name} created successfully!'};

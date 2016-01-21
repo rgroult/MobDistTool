@@ -20,7 +20,7 @@ Future<List<MDTApplication>> allApplications({String platform}) async{
 
 
 Future<MDTApplication> createApplication(String name, String platform,
-    {String description,MDTUser adminUser}) async {
+    {String description,MDTUser adminUser,String base64Icon}) async {
   if (name == null || name.isEmpty) {
     //return new Future.error(new StateError("bad state"));
     throw new AppError('name must be not null');
@@ -42,7 +42,8 @@ Future<MDTApplication> createApplication(String name, String platform,
     ..platform = platform
     ..apiKey = UuidGenerator.v4()
     ..description = description
-    ..uuid = UuidGenerator.v4();
+    ..uuid = UuidGenerator.v4()
+    ..base64IconData = base64Icon;
 
   if (description != null) createdApp.description = description;
 
@@ -54,7 +55,7 @@ Future<MDTApplication> createApplication(String name, String platform,
   return createdApp;
 }
 
-Future updateApplication(MDTApplication app, {String name, String platform, String description}) async {
+Future updateApplication(MDTApplication app, {String name, String platform, String description,String base64Icon}) async {
   //find if other app with same name/platform
   var newName = name!=null ? name : app.name;
   var newPlatform = platform!=null? platform : app.platform;
@@ -66,6 +67,9 @@ Future updateApplication(MDTApplication app, {String name, String platform, Stri
     app.platform = newPlatform;
     if (description != null){
       app.description = description;
+    }
+    if (base64Icon != null){
+      app.base64IconData = base64Icon;
     }
   }
 

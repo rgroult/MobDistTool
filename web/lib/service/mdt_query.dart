@@ -20,6 +20,33 @@ class MDTQueryService {
   void setHttpService(Http http) {
     this._http = http;
   }
+  HttpInterceptors interceptors;
+
+  void configureInjector(HttpInterceptors _interceptors){
+    interceptors = _interceptors;
+    var headerInterceptor = new HttpInterceptor();
+    headerInterceptor.request = (HttpResponseConfig request) {
+      if (lastAuthorizationHeader.length>0){
+        print("Add authoriztion to url ${request.url}");
+        request.headers['authorization'] = lastAuthorizationHeader;
+      }
+      return request;
+    };
+    headerInterceptor.response = (HttpResponse response){
+      if (response.status == 401) {
+        lastAuthorizationHeader = '';
+      }
+      var newHeader = response.headers('authorization');
+      if (newHeader != null) {
+        lastAuthorizationHeader = newHeader;
+      }
+      return response;
+    };
+
+    interceptors.add(headerInterceptor);
+  }
+
+
 
   MDTQueryService() {
     print("MDTQueryService constructor, mode ${const String.fromEnvironment('mode')} base URL $mdtServerApiRootUrl");
@@ -32,11 +59,11 @@ class MDTQueryService {
       "content-type": requestContentType,
       "accept": 'application/json' /*,"Access-Control-Allow-Headers":"*"*/
     };
-    if (lastAuthorizationHeader.length > 0) {
+  /*  if (lastAuthorizationHeader.length > 0) {
       initialHeaders['authorization'] = lastAuthorizationHeader;
     } else {
       initialHeaders.remove('authorization');
-    }
+    }*/
     return initialHeaders;
   }
 
@@ -45,12 +72,12 @@ class MDTQueryService {
       lastAuthorizationHeader = '';
       throw new LoginError();
     }
-
+/*
     var newHeader = response.headers('authorization');
     print("auth Header $newHeader");
     if (newHeader != null) {
       lastAuthorizationHeader = newHeader;
-    }
+    }*/
   }
 
   Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
@@ -131,7 +158,8 @@ class MDTQueryService {
     var appData = {
       "name": name,
       "description": description,
-      "platform": platform
+      "platform": platform,
+      "base64IconData":icon
     };
     var response = await sendRequest(
         'POST', '${mdtServerApiRootUrl}${appPath}/create',
@@ -142,12 +170,17 @@ class MDTQueryService {
       throw new ApplicationError(responseJson["error"]["message"]);
     }
 
-    return new MDTApplication(responseJson["data"]);
+    var app = new MDTApplication(responseJson["data"]);
+    app.appIcon= applicationIcon(app.uuid);
+    return app;
   }
 
   MDTApplication updateApplication(
       String appId, String name, String description, String icon) async {
     var appData = {"name": name, "description": description};
+    if (icon.isNotEmpty()){
+      appData["base64IconData"] = icon;
+    }
     var response = await sendRequest(
         'PUT', '${mdtServerApiRootUrl}${appPath}/app/$appId',
         body: JSON.encode(appData));
@@ -156,8 +189,10 @@ class MDTQueryService {
     if (responseJson["error"] != null) {
       throw new ApplicationError(responseJson["error"]["message"]);
     }
+    var app = new MDTApplication(responseJson["data"]);
 
-    return new MDTApplication(responseJson["data"]);
+    app.appIcon= applicationIcon(app.uuid);
+    return app;
   }
 
   MDTApplication getApplication(String appId) async {
@@ -171,10 +206,16 @@ class MDTQueryService {
     }
     var appFound = responseJson["data"];
     if (appFound != null) {
-      return new MDTApplication(appFound);
+      var app = new MDTApplication(appFound);
+      app.appIcon = applicationIcon(app.uuid);
+      return app;
     }
 
     throw new ApplicationError("Unable to parse response ${responseJson}");
+  }
+
+  String applicationIcon(String appid){
+    return "${mdtServerApiRootUrl}${appPath}/app/${appid}/icon";
   }
 
   List<MDTApplication> getApplications({String platformFilter}) async {
@@ -193,7 +234,9 @@ class MDTQueryService {
     var appList = responseJson["list"];
     if (appList != null) {
       for (Map app in appList) {
-        foundAppList.add(new MDTApplication(app));
+        var appCreated = new MDTApplication(app);
+        appCreated.appIcon = applicationIcon(appCreated.uuid);
+        foundAppList.add(appCreated);
       }
     }
 

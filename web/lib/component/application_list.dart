@@ -33,6 +33,13 @@ class ApplicationListComponent extends BaseComponent  {
     //loadAppListFake();
   }
 
+  String iconForApp(MDTApplication app){
+    /*if (app.appIcon.length>0){
+      return app.appIcon;
+    }*/
+    return "js/holder.min.js?theme=gray";
+  }
+
   void selectFilter(String platform){
     if (platform == ""){
       currentPlatformFilter = "";
