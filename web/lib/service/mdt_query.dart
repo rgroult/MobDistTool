@@ -179,7 +179,7 @@ class MDTQueryService {
   MDTApplication updateApplication(
       String appId, String name, String description, String icon) async {
     var appData = {"name": name, "description": description};
-    if (icon.isNotEmpty()){
+    if (icon.length>0){
       appData["base64IconData"] = icon;
     }
     var response = await sendRequest(

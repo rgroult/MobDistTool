@@ -33,7 +33,7 @@
                 <div class="col-xs-6 col-md-3" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter}">
                     <div class="thumbnail">
                         <a class="" href1="#/apps/{{app.uuid}}/artifacts" ng-click="appSelected(app.uuid)">
-                            <img alt="100%x180" src="{{app.appIcon}}" data-holder-rendered="true" class="img-rounded">
+                            <img alt="100%x180" src="{{app.appIcon}}" data-holder-rendered="true" class="img-rounded" style="height:180px;">
                                 <span class="platform{{app.platform}}"></span>
                             </img>
                             <div class="caption">
