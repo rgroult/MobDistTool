@@ -227,7 +227,7 @@ class MDTQueryService {
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);
 
-    ifresponseJson["error"] != null) {
+    if(responseJson["error"] != null) {
       throw new ApplicationError(responseJson["error"]["message"]);
     }
 
