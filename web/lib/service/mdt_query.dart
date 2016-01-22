@@ -10,6 +10,7 @@ final String mdtServerApiRootUrl = const String.fromEnvironment('mode') == 'java
 final String appVersion = "v1";
 final String appPath = "/applications/${appVersion}";
 final String artifactsPath = "/art/${appVersion}";
+final String inPath = "/in/${appVersion}";
 final String usersPath = "/users/${appVersion}";
 
 @Injectable()
@@ -215,7 +216,7 @@ class MDTQueryService {
   }
 
   String applicationIcon(String appid){
-    return "${mdtServerApiRootUrl}${appPath}/app/${appid}/icon";
+    return "${mdtServerApiRootUrl}${inPath}/app/${appid}/icon";
   }
 
   List<MDTApplication> getApplications({String platformFilter}) async {
@@ -226,7 +227,7 @@ class MDTQueryService {
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);
 
-    if (responseJson["error"] != null) {
+    ifresponseJson["error"] != null) {
       throw new ApplicationError(responseJson["error"]["message"]);
     }
 
@@ -321,7 +322,7 @@ class MDTQueryService {
     if ((apiKey == null) || (file == null) || (name == null)) {
       throw new ArtifactsError("Bad parameters");
     }
-    var url = '${mdtServerApiRootUrl}${artifactsPath}/artifacts/${apiKey}';
+    var url = '${mdtServerApiRootUrl}${inPath}/artifacts/${apiKey}';
     if (latest) {
       url = '$url/last/$name';
     } else {

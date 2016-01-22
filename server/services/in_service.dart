@@ -72,6 +72,33 @@ class InService {
     return deleteArtifactByAppKey(apiKey,lastVersionBranchName, lastVersionName,artifactName);
   }
 
+  @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
+  Future<MediaMessage> getApplicationIcon(String appId) async {
+    var application = await findApplicationByAppId(appId);
+
+    String base64icon = application.base64IconData;
+    if (base64icon != null) {}
+    var dataTypeIndex = base64icon.indexOf('data:');
+    var dataBytesIndex = base64icon.indexOf(';base64,');
+    var endDataTypeIndex= dataBytesIndex;
+    if (dataTypeIndex != -1 && dataBytesIndex != -1) {
+      dataTypeIndex += 5;
+      dataBytesIndex += 8;
+
+      var imageType = base64icon.substring(dataBytesIndex,endDataTypeIndex);
+      var base64 = base64icon.substring(dataTypeIndex);
+      var result = new MediaMessage();
+      result.contentType = imageType;
+      result.bytes = CryptoUtils.base64StringToBytes(base64);
+      return result;
+    }
+
+    //var imageTypeindex = application.bas
+    // return 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+    /*'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='*/
+
+    throw new NotFoundError("Icon not found");
+  }
 
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/ios_plist')
   Future<MediaMessage> getArtifactDescriptor(String idArtifact,{String token}) async{
