@@ -96,6 +96,10 @@ class ApplicationEditionComponent extends BaseComponent {
       errorMessage = { 'type': 'warning', 'msg': 'Please select a platform.' };
       return false;
     }
+    if (appIconFile != null && appIconFile.size > 200*1024 ){
+      errorMessage = { 'type': 'warning', 'msg': 'Icon too big (max:200k).' };
+      return false;
+    }
     return true;
   }
 

@@ -10,10 +10,10 @@ import 'json_convertor.dart';
 
 @ApiClass( name:'art' , version: 'v1')
 class ArtifactService {
-  /*
+
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "lastest";
-
+/*
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
   Future<Response> addArtifactByAppKey(String apiKey,String branch,String version, String artifactName, ArtifactMsg artifactsMsg) async{
     var application = await mgrs.findApplicationByApiKey(apiKey);

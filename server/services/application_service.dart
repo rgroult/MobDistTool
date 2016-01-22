@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
-import 'package:crypto/crypto.dart';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
 import 'artifact_service.dart' as artifactMgr;
@@ -21,12 +20,16 @@ class ApplicationService {
     //throw new RpcError(400, 'BadRequest', 'Unsuported platform, only ${supportedPlatform.toString()} supported');
   }
 
-  Future<MDTApplication> findApplicationByAppId(String appId) async {
+  static Future<MDTApplication> applicationByAppId(String appId) async {
     var application = await mgrs.findApplicationByUuid(appId);
     if (application == null){
       throw new NotFoundError('Application not found');
     }
     return application;
+  }
+
+  Future<MDTApplication> findApplicationByAppId(String appId) async {
+    return ApplicationService.applicationByAppId(appId);
   }
 
   @ApiMethod(method: 'POST', path: 'create')

@@ -27,7 +27,7 @@ class MDTQueryService {
     interceptors = _interceptors;
     var headerInterceptor = new HttpInterceptor();
     headerInterceptor.request = (HttpResponseConfig request) {
-      if (lastAuthorizationHeader.length>0){
+      if (lastAuthorizationHeader.length>0 && mdtServerApiRootUrl.matchAsPrefix(request.url) != null){
         print("Add authoriztion to url ${request.url}");
         request.headers['authorization'] = lastAuthorizationHeader;
       }

@@ -2,16 +2,18 @@ import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
 import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import '../managers/managers.dart' as mgrs;
+import '../managers/errors.dart';
 import 'user_service.dart' as userService;
+import 'application_service.dart' as appService;
+import 'artifact_service.dart';
 import 'model.dart';
 import 'json_convertor.dart';
 
 
 @ApiClass( name:'in' , version: 'v1')
 class InService {
-  static String lastVersionBranchName = "@@@@LAST####";
-  static String lastVersionName = "lastest";
 
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
   Future<Response> addArtifactByAppKey(String apiKey,String branch,String version, String artifactName, ArtifactMsg artifactsMsg) async{
@@ -64,33 +66,39 @@ class InService {
 
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/last/{artifactName}')
   Future<Response> addLastArtifactByAppKey(String apiKey, String artifactName, ArtifactMsg artifactsMsg) async{
-    return addArtifactByAppKey(apiKey,lastVersionBranchName, lastVersionName, artifactName, artifactsMsg);
+    return addArtifactByAppKey(apiKey, ArtifactService.lastVersionBranchName, ArtifactService.lastVersionName, artifactName, artifactsMsg);
   }
 
   @ApiMethod(method: 'DELETE', path: 'artifacts/{apiKey}/last/{artifactName}')
   Future<Response> deleteLastArtifactByAppKey(String apiKey,String artifactName) async{
-    return deleteArtifactByAppKey(apiKey,lastVersionBranchName, lastVersionName,artifactName);
+    return deleteArtifactByAppKey(apiKey,ArtifactService.lastVersionBranchName, ArtifactService.lastVersionName,artifactName);
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
   Future<MediaMessage> getApplicationIcon(String appId) async {
-    var application = await findApplicationByAppId(appId);
+    var application = await appService.ApplicationService.applicationByAppId(appId);
 
     String base64icon = application.base64IconData;
-    if (base64icon != null) {}
-    var dataTypeIndex = base64icon.indexOf('data:');
-    var dataBytesIndex = base64icon.indexOf(';base64,');
-    var endDataTypeIndex= dataBytesIndex;
-    if (dataTypeIndex != -1 && dataBytesIndex != -1) {
-      dataTypeIndex += 5;
-      dataBytesIndex += 8;
+    if (base64icon != null) {
+      print("length ${base64icon.length}");
+      var dataTypeIndex = base64icon.indexOf('data:');
+      var dataBytesIndex = base64icon.indexOf(';base64,');
+      var endDataTypeIndex = dataBytesIndex;
+      if (dataTypeIndex != -1 && dataBytesIndex != -1) {
+        dataTypeIndex += 5;
+        dataBytesIndex += 8;
 
-      var imageType = base64icon.substring(dataBytesIndex,endDataTypeIndex);
-      var base64 = base64icon.substring(dataTypeIndex);
-      var result = new MediaMessage();
-      result.contentType = imageType;
-      result.bytes = CryptoUtils.base64StringToBytes(base64);
-      return result;
+        try {
+          var imageType = base64icon.substring(dataTypeIndex, endDataTypeIndex);
+          var base64 = base64icon.substring(dataBytesIndex);
+          var result = new MediaMessage();
+          result.contentType = imageType;
+          result.bytes = CryptoUtils.base64StringToBytes(base64);
+          return result;
+        } catch (e) {
+          throw new RpcError(500, "APPLICATION_ERROR","Invalid icon format");
+        }
+      }
     }
 
     //var imageTypeindex = application.bas
