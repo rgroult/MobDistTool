@@ -113,6 +113,10 @@ packages:
     description: googleapis
     source: hosted
     version: "0.20.0"
+  googleapis_auth:
+    description: googleapis_auth
+    source: hosted
+    version: "0.2.3+1"
   googleapis_beta:
     description: googleapis_beta
     source: hosted
