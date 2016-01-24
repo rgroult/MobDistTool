@@ -62,12 +62,18 @@ class ApplicationDetailComponent extends BaseComponent  {
     try {
       isHttpLoading = true;
       applicationsArtifacts.clear();
+      applicationsLastestVersion.clear();
       List<MDTArtifact> artifacts = await mdtQueryService.listArtifacts(currentApp.uuid,pageIndex:0,limitPerPage:50);
       if (artifacts.isNotEmpty){
         applicationsArtifacts.addAll(artifacts);
       }else {
         errorMessage = { 'type': 'warning', 'msg': 'No Artifact found'};
       }
+      List<MDTArtifact> latestArtifacts = await mdtQueryService.listLatestArtifacts(currentApp.uuid);
+      if (latestArtifacts.isNotEmpty){
+        applicationsLastestVersion.addAll(latestArtifacts);
+      }
+
     } on ArtifactsError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
     } catch(e) {
@@ -103,7 +109,8 @@ class ApplicationDetailComponent extends BaseComponent  {
   void applicationEditionSucceed(MDTApplication updatedApp){
     currentApp = updatedApp;
     hadUpdate= true;
-    loadAppVersions();
+    loadApp();
+   // loadAppVersions();
   }
 
   void addVersion(){

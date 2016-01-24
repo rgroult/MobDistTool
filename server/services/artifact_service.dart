@@ -78,7 +78,7 @@ class ArtifactService {
     //current user
     var currentuser = userService.currentAuthenticatedUser();
     //artifact
-    var artifact = findArtifact(idArtifact);
+    var artifact = await findArtifact(idArtifact);
     if (artifact == null ){
       return NotFoundError;
     }
@@ -114,9 +114,9 @@ class ArtifactService {
     //current user
     var currentuser = userService.currentAuthenticatedUser();
     //artifact
-    var artifact = findArtifact(idArtifact);
+    var artifact =  mgrs.findArtifact(idArtifact);
     if (artifact == null ){
-      return NotFoundError;
+      throw new NotFoundError();
     }
     if (mgrs.isAdminForApp(artifact.application,currentuser) == false){
       throw new NotApplicationAdministrator();
@@ -131,7 +131,22 @@ class ArtifactService {
 
 
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/download')
-  Future<DownloadInfo> getArtifactDescriptor(String idArtifact) async{
-
+  Future<Response> getArtifactDescriptor(String idArtifact) async{
+    var artifact = await  mgrs.findArtifact(idArtifact);
+    if (artifact == null ){
+      throw new NotFoundError("Unable to find artifact");
+    }
+    var downloadInfo = new DownloadInfo();
+    downloadInfo.directLinkUrl = 'api/in/v1/artifacts/$idArtifact/file';
+    var app = artifact.application;
+    if (app == null){
+      throw new NotFoundError("Unable to find application");
+    }
+    if (app.platform.toUpperCase() == 'IOS'){
+      downloadInfo.installUrl = 'api/in/v1/artifacts/$idArtifact/ios_plist';
+    }else {
+      downloadInfo.installUrl = directLinkUrl;
+    }
+    return new Response(200, {"directLinkUrl":downloadInfo.directLinkUrl,"installUrl":downloadInfo.installUrl});
   }
 }

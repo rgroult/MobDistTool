@@ -51,7 +51,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   config.loadConfig();
 
   // Add a simple log handler to log information to a server side file.
-  Logger.root.level = Level.ALL;
+  Logger.root.level = Level.WARNING;
   Logger.root.onRecord.listen(new SyncFileLoggingHandler('myLogFile.txt'));
   if (stdout.hasTerminal) {
     Logger.root.onRecord.listen(new LogPrintHandler());

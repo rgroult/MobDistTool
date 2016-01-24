@@ -13,6 +13,8 @@ final String artifactsPath = "/art/${appVersion}";
 final String inPath = "/in/${appVersion}";
 final String usersPath = "/users/${appVersion}";
 
+enum Platform { ANDROID, IOS, OTHER }
+
 @Injectable()
 class MDTQueryService {
   Http _http;
@@ -179,7 +181,7 @@ class MDTQueryService {
   MDTApplication updateApplication(
       String appId, String name, String description, String icon) async {
     var appData = {"name": name, "description": description};
-    if (icon.length>0){
+    if (icon !=null && icon.length>0){
       appData["base64IconData"] = icon;
     }
     var response = await sendRequest(
@@ -355,5 +357,17 @@ class MDTQueryService {
     }
 
     throw new ArtifactsError("Unable to parse response ${responseJson}");
+  }
+
+  Map artifactDownloadInfo(String artifactId) async {
+    var url = '${mdtServerApiRootUrl}${artifactsPath}/artifacts/${artifactId}/download';
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new ArtifactsError(responseJson["error"]["message"]);
+    }
+
+    return responseJson["data"];
   }
 }

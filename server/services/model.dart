@@ -17,8 +17,8 @@ class Response {
 }
 
 class DownloadInfo {
-  String downloadUrl;
-  String token;
+  String directLinkUrl;
+  String installUrl;
 }
 
 class ResponseList {

@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'package:logging/logging.dart';
@@ -29,12 +30,24 @@ class MDTRootScope {
   void get isUserAdmin => (currentUser["isSystemAdmin"] == true);
   Map currentUser = null;
   bool adminOptionsDisplayed = false;
+  Platform currentDevice = Platform.OTHER;
 
   void userLogguedIn(Map user){
     print("userLogguedIn");
     currentUser = user;
     /*isUserConnected = true;
     isUserAdmin = (user["isSystemAdmin"] == true);*/
+  }
+
+  MDTRootScope(){
+    //Detect browser
+    var userAgent = window.navigator.appVersion.toUpperCase();
+    if (userAgent.indexOf("ANDROID") != -1){
+      currentDevice = Platform.ANDROID;
+    }else if ((userAgent.indexOf("IPAD") != -1) || (userAgent.indexOf("IPHONE") != -1) || (userAgent.indexOf("IPOD") != -1)){
+      currentDevice  = Platform.IOS;
+    }
+    print("Platform detected $currentDevice  user agent $userAgent");
   }
 }
 

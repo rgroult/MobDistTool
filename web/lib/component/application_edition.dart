@@ -53,6 +53,7 @@ class ApplicationEditionComponent extends BaseComponent {
     appPlatform = app.platform;
     appDescription = app.description;
     appUUID = app.uuid;
+    appIcon = app.appIcon;
   }
   String appName;
   String appPlatform;
@@ -114,7 +115,7 @@ class ApplicationEditionComponent extends BaseComponent {
     }
     try {
       isHttpLoading = true;
-      MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,appIcon);
+      MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,appIconFile != null ? appIcon : null);
       if (appUpdated !=null){
         caller.applicationEditionSucceed(appUpdated);
        // caller.applicationListNeedBeReloaded();
