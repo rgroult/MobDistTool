@@ -8,7 +8,7 @@ void main() {
   var storage;
   test("init storage", () async {
     storage= new gdrive.GoogleDriveStorageManager();
-    await storage.initializeStorage();
+    await storage.initializeStorage(null);
   });
   var storedFileID=null;
 
@@ -22,9 +22,10 @@ void main() {
 
   test("download file", () async {
     expect(storedFileID,isNotNull);
-    File file = await storage.storageFile(storedFileID);
-    expect(file,isNotNull);
-    print("$file");
+    var stream = await storage.getStreamFromStoredFile(storedFileID);
+    //File file = await storage.storageFile(storedFileID);
+    expect(stream.toString(),isNotNull);
+    print("$stream");
     // api.files.get(objectId).then((drive.File file) {
   });
 }

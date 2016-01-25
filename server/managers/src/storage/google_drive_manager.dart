@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 import 'package:http/http.dart' show Client;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 //import 'package:googleapis/common/common.dart' show Media, DownloadOptions;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' show Media, DownloadOptions;
 import 'package:googleapis/drive/v2.dart' as drive;
-
-import '../artifacts_manager.dart';
+import 'base_storage_manager.dart';
 import '../../errors.dart';
 
 // Obtain the client email / secret from the Google Developers Console by
@@ -37,7 +37,7 @@ final accountCredentials = new auth.ServiceAccountCredentials.fromJson(r'''
 // You need to enable the Drive API in the Google Developers Console.
 
 class GoogleDriveStorageManager extends BaseStorageManager {
-  String _storageIdentifier = "gdrive";
+  String storageIdentifier = "gdrive";
 
   final scopes = [drive.DriveApi.DriveScope];
   auth.AutoRefreshingAuthClient authClient;
@@ -65,19 +65,26 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     if (result == null){
       throw new ArtifactError("Error on storaging file");
     }
-    return _generateStorageInfos(result.id);
+    return generateStorageInfos(result.id);
   }
 
   Future<Stream> getStreamFromStoredFile(String storedInfos) async{
-    String objectId= _extractStorageId(storedInfos);
-    drive.File file =  await api.files.get(infos);
+    String objectId= extractStorageId(storedInfos);
+    drive.File file =  await api.files.get(objectId);
     var bytes = await authClient.readBytes(file.downloadUrl);
-    var stream = new File("/tmp/mdt/$objectId").openWrite()..add(bytes);
-    return stream;
+    print(new AsciiDecoder().convert(bytes));
+    var tmpDirectory = await Directory.systemTemp.createTemp('mdt');
+    var tmpFile = new File(objectId);
+    await tmpFile.writeAsBytes(bytes);
+    return tmpFile.openRead();
+/*
+    .createSync(recursive:true);
+    var stream = tmpFile.openWrite()..add(bytes);
+    return stream;*/
   }
 
   Future deleteStoredFile(String storedInfos) async{
-    String objectId= _extractStorageId(storedInfos);
+    String objectId= extractStorageId(storedInfos);
     return api.files.delete(objectId);
   }
 

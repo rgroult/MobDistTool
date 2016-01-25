@@ -9,7 +9,7 @@ class BaseStorageManager {
     return "${storageIdentifier}://$storageId";
   }
 
-  String _extractStorageId(String storageInfo){
+  String extractStorageId(String storageInfo){
     var regexp = new RegExp('^${storageIdentifier}://(.+)');
     var match = regexp.matchAsPrefix(storageInfo);
     if (match == null){
