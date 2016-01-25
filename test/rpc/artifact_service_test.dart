@@ -50,7 +50,7 @@ void createAndLogin(){
 }
 
 Future<http.Response>  uploadArtifact(String apiKey,String branch,String version, String name,{String jsonField}) async{
-  var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/art/v1/artifacts/${apiKey}/master/$version/$name"));
+  var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/in/v1/artifacts/${apiKey}/master/$version/$name"));
   var filePart = await http.MultipartFile.fromPath('artifactFile', Directory.current.path+'/test/core/artifact_sample.txt');
   httprequest.files.add(filePart);
   httprequest.fields['sortIdentifier'] = 'sortId_$version';
@@ -108,6 +108,7 @@ void allTests() {
 
     expect(artifactsCreated, isNotEmpty);
   });
+
   test("Retrieve list artifacts OK", () async {
     var user = await loginUser(userInfosSample["email"],userInfosSample["password"]);
     var appId = currentApp["uuid"];

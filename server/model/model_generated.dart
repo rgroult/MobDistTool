@@ -36,6 +36,8 @@ class $MDTArtifact {
   static String get uuid => 'uuid';
   static String get branch => 'branch';
   static String get name => 'name';
+  static String get contentType => 'contentType';
+  static String get filename => 'filename';
   static String get creationDate => 'creationDate';
   static String get size => 'size';
   static String get application => 'application';
@@ -43,11 +45,13 @@ class $MDTArtifact {
   static String get sortIdentifier => 'sortIdentifier';
   static String get storageInfos => 'storageInfos';
   static String get metaDataTags => 'metaDataTags';
-  static final List<String> allFields = [uuid, branch, name, creationDate, size, application, version, sortIdentifier, storageInfos, metaDataTags];
+  static final List<String> allFields = [uuid, branch, name, contentType, filename, creationDate, size, application, version, sortIdentifier, storageInfos, metaDataTags];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
     ,const PropertyDescriptor('branch', PropertyType.String, 'branch')
     ,const PropertyDescriptor('name', PropertyType.String, 'name')
+    ,const PropertyDescriptor('contentType', PropertyType.String, 'contentType')
+    ,const PropertyDescriptor('filename', PropertyType.String, 'filename')
     ,const PropertyDescriptor('creationDate', PropertyType.DateTime, 'creationDate')
     ,const PropertyDescriptor('size', PropertyType.int, 'size')
     ,const PropertyDescriptor('version', PropertyType.String, 'version')
@@ -66,6 +70,10 @@ class MDTArtifact extends PersistentObject {
   set branch (String value) => setProperty('branch',value);
   String get name => getProperty('name');
   set name (String value) => setProperty('name',value);
+  String get contentType => getProperty('contentType');
+  set contentType (String value) => setProperty('contentType',value);
+  String get filename => getProperty('filename');
+  set filename (String value) => setProperty('filename',value);
   DateTime get creationDate => getProperty('creationDate');
   set creationDate (DateTime value) => setProperty('creationDate',value);
   int get size => getProperty('size');

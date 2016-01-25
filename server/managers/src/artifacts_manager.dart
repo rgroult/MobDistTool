@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 import '../../../packages/objectory/objectory_console.dart';
 import '../../model/model.dart';
 import 'storage/yes_storage_manager.dart';
+import 'storage/base_storage_manager.dart';
 import '../errors.dart';
 
 /*
@@ -87,7 +88,7 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
 
   //store new file
   try {
-    var storageInfos = await storageMgr.storeFile(file);
+    var storageInfos = await storageMgr.storeFile(file,filename:artifact.filename, contentType:artifact.contentType);
     artifact.storageInfos = storageInfos;
     return artifact.save();
   }on Error catch(e){
@@ -111,11 +112,11 @@ Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int
   return artifactCollection.find(query);
 }
 
-Future<File> fileFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
+Future<Stream> streamFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
   if (artifact == null || artifact.storageInfos == null) {
     throw new ArtifactError('Unable to find file artifact:'+artifact.name);
   }
-  return storageMgr.storageFile(artifact.storageInfos);
+  return storageMgr.getStreamFromStoredFile(artifact.storageInfos);
 }
 
 Future<Uri> uriFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
@@ -123,10 +124,12 @@ Future<Uri> uriFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) 
     throw new ArtifactError('Unable to find file artifact');
   }
 
-  if (!storageMgr.canHandleStorageUrl()){
+  return storageMgr.storageUrI(artifact.storageInfos);
+
+  /*if (!storageMgr.canHandleStorageUrl()){
     throw new ArtifactError('Unable to handle storage Uri');
   }
-  return storageMgr.storageUrI(artifact.storageInfos);
+  return storageMgr.storageUrI(artifact.storageInfos);*/
 }
 
 Future deleteArtifactFile(MDTArtifact artifact,BaseStorageManager storageMgr) async {
@@ -134,7 +137,7 @@ Future deleteArtifactFile(MDTArtifact artifact,BaseStorageManager storageMgr) as
     return new Future.value(true);
   }
   try {
-    await storageMgr.deleteFileFromInfos(artifact.storageInfos);
+    var result = await storageMgr.deleteStoredFile(artifact.storageInfos);
     artifact.storageInfos = null;
     return artifact.save();
   } on ArtifactError catch (e) {
@@ -166,7 +169,7 @@ Future deleteAllArtifacts(MDTApplication app,BaseStorageManager storageMgr) asyn
   }
 }
 
-
+/*
 class BaseStorageManager {
 
   bool canHandleStorageUrl(){
@@ -193,4 +196,4 @@ class BaseStorageManager {
   Future<bool> deleteFileFromInfos(String infos) {
     throw new ArtifactError('Not implemented');
   }
-}
+}*/

@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:objectory/objectory_console.dart';
 import '../../server/managers/managers.dart' as mdt_mgr;
 import '../../server/config/src/mongo.dart' as mongo;
+import '../../server/config/config.dart' as config;
 
 void main() {
   test("init database", () async {
+    config.loadConfig();
     var value = await mongo.initialize();
   });
 
@@ -60,8 +62,10 @@ void allTests()  {
   test("retrieve file artifact", () async {
     var allArtifact = await mdt_mgr.allArtifacts();
     var artifact = allArtifact.first;
-    var file = await mdt_mgr.fileFromArtifact(artifact,mdt_mgr.defaultStorage);
-    var content = await (file.readAsString());
+    var stream = await mdt_mgr.streamFromArtifact(artifact,mdt_mgr.defaultStorage);
+    var content = stream.toString();
+    //var file = await mdt_mgr.fileFromArtifact(artifact,mdt_mgr.defaultStorage);
+    //var content = await (file.readAsString());
     expect(content,isNotNull);
 
     var uri = await mdt_mgr.uriFromArtifact(artifact,mdt_mgr.defaultStorage);

@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 void main() {
   test("init ", () async {
-      config.loadConfig();
+    config.loadConfig();
      await mongo.initialize();
   });
   test ("Clean database", ()async {

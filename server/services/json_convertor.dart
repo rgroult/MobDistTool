@@ -1,5 +1,6 @@
 import 'dart:mirrors';
 import '../model/model.dart';
+import 'dart:convert';
 import 'package:bson/bson.dart';
 import '../../packages/objectory/objectory.dart';
 
@@ -80,12 +81,17 @@ List listToJson(List<PersistentObject> objects, {bool isAdmin:false}){
 }
 
 String parseTags(String tags){
-  if (tags == null){
-    return null;
+  try {
+    if (tags == null) {
+      return null;
+    }
+    var object = JSON.decode(tags);
+    if (object != null) {
+      return JSON.encode(object);
+    }
   }
-  var object =  JSON.decode(tags);
-  if (object != null){
-    return JSON.encode(object);
+  catch(e){
+    print("$e");
   }
   return null;
 }

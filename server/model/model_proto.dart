@@ -33,6 +33,8 @@ class MDTArtifact/* extends MDTBaseObject*/ {
   String uuid;
   String branch;
   String name;
+  String contentType;
+  String filename;
   DateTime creationDate;
   int size;
   MDTApplication application;

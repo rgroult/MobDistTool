@@ -1,9 +1,30 @@
 import 'dart:async';
 import 'dart:io';
 import '../artifacts_manager.dart';
+import 'base_storage_manager.dart';
 import '../../errors.dart';
 
 class YesStorageManager extends BaseStorageManager {
+  String storageIdentifier = "YesStorage";
+
+  Future<String> storeFile(File file, {String filename, String contentType}) async {
+    return new Future.value(generateStorageInfos("fakeFile"));
+  }
+
+  Future<Stream> getStreamFromStoredFile(String storedInfos) async{
+    var file = new File(Directory.current.path+"/server/managers/src/storage" +"/yes_storage_sample.txt");
+    return file.openRead();
+  }
+
+  Future<bool> deleteStoredFile(String storedInfos) async{
+    return new Future.value(true);
+  }
+
+  Future<Uri> storageUrI(String infos)async {
+    return new Future.value(generateStorageInfos("fakeFile"));
+  }
+
+/*
   //static var sharedInstance => new StorageManager()
 
   bool checkInfos(String infos){
@@ -40,5 +61,5 @@ class YesStorageManager extends BaseStorageManager {
       return new Future.value(true);
     }
     throw new ArtifactError('Bad infos');
-  }
+  }*/
 }
