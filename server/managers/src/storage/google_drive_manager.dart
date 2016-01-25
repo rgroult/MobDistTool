@@ -75,7 +75,7 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     print(new AsciiDecoder().convert(bytes));
     var tmpDirectory = await Directory.systemTemp.createTemp('mdt');
     var tmpFile = new File(objectId);
-    await tmpFile.writeAsBytes(bytes);
+    await tmpFile.writeAsBytes(bytes,flush:true);
     return tmpFile.openRead();
 /*
     .createSync(recursive:true);
