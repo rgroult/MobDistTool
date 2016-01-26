@@ -26,12 +26,6 @@ void allTests() {
     httpServer =  await server.startServer(resetDatabaseContent:true);
 
   });
-/*
-  test ("Clean database", () async {
-    await objectory.dropCollections();
-  });
-*/
-
 
   test("configure values", () async {
     baseUrlHost = "http://${httpServer.address.host}:${httpServer.port}";

@@ -28,6 +28,10 @@ Db mongoDb = null;
  // return await mongoDb.open();
 }
 
+Future dropCollections() async {
+ return objectory.dropCollections();
+}
+
 void close() {
  objectory.close();
  objectory=null;

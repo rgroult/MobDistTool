@@ -29,10 +29,15 @@ void main() {
 }
 
 Future loginTest(String login, String password, {bool mustSuccessful:true, String name}) async {
+  //reset auth header
+  /* TO DO FIX because auth with header seems to have a bug
+  */
+  lastAuthorizationHeader = '';
   var response =  await sendRequest('POST', '/api/users/v1/login', body:'username=${login}&password=${password}', contentType:'application/x-www-form-urlencoded');
   print("response ${response.body}");
   var responseJson = parseResponse(response);
   if (mustSuccessful) {
+    print("name $name, login $login, password $password, received ${responseJson['data']}");
     expect(response.statusCode, equals(200));
     expect(responseJson["data"]["email"], equals(login));
     if (name != null) {
