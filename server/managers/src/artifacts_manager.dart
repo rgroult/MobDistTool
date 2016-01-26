@@ -34,7 +34,7 @@ Future<List<MDTArtifact>> findAllArtifacts(MDTApplication app) async {
 }
 
 Future<MDTArtifact> findArtifact(String uuid)async{
-  return artifactCollection.find(where.eq('uuid',uuid));
+  return artifactCollection.findOne(where.eq('uuid',uuid));
 }
 
 Future<MDTArtifact> findArtifactByInfos(MDTApplication app,String branch,String version, String artifactName)async{

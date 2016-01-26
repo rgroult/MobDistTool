@@ -114,7 +114,7 @@ class ArtifactService {
     //current user
     var currentuser = userService.currentAuthenticatedUser();
     //artifact
-    var artifact =  mgrs.findArtifact(idArtifact);
+    var artifact =  await mgrs.findArtifact(idArtifact);
     if (artifact == null ){
       throw new NotFoundError();
     }
@@ -122,9 +122,11 @@ class ArtifactService {
       throw new NotApplicationAdministrator();
     }
     try {
-      await mgrs.deleteArtifact(artifact,,mgrs.defaultStorage);
+      await mgrs.deleteArtifact(artifact,mgrs.defaultStorage);
     }on ArtifactError catch(e){
 
+    }catch(e){
+      print("$e");
     }
     return new OKResponse();
   }

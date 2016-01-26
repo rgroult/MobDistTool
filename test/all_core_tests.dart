@@ -5,11 +5,13 @@ import 'core/users_manager_test.dart' as user_test;
 import 'core/artifacts_manager_test.dart' as artifact_test;
 import '../server/config/src/mongo.dart' as mongo;
 import '../server/config/config.dart' as config;
+import '../server/config/src/storage.dart' as storage;
 
 void main() {
    test("init", () async {
-      config.loadConfig();
-      var value = await mongo.initialize();
+      await config.loadConfig();
+      var value = await mongo.initialize(dropCollectionOnStartup:true);
+      await storage.initialize();
    });
 
    allTests();

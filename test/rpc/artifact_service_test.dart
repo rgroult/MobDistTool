@@ -70,6 +70,7 @@ Future<http.Response>  uploadArtifact(String apiKey,String branch,String version
 void allTests() {
   Map currentUser;
   Map currentApp;
+  Map currentArtifact;
   //createAndLogin();
   test("Upload artifact OK", () async {
     var user = await createAndLoginUser();
@@ -88,7 +89,15 @@ void allTests() {
 
     var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags));
     var responseJson = parseResponse(response);
+    currentArtifact = responseJson["data"];
     expect(response.statusCode, equals(200));
+  });
+
+  test("delete  artifact OK", () async {
+    String artifactId = currentArtifact["uuid"];
+    var deleteArtifactUrl = '/api/art/v1/artifacts/${artifactId}';
+    var response = await sendRequest('DELETE', deleteArtifactUrl);
+    var responseJson = parseResponse(response);
   });
 
   test("Upload list artifacts OK", () async {
@@ -109,6 +118,7 @@ void allTests() {
     expect(artifactsCreated, isNotEmpty);
   });
 
+  List<Map> allArtifacts = new List<Map>();
   test("Retrieve list artifacts OK", () async {
     var user = await loginUser(userInfosSample["email"],userInfosSample["password"]);
     var appId = currentApp["uuid"];
@@ -118,5 +128,25 @@ void allTests() {
     var responseJson = parseResponse(response);
     expect(response.statusCode, equals(200));
     expect(responseJson['list'].length, equals(20));
+    allArtifacts.addAll(responseJson['list']);
+  });
+
+  test("Delete list artifacts OK", () async {
+    for (Map map in allArtifacts){
+      String artifactId = map["uuid"];
+      var deleteArtifactUrl = '/api/art/v1/artifacts/${artifactId}';
+      var response = await sendRequest('DELETE', deleteArtifactUrl);
+      var responseJson = parseResponse(response);
+      print("response $responseJson");
+    }
+  });
+  test("Retrieve list artifacts Empty OK", () async {
+    var appId = currentApp["uuid"];
+    var artifactUrl = '/api/applications/v1/app/${appId}/versions?pageIndex=0&limitPerPage=20';
+    print('url $artifactUrl');
+    var response = await sendRequest('GET', artifactUrl);
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+    expect(responseJson['list'].length, equals(10));
   });
 }

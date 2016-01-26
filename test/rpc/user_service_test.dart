@@ -12,7 +12,7 @@ void main() {
   HttpServer httpServer = null;
 
   test("start server", () async {
-    httpServer = await server.startServer();
+    httpServer = await server.startServer(resetDatabaseContent:true);
   });
 
   test("configure values", () async {

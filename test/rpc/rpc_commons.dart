@@ -30,8 +30,9 @@ void checkAuthorizationHeader(http.Response response){
   var newHeader = response.headers['authorization'];
   if (newHeader != null) {
     lastAuthorizationHeader = newHeader;
-  }else {
-    lastAuthorizationHeader = '';
+    //print("auth header $lastAuthorizationHeader");
+  }else if (response.statusCode == 401){
+     lastAuthorizationHeader = '';
   }
 }
 
