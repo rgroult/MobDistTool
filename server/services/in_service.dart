@@ -43,8 +43,8 @@ class InService {
     }on ArtifactError catch(e){
       //delete created artifact
       await mgrs.deleteArtifact(createdArtifact,mgrs.defaultStorage);
-      throw new RpcError(500, 'Add Error', 'Unable to add artifact')
-        ..errors.add(new RpcErrorDetail(reason: e.message));
+      throw new RpcError(500, 'Add Error', 'Unable to add artifact: ${e.message}');
+       // ..errors.add(new RpcErrorDetail(reason: e.message));
     }
 
     var jsonResponse = toJson(createdArtifact,isAdmin:true);

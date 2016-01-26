@@ -18,6 +18,10 @@ class BaseStorageManager {
     return match[1];
   }
 
+  Future initializeStorage(Map config)async{
+
+  }
+
   Future<String> storeFile(File file, {String filename, String contentType}) async {
     throw new ArtifactError('Not implemented');
   }

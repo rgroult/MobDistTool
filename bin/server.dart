@@ -25,6 +25,8 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 import '../server/config/src/mongo.dart' as mongo;
 //config
 import '../server/config/config.dart' as config;
+//storage
+import '../server/config/src/storage.dart' as storage;
 //API
 import '../server/managers/managers.dart';
 
@@ -48,7 +50,7 @@ Future stopServer({bool force:false}) async {
 }
 
 Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
-  config.loadConfig();
+  await config.loadConfig();
 
   // Add a simple log handler to log information to a server side file.
   Logger.root.level = Level.WARNING;
@@ -58,6 +60,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   }
 
   await mongo.initialize(dropCollectionOnStartup:resetDatabaseContent);
+
+  await storage.initialize();
 
   //_apiServer.addApi(new ToyApi());
   _apiServer.addApi(new UserService());

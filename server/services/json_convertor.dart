@@ -91,7 +91,6 @@ String parseTags(String tags){
     }
   }
   catch(e){
-    print("$e");
   }
   return null;
 }

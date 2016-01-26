@@ -20,7 +20,7 @@ class MDTArtifact extends MDTBaseObject {
 }
  */
 
-BaseStorageManager defaultStorage = new YesStorageManager();
+BaseStorageManager defaultStorage;// = new YesStorageManager();
 var UuidGenerator = new Uuid();
 
 var artifactCollection = objectory[MDTArtifact];
@@ -168,32 +168,3 @@ Future deleteAllArtifacts(MDTApplication app,BaseStorageManager storageMgr) asyn
     throw new ArtifactError('Unable to delete artifacts:'+e.toString());
   }
 }
-
-/*
-class BaseStorageManager {
-
-  bool canHandleStorageUrl(){
-    throw new ArtifactError('Not implemented');
-    return false;
-  }
-
-  Future<Uri> storageUrI(String infos) {
-    throw new ArtifactError('Not implemented');
-  }
-
-  Future<File> storageFile(String infos) {
-    throw new ArtifactError('Not implemented');
-  }
-
-  Future<String> storeFile(File file) {
-    throw new ArtifactError('Not implemented');
-  }
-
-  Future<bool> deleteFile(File file) {
-    throw new ArtifactError('Not implemented');
-  }
-
-  Future<bool> deleteFileFromInfos(String infos) {
-    throw new ArtifactError('Not implemented');
-  }
-}*/

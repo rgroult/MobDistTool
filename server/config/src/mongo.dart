@@ -17,7 +17,7 @@ Db mongoDb = null;
   //mongoDb =  new Db("mongodb://localhost:27017/mdt_dev");
 
   //const Uri = "mongodb://localhost:27017/mdt_dev";
-  var Uri = config.currentLoadedConfig["mongoURL"];
+  var Uri = config.currentLoadedConfig[config.MDT_DATABASE_URI];
   print("mongo initializing on  $Uri");
   objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,false);
   if (dropCollectionOnStartup == true) {
