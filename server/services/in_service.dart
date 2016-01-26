@@ -115,6 +115,15 @@ class InService {
 
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/file')
   Future<MediaMessage> deleteArtifact(String idArtifact,{String token}) async{
+      var artifact = await mgrs.findArtifact(idArtifact);
+      if (artifact == null){
+        throw new NotFoundError();
+      }
+      var stream = await mgrs.streamFromArtifact(artifact,mgrs.defaultStorage);
+      var result = new MediaMessage();
+      result.bytes = stream.toList();
+      result.contentType = artifact.contentType;
 
+      return result;
   }
 }

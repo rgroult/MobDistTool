@@ -71,6 +71,7 @@ class MDTQueryService {
   }
 
   void checkAuthorizationHeader(HttpResponse response) async {
+    return;
     if (response.status == 401) {
       lastAuthorizationHeader = '';
       throw new LoginError();
@@ -307,12 +308,6 @@ class MDTQueryService {
     }
 
     return artifactsList;
-
-
-
-  /* @ApiMethod(method: 'GET', path: 'app/{appId}/versions')
-  Future<Response> getApplicationVersions(String appId,) async {*/
-
   }
 
   MDTArtifact addArtifact(String apiKey, File file, String name,
@@ -369,5 +364,25 @@ class MDTQueryService {
     }
 
     return responseJson["data"];
+  }
+
+  Future<bool> deleteArtifact(String artifactId) async {
+    var url = '${mdtServerApiRootUrl}${artifactsPath}/artifacts/${artifactId}';
+    var response = await sendRequest('DELETE', url);
+    if (response.status == 200){
+      return new Future.value(true);
+    }
+    return new Future.value(false);
+  }
+
+  Future<bool> downloadArtifact(String artifactId) async {
+    var downloadInfos = artifactDownloadInfo(artifactId);
+    if (downloadInfos != null){
+
+    }
+  }
+
+  Future<bool> InstallArtifact(String artifactId) async {
+
   }
 }

@@ -125,8 +125,6 @@ class ArtifactService {
       await mgrs.deleteArtifact(artifact,mgrs.defaultStorage);
     }on ArtifactError catch(e){
 
-    }catch(e){
-      print("$e");
     }
     return new OKResponse();
   }
@@ -147,7 +145,7 @@ class ArtifactService {
     if (app.platform.toUpperCase() == 'IOS'){
       downloadInfo.installUrl = 'api/in/v1/artifacts/$idArtifact/ios_plist';
     }else {
-      downloadInfo.installUrl = directLinkUrl;
+      downloadInfo.installUrl = downloadInfo.directLinkUrl;
     }
     return new Response(200, {"directLinkUrl":downloadInfo.directLinkUrl,"installUrl":downloadInfo.installUrl});
   }
