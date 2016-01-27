@@ -46,7 +46,7 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     String objectId= extractStorageId(storedInfos);
     drive.File file =  await api.files.get(objectId);
     var bytes = await authClient.readBytes(file.downloadUrl);
-    print(new AsciiDecoder().convert(bytes));
+    //print(new AsciiDecoder().convert(bytes));
     var tmpDirectory = await Directory.systemTemp.createTemp('mdt');
     var tmpFile = new File(objectId);
     await tmpFile.writeAsBytes(bytes,flush:true);

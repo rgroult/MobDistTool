@@ -24,7 +24,7 @@ packages:
   async:
     description: async
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0"
   barback:
     description: barback
     source: hosted
@@ -240,9 +240,11 @@ packages:
     source: hosted
     version: "0.6.2"
   rpc:
-    description: rpc
-    source: hosted
-    version: "0.5.5"
+    description:
+      path: "../rpc"
+      relative: true
+    source: path
+    version: "0.5.6-dev"
   shelf:
     description: shelf
     source: hosted
@@ -310,7 +312,7 @@ packages:
   test:
     description: test
     source: hosted
-    version: "0.12.7"
+    version: "0.12.8"
   typed_data:
     description: typed_data
     source: hosted

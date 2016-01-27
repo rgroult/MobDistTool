@@ -32,6 +32,13 @@ dependencies:
   hammock: "^0.4.0"
   googleapis_auth: any
   googleapis: any
+dependency_overrides:
+  rpc:
+    path: "../rpc/"
+  #  git:
+  #    url: git://github.com/rgroult/rpc.git
+   #   ref: master
+   # version: "^0.5.5"
 transformers:
 - angular:
     html_files:

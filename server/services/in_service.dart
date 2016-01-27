@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
+import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf/src/body.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import '../managers/managers.dart' as mgrs;
@@ -112,23 +114,42 @@ class InService {
   Future<MediaMessage> getArtifactDescriptor(String idArtifact,{String token}) async{
 
   }
-
+/*
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/file')
-  Future<MediaMessage> deleteArtifact(String idArtifact,{String token}) async{
+  Future<MediaMessage> getArtifactFile(String idArtifact,{String token}) async{
       var artifact = await mgrs.findArtifact(idArtifact);
       if (artifact == null){
         throw new NotFoundError();
       }
       try {
-        var stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
+        Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
         var result = new MediaMessage();
-        result.bytes = stream ; //await stream.readAsBytes();
+        result.bytesStream = stream;
         result.contentType = artifact.contentType;
         return result;
       }catch(e){
         print("$e");
       }
+  }*/
 
+  static Future downloadFile(String idArtifact,{String token}) async {
 
+    try {
+       var artifact = await mgrs.findArtifact(idArtifact);
+      if (artifact == null){
+        throw new NotFoundError();
+      }
+      Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
+       var body = new Body(stream);
+       var response = new shelf.Response(200,body:body);
+      //response.headers["content-type"]= artifact.contentType;
+      //response.contentLength = artifact.size;
+      return response;
+    }on NotFoundError catch(e){
+      return new shelf.Response.notFound("");
+    }
+    catch(e){
+      return new shelf.Response.internalServerError();
+    }
   }
 }

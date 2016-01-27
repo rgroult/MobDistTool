@@ -137,13 +137,13 @@ class ArtifactService {
       throw new NotFoundError("Unable to find artifact");
     }
     var downloadInfo = new DownloadInfo();
-    downloadInfo.directLinkUrl = 'api/in/v1/artifacts/$idArtifact/file';
+    downloadInfo.directLinkUrl = '/in/v1/artifacts/$idArtifact/file';
     var app = artifact.application;
     if (app == null){
       throw new NotFoundError("Unable to find application");
     }
     if (app.platform.toUpperCase() == 'IOS'){
-      downloadInfo.installUrl = 'api/in/v1/artifacts/$idArtifact/ios_plist';
+      downloadInfo.installUrl = '/in/v1/artifacts/$idArtifact/ios_plist';
     }else {
       downloadInfo.installUrl = downloadInfo.directLinkUrl;
     }
