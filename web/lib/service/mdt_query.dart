@@ -376,9 +376,13 @@ class MDTQueryService {
   }
 
   Future<bool> downloadArtifact(String artifactId) async {
-    var downloadInfos = artifactDownloadInfo(artifactId);
+    var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
-
+      var url = '${mdtServerApiRootUrl}${downloadInfos["directLinkUrl"]}';
+      AnchorElement tl = document.createElement('a');
+        tl..attributes['href'] = url
+         // ..attributes['download'] = filename
+          ..click();
     }
   }
 

@@ -32,7 +32,7 @@ class ArtifactElementComponent extends BaseComponent  {
   void get canInstall => ((scope.rootScope.context.currentDevice == Platform.IOS) || (scope.rootScope.context.currentDevice == Platform.ANDROID));
 
   void downloadArtifact(){
-
+    mdtQueryService.downloadArtifact(artifact.uuid);
   }
 
   void installArtifact(){

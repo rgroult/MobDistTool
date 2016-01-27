@@ -119,11 +119,16 @@ class InService {
       if (artifact == null){
         throw new NotFoundError();
       }
-      var stream = await mgrs.streamFromArtifact(artifact,mgrs.defaultStorage);
-      var result = new MediaMessage();
-      result.bytes = stream.toList();
-      result.contentType = artifact.contentType;
+      try {
+        var stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
+        var result = new MediaMessage();
+        result.bytes = stream ; //await stream.readAsBytes();
+        result.contentType = artifact.contentType;
+        return result;
+      }catch(e){
+        print("$e");
+      }
 
-      return result;
+
   }
 }
