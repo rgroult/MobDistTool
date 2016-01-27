@@ -10,8 +10,8 @@ Map propertiePerClass = {
   'MDTApplication' :  ['name','platform','lastVersion','adminUsers','uuid','description'],
   'admin_MDTApplication' :  ['apiKey'],
   //'MDTArtifact' : ['uuid','branch','name','creationDate','version','sortIdentifier','metaDataTags'],
-  'MDTArtifact' : ['uuid','branch','name','version','sortIdentifier','metaDataTags','size'],
-  'admin_MDTArtifact' :  []
+  'MDTArtifact' : ['uuid','name','sortIdentifier','metaDataTags','size','creationDate'],
+  'admin_MDTArtifact' :  ['branch','version']
 };
 
 Map toJsonStringValues(PersistentObject object, List<String> properties){
@@ -56,7 +56,12 @@ Map toJson(PersistentObject object, {bool isAdmin:false}){
         json[property] = toJson(value, isAdmin:isAdmin);
       } else  if (value != null) {
         //value
-        json[property] = value;
+        if (value is DateTime){
+          json[property] = value.toString();
+        }else {
+          json[property] = value;
+        }
+
       }
     }
   }

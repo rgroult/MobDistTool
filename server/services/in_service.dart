@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
-import 'package:shelf/shelf.dart' as shelf;
-import 'package:shelf/src/body.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import '../managers/managers.dart' as mgrs;
@@ -40,9 +38,15 @@ class InService {
     try {
       //Create temp file
       var tempDir = Directory.systemTemp.createTempSync("art");
-      var tempFile = await new File(artifactName).writeAsBytes(mediaMsg.bytes,flush:true);
+      createdArtifact.filename = mediaMsg.metadata["filename"];
+      var tempFile = await new File("$tempDir/${createdArtifact.filename}").create(recursive:true);
+      await tempFile.writeAsBytes(mediaMsg.bytes,flush:true);
+      createdArtifact.size = tempFile.lengthSync();
+
+      createdArtifact.contentType = mediaMsg.contentType;
       await mgrs.addFileToArtifact(tempFile,createdArtifact,mgrs.defaultStorage);
     }on ArtifactError catch(e){
+      await createdArtifact.remove();
       //delete created artifact
       await mgrs.deleteArtifact(createdArtifact,mgrs.defaultStorage);
       throw new RpcError(500, 'Add Error', 'Unable to add artifact: ${e.message}');
@@ -132,24 +136,4 @@ class InService {
       }
   }*/
 
-  static Future downloadFile(String idArtifact,{String token}) async {
-
-    try {
-       var artifact = await mgrs.findArtifact(idArtifact);
-      if (artifact == null){
-        throw new NotFoundError();
-      }
-      Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
-       var body = new Body(stream);
-       var response = new shelf.Response(200,body:body);
-      //response.headers["content-type"]= artifact.contentType;
-      //response.contentLength = artifact.size;
-      return response;
-    }on NotFoundError catch(e){
-      return new shelf.Response.notFound("");
-    }
-    catch(e){
-      return new shelf.Response.internalServerError();
-    }
-  }
 }

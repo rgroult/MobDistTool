@@ -80,6 +80,18 @@ Future<MDTArtifact> createLastVersionArtifact(MDTApplication app,String name,{ M
   return artifact;
 }
 */
+/* String uuid;
+String branch;
+String name;
+String contentType;
+String filename;
+DateTime creationDate;
+int size;
+MDTApplication application;
+String version;
+String sortIdentifier;
+String storageInfos;
+String metaDataTags;*/
 
 //if previous file found, delete it before
 Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager storageMgr) async {
@@ -90,6 +102,7 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
   try {
     var storageInfos = await storageMgr.storeFile(file,filename:artifact.filename, contentType:artifact.contentType);
     artifact.storageInfos = storageInfos;
+
     return artifact.save();
   }on Error catch(e){
     throw new ArtifactError('Unable to store file:'+e.toString());

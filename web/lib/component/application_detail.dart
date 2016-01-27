@@ -126,7 +126,18 @@ class ApplicationDetailComponent extends BaseComponent  {
     var modalInstance = ConfirmationComponent.createConfirmation(modal,scope,"Are you sure to delete ${currentApp.name} ?","All versions will be trash. This can't be undone.");
     modalInstance.result
       ..then((v) {
-      print('result $v');
+     // print('result $v');
+      if (v == true){
+        mdtQueryService.deleteApplication(currentApp).then((result){
+          if (result){
+            //return to app
+            _parent.applicationListNeedBeReloaded();
+            _parent.locationService.router.go('apps',{});
+          }else{
+            errorMessage = {'type': 'danger', 'msg': 'Unable to delete application'};
+          }
+        });
+      }
     });
   }
 

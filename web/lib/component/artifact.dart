@@ -39,6 +39,10 @@ class ArtifactElementComponent extends BaseComponent  {
 
   }
 
+  void deleteArtifact(){
+
+  }
+
   ArtifactElementComponent(this.mdtQueryService){
 
   }

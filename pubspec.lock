@@ -240,11 +240,9 @@ packages:
     source: hosted
     version: "0.6.2"
   rpc:
-    description:
-      path: "../rpc"
-      relative: true
-    source: path
-    version: "0.5.6-dev"
+    description: rpc
+    source: hosted
+    version: "0.5.5"
   shelf:
     description: shelf
     source: hosted

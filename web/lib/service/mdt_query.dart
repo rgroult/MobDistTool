@@ -248,7 +248,12 @@ class MDTQueryService {
   }
 
   bool deleteApplication(MDTApplication appToDelete) async {
-    throw new ApplicationError("Not implemented !");
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${appToDelete.uuid}';
+    var response = await sendRequest('DELETE', url);
+    if (response.status == 200){
+      return new Future.value(true);
+    }
+    return new Future.value(false);
   }
 
   List<MDTArtifact> listLatestArtifacts(String appId) async {

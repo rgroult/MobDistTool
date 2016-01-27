@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
+import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf/src/body.dart';
 import 'dart:convert';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
@@ -12,7 +14,7 @@ import 'json_convertor.dart';
 class ArtifactService {
 
   static String lastVersionBranchName = "@@@@LAST####";
-  static String lastVersionName = "lastest";
+  static String lastVersionName = "latest";
 /*
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
   Future<Response> addArtifactByAppKey(String apiKey,String branch,String version, String artifactName, ArtifactMsg artifactsMsg) async{
@@ -148,5 +150,26 @@ class ArtifactService {
       downloadInfo.installUrl = downloadInfo.directLinkUrl;
     }
     return new Response(200, {"directLinkUrl":downloadInfo.directLinkUrl,"installUrl":downloadInfo.installUrl});
+  }
+
+  static Future downloadFile(String idArtifact,{String token}) async {
+    try {
+      var artifact = await mgrs.findArtifact(idArtifact);
+      if (artifact == null){
+        throw new NotFoundError();
+      }
+      Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
+      var body = new Body(stream);
+      var headers = {"Content-Type":artifact.contentType,"Content-length":"${artifact.size}","Content-Disposition":"attachment; filename='${artifact.filename}'"};
+      var response = new shelf.Response(200,body:body,headers:headers);
+      //response.headers["content-type"]= artifact.contentType;
+      //response.contentLength = artifact.size;
+      return response;
+    }on NotFoundError catch(e){
+      return new shelf.Response.notFound("");
+    }
+    catch(e){
+      return new shelf.Response.internalServerError();
+    }
   }
 }
