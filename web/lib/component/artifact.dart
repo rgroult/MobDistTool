@@ -36,7 +36,7 @@ class ArtifactElementComponent extends BaseComponent  {
   }
 
   void installArtifact(){
-
+    mdtQueryService.InstallArtifact(artifact.uuid);
   }
 
   void deleteArtifact(){

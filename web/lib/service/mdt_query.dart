@@ -367,7 +367,6 @@ class MDTQueryService {
     if (responseJson["error"] != null) {
       throw new ArtifactsError(responseJson["error"]["message"]);
     }
-
     return responseJson["data"];
   }
 
@@ -384,14 +383,22 @@ class MDTQueryService {
     var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
       var url = '${mdtServerApiRootUrl}${downloadInfos["directLinkUrl"]}';
-      AnchorElement tl = document.createElement('a');
-        tl..attributes['href'] = url
-         // ..attributes['download'] = filename
-          ..click();
+      sendRedirect(url);
     }
   }
 
   Future<bool> InstallArtifact(String artifactId) async {
+    var downloadInfos = await artifactDownloadInfo(artifactId);
+    if (downloadInfos != null){
+      var url = '${mdtServerApiRootUrl}${downloadInfos["installUrl"]}';
+      sendRedirect(url);
+    }
+  }
 
+  void sendRedirect(String url){
+    AnchorElement tl = document.createElement('a');
+    tl..attributes['href'] = url
+    // ..attributes['download'] = filename
+      ..click();
   }
 }

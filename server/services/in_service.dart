@@ -12,6 +12,14 @@ import 'model.dart';
 import 'json_convertor.dart';
 
 
+final String PLIST_CONTENT_TYPE ='application/plist';
+final String TEMPLATE_IPA_URL_KEY='@URL_TO_IPA@';
+final String TEMPLATE_BUNDLE_ID_KEY='@BUNDLE_IDENTIFIER@';
+final String TEMPLATE_BUNDLE_VERSION_KEY='@BUNDLE_VERSION@';
+final String TEMPLATE_APP_NAME_KEY='@APPLICATION_NAME@';
+final String TAG_BUNDLE_ID = 'MDT_IOS_BUNDLE_ID';
+final String TAG_BUNDLE_VERSION = 'MDT_IOS_BUNDLE_VERSION';
+
 @ApiClass( name:'in' , version: 'v1')
 class InService {
 
@@ -106,18 +114,70 @@ class InService {
         }
       }
     }
-
-    //var imageTypeindex = application.bas
-    // return 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
-    /*'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='*/
-
-    throw new NotFoundError("Icon not found");
+   throw new NotFoundError("Icon not found");
   }
 
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/ios_plist')
   Future<MediaMessage> getArtifactDescriptor(String idArtifact,{String token}) async{
-
+    try {
+      var artifact = await mgrs.findArtifact(idArtifact);
+      if (artifact == null){
+        throw new NotFoundError();
+      }
+      var result = new MediaMessage();
+      result.contentType='application/plist';
+      var plistString = plistTemplate;
+      plistString = plistString.replaceFirst(new RegExp(TEMPLATE_IPA_URL_KEY,multiLine: true),'/api/in/v1/artifacts/$idArtifact/file');
+      var application = await artifact.application.getMeFromDb();
+      plistString =plistString.replaceFirst(new RegExp(TEMPLATE_APP_NAME_KEY,multiLine: true),artifact.application.name);
+      if (artifact.metaDataTags != null){
+        var tags = JSON.decode(artifact.metaDataTags);
+        plistString.replaceFirst(new RegExp(TEMPLATE_BUNDLE_ID_KEY,multiLine: true),tags[TAG_BUNDLE_ID]);
+        plistString.replaceFirst(new RegExp(TEMPLATE_BUNDLE_VERSION_KEY,multiLine: true),tags[TAG_BUNDLE_VERSION]);
+      }
+      result.bytes = UTF8.encode(plistString);
+      return result;
+    }
+    catch(e){
+      throw new InternalServerError("Error ${e.toString()}");
+    }
   }
+
+  final String plistTemplate = r'''
+  <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/
+PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>items</key>
+        <array>
+                <dict>
+                        <key>assets</key>
+                        <array>
+                                <dict>
+                                        <key>kind</key>
+                                        <string>software-package</string>
+                                        <key>url</key>
+                                        <string>@URL_TO_IPA@</string>
+                                </dict>
+                        </array>
+                        <key>metadata</key>
+                        <dict>
+                                <key>bundle-identifier</key>
+                                <string>@BUNDLE_IDENTIFIER@</string>
+                                <key>bundle-version</key>
+                                <string>@BUNDLE_VERSION@</string>
+                                <key>kind</key>
+                                <string>software</string>
+                                <key>title</key>
+                                <string>@APPLICATION_NAME@</string>
+                        </dict>
+                </dict>
+        </array>
+</dict>
+</plist>
+''';
+
 /*
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/file')
   Future<MediaMessage> getArtifactFile(String idArtifact,{String token}) async{
