@@ -17,6 +17,10 @@ packages:
     description: angular_ui
     source: hosted
     version: "0.6.11"
+  archive:
+    description: archive
+    source: hosted
+    version: "1.0.20"
   args:
     description: args
     source: hosted
@@ -219,6 +223,10 @@ packages:
     description: petitparser
     source: hosted
     version: "1.5.1"
+  plist:
+    description: plist
+    source: hosted
+    version: "1.0.1"
   plugin:
     description: plugin
     source: hosted

@@ -53,8 +53,7 @@ class InService {
 
       createdArtifact.contentType = mediaMsg.contentType;
       await mgrs.addFileToArtifact(tempFile,createdArtifact,mgrs.defaultStorage);
-    }on ArtifactError catch(e){
-      await createdArtifact.remove();
+    }catch(e){
       //delete created artifact
       await mgrs.deleteArtifact(createdArtifact,mgrs.defaultStorage);
       throw new RpcError(500, 'Add Error', 'Unable to add artifact: ${e.message}');
