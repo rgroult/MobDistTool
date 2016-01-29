@@ -37,7 +37,7 @@ class InService {
     }
     try {
       //Create temp file
-      var tempDir = Directory.systemTemp.createTempSync("art");
+      var tempDir = Directory.systemTemp.createTempSync("art").path;
       var filename = mediaMsg.metadata["filename"];
 
       var tempFile = await new File("$tempDir/${filename}").create(recursive:true);
