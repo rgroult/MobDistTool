@@ -10,6 +10,7 @@ import 'application_service.dart' as appService;
 import 'artifact_service.dart';
 import 'model.dart';
 import 'json_convertor.dart';
+import '../analyzers/artifact_analyzer.dart' as analyzer;
 
 
 final String PLIST_CONTENT_TYPE ='application/plist';
@@ -17,8 +18,6 @@ final String TEMPLATE_IPA_URL_KEY='@URL_TO_IPA@';
 final String TEMPLATE_BUNDLE_ID_KEY='@BUNDLE_IDENTIFIER@';
 final String TEMPLATE_BUNDLE_VERSION_KEY='@BUNDLE_VERSION@';
 final String TEMPLATE_APP_NAME_KEY='@APPLICATION_NAME@';
-final String TAG_BUNDLE_ID = 'MDT_IOS_BUNDLE_ID';
-final String TAG_BUNDLE_VERSION = 'MDT_IOS_BUNDLE_VERSION';
 
 @ApiClass( name:'in' , version: 'v1')
 class InService {
@@ -34,21 +33,30 @@ class InService {
     //find existng artifact
     var existingArtifact = await mgrs.findArtifactByInfos(application,branch,version,artifactName);
     if (existingArtifact != null) {
-      throw new RpcError(400, 'Already Exist', 'artifact exist with provided infos');
+      throw new RpcError(400, 'ARTIFACT_ERROR', 'artifact exist with provided infos');
     }
-
-    var parsedTags = null;
-    if (artifactsMsg.jsonTags != null){
-      parsedTags= parseTags(artifactsMsg.jsonTags);
-    }
-    var createdArtifact = await mgrs.createArtifact(application,artifactName,version,branch,sortIdentifier:artifactsMsg.sortIdentifier,tags:parsedTags);
-    //add file
     try {
       //Create temp file
       var tempDir = Directory.systemTemp.createTempSync("art");
-      createdArtifact.filename = mediaMsg.metadata["filename"];
-      var tempFile = await new File("$tempDir/${createdArtifact.filename}").create(recursive:true);
+      var filename = mediaMsg.metadata["filename"];
+
+      var tempFile = await new File("$tempDir/${filename}").create(recursive:true);
       await tempFile.writeAsBytes(mediaMsg.bytes,flush:true);
+
+      //check artifact validity : ipa or apk
+      var tags = await analyzer.analyzeAndExtractArtifactInfos(tempFile,application.platform);
+
+      var parsedTags = null;
+      if (artifactsMsg.jsonTags != null){
+        parsedTags= parseTags(artifactsMsg.jsonTags);
+      }
+      if (parsedTags != null){
+        //Add to tags provided by analyzer
+        tags.addAll(parsedTags);
+      }
+      //create artifact
+      var createdArtifact = await mgrs.createArtifact(application,artifactName,version,branch,sortIdentifier:artifactsMsg.sortIdentifier,tags:tags);
+      createdArtifact.filename = filename;
       createdArtifact.size = tempFile.lengthSync();
 
       createdArtifact.contentType = mediaMsg.contentType;
@@ -56,7 +64,7 @@ class InService {
     }catch(e){
       //delete created artifact
       await mgrs.deleteArtifact(createdArtifact,mgrs.defaultStorage);
-      throw new RpcError(500, 'Add Error', 'Unable to add artifact: ${e.message}');
+      throw new RpcError(500, 'ARTIFACT_ERROR', 'Unable to add artifact: ${e.message}');
        // ..errors.add(new RpcErrorDetail(reason: e.message));
     }
 
@@ -93,7 +101,7 @@ class InService {
 
     String base64icon = application.base64IconData;
     if (base64icon != null) {
-      print("length ${base64icon.length}");
+      //print("length ${base64icon.length}");
       var dataTypeIndex = base64icon.indexOf('data:');
       var dataBytesIndex = base64icon.indexOf(';base64,');
       var endDataTypeIndex = dataBytesIndex;
@@ -107,6 +115,7 @@ class InService {
           var result = new MediaMessage();
           result.contentType = imageType;
           result.bytes = CryptoUtils.base64StringToBytes(base64);
+          result.updated = application.getProperty('modifiedAt');
           return result;
         } catch (e) {
           throw new RpcError(500, "APPLICATION_ERROR","Invalid icon format");
@@ -138,7 +147,7 @@ class InService {
       return result;
     }
     catch(e){
-      throw new InternalServerError("Error ${e.toString()}");
+      throw new RpcError(500, 'ARTIFACT_ERROR', "Error ${e.toString()}");
     }
   }
 
@@ -176,23 +185,4 @@ PropertyList-1.0.dtd">
 </dict>
 </plist>
 ''';
-
-/*
-  @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/file')
-  Future<MediaMessage> getArtifactFile(String idArtifact,{String token}) async{
-      var artifact = await mgrs.findArtifact(idArtifact);
-      if (artifact == null){
-        throw new NotFoundError();
-      }
-      try {
-        Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
-        var result = new MediaMessage();
-        result.bytesStream = stream;
-        result.contentType = artifact.contentType;
-        return result;
-      }catch(e){
-        print("$e");
-      }
-  }*/
-
 }
