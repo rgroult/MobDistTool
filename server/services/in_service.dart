@@ -162,17 +162,11 @@ class InService {
           new RegExp(TEMPLATE_IPA_URL_KEY, multiLine: true),
           '/api/in/v1/artifacts/$idArtifact/file');
       var application = await artifact.application.getMeFromDb();
-      plistString = plistString.replaceFirst(
-          new RegExp(TEMPLATE_APP_NAME_KEY, multiLine: true),
-          artifact.application.name);
+      plistString = plistString.replaceFirst( new RegExp(TEMPLATE_APP_NAME_KEY, multiLine: true), artifact.application.name);
       if (artifact.metaDataTags != null) {
         var tags = JSON.decode(artifact.metaDataTags);
-        plistString.replaceFirst(
-            new RegExp(TEMPLATE_BUNDLE_ID_KEY, multiLine: true),
-            tags["CFBundleIdentifier"]);
-        plistString.replaceFirst(
-            new RegExp(TEMPLATE_BUNDLE_VERSION_KEY, multiLine: true),
-            tags["CFBundleVersion"]);
+        plistString = plistString.replaceFirst(new RegExp(TEMPLATE_BUNDLE_ID_KEY, multiLine: true), tags["CFBundleIdentifier"]);
+        plistString = plistString.replaceFirst(new RegExp(TEMPLATE_BUNDLE_VERSION_KEY, multiLine: true),tags["CFBundleVersion"]);
       }
       result.bytes = UTF8.encode(plistString);
       return result;
@@ -183,8 +177,7 @@ class InService {
 
   final String plistTemplate = r'''
   <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/
-PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
         <key>items</key>
