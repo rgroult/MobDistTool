@@ -140,16 +140,17 @@ class ArtifactService {
     }
     var downloadInfo = new DownloadInfo();
     downloadInfo.directLinkUrl = '/in/v1/artifacts/$idArtifact/file';
-    var app = artifact.application;
+    var app = await artifact.application.getMeFromDb();
     if (app == null){
       throw new NotFoundError("Unable to find application");
     }
     if (app.platform.toUpperCase() == 'IOS'){
       downloadInfo.installUrl = '/in/v1/artifacts/$idArtifact/ios_plist';
+      downloadInfo.installScheme = "itms-services://?action=download-manifest&url=";
     }else {
       downloadInfo.installUrl = downloadInfo.directLinkUrl;
     }
-    return new Response(200, {"directLinkUrl":downloadInfo.directLinkUrl,"installUrl":downloadInfo.installUrl});
+    return new Response(200, downloadInfo.toJson());
   }
 
   static Future downloadFile(String idArtifact,{String token}) async {

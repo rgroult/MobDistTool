@@ -19,6 +19,20 @@ class Response {
 class DownloadInfo {
   String directLinkUrl;
   String installUrl;
+  String installScheme;
+  Map toJson(){
+    var result = {};
+    if (directLinkUrl != null){
+      result["directLinkUrl"] = directLinkUrl;
+    }
+    if (installUrl != null){
+      result["installUrl"] = installUrl;
+    }
+    if (installScheme != null){
+      result["installScheme"] = installScheme;
+    }
+    return result;
+  }
 }
 
 class ResponseList {

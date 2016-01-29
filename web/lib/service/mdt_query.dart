@@ -6,7 +6,7 @@ import '../model/errors.dart';
 import '../model/mdt_model.dart';
 
 //final String mdtServerApiRootUrl = "http://localhost:8080/api";
-final String mdtServerApiRootUrl = const String.fromEnvironment('mode') == 'javascript' ? "/api" : "http://localhost:8080/api";
+String mdtServerApiRootUrl = const String.fromEnvironment('mode') == 'javascript' ? "/api" : "http://localhost:8080/api";
 final String appVersion = "v1";
 final String appPath = "/applications/${appVersion}";
 final String artifactsPath = "/art/${appVersion}";
@@ -20,8 +20,13 @@ class MDTQueryService {
   Http _http;
   var lastAuthorizationHeader = '';
 
-  void setHttpService(Http http) {
+  void setHttpService(Http http,LocationWrapper location) {
     this._http = http;
+    var currentLocation = location.location.href;
+    if (mdtServerApiRootUrl.matchAsPrefix("/api") != null){
+      Uri currentUrl = Uri.parse(currentLocation);
+      mdtServerApiRootUrl = "${currentUrl.scheme}://${currentUrl.host}:${currentUrl.port}${mdtServerApiRootUrl}";
+    }
   }
   HttpInterceptors interceptors;
 
@@ -391,6 +396,10 @@ class MDTQueryService {
     var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
       var url = '${mdtServerApiRootUrl}${downloadInfos["installUrl"]}';
+      var installScheme = downloadInfos["installScheme"];
+      if ( installScheme != null){
+        url = "${installScheme}${url}";
+      }print('redirect :$url, map ${downloadInfos.toString()}');
       sendRedirect(url);
     }
   }

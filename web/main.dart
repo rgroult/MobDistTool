@@ -56,18 +56,18 @@ class MDTRootScope {
     templateUrl: 'pages/main_page.html',
     useShadowDom: false)
 class MainComponent implements ScopeAware {
-  void get isUserConnected => scope.rootScope.context.isUserConnected;
+  bool get isUserConnected => scope.rootScope.context.isUserConnected;
  // bool isUserConnected = false;
   bool isHttpLoading = false;
-  void get  currentUser => scope.rootScope.context.currentUser;
-  void get routeHistory => scope.rootScope.context.currentRouteHistory;
+  Map get  currentUser => scope.rootScope.context.currentUser;
+  List<Map> get routeHistory => scope.rootScope.context.currentRouteHistory;
   final Http _http;
   NgRoutingHelper locationService;
   MDTQueryService mdtService;
   //var lastAuthorizationHeader = '';
 
   @NgTwoWay('adminOption')
-  void get adminOption => scope.rootScope.context.adminOptionsDisplayed;
+  bool get adminOption => scope.rootScope.context.adminOptionsDisplayed;
   void set adminOption(bool option){
     scope.rootScope.context.adminOptionsDisplayed = option;
   }
@@ -110,9 +110,9 @@ class MainComponent implements ScopeAware {
     return initialHeaders;
   }
 */
-  MainComponent(this._http,HttpInterceptors interceptors,this.modal,this.mdtService,this.locationService){
+  MainComponent(this._http,LocationWrapper location, HttpInterceptors interceptors,this.modal,this.mdtService,this.locationService){
     print("Main component created $this");
-    mdtService.setHttpService(_http);
+    mdtService.setHttpService(_http,location);
     mdtService.configureInjector(interceptors);
     //scope.rootScope.context.mainComp = this;
 /*
