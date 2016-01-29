@@ -9,8 +9,7 @@ Future<Map> analyzeAndExtractArtifactInfos(File fileToAnalyze,String platform) a
     case "ios":
       return analyzeAndExtractIOSArtifactInfos(fileToAnalyze);
     case "android":
-      //TO DO
-      return {};
+      return analyzeAndExtractAndroidArtifactInfos(fileToAnalyse);
     default:
       throw new ArtifactError("incorrect artifact for platform");
   }
@@ -57,4 +56,24 @@ Future<Map> analyzeAndExtractIOSArtifactInfos(File fileToAnalyze) async{
   }catch(e){
     throw new ArtifactError("Unable to analyse IPA");
   }
+}
+
+Future<Map> analyzeAndExtractAndroidArtifactInfos(File fileToAnalyze) async{
+  try {
+    List<int> bytesApk = fileToAnalyze.readAsBytesSync();
+    var artifactInfo = {};
+    Manifest manifest = await parseManifest(bytesApk);
+    artifactInfo['PACKAGE_NAME'] = manifest.package;
+    artifactInfo['MIN_SDK'] = manifest.usesSdk.minSdkVersion;
+    if (manifest.usesSdk.maxSdkVersion != null) {
+      artifactInfo['MAX_SDK'] = manifest.usesSdk.maxSdkVersion;
+    }
+    artifactInfo['TARGET_SDK'] = manifest.usesSdk.targetSdkVersion;
+
+    print(manifest);
+    return artifactInfo;
+  }catch(e){
+    throw new ArtifactError("Unable to analyse APK");
+  }
+
 }
