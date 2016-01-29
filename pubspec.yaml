@@ -35,15 +35,10 @@ dependencies:
   googleapis_auth: any
   googleapis: any
 dependency_overrides:
-  #rpc:
-  #  path: "../rpc/"
-  #  git:
-  #    url: git://github.com/rgroult/rpc.git
-   #   ref: master
-   # version: "^0.5.5"
 transformers:
 - angular:
     html_files:
+      - web/index.html
       - web/pages/home.html
       - web/pages/main_page.html
       - web/lib/components/add_artifact.html

@@ -14,10 +14,10 @@ class BaseComponent implements ScopeAware {
 
   Scope scope;
 
-  MainComponent mainComp() {
+  /*MainComponent mainComp() {
     return scope.parentScope.context;
   }
-
+*/
   //MDTQueryService _mdtService;
 
 //bool isHttpLoading = false;

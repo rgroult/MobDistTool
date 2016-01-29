@@ -96,7 +96,7 @@ class MDTQueryService {
     return JSON.decode(response.data);
   }
 
-  HttpResponse sendRequest(String method, String url,
+  Future<HttpResponse> sendRequest(String method, String url,
       {String query, String body, String contentType}) async {
     //var url = '$baseUrlHost$path';
     Http http = this._http;
@@ -129,7 +129,7 @@ class MDTQueryService {
     return null;
   }
 
-  Map registerUser(String username, String email, String password) async {
+  Future<Map> registerUser(String username, String email, String password) async {
     String url = "${mdtServerApiRootUrl}${usersPath}/register";
     var userRegistration = {
       "email": "$email",
@@ -157,7 +157,7 @@ class MDTQueryService {
     return responseJson;
   }
 
-  MDTApplication createApplication(
+  Future<MDTApplication> createApplication(
       String name, String description, String platform, String icon) async {
     var appData = {
       "name": name,
@@ -179,7 +179,7 @@ class MDTQueryService {
     return app;
   }
 
-  MDTApplication updateApplication(
+  Future<MDTApplication> updateApplication(
       String appId, String name, String description, String icon) async {
     var appData = {"name": name, "description": description};
     if (icon !=null && icon.length>0){
@@ -199,7 +199,7 @@ class MDTQueryService {
     return app;
   }
 
-  MDTApplication getApplication(String appId) async {
+  Future<MDTApplication> getApplication(String appId) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/$appId';
 
     var response = await sendRequest('GET', url);
@@ -222,7 +222,7 @@ class MDTQueryService {
     return "${mdtServerApiRootUrl}${inPath}/app/${appid}/icon";
   }
 
-  List<MDTApplication> getApplications({String platformFilter}) async {
+  Future<List<MDTApplication>> getApplications({String platformFilter}) async {
     var url = '${mdtServerApiRootUrl}${appPath}/search';
     if (platformFilter != null) {
       url += 'platform=$platformFilter';
@@ -247,7 +247,7 @@ class MDTQueryService {
     return foundAppList;
   }
 
-  bool deleteApplication(MDTApplication appToDelete) async {
+  Future<bool> deleteApplication(MDTApplication appToDelete) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appToDelete.uuid}';
     var response = await sendRequest('DELETE', url);
     if (response.status == 200){
@@ -256,7 +256,7 @@ class MDTQueryService {
     return new Future.value(false);
   }
 
-  List<MDTArtifact> listLatestArtifacts(String appId) async {
+  Future<List<MDTArtifact>> listLatestArtifacts(String appId) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions/last';
 
     print("Loads latest version url $url");
@@ -280,7 +280,7 @@ class MDTQueryService {
     return artifactsList;
   }
 
-  List<MDTArtifact> listArtifacts(String appId, {int pageIndex, int limitPerPage,String branch}) async{
+  Future<List<MDTArtifact>> listArtifacts(String appId, {int pageIndex, int limitPerPage,String branch}) async{
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions';
     var parameters ={};
     if (pageIndex != null ){
@@ -315,7 +315,7 @@ class MDTQueryService {
     return artifactsList;
   }
 
-  MDTArtifact addArtifact(String apiKey, File file, String name,
+  Future<MDTArtifact> addArtifact(String apiKey, File file, String name,
       {bool latest,
       String branch,
       String version,
@@ -359,7 +359,7 @@ class MDTQueryService {
     throw new ArtifactsError("Unable to parse response ${responseJson}");
   }
 
-  Map artifactDownloadInfo(String artifactId) async {
+  Future<Map> artifactDownloadInfo(String artifactId) async {
     var url = '${mdtServerApiRootUrl}${artifactsPath}/artifacts/${artifactId}/download';
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);

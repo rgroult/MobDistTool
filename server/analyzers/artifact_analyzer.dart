@@ -16,10 +16,7 @@ Future<Map> analyzeAndExtractArtifactInfos(File fileToAnalyze,String platform) a
   }
 }
 
-
-final String TAG_BUNDLE_ID = 'MDT_IOS_BUNDLE_ID';
-final String TAG_BUNDLE_VERSION = 'MDT_IOS_BUNDLE_VERSION';
-final String TAG_MINIMUM_OS_VERSION = 'MDT_IOS_MINIMUM_OS_VERSION';
+final List<String> iosPlistKeysToExtract = ["CFBundleIdentifier","CFBundleVersion","MinimumOSVersion"];
 
 Future<Map> analyzeAndExtractIOSArtifactInfos(File fileToAnalyze) async{
   try {
@@ -52,9 +49,9 @@ Future<Map> analyzeAndExtractIOSArtifactInfos(File fileToAnalyze) async{
 
 
     var plistTags ={};
-    plistTags[TAG_BUNDLE_ID] = parsedPlist["CFBundleIdentifier"];
-    plistTags[TAG_BUNDLE_VERSION] = parsedPlist["CFBundleVersion"];
-    plistTags[TAG_MINIMUM_OS_VERSION] = parsedPlist["MinimumOSVersion"];
+    for (String key in iosPlistKeysToExtract) {
+      plistTags[key] = parsedPlist[key];
+    }
 
     return plistTags;
   }catch(e){

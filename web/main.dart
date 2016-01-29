@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:html' hide Platform;
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'package:logging/logging.dart';
@@ -24,10 +24,10 @@ class MDTAppModule extends Module {
 @Injectable()
 class MDTRootScope {
   //global config and context
-  void get currentRouteHistory => isUserConnected ? routeHistory : routeHistory.sublist(0,1);
+  List<Map> get currentRouteHistory => isUserConnected ? routeHistory : routeHistory.sublist(0,1);
   MainComponent mainComp;
-  void get isUserConnected => (currentUser!=null);
-  void get isUserAdmin => (currentUser["isSystemAdmin"] == true);
+  bool get isUserConnected => (currentUser!=null);
+  bool get isUserAdmin => (currentUser["isSystemAdmin"] == true);
   Map currentUser = null;
   bool adminOptionsDisplayed = false;
   Platform currentDevice = Platform.OTHER;

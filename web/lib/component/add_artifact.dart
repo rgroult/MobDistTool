@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'dart:core';
 import 'dart:async';
+import 'dart:html';
 import 'base_component.dart';
 import 'application_detail.dart';
 import '../model/mdt_model.dart';
@@ -28,7 +29,7 @@ class AddArtifactComponent extends BaseComponent {
   String artifactTags;
   File artifactFile;
   bool lastVersion = false;
-  void upfilesSelected(dynamic values) async {
+  void upfilesSelected(dynamic values) {
     artifactFile = values.first;
   }
 
@@ -36,7 +37,7 @@ class AddArtifactComponent extends BaseComponent {
     //_appId = routeProvider.parameters['appId'];
   }
 
-  void addArtifact() async{
+  Future addArtifact() async{
     errorMessage = null;
     if (checkParameter() == false){
       return;
@@ -53,16 +54,6 @@ class AddArtifactComponent extends BaseComponent {
     } finally {
       isHttpLoading = false;
     }
-
-
-    /*MDTArtifact addArtifact(String apiKey, File file, String name,
-      {bool latest,
-      String branch,
-      String version,
-      String jsonTags,
-      String sortIdentifier}) async {*/
-
-
   }
 
   bool checkParameter() {
@@ -97,17 +88,3 @@ class AddArtifactComponent extends BaseComponent {
   }
 
 }
-/*
-class ArtifactMsg {
-  @ApiProperty(required: true)
-  MediaMessage artifactFile;
-  @ApiProperty(required: false)
-  String sortIdentifier;
-  @ApiProperty(required: false)
-  String jsonTags;
-}
-Future<Response> addLastArtifactByAppKey(String apiKey, String artifactName, ArtifactMsg artifactsMsg) async{
-
-}
-  Future<Response> addArtifactByAppKey(String apiKey,String branch,String version, String artifactName, ArtifactMsg artifactsMsg) async{
-}*/

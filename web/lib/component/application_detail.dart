@@ -1,11 +1,12 @@
 import 'package:angular/angular.dart';
+import 'package:angular_ui/angular_ui.dart';
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 import '../model/errors.dart';
 import '../service/mdt_query.dart';
 import 'application_list.dart';
 import 'confirmation_popover.dart';
-import 'package:angular_ui/angular_ui.dart';
+
 
 @Component(
     selector: 'application_detail',
@@ -18,7 +19,7 @@ class ApplicationDetailComponent extends BaseComponent  {
   Modal modal;
   String _appId;
   //strange :unable to rename it to another name :S
-  void get app => this;
+  ApplicationDetailComponent get app => this;
   MDTApplication currentApp;
   bool hadUpdate = false;
   //artifact and sort
@@ -44,7 +45,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     errorMessage = null;
     try {
       isHttpLoading = true;
-      MTDApplication app= await mdtQueryService.getApplication(_appId);
+      var app= await mdtQueryService.getApplication(_appId);
       currentApp = app;
       loadAppVersions();
 
