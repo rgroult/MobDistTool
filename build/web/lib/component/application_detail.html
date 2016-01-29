@@ -1,0 +1,48 @@
+<div class="media">
+    <div class="media-left">
+        <img class="media-object appDetailIcon" src="{{currentApp.appIcon}}" alt="appIcon">
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading">{{currentApp.name}}</h4>
+        {{currentApp.description}}
+        <div ng-if="canAdmin()">
+            apiKey : {{currentApp.apiKey}}
+            <br/>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="addVersion()"><i class="material-icons">add</i> Add Version</button>
+
+        </div>
+    </div>
+</div>
+<hr/>
+<alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+<div class="row">
+    <div class="col-md-6">
+        <accordion-group heading="Latest Build" ng-cloak>
+              <artifact ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()" displayVersion="true"></artifact>
+        </accordion-group>
+    </div>
+</div>
+
+<h2>
+    <small>Versions</small>
+</h2>
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Branch : {{currentSelectedBranch}}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href1="#" ng-click="selectFilter('')">All</a></li>
+
+        <li><a href1="#" ng-repeat="branch in allAvailableBranches" ng-click="selectFilter(branch)">{{branch}}</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-6" ng-repeat="sortIdentifier in allSortedIdentifier | filter:currentBranchFilter">
+        <accordion-group heading="{{versionForSortIdentifier(sortIdentifier)}}"  ng-cloak>
+            <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  artifact="artifact" canDelete="canAdmin()" displayVersion="false"></artifact>
+        </accordion-group>
+    </div>
+</div>

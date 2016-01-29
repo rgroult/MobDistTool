@@ -1,7 +1,6 @@
 # Don’t commit the following directories created by pub.
 .buildlog
 .pub/
-build/
 packages
 
 # Or the files created by dart2js.
