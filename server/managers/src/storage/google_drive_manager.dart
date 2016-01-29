@@ -48,7 +48,7 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     var bytes = await authClient.readBytes(file.downloadUrl);
     //print(new AsciiDecoder().convert(bytes));
     var tmpDirectory = await Directory.systemTemp.createTemp('mdt');
-    var tmpFile = new File('$tmpDirectory/$objectId');
+    var tmpFile = new File('${tmpDirectory.path}/$objectId');
     await tmpFile.writeAsBytes(bytes,flush:true);
     return tmpFile.openRead();
 /*
@@ -65,31 +65,4 @@ class GoogleDriveStorageManager extends BaseStorageManager {
   Future<Uri> storageUrI(String infos) async{
     throw new ArtifactError('Not supported by this storage');
   }
-/*
-  Future<File> storageFile(String infos) async {
-    drive.File file =  await api.files.get(infos);
-    var bytes = await authClient.readBytes(file.downloadUrl);
-    var localfile = new File("ttstst.txt").openWrite();
-    var stream = localfile.openWrite().add(bytes);
-    stream.close();
-
-    return localfile;
-  }
-
-  Future<String> storeFile(File file) async{
-    var media = new Media(file.openRead(), file.lengthSync());
-    var driveFile = new drive.File()
-      ..title = "test";
-    var result = await api.files.insert(driveFile, uploadMedia: media);
-
-  return result.id;
-  }
-
-  Future<bool> deleteFile(File file) {
-    throw new ArtifactError('Not implemented');
-  }
-
-  Future<bool> deleteFileFromInfos(String infos) {
-    throw new ArtifactError('Not implemented');
-  }*/
 }

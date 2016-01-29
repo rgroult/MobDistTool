@@ -160,7 +160,7 @@ class ArtifactService {
       }
       Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
       var body = new Body(stream);
-      var headers = {"Content-Type":artifact.contentType,"Content-length":"${artifact.size}","Content-Disposition":"attachment; filename='${artifact.filename}'"};
+      var headers = {"Content-Type":artifact.contentType,"Content-length":"${artifact.size}","Content-Disposition":"attachment; filename=${artifact.filename}"};
       var response = new shelf.Response(200,body:body,headers:headers);
       //response.headers["content-type"]= artifact.contentType;
       //response.contentLength = artifact.size;
