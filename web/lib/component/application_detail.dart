@@ -188,7 +188,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     allAvailableBranches = allAvailableBranches.toSet().toList()..sort();
    // allAvailableBranches.insert(0, "_All");
   }
-
+/*
   void loadArtifacts() {
     var artifact = new MDTArtifact({
       "uuid" : "dsdsdd",
@@ -242,5 +242,5 @@ class ApplicationDetailComponent extends BaseComponent  {
    // applicationsLastestVersion = new List<MDTArtifact>();
     applicationsLastestVersion.add(artifact);
     applicationsLastestVersion.add(artifact2);
-  }
+  }*/
 }
