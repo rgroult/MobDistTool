@@ -3,6 +3,7 @@ import 'dart:core';
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 import 'add_artifact.dart';
+import 'application_detail.dart';
 import '../service/mdt_query.dart';
 
 class MDTArtifactModule extends Module {
@@ -19,6 +20,9 @@ class MDTArtifactModule extends Module {
 )
 class ArtifactElementComponent extends BaseComponent  {
   MDTQueryService mdtQueryService;
+  ApplicationDetailComponent _parent;
+  @NgOneWay('sortIdentifier')
+  bool sortIdentifier;
   @NgOneWay('displayVersion')
   bool displayVersion;
   @NgOneWay('canDelete')
@@ -40,10 +44,10 @@ class ArtifactElementComponent extends BaseComponent  {
   }
 
   void deleteArtifact(){
-
+    _parent.deleteArtifact(artifact,sortIdentifier);
   }
 
-  ArtifactElementComponent(this.mdtQueryService){
+  ArtifactElementComponent(this.mdtQueryService,this._parent){
 
   }
 }

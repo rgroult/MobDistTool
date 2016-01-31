@@ -23,6 +23,7 @@ class ApplicationDetailComponent extends BaseComponent  {
   MDTApplication currentApp;
   bool hadUpdate = false;
   //artifact and sort
+  //@NgOneWay('groupedArtifacts')
   Map<String,List<MDTArtifact>> groupedArtifacts = new Map<String,List<MDTArtifact>>();
   List<String> allSortedIdentifier = new List<String>();
   List<MDTArtifact>  applicationsArtifacts = new List<MDTArtifact>();
@@ -140,6 +141,20 @@ class ApplicationDetailComponent extends BaseComponent  {
         });
       }
     });
+  }
+
+  void deleteArtifact(MDTArtifact artifact, String fromSortIdentifier) async{
+    var result = await mdtQueryService.deleteArtifact(artifact.uuid);
+    if (result == true){
+        if (fromSortIdentifier != null){
+          var isremoved = groupedArtifacts[fromSortIdentifier].remove(artifact);
+          print("remove status $isremoved");
+        }else{
+          applicationsLastestVersion.remove(artifact);
+        }
+    }else {
+      errorMessage = {'type': 'danger', 'msg': 'Unable to delete version'};
+    }
   }
 
   ApplicationDetailComponent(RouteProvider routeProvider,this._parent,this.modal,this.mdtQueryService){
