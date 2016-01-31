@@ -9,6 +9,7 @@ environment:
   sdk: '>=1.0.0 <2.0.0'
 
 dependencies:
+  apk_parser: "^0.0.2+2"
   angular: any
   angular_ui: any
 #  web_components: any
