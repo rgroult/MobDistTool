@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:plist/plist.dart' as plist;
 import '../managers/errors.dart';
+import 'package:apk_parser/apk_parser.dart';
 
 Future<Map> analyzeAndExtractArtifactInfos(File fileToAnalyze,String platform) async{
   switch (platform.toLowerCase()){
     case "ios":
       return analyzeAndExtractIOSArtifactInfos(fileToAnalyze);
     case "android":
-      return analyzeAndExtractAndroidArtifactInfos(fileToAnalyse);
+      return analyzeAndExtractAndroidArtifactInfos(fileToAnalyze);
     default:
       throw new ArtifactError("incorrect artifact for platform");
   }
@@ -60,7 +61,7 @@ Future<Map> analyzeAndExtractIOSArtifactInfos(File fileToAnalyze) async{
 
 Future<Map> analyzeAndExtractAndroidArtifactInfos(File fileToAnalyze) async{
   try {
-    List<int> bytesApk = fileToAnalyze.readAsBytesSync();
+    List<int> bytesApk = await fileToAnalyze.readAsBytes();
     var artifactInfo = {};
     Manifest manifest = await parseManifest(bytesApk);
     artifactInfo['PACKAGE_NAME'] = manifest.package;
