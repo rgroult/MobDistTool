@@ -22,6 +22,8 @@ class ApplicationDetailComponent extends BaseComponent  {
   ApplicationDetailComponent get app => this;
   MDTApplication currentApp;
   bool hadUpdate = false;
+  bool isAdminUsersCollapsed = true;
+  String administratorToAdd;
   //artifact and sort
   //@NgOneWay('groupedArtifacts')
   Map<String,List<MDTArtifact>> groupedArtifacts = new Map<String,List<MDTArtifact>>();
@@ -86,6 +88,28 @@ class ApplicationDetailComponent extends BaseComponent  {
     sortArtifacts();
   }
 
+  void addAdministrator(String email){
+    errorMessage = null;
+    try {
+      isHttpLoading = true;
+    }catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': '$e'};
+    } finally {
+      isHttpLoading = false;
+    }
+  }
+
+  void deleteAdministrator(String email){
+    errorMessage = null;
+    try {
+      isHttpLoading = true;
+    }catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': '$e'};
+    } finally {
+      isHttpLoading = false;
+    }
+  }
+
   //admin
   bool canAdmin(){
     bool displayAdminOption  = scope.rootScope.context.adminOptionsDisplayed;
@@ -98,13 +122,6 @@ class ApplicationDetailComponent extends BaseComponent  {
     if (adminFound != null && displayAdminOption){
         return true;
     }
-    /*
-    bool isUserConnected = false;
-  bool isUserAdmin = false;
-  Map currentUser = null;
-  bool adminOptionsDisplayed = false;
-     */
-    //var currentUser = mainComp().currentUser;
     return false;
   }
 

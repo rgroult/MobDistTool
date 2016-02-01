@@ -9,7 +9,9 @@
         <a type="button" ng-click="isCollapsed = !isCollapsed" class="btn btn-raised btn-default"><i class="material-icons">info_outline</i> More ...</a>
         <button type="button" ng-click="deleteArtifact()" ng-if="canDelete" class="btn btn-xs btn-flat btn-danger"><i class="material-icons">delete</i> Delete</button>
         <div collapse="isCollapsed">
-        <span ng-repeat="key in metaDataKeys"><small>{{key}} - {{artifact.metaDataTags[key]}}</small><br/></span>
+            <dl class="dl-horizontal" ng-repeat="key in metaDataKeys">
+            <dt>{{key}} :</dt>
+            <dd>{{artifact.metaDataTags[key]}}.</dd>
         </div>
     </p>
 </div>

@@ -30,7 +30,7 @@ class ArtifactElementComponent extends BaseComponent  {
   @NgOneWay('artifact')
   MDTArtifact artifact;
   bool isCollapsed = true;
-  List<String> get metaDataKeys => artifact.metaDataTags.keys.toList();
+  List<String> get metaDataKeys => artifact.metaDataTags != null ? artifact.metaDataTags.keys.toList() : new List<String>();
   int artifactSize(){
     return (artifact.size/(1024*1024)).round();
   }
