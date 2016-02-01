@@ -22,11 +22,11 @@ class MDTQueryService {
 
   void setHttpService(Http http,LocationWrapper location) {
     this._http = http;
-    var currentLocation = location.location.href;
+   /* var currentLocation = location.location.href;
     if (mdtServerApiRootUrl.matchAsPrefix("/api") != null){
       Uri currentUrl = Uri.parse(currentLocation);
       mdtServerApiRootUrl = "${currentUrl.scheme}://${currentUrl.host}:${currentUrl.port}${mdtServerApiRootUrl}";
-    }
+    }*/
   }
   HttpInterceptors interceptors;
 
@@ -395,11 +395,8 @@ class MDTQueryService {
   Future<bool> InstallArtifact(String artifactId) async {
     var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
-      var url = '${mdtServerApiRootUrl}${downloadInfos["installUrl"]}';
-      var installScheme = downloadInfos["installScheme"];
-      if ( installScheme != null){
-        url = "${installScheme}${url}";
-      }print('redirect :$url, map ${downloadInfos.toString()}');
+      var url = '${downloadInfos["installUrl"]}';
+      print('redirect :$url, map ${downloadInfos.toString()}');
       sendRedirect(url);
     }
   }
