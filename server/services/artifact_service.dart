@@ -16,7 +16,7 @@ class ArtifactService {
 
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "latest";
-  
+
   @ApiMethod(method: 'PUT', path: 'artifacts/{idArtifact}')
   Future<Response> addArtifact(String idArtifact,  FullArtifactMsg artifactsMsg) async{
     //current user
@@ -81,13 +81,13 @@ class ArtifactService {
       throw new NotFoundError("Unable to find artifact");
     }
     var downloadInfo = new DownloadInfo();
-    downloadInfo.directLinkUrl = '/in/v1/artifacts/$idArtifact/file';
+    downloadInfo.directLinkUrl = '/api/in/v1/artifacts/$idArtifact/file';
     var app = await artifact.application.getMeFromDb();
     if (app == null){
       throw new NotFoundError("Unable to find application");
     }
     if (app.platform.toUpperCase() == 'IOS'){
-      downloadInfo.installUrl = '/in/v1/artifacts/$idArtifact/ios_plist';
+      downloadInfo.installUrl = '/api/in/v1/artifacts/$idArtifact/ios_plist';
       if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
         downloadInfo.installUrl = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${downloadInfo.installUrl}';
       }

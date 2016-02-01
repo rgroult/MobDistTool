@@ -387,7 +387,7 @@ class MDTQueryService {
   Future<bool> downloadArtifact(String artifactId) async {
     var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
-      var url = '${mdtServerApiRootUrl}${downloadInfos["directLinkUrl"]}';
+      var url = downloadInfos["directLinkUrl"];
       sendRedirect(url);
     }
   }
@@ -395,7 +395,7 @@ class MDTQueryService {
   Future<bool> InstallArtifact(String artifactId) async {
     var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
-      var url = '${downloadInfos["installUrl"]}';
+      var url = downloadInfos["installUrl"];
       print('redirect :$url, map ${downloadInfos.toString()}');
       sendRedirect(url);
     }
