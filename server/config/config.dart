@@ -15,6 +15,7 @@ Map<String, Object> currentLoadedConfig = new Map<String, Object>();
 final String MDT_DATABASE_URI = "MDT_DATABASE_URI";
 final String MDT_STORAGE_NAME = "MDT_STORAGE_NAME";
 final String MDT_STORAGE_CONFIG = "MDT_STORAGE_CONFIG";
+final String MDT_SERVER_URL = "MDT_SERVER_URL";
 
 Future loadConfig() async{
   //load 'config.json' file is presentx
@@ -32,6 +33,9 @@ Future loadConfig() async{
 
   //override by env values if present
   Map<String, String> env = Platform.environment;
+  if (env[MDT_SERVER_URL] != null){
+    currentLoadedConfig[MDT_SERVER_URL] = env[MDT_SERVER_URL];
+  }
   if (env[MDT_DATABASE_URI] != null){
     currentLoadedConfig[MDT_DATABASE_URI] = env[MDT_DATABASE_URI];
   }

@@ -11,6 +11,7 @@ import 'artifact_service.dart';
 import 'model.dart';
 import 'json_convertor.dart';
 import '../analyzers/artifact_analyzer.dart' as analyzer;
+import '../config/config.dart' as config;
 
 final String PLIST_CONTENT_TYPE = 'application/plist';
 final String TEMPLATE_IPA_URL_KEY = '@URL_TO_IPA@';
@@ -158,9 +159,12 @@ class InService {
       var result = new MediaMessage();
       result.contentType = 'application/plist';
       var plistString = plistTemplate;
-      plistString = plistString.replaceFirst(
-          new RegExp(TEMPLATE_IPA_URL_KEY, multiLine: true),
-          '/api/in/v1/artifacts/$idArtifact/file');
+      var fileDownloadUrl = '/api/in/v1/artifacts/$idArtifact/file';
+      if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
+        fileDownloadUrl = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${fileDownloadUrl}';
+      }
+      plistString = plistString.replaceFirst(new RegExp(TEMPLATE_IPA_URL_KEY, multiLine: true), fileDownloadUrl);
+      //    '/api/in/v1/artifacts/$idArtifact/file');
       var application = await artifact.application.getMeFromDb();
       plistString = plistString.replaceFirst( new RegExp(TEMPLATE_APP_NAME_KEY, multiLine: true), artifact.application.name);
       if (artifact.metaDataTags != null) {
