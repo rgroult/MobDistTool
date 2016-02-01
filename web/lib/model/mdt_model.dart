@@ -70,7 +70,7 @@ class MDTArtifact{
     version = map["version"];
     sortIdentifier = map["sortIdentifier"];
     size = map['size']!=null ? map['size']:0;
-    if (metaDataTags != null) {
+    if (map["metaDataTags"] != null) {
       metaDataTags = JSON.decode(map["metaDataTags"]);
     }
   }

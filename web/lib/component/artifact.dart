@@ -29,6 +29,8 @@ class ArtifactElementComponent extends BaseComponent  {
   bool canDelete;
   @NgOneWay('artifact')
   MDTArtifact artifact;
+  bool isCollapsed = true;
+  List<String> get metaDataKeys => artifact.metaDataTags.keys.toList();
   int artifactSize(){
     return (artifact.size/(1024*1024)).round();
   }
