@@ -1,0 +1,23 @@
+    <polymer-element name="log-loggerui">
+      <template>
+         <style>
+           #loggerbox {
+             width:90%; 
+             height:100px; 
+             border:1px solid blue;
+             overflow:auto;
+           }
+           .loggerline {
+             margin:0px;
+             padding:0px;
+           }
+         </style>
+         <h2>Log messages</h2>
+         <div id="loggerbox">
+             <template repeat="{{messages}}">
+               <pre class="loggerline">{{}}</pre>
+             </template>
+         </div>
+      </template>
+      <script type="application/dart" src="loggerui.dart"></script>  
+    </polymer-element>   

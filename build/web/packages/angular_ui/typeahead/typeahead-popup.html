@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<ul class="dropdown-menu" ng-if="isOpen" ng-style="{top: position.top+'px', left: position.left+'px'}" style="display: block" role="listbox" aria-hidden="{{!isOpen}}">
+    <li id="{{match.id}}" ng-repeat="match in matches" ng-class="{active: isActive($index)}" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option">
+        <div typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+    </li>
+</ul>
