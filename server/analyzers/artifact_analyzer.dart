@@ -66,12 +66,16 @@ Future<Map> analyzeAndExtractAndroidArtifactInfos(File fileToAnalyze) async{
     Manifest manifest = await parseManifest(bytesApk);
     artifactInfo['PACKAGE_NAME'] = manifest.package;
     artifactInfo['MIN_SDK'] = manifest.usesSdk.minSdkVersion;
+    artifactInfo['VERSION_CODE'] = manifest.versionCode;
+    artifactInfo['VERSION_NAME'] = manifest.versionName;
     if (manifest.usesSdk.maxSdkVersion != null) {
       artifactInfo['MAX_SDK'] = manifest.usesSdk.maxSdkVersion;
     }
-    artifactInfo['TARGET_SDK'] = manifest.usesSdk.targetSdkVersion;
+    if (manifest.usesSdk.targetSdkVersion != null) {
+      artifactInfo['TARGET_SDK'] = manifest.usesSdk.targetSdkVersion;
+    }
 
-    print(manifest);
+    //print(manifest);
     return artifactInfo;
   }catch(e){
     throw new ArtifactError("Unable to analyse APK");
