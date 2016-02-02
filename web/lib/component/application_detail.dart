@@ -71,7 +71,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       if (artifacts.isNotEmpty){
         applicationsArtifacts.addAll(artifacts);
       }else {
-        errorMessage = { 'type': 'warning', 'msg': 'No Artifact found'};
+        //errorMessage = { 'type': 'warning', 'msg': 'No Artifact found'};
       }
       List<MDTArtifact> latestArtifacts = await mdtQueryService.listLatestArtifacts(currentApp.uuid);
       if (latestArtifacts.isNotEmpty){

@@ -6,14 +6,18 @@ class $MDTUser {
   static String get email => 'email';
   static String get password => 'password';
   static String get externalTokenId => 'externalTokenId';
+  static String get activationToken => 'activationToken';
   static String get isSystemAdmin => 'isSystemAdmin';
-  static final List<String> allFields = [name, email, password, externalTokenId, isSystemAdmin];
+  static String get isActivated => 'isActivated';
+  static final List<String> allFields = [name, email, password, externalTokenId, activationToken, isSystemAdmin, isActivated];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('email', PropertyType.String, 'email')
     ,const PropertyDescriptor('password', PropertyType.String, 'password')
     ,const PropertyDescriptor('externalTokenId', PropertyType.String, 'externalTokenId')
+    ,const PropertyDescriptor('activationToken', PropertyType.String, 'activationToken')
     ,const PropertyDescriptor('isSystemAdmin', PropertyType.bool, 'isSystemAdmin')
+    ,const PropertyDescriptor('isActivated', PropertyType.bool, 'isActivated')
   ];
 }
 
@@ -28,8 +32,12 @@ class MDTUser extends PersistentObject {
   set password (String value) => setProperty('password',value);
   String get externalTokenId => getProperty('externalTokenId');
   set externalTokenId (String value) => setProperty('externalTokenId',value);
+  String get activationToken => getProperty('activationToken');
+  set activationToken (String value) => setProperty('activationToken',value);
   bool get isSystemAdmin => getProperty('isSystemAdmin');
   set isSystemAdmin (bool value) => setProperty('isSystemAdmin',value);
+  bool get isActivated => getProperty('isActivated');
+  set isActivated (bool value) => setProperty('isActivated',value);
 }
 
 class $MDTArtifact {

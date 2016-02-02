@@ -5,11 +5,13 @@ import 'dart:convert';
 class MDTUser {
   String name;
   String email;
+  bool isActivated;
   // String externalTokenId;
   bool isSystemAdmin;
   MDTUser(Map map){
     name = map["name"];
     email = map["email"];
+    isActivated = map["isActivated"];
     // externalTokenId = map["externalTokenId"];
     isSystemAdmin = map["isSystemAdmin"];
   }
