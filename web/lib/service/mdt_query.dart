@@ -22,11 +22,11 @@ class MDTQueryService {
 
   void setHttpService(Http http,LocationWrapper location) {
     this._http = http;
-    var currentLocation = location.location.href;
+   /* var currentLocation = location.location.href;
     if (mdtServerApiRootUrl.matchAsPrefix("/api") != null){
       Uri currentUrl = Uri.parse(currentLocation);
       mdtServerApiRootUrl = "${currentUrl.scheme}://${currentUrl.host}:${currentUrl.port}${mdtServerApiRootUrl}";
-    }
+    }*/
   }
   HttpInterceptors interceptors;
 
@@ -260,6 +260,59 @@ class MDTQueryService {
     }
     return new Future.value(false);
   }
+/*
+  Future addAdministrator(MDTApplication app, String email) async {
+    return _baseAppAdministratorManagement(app,"PUT",email);
+  }
+
+  Future deleteAdministrator(MDTApplication app, String email) async {
+    return _baseAppAdministratorManagement(app,"DELETE",email);
+  }
+
+  Future _baseAppAdministratorManagement(MDTApplication app,String mode, String email) async {
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser?adminEmail=$email';
+    var response = await sendRequest(mode, url);
+    var responseJson = parseResponse(response);
+
+    if (response.status != 200){
+      throw new ApplicationError("$mode administrator failed");
+    }
+
+    if(responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+  }*/
+
+  Future addAdministrator(MDTApplication app, String email) async {
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser';
+    var appData = {"email": email};
+    var response = await sendRequest('PUT', url,body: appData);
+    var responseJson = parseResponse(response);
+
+    if (response.status != 200){
+      throw new ApplicationError("Add administrator failed");
+    }
+
+    if(responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+  }
+
+  Future deleteAdministrator(MDTApplication app, String email) async {
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser?adminEmail=$email';
+    var response = await sendRequest('DELETE', url);
+    var responseJson = parseResponse(response);
+
+    if(responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+    
+    if (response.status != 200){
+      throw new ApplicationError("delete administrator failed");
+    }
+
+
+  }
 
   Future<List<MDTArtifact>> listLatestArtifacts(String appId) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions/last';
@@ -387,7 +440,7 @@ class MDTQueryService {
   Future<bool> downloadArtifact(String artifactId) async {
     var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
-      var url = '${mdtServerApiRootUrl}${downloadInfos["directLinkUrl"]}';
+      var url = downloadInfos["directLinkUrl"];
       sendRedirect(url);
     }
   }
@@ -395,11 +448,8 @@ class MDTQueryService {
   Future<bool> InstallArtifact(String artifactId) async {
     var downloadInfos = await artifactDownloadInfo(artifactId);
     if (downloadInfos != null){
-      var url = '${mdtServerApiRootUrl}${downloadInfos["installUrl"]}';
-      var installScheme = downloadInfos["installScheme"];
-      if ( installScheme != null){
-        url = "${installScheme}${url}";
-      }print('redirect :$url, map ${downloadInfos.toString()}');
+      var url = downloadInfos["installUrl"];
+      print('redirect :$url, map ${downloadInfos.toString()}');
       sendRedirect(url);
     }
   }

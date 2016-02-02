@@ -31,7 +31,8 @@ class MDTApplication {
     name = map["name"];
     platform = map["platform"];
     description = map["description"];
-    appIcon = "http://www.winmacsofts.com/wp-content/uploads/2014/10/Clash-of-Clans-pour-PC-et-Mac-550x412.jpg";
+    appIcon = map["appIcon"];
+   // appIcon = "http://www.winmacsofts.com/wp-content/uploads/2014/10/Clash-of-Clans-pour-PC-et-Mac-550x412.jpg";
     //admin user
     adminUsers = new List<MDTUser>();
     var aUsers =  map["adminUsers"];
@@ -70,7 +71,7 @@ class MDTArtifact{
     version = map["version"];
     sortIdentifier = map["sortIdentifier"];
     size = map['size']!=null ? map['size']:0;
-    if (metaDataTags != null) {
+    if (map["metaDataTags"] != null) {
       metaDataTags = JSON.decode(map["metaDataTags"]);
     }
   }

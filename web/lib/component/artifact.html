@@ -6,7 +6,12 @@
         <br/>
         <a type="button" ng-click="downloadArtifact()" ng-unless="canInstall" class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">file_download</i> Download</a>
         <a type="button" ng-click="installArtifact()" ng-if="canInstall" class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">file_download</i> Install</a>
-        <a type="button" class="btn btn-raised btn-default"><i class="material-icons">info_outline</i> More ...</a>
-        <button type="button" ng-if="canDelete" class="btn btn-xs btn-flat btn-danger"><i class="material-icons">delete</i> Delete</button>
+        <a type="button" ng-click="isCollapsed = !isCollapsed" class="btn btn-raised btn-default"><i class="material-icons">info_outline</i> More ...</a>
+        <button type="button" ng-click="deleteArtifact()" ng-if="canDelete" class="btn btn-xs btn-flat btn-danger"><i class="material-icons">delete</i> Delete</button>
+        <div collapse="isCollapsed">
+            <dl class="dl-horizontal" ng-repeat="key in metaDataKeys">
+            <dt>{{key}} :</dt>
+            <dd>{{artifact.metaDataTags[key]}}.</dd>
+        </div>
     </p>
 </div>

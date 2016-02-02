@@ -11,9 +11,18 @@
             <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
             <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
             <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="addVersion()"><i class="material-icons">add</i> Add Version</button>
-
         </div>
     </div>
+</div>
+<button type="button" ng-click="isAdminUsersCollapsed = !isAdminUsersCollapsed" class="glyphicon btn btn-xs btn-flat btn-default">Administrators  <span ng-class="{'glyphicon-chevron-down': !isAdminUsersCollapsed, 'glyphicon-chevron-right': isAdminUsersCollapsed}"></span></button>
+<div collapse="isAdminUsersCollapsed">
+    <div  ng-if="canAdmin()" class="input-append">
+        <input class1="form-control"  placeholder="administrator email" ng-model="administratorToAdd" />
+        <button class="btn btn-xs btn-flat btn-danger" ng-click="addAdministrator(administratorToAdd)">add</button>
+    </div>
+    <dl class="dl-horizontal" ng-repeat="admin in currentApp.adminUsers">
+        <dt>{{admin.name}} :</dt>
+        <dd>{{admin.email}} <button type="button" ng-if="canAdmin()" class="btn btn-xs btn-flat btn-danger" ng-click="deleteAdministrator(admin.email)">remove</button></dd>
 </div>
 <hr/>
 <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
@@ -42,7 +51,7 @@
 <div class="row">
     <div class="col-md-6" ng-repeat="sortIdentifier in allSortedIdentifier | filter:currentBranchFilter">
         <accordion-group heading="{{versionForSortIdentifier(sortIdentifier)}}"  ng-cloak>
-            <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  artifact="artifact" canDelete="canAdmin()" displayVersion="false"></artifact>
+            <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  sortIdentifier="sortIdentifier" artifact="artifact" canDelete="canAdmin()" displayVersion="false"></artifact>
         </accordion-group>
     </div>
 </div>

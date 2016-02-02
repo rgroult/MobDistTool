@@ -22,7 +22,10 @@ class ApplicationDetailComponent extends BaseComponent  {
   ApplicationDetailComponent get app => this;
   MDTApplication currentApp;
   bool hadUpdate = false;
+  bool isAdminUsersCollapsed = true;
+  String administratorToAdd;
   //artifact and sort
+  //@NgOneWay('groupedArtifacts')
   Map<String,List<MDTArtifact>> groupedArtifacts = new Map<String,List<MDTArtifact>>();
   List<String> allSortedIdentifier = new List<String>();
   List<MDTArtifact>  applicationsArtifacts = new List<MDTArtifact>();
@@ -74,7 +77,6 @@ class ApplicationDetailComponent extends BaseComponent  {
       if (latestArtifacts.isNotEmpty){
         applicationsLastestVersion.addAll(latestArtifacts);
       }
-
     } on ArtifactsError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
     } catch(e) {
@@ -83,6 +85,32 @@ class ApplicationDetailComponent extends BaseComponent  {
       isHttpLoading = false;
     }
     sortArtifacts();
+  }
+
+  void addAdministrator(String email) async{
+    errorMessage = null;
+    try {
+      isHttpLoading = true;
+      await mdtQueryService.addAdministrator(currentApp,email);
+      loadApp();
+    }catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': '$e'};
+    } finally {
+      isHttpLoading = false;
+    }
+  }
+
+  void deleteAdministrator(String email) async{
+    errorMessage = null;
+    try {
+      isHttpLoading = true;
+      await mdtQueryService.deleteAdministrator(currentApp,email);
+      loadApp();
+    }catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': '$e'};
+    } finally {
+      isHttpLoading = false;
+    }
   }
 
   //admin
@@ -97,13 +125,6 @@ class ApplicationDetailComponent extends BaseComponent  {
     if (adminFound != null && displayAdminOption){
         return true;
     }
-    /*
-    bool isUserConnected = false;
-  bool isUserAdmin = false;
-  Map currentUser = null;
-  bool adminOptionsDisplayed = false;
-     */
-    //var currentUser = mainComp().currentUser;
     return false;
   }
 
@@ -140,6 +161,20 @@ class ApplicationDetailComponent extends BaseComponent  {
         });
       }
     });
+  }
+
+  void deleteArtifact(MDTArtifact artifact, String fromSortIdentifier) async{
+    var result = await mdtQueryService.deleteArtifact(artifact.uuid);
+    if (result == true){
+        if (fromSortIdentifier != null){
+          var isremoved = groupedArtifacts[fromSortIdentifier].remove(artifact);
+          print("remove status $isremoved");
+        }else{
+          applicationsLastestVersion.remove(artifact);
+        }
+    }else {
+      errorMessage = {'type': 'danger', 'msg': 'Unable to delete version'};
+    }
   }
 
   ApplicationDetailComponent(RouteProvider routeProvider,this._parent,this.modal,this.mdtQueryService){
@@ -188,7 +223,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     allAvailableBranches = allAvailableBranches.toSet().toList()..sort();
    // allAvailableBranches.insert(0, "_All");
   }
-
+/*
   void loadArtifacts() {
     var artifact = new MDTArtifact({
       "uuid" : "dsdsdd",
@@ -242,5 +277,5 @@ class ApplicationDetailComponent extends BaseComponent  {
    // applicationsLastestVersion = new List<MDTArtifact>();
     applicationsLastestVersion.add(artifact);
     applicationsLastestVersion.add(artifact2);
-  }
+  }*/
 }
