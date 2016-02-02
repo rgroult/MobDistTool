@@ -136,6 +136,9 @@ class ApplicationService {
       throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
       //throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
     }
+    if (application.adminUsers.length == 1){
+      throw new RpcError(500, 'APPLICATION_ERROR',  'Delete of last administrator forbidden');
+    }
     await mgrs.removeAdminApplication(application,user);
     return new OKResponse();
   }

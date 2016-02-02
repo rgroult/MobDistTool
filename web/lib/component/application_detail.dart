@@ -77,7 +77,6 @@ class ApplicationDetailComponent extends BaseComponent  {
       if (latestArtifacts.isNotEmpty){
         applicationsLastestVersion.addAll(latestArtifacts);
       }
-
     } on ArtifactsError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
     } catch(e) {
@@ -88,10 +87,12 @@ class ApplicationDetailComponent extends BaseComponent  {
     sortArtifacts();
   }
 
-  void addAdministrator(String email){
+  void addAdministrator(String email) async{
     errorMessage = null;
     try {
       isHttpLoading = true;
+      await mdtQueryService.addAdministrator(currentApp,email);
+      loadApp();
     }catch(e) {
       errorMessage = { 'type': 'danger', 'msg': '$e'};
     } finally {
@@ -99,10 +100,12 @@ class ApplicationDetailComponent extends BaseComponent  {
     }
   }
 
-  void deleteAdministrator(String email){
+  void deleteAdministrator(String email) async{
     errorMessage = null;
     try {
       isHttpLoading = true;
+      await mdtQueryService.deleteAdministrator(currentApp,email);
+      loadApp();
     }catch(e) {
       errorMessage = { 'type': 'danger', 'msg': '$e'};
     } finally {

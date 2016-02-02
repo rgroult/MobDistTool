@@ -260,6 +260,59 @@ class MDTQueryService {
     }
     return new Future.value(false);
   }
+/*
+  Future addAdministrator(MDTApplication app, String email) async {
+    return _baseAppAdministratorManagement(app,"PUT",email);
+  }
+
+  Future deleteAdministrator(MDTApplication app, String email) async {
+    return _baseAppAdministratorManagement(app,"DELETE",email);
+  }
+
+  Future _baseAppAdministratorManagement(MDTApplication app,String mode, String email) async {
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser?adminEmail=$email';
+    var response = await sendRequest(mode, url);
+    var responseJson = parseResponse(response);
+
+    if (response.status != 200){
+      throw new ApplicationError("$mode administrator failed");
+    }
+
+    if(responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+  }*/
+
+  Future addAdministrator(MDTApplication app, String email) async {
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser';
+    var appData = {"email": email};
+    var response = await sendRequest('PUT', url,body: appData);
+    var responseJson = parseResponse(response);
+
+    if (response.status != 200){
+      throw new ApplicationError("Add administrator failed");
+    }
+
+    if(responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+  }
+
+  Future deleteAdministrator(MDTApplication app, String email) async {
+    var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser?adminEmail=$email';
+    var response = await sendRequest('DELETE', url);
+    var responseJson = parseResponse(response);
+
+    if(responseJson["error"] != null) {
+      throw new ApplicationError(responseJson["error"]["message"]);
+    }
+    
+    if (response.status != 200){
+      throw new ApplicationError("delete administrator failed");
+    }
+
+
+  }
 
   Future<List<MDTArtifact>> listLatestArtifacts(String appId) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions/last';
