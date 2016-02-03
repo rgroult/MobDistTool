@@ -56,7 +56,8 @@ class UserService {
       var options = new SmtpOptions()
           ..hostName = smtpConfig["serverUrl"]
           ..username = smtpConfig["username"]
-          ..password = smtpConfig["password"];
+          ..password = smtpConfig["password"]
+          ..secured = true;
 
       emailTransport = new SmtpTransport(options);
       confirmationUrl = '/web/index.html?registration=';

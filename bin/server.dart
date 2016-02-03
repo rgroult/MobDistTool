@@ -109,7 +109,9 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
       .addMiddleware(shelf.logRequests())
       .addHandler(apiRouter.handler);
 
-  var server =  shelf_io.serve(handler, '0.0.0.0', 8080);
+  print("bind localhost on port ${config.currentLoadedConfig[config.MDT_SERVER_PORT]}");
+
+  var server =  shelf_io.serve(handler, '0.0.0.0', config.currentLoadedConfig[config.MDT_SERVER_PORT]);
   server.then((server) { print('Listening at port ${server.port}.');httpServer=server;});
 //  print('Listening at port ${await server.port}.');
 
