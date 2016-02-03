@@ -172,11 +172,6 @@ class ApplicationService {
       result.bytes = CryptoUtils.base64StringToBytes(base64);
       return result;
     }
-
-    //var imageTypeindex = application.bas
-   // return 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
-    /*'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='*/
-
     throw new NotFoundError("Icon not found");
   }
 

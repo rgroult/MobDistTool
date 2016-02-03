@@ -6,7 +6,10 @@ import 'dart:convert';
 final Map defaultConfig = {
   "MDT_DATABASE_URI":"mongodb://localhost:27017/mdt_dev",
   "MDT_STORAGE_NAME":"yes_storage_manager",
-  "MDT_STORAGE_CONFIG":{}
+  "MDT_STORAGE_CONFIG":{},
+  "MDT_SMTP_CONFIG":{},
+  "MDT_REGISTRATION_WHITE_DOMAINS":[],
+  "MDT_REGISTRATION_NEED_ACTIVATION":false
 };
 
 Map<String, Object> currentLoadedConfig = new Map<String, Object>();
@@ -16,6 +19,9 @@ final String MDT_DATABASE_URI = "MDT_DATABASE_URI";
 final String MDT_STORAGE_NAME = "MDT_STORAGE_NAME";
 final String MDT_STORAGE_CONFIG = "MDT_STORAGE_CONFIG";
 final String MDT_SERVER_URL = "MDT_SERVER_URL";
+final String MDT_SMTP_CONFIG = "MDT_SMTP_CONFIG";
+final String MDT_REGISTRATION_WHITE_DOMAINS = "MDT_REGISTRATION_WHITE_DOMAINS";
+final String MDT_REGISTRATION_NEED_ACTIVATION = "MDT_REGISTRATION_NEED_ACTIVATION";
 
 Future loadConfig() async{
   //load 'config.json' file is presentx
@@ -44,6 +50,15 @@ Future loadConfig() async{
   }
   if (env[MDT_STORAGE_CONFIG] != null){
     currentLoadedConfig[MDT_STORAGE_CONFIG] = JSON.decode(env[MDT_STORAGE_CONFIG]);
+  }
+  if (env[MDT_SMTP_CONFIG] != null){
+    currentLoadedConfig[MDT_SMTP_CONFIG] = JSON.decode(env[MDT_SMTP_CONFIG]);
+  }
+  if (env[MDT_REGISTRATION_WHITE_DOMAINS] != null){
+    currentLoadedConfig[MDT_REGISTRATION_WHITE_DOMAINS] = JSON.decode(env[MDT_REGISTRATION_WHITE_DOMAINS]);
+  }
+  if (env[MDT_REGISTRATION_NEED_ACTIVATION] != null){
+    currentLoadedConfig[MDT_REGISTRATION_NEED_ACTIVATION] = env[MDT_REGISTRATION_NEED_ACTIVATION];
   }
 
   //check config

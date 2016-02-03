@@ -5,7 +5,7 @@ import 'package:bson/bson.dart';
 import '../../packages/objectory/objectory.dart';
 
 Map propertiePerClass = {
-  "MDTUser" :  ['name','email'],
+  "MDTUser" :  ['name','email','isActivated'],
   "admin_MDTUser" :  ['isSystemAdmin'],
   'MDTApplication' :  ['name','platform','lastVersion','adminUsers','uuid','description'],
   'admin_MDTApplication' :  ['apiKey'],

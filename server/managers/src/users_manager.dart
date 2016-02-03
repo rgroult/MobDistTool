@@ -1,10 +1,13 @@
 import 'dart:async';
-import '../../../packages/objectory/objectory_console.dart';
+import 'package:uuid/uuid.dart';
+import 'package:objectory/objectory_console.dart';
 import '../../model/model.dart';
 import 'apps_manager.dart' as app_mgr;
 import '../errors.dart';
 
+
 var userCollection = objectory[MDTUser];
+var UuidGenerator = new Uuid();
 
 Future<List<MDTUser>> allUsers() {
   return userCollection.find();
@@ -22,14 +25,14 @@ Future<MDTUser> findUser(String email, String password) async {
   }
   return null;
 }
-
+/*
 Future<MDTUser> findUserByUuid(String uuid) async {
   return await userCollection.find(where.eq("uuid", uuid));
 }
 
 Future<MDTUser> findUserByToken(String token) async {
   return await userCollection.findOne(where.eq("externalTokenId", token));
-}
+}*/
 
 Future<MDTUser> findUserByEmail(String email) async {
   return await userCollection.findOne(where.eq("email", email));
@@ -49,7 +52,7 @@ Future deleteUserByEmail(String email) async {
 }
 
 Future<MDTUser> createUser(String name, String email, String password,
-    {bool isSystemAdmin: false}) async {
+    {bool isSystemAdmin: false,bool isActivated: true}) async {
   if (email == null || email.isEmpty) {
     //return new Future.error(new StateError("bad state"));
     throw new UserError('email must be not null or empty');
@@ -68,11 +71,17 @@ Future<MDTUser> createUser(String name, String email, String password,
     ..name = name
     ..email = email
     ..password = _generateHash(password)
-    ..isSystemAdmin = isSystemAdmin;
+    ..isSystemAdmin = isSystemAdmin
+    ..isActivated = isActivated;
 
-  await createdUser.save();
+  if (isActivated == false){
+    //generate activation token
+    createdUser.activationToken = UuidGenerator.v4();
+  }
 
-  return createdUser;
+  return createdUser..save();
+
+ // return createdUser;
 }
 
 String _generateHash(String password) {

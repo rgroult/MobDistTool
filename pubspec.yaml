@@ -11,7 +11,6 @@ environment:
 dependencies:
   angular: any
   angular_ui: any
-#  web_components: any
   browser: any
   objectory:
       git:
@@ -26,6 +25,7 @@ dependencies:
   shelf_cors: ">=0.2.1"
   logging_handlers: "^0.8.0"
   shelf_exception_handler: "^0.1.0"
+  mailer: any
   archive: "^1.0.20"
   plist: "^1.0.1"
   option: "^1.1.0"
