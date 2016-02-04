@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:rpc/rpc.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:jwt/json_web_token.dart';
 import '../managers/managers.dart' as mgrs;
 import '../managers/errors.dart';
 import 'user_service.dart' as userService;
@@ -55,6 +56,10 @@ final String plistTemplate = r'''
 
 @ApiClass(name: 'in', version: 'v1')
 class InService {
+  JsonWebTokenCodec jsonWebToken;
+  InService(){
+    jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
+  }
   @ApiMethod(
       method: 'POST',
       path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
@@ -214,8 +219,33 @@ class InService {
   }
 
   @ApiMethod(method: 'POST', path: 'activation')
-  Future<OKResponse> userActivation(ActivationMessage mesage) async {
+  Future<OKResponse> userActivation(ActivationMessage message) async {
+    var activationToken = message.activationToken;
+    print("Activation token $activationToken");
+    if (!jsonWebToken.isValid(activationToken)){
+      throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
+    }
+    Map tokenInfo = jsonWebToken.decode(activationToken);
+    var userEmail= tokenInfo["user"];
+    var token= tokenInfo["token"];
+    //retrieve user
+    var user = await mgrs.findUserByEmail(userEmail);
+    if (user == null){
+      throw new NotFoundError();
+    }
+    if (user.isActivated){
+      throw new RpcError(400, 'ACTIVATION_ERROR', "Bad activation state");
+    }
+    if (user.activationToken == token){
+      //Activate user
+      user.isActivated = true;
+      user.activationToken = null;
+      await user.save();
+    }else {
+      throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
+    }
 
+    return new OKResponse();
   }
 
 }

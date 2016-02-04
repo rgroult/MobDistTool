@@ -16,6 +16,8 @@ class AccountActivationComponent extends BaseComponent {
   AccountActivationComponent(LocationWrapper location,MDTQueryService mdtQueryService){
       var currentLocation = location.location.href;
       var parameters = Uri.splitQueryString(currentLocation);
+      var errorMessage = null;
+      bool activationError = false;
       //find token parameters
       var token = null;
       for(String key in parameters.keys){
@@ -26,6 +28,19 @@ class AccountActivationComponent extends BaseComponent {
 
       if (token != null){
         print("Activation token  found ${token}");
+        try{
+          isHttpLoading = true;
+          mdtQueryService.activateUser(token);
+          activationError = false;
+        }on ActivationError catch(e){
+          activationError = true;
+          errorMessage = e.toString();
+        }
+        catch(e){
+          activationError = true;
+        }finally {
+          isHttpLoading = false;
+        }
       }
   }
 }

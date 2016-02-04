@@ -11,7 +11,8 @@ final Map defaultConfig = {
   MDT_STORAGE_CONFIG:{},
   MDT_SMTP_CONFIG:{},
   MDT_REGISTRATION_WHITE_DOMAINS:[],
-  MDT_REGISTRATION_NEED_ACTIVATION:false
+  MDT_REGISTRATION_NEED_ACTIVATION:false,
+  MDT_TOKEN_SECRET:"secret token dsfsxfsfsqd%%Qsdqs"
 };
 
 Map<String, Object> currentLoadedConfig = defaultConfig;
@@ -25,6 +26,7 @@ final String MDT_SMTP_CONFIG = "MDT_SMTP_CONFIG";
 final String MDT_REGISTRATION_WHITE_DOMAINS = "MDT_REGISTRATION_WHITE_DOMAINS";
 final String MDT_REGISTRATION_NEED_ACTIVATION = "MDT_REGISTRATION_NEED_ACTIVATION";
 final String MDT_SERVER_PORT = "MDT_SERVER_PORT";
+final String MDT_TOKEN_SECRET = "MDT_TOKEN_SECRET";
 
 Future loadConfig() async{
   //load 'config.json' file is present
@@ -42,6 +44,10 @@ Future loadConfig() async{
 
   //override by env values if present
   Map<String, String> env = Platform.environment;
+
+  if (env[MDT_TOKEN_SECRET] != null){
+    currentLoadedConfig[MDT_TOKEN_SECRET] = env[MDT_TOKEN_SECRET];
+  }
 
   if (env[MDT_SERVER_PORT] != null){
     currentLoadedConfig[MDT_SERVER_PORT] = env[MDT_SERVER_PORT];

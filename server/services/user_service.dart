@@ -5,6 +5,8 @@ import 'package:rpc/src/context.dart' as context;
 import 'package:shelf_auth/shelf_auth.dart';
 import 'package:shelf_exception_handler/shelf_exception_handler.dart';
 import 'package:mailer/mailer.dart';
+import 'package:validator/validator.dart';
+import 'package:jwt/json_web_token.dart';
 import '../model/model.dart';
 import '../managers/src/users_manager.dart' as users;
 import '../managers/src/apps_manager.dart' as apps;
@@ -18,7 +20,9 @@ Future<Option<User>> authenticateUser(String username, String password) async {
   //search user
   var user = await users.findUser(username, password);
   if (user != null) {
-    return new Some(new User(user));
+    if (user.isActivated){
+      return new Some(new User(user));
+    }
   }
   return new None();
 }
@@ -46,10 +50,12 @@ MDTUser currentAuthenticatedUser() {
 //discovery : http://localhost:8080/api/discovery/v1/apis/users/v1/rest
 @ApiClass(name: 'users', version: 'v1')
 class UserService {
+  JsonWebTokenCodec jsonWebToken;
   bool needRegistration = true;
   var emailTransport;
   var confirmationUrl;
   UserService(){
+    jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
     needRegistration = config.currentLoadedConfig[config.MDT_REGISTRATION_NEED_ACTIVATION];
     Map smtpConfig = config.currentLoadedConfig[config.MDT_SMTP_CONFIG];
     if (needRegistration && smtpConfig != null) {
@@ -60,7 +66,7 @@ class UserService {
           ..secured = true;
 
       emailTransport = new SmtpTransport(options);
-      confirmationUrl = '/web/index.html?registration=';
+      confirmationUrl = '/web/index.html#/activation?token=';
       if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null) {
           confirmationUrl = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${confirmationUrl}';
   }
@@ -69,13 +75,22 @@ class UserService {
   @ApiMethod(method: 'POST', path: 'register')
   Future<Response> userRegister(RegisterMessage message) async {
     var userCreated = null;
+    if (isEmail(message.email) == false){
+      throw new RpcError(400, 'REGISTER_ERROR', "Bad url format");
+    }
     try {
       userCreated = await users.createUser(message.name, message.email, message.password,isActivated:!needRegistration);
       var jsonResult = toJson(userCreated);
       if (needRegistration && confirmationUrl!= null && emailTransport!=null){
         jsonResult["message"] = "A activation email was sent.";
         //send confirmation email
-        var url = '$confirmationUrl${userCreated.activationToken}';
+        //activation token
+        final token = {
+          'user': userCreated.email,
+          'token': userCreated.activationToken
+        };
+        var activationToken = jsonWebToken.encode(token);
+        var url = '$confirmationUrl${activationToken}';
         var envelope = new Envelope()
           ..recipients.add(userCreated.email)
           ..subject = 'MDT Account activation'

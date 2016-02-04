@@ -23,6 +23,8 @@ dependencies:
   shelf_route: ">0.13.0"
   shelf_auth: ">=0.7.0"
   shelf_cors: ">=0.2.1"
+  jwt: "^0.1.4"
+  validator: ">=0.0.4 <0.1.0"
   logging_handlers: "^0.8.0"
   shelf_exception_handler: "^0.1.0"
   mailer: any

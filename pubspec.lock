@@ -161,6 +161,10 @@ packages:
     description: intl
     source: hosted
     version: "0.8.10+4"
+  jwt:
+    description: jwt
+    source: hosted
+    version: "0.1.4"
   logging:
     description: logging
     source: hosted
@@ -347,6 +351,10 @@ packages:
     description: uuid
     source: hosted
     version: "0.5.0"
+  validator:
+    description: validator
+    source: hosted
+    version: "0.0.7"
   watcher:
     description: watcher
     source: hosted

@@ -1,5 +1,9 @@
 import 'package:angular/angular.dart';
+import 'dart:async';
+import 'dart:convert';
 import 'mdt_conf_query.dart';
+import '../../model/errors.dart';
+import '../../model/mdt_model.dart';
 
 abstract class MDTQueryServiceUsers{
 
@@ -12,6 +16,21 @@ abstract class MDTQueryServiceUsers{
     var responseJson = parseResponse(response);
 
     return responseJson;
+  }
+
+  Future activateUser(String activationToken) async {
+    String url = "${mdtServerApiRootUrl}${inPath}/activation";
+    var data = {"activationToken" : activationToken};
+    var response = await sendRequest('POST', url, body: JSON.encode(data));
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new ActivationError(responseJson["error"]["message"]);
+    }
+
+    if (response.status != 200){
+      throw new ActivationError("Registration error, please try later or contact an administrator.");
+    }
   }
 
   Future<Map> registerUser(String username, String email, String password) async {
@@ -29,9 +48,5 @@ abstract class MDTQueryServiceUsers{
       throw new RegisterError(responseJson["error"]["message"]);
     }
     return responseJson;
-  }
-
-  Future activateUser(String activationToken) async {
-    String url = "${mdtServerApiRootUrl}${usersPath}/register";
   }
 }
