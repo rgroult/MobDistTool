@@ -78,6 +78,19 @@ class UserService {
     if (isEmail(message.email) == false){
       throw new RpcError(400, 'REGISTER_ERROR', "Bad url format");
     }
+    List<String> whiteEmailsDomain = config.currentLoadedConfig[config.MDT_REGISTRATION_WHITE_DOMAINS];
+    if (whiteEmailsDomain != null && whiteEmailsDomain is List && whiteEmailsDomain.length >0){
+      bool inWhiteDomains = false;
+      for(String domain in whiteEmailsDomain){
+        if (message.email.toLowerCase().endsWith(domain)){
+          inWhiteDomains =true;
+          break;
+        }
+        if (inWhiteDomains == false){
+          throw new RpcError(401, 'REGISTER_ERROR', "Registration forbidden for this email");
+        }
+      }
+    }
     try {
       userCreated = await users.createUser(message.name, message.email, message.password,isActivated:!needRegistration);
       var jsonResult = toJson(userCreated);
