@@ -86,9 +86,9 @@ class UserService {
           inWhiteDomains =true;
           break;
         }
-        if (inWhiteDomains == false){
-          throw new RpcError(401, 'REGISTER_ERROR', "Registration forbidden for this email");
-        }
+      }
+      if (inWhiteDomains == false){
+        throw new RpcError(401, 'REGISTER_ERROR', "Registration forbidden for this email");
       }
     }
     try {

@@ -22,7 +22,14 @@ abstract class MDTQueryServiceUsers{
     String url = "${mdtServerApiRootUrl}${inPath}/activation";
     var data = {"activationToken" : activationToken};
     var response = await sendRequest('POST', url, body: JSON.encode(data));
+
+    if (response.status == 200){
+      return;
+    }
+
     var responseJson = parseResponse(response);
+
+
 
     if (responseJson["error"] != null) {
       throw new ActivationError(responseJson["error"]["message"]);

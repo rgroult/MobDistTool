@@ -2,7 +2,8 @@
 final allErrorsMessageByCode = {
   "LOGIN_ERROR" : "Bad Login or Password",
   "BASE_ERROR" : "Base Error message",
-  "REGISTER_ERROR": "Registration Error"
+  "REGISTER_ERROR": "Registration Error",
+  "ACTIVATION_ERROR": "Activation Error"
 };
 
 class BaseError extends StateError {

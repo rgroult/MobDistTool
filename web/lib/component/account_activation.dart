@@ -13,34 +13,41 @@ import '../service/mdt_query.dart';
     templateUrl: 'account_activation.html',
     useShadowDom: false)
 class AccountActivationComponent extends BaseComponent {
-  AccountActivationComponent(LocationWrapper location,MDTQueryService mdtQueryService){
-      var currentLocation = location.location.href;
-      var parameters = Uri.splitQueryString(currentLocation);
-      var errorMessage = null;
-      bool activationError = false;
-      //find token parameters
-      var token = null;
-      for(String key in parameters.keys){
-        if (key.endsWith("activation?token")){
-          token = parameters[key];
-        }
-      }
+  bool activationError = false;
+  MDTQueryService mdtQueryService;
+  AccountActivationComponent(LocationWrapper location,this.mdtQueryService){
+    var currentLocation = location.location.href;
+    var parameters = Uri.splitQueryString(currentLocation);
+    String errorMessage;
 
-      if (token != null){
-        print("Activation token  found ${token}");
-        try{
-          isHttpLoading = true;
-          mdtQueryService.activateUser(token);
-          activationError = false;
-        }on ActivationError catch(e){
-          activationError = true;
-          errorMessage = e.toString();
-        }
-        catch(e){
-          activationError = true;
-        }finally {
-          isHttpLoading = false;
-        }
+    //find token parameters
+    var token = null;
+    for(String key in parameters.keys){
+      if (key.endsWith("activation?token")){
+        token = parameters[key];
       }
+    }
+
+    if (token != null){
+      print("Activation token  found ${token}");
+      checkToken(token);
+    }
+  }
+
+  Future checkToken(String token) async{
+    try{
+      activationError = false;
+      isHttpLoading = true;
+      await mdtQueryService.activateUser(token);
+      activationError = false;
+    }on ActivationError catch(e){
+      activationError = true;
+      errorMessage = e.toString();
+    }
+    catch(e){
+      activationError = true;
+    }finally {
+      isHttpLoading = false;
+    }
   }
 }

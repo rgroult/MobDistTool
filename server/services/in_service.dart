@@ -219,7 +219,7 @@ class InService {
   }
 
   @ApiMethod(method: 'POST', path: 'activation')
-  Future<OKResponse> userActivation(ActivationMessage message) async {
+  Future<Response> userActivation(ActivationMessage message) async {
     var activationToken = message.activationToken;
     print("Activation token $activationToken");
     if (!jsonWebToken.isValid(activationToken)){
@@ -247,5 +247,4 @@ class InService {
 
     return new OKResponse();
   }
-
 }
