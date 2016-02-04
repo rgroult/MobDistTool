@@ -79,9 +79,9 @@ Future<MDTUser> createUser(String name, String email, String password,
     createdUser.activationToken = UuidGenerator.v4();
   }
 
-  return createdUser..save();
+  await createdUser.save();
 
- // return createdUser;
+  return createdUser;
 }
 
 String _generateHash(String password) {

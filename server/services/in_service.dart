@@ -215,7 +215,7 @@ class InService {
 
   @ApiMethod(method: 'POST', path: 'activation')
   Future<OKResponse> userActivation(ActivationMessage mesage) async {
-      
+
   }
 
 }
