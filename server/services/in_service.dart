@@ -19,6 +19,40 @@ final String TEMPLATE_BUNDLE_ID_KEY = '@BUNDLE_IDENTIFIER@';
 final String TEMPLATE_BUNDLE_VERSION_KEY = '@BUNDLE_VERSION@';
 final String TEMPLATE_APP_NAME_KEY = '@APPLICATION_NAME@';
 
+final String plistTemplate = r'''
+  <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>items</key>
+        <array>
+                <dict>
+                        <key>assets</key>
+                        <array>
+                                <dict>
+                                        <key>kind</key>
+                                        <string>software-package</string>
+                                        <key>url</key>
+                                        <string>@URL_TO_IPA@</string>
+                                </dict>
+                        </array>
+                        <key>metadata</key>
+                        <dict>
+                                <key>bundle-identifier</key>
+                                <string>@BUNDLE_IDENTIFIER@</string>
+                                <key>bundle-version</key>
+                                <string>@BUNDLE_VERSION@</string>
+                                <key>kind</key>
+                                <string>software</string>
+                                <key>title</key>
+                                <string>@APPLICATION_NAME@</string>
+                        </dict>
+                </dict>
+        </array>
+</dict>
+</plist>
+''';
+
 @ApiClass(name: 'in', version: 'v1')
 class InService {
   @ApiMethod(
@@ -179,37 +213,9 @@ class InService {
     }
   }
 
-  final String plistTemplate = r'''
-  <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-        <key>items</key>
-        <array>
-                <dict>
-                        <key>assets</key>
-                        <array>
-                                <dict>
-                                        <key>kind</key>
-                                        <string>software-package</string>
-                                        <key>url</key>
-                                        <string>@URL_TO_IPA@</string>
-                                </dict>
-                        </array>
-                        <key>metadata</key>
-                        <dict>
-                                <key>bundle-identifier</key>
-                                <string>@BUNDLE_IDENTIFIER@</string>
-                                <key>bundle-version</key>
-                                <string>@BUNDLE_VERSION@</string>
-                                <key>kind</key>
-                                <string>software</string>
-                                <key>title</key>
-                                <string>@APPLICATION_NAME@</string>
-                        </dict>
-                </dict>
-        </array>
-</dict>
-</plist>
-''';
+  @ApiMethod(method: 'POST', path: 'activation')
+  Future<OKResponse> userActivation(ActivationMessage mesage) async {
+      
+  }
+
 }
