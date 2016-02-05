@@ -1,0 +1,14 @@
+<div ng-unless="isHttpLoading" class="container">
+    <h2  ng-if="activationError">
+        <p> A error occured on activation </p>
+        <p  ng-if="errorMessage!=null">
+            Reason : {{errorMessage}}
+        </p>
+    </h2>
+    <h2  ng-unless="activationError">
+        Activation successful ! You can now login
+    </h2>
+</div>
+<div ng-if="isHttpLoading" class="container">
+    <h1>Loading <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></h1>
+</div>

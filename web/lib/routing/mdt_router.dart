@@ -5,6 +5,11 @@ List<Map> routeHistory = new List<Map>();
 void MDTRouteInitializer(Router router, RouteViewFactory views) {
   print("views.configure");
   views.configure({
+    'register': ngRoute(
+    path: '/activation',
+    view: 'pages/activation.html'),
+   // preLeave: (RoutePreLeaveEvent e) =>  preLeaveRoute(e,"Home"),
+    //enter: (RouteEnterEvent e) => _enterRoute(e,"Home",0)),
     'home': ngRoute(
         path: '/home',
         defaultRoute : true,

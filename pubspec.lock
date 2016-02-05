@@ -77,6 +77,10 @@ packages:
     description: console_log_handler
     source: hosted
     version: "0.2.1"
+  content_type:
+    description: content_type
+    source: hosted
+    version: "0.5.1"
   convert:
     description: convert
     source: hosted
@@ -165,6 +169,10 @@ packages:
     description: intl
     source: hosted
     version: "0.8.10+4"
+  jwt:
+    description: jwt
+    source: hosted
+    version: "0.1.4"
   logging:
     description: logging
     source: hosted
@@ -173,6 +181,10 @@ packages:
     description: logging_handlers
     source: hosted
     version: "0.8.0"
+  mailer:
+    description: mailer
+    source: hosted
+    version: "0.8.7"
   matcher:
     description: matcher
     source: hosted
@@ -187,7 +199,7 @@ packages:
     version: "0.9.3"
   mongo_dart:
     description:
-      ref: null
+      ref: HEAD
       resolved-ref: dd5e06f2062183b0af68d0f377eb40a238cbcb04
       url: "https://github.com/vadimtsushko/mongo_dart.git"
     source: git
@@ -347,6 +359,10 @@ packages:
     description: uuid
     source: hosted
     version: "0.5.0"
+  validator:
+    description: validator
+    source: hosted
+    version: "0.0.7"
   watcher:
     description: watcher
     source: hosted
@@ -371,3 +387,4 @@ packages:
     description: yaml
     source: hosted
     version: "2.1.8"
+sdk: ">=1.13.0 <1.16.0"

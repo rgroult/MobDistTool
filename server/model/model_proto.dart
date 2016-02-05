@@ -13,8 +13,10 @@ class MDTUser/* extends MDTBaseObject*/ {
   String name;
   String email;
   String password;
-  String externalTokenId;
+ // String externalTokenId;
+  String activationToken;
   bool isSystemAdmin;
+  bool isActivated;
 }
 
 //enum platformType { IOS, ANDROID }

@@ -2,7 +2,8 @@
 final allErrorsMessageByCode = {
   "LOGIN_ERROR" : "Bad Login or Password",
   "BASE_ERROR" : "Base Error message",
-  "REGISTER_ERROR": "Registration Error"
+  "REGISTER_ERROR": "Registration Error",
+  "ACTIVATION_ERROR": "Activation Error"
 };
 
 class BaseError extends StateError {
@@ -35,6 +36,11 @@ class RegisterError extends BaseError {
 
   RegisterError(String reason):super(errorCode,reason:reason) {
   }
+}
+
+class ActivationError extends BaseError {
+  static String errorCode = "ACTIVATION_ERROR";
+  ActivationError(String reason):super(errorCode,reason:reason){}
 }
 
 class ApplicationError extends BaseError {

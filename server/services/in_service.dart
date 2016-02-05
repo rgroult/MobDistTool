@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:rpc/rpc.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:jwt/json_web_token.dart';
 import '../managers/managers.dart' as mgrs;
 import '../managers/errors.dart';
 import 'user_service.dart' as userService;
@@ -19,8 +20,46 @@ final String TEMPLATE_BUNDLE_ID_KEY = '@BUNDLE_IDENTIFIER@';
 final String TEMPLATE_BUNDLE_VERSION_KEY = '@BUNDLE_VERSION@';
 final String TEMPLATE_APP_NAME_KEY = '@APPLICATION_NAME@';
 
+final String plistTemplate = r'''
+  <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>items</key>
+        <array>
+                <dict>
+                        <key>assets</key>
+                        <array>
+                                <dict>
+                                        <key>kind</key>
+                                        <string>software-package</string>
+                                        <key>url</key>
+                                        <string>@URL_TO_IPA@</string>
+                                </dict>
+                        </array>
+                        <key>metadata</key>
+                        <dict>
+                                <key>bundle-identifier</key>
+                                <string>@BUNDLE_IDENTIFIER@</string>
+                                <key>bundle-version</key>
+                                <string>@BUNDLE_VERSION@</string>
+                                <key>kind</key>
+                                <string>software</string>
+                                <key>title</key>
+                                <string>@APPLICATION_NAME@</string>
+                        </dict>
+                </dict>
+        </array>
+</dict>
+</plist>
+''';
+
 @ApiClass(name: 'in', version: 'v1')
 class InService {
+  JsonWebTokenCodec jsonWebToken;
+  InService(){
+    jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
+  }
   @ApiMethod(
       method: 'POST',
       path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
@@ -179,37 +218,33 @@ class InService {
     }
   }
 
-  final String plistTemplate = r'''
-  <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-        <key>items</key>
-        <array>
-                <dict>
-                        <key>assets</key>
-                        <array>
-                                <dict>
-                                        <key>kind</key>
-                                        <string>software-package</string>
-                                        <key>url</key>
-                                        <string>@URL_TO_IPA@</string>
-                                </dict>
-                        </array>
-                        <key>metadata</key>
-                        <dict>
-                                <key>bundle-identifier</key>
-                                <string>@BUNDLE_IDENTIFIER@</string>
-                                <key>bundle-version</key>
-                                <string>@BUNDLE_VERSION@</string>
-                                <key>kind</key>
-                                <string>software</string>
-                                <key>title</key>
-                                <string>@APPLICATION_NAME@</string>
-                        </dict>
-                </dict>
-        </array>
-</dict>
-</plist>
-''';
+  @ApiMethod(method: 'POST', path: 'activation')
+  Future<Response> userActivation(ActivationMessage message) async {
+    var activationToken = message.activationToken;
+    print("Activation token $activationToken");
+    if (!jsonWebToken.isValid(activationToken)){
+      throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
+    }
+    Map tokenInfo = jsonWebToken.decode(activationToken);
+    var userEmail= tokenInfo["user"];
+    var token= tokenInfo["token"];
+    //retrieve user
+    var user = await mgrs.findUserByEmail(userEmail);
+    if (user == null){
+      throw new NotFoundError();
+    }
+    if (user.isActivated){
+      throw new RpcError(400, 'ACTIVATION_ERROR', "Bad activation state");
+    }
+    if (user.activationToken == token){
+      //Activate user
+      user.isActivated = true;
+      user.activationToken = null;
+      await user.save();
+    }else {
+      throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
+    }
+
+    return new OKResponse();
+  }
 }

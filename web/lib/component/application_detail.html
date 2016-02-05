@@ -24,8 +24,8 @@
         <dt>{{admin.name}} :</dt>
         <dd>{{admin.email}} <button type="button" ng-if="canAdmin()" class="btn btn-xs btn-flat btn-danger" ng-click="deleteAdministrator(admin.email)">remove</button></dd>
 </div>
-<hr/>
 <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+<hr/>
 <div class="row">
     <div class="col-md-6">
         <accordion-group heading="Latest Build" ng-cloak>

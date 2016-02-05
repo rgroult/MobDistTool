@@ -172,11 +172,6 @@ class ApplicationService {
       result.bytes = CryptoUtils.base64StringToBytes(base64);
       return result;
     }
-
-    //var imageTypeindex = application.bas
-   // return 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
-    /*'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='*/
-
     throw new NotFoundError("Icon not found");
   }
 
@@ -190,33 +185,7 @@ class ApplicationService {
   }
 }
 
-class UpdateApplication {
-  @ApiProperty(required: false)
-  String name;
-  @ApiProperty(required: false)
-  String description;
-  @ApiProperty(required: false)
-  String platform;
-  @ApiProperty(required: false)
-  String base64IconData;
-  UpdateApplication();
-}
-class CreateApplication {
-  @ApiProperty(required: true)
-  String name;
-  @ApiProperty(required: true)
-  String description;
-  @ApiProperty(required: true)
-  String platform;
-  @ApiProperty(required: false)
-  String base64IconData;
-  CreateApplication();
-}
 
-class AddAdminUserMessage{
-  @ApiProperty(required: false)
-  String email;
-}
 
 /*
  app.get('/admin/applications', applicationController.listAllApplications)
