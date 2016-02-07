@@ -26,4 +26,37 @@ void main() {
     }
     expect(result,isFalse);
   });
+
+  test("test Android analyzer OK", () async {
+    var file = new File("/Users/shallay/Desktop/dev/test_dart/bin/MyOfficePhone-prod_1.0.3_RC1_releaseSigned.apk");
+    var result = await analyzer.analyzeAndExtractArtifactInfos(file, "android");
+    expect(result,isNotNull);
+    //expect(result.length,equals(3));
+    print("$result");
+  });
+
+  test("test Android analyzer KO : bad OS", () async {
+    var result = true;
+    try {
+      var file = new File("/Users/shallay/Desktop/dev/test_dart/bin/MyOfficePhone-prod_1.0.3_RC1_releaseSigned.apk");
+      var tags = await analyzer.analyzeAndExtractArtifactInfos(file, "ios");
+    }catch(e){
+      expect((e is ArtifactError), isTrue);
+      result = false;
+    }
+    expect(result,isFalse);
+  });
+
+  test("test Android analyzer KO : file not found", () async {
+    var result = true;
+    try {
+      var file = new File(Directory.current.path + '/test/core/artifact_sample.txt');
+      var tags = await analyzer.analyzeAndExtractArtifactInfos(file, "android");
+    }catch(e){
+      expect((e is ArtifactError), isTrue);
+      result = false;
+    }
+    expect(result,isFalse);
+  });
+
 }
