@@ -1,3 +1,10 @@
+// TO DO
+- add brut force authent protection mechanic?
+- store secureley password in database
+- flusj log file after reboot
+- add random for secret in athenticaton token
+
+
 //apis
     //APis externe (authentication by token or session)
 //User
