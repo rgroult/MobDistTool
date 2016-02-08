@@ -113,7 +113,7 @@ class InService {
       }else if (application.platform.toUpperCase() == "ANDROID"){
         createdArtifact.contentType = "application/vnd.android.package-archive";
       }
-      
+
       await mgrs.addFileToArtifact(
           tempFile, createdArtifact, mgrs.defaultStorage);
     } catch (e) {
