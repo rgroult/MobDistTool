@@ -17,6 +17,10 @@ packages:
     description: angular_ui
     source: hosted
     version: "0.6.11"
+  apk_parser:
+    description: apk_parser
+    source: hosted
+    version: "0.0.2+2"
   archive:
     description: archive
     source: hosted
@@ -105,6 +109,10 @@ packages:
     description: either
     source: hosted
     version: "0.1.8"
+  event_stream:
+    description: event_stream
+    source: hosted
+    version: "0.3.2"
   fixnum:
     description: fixnum
     source: hosted
@@ -371,6 +379,10 @@ packages:
     description: xml
     source: hosted
     version: "2.4.1"
+  xmlstream:
+    description: xmlstream
+    source: hosted
+    version: "0.10.0"
   yaml:
     description: yaml
     source: hosted
