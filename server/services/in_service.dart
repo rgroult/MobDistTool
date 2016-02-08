@@ -107,7 +107,13 @@ class InService {
       createdArtifact.filename = filename;
       createdArtifact.size = tempFile.lengthSync();
 
-      createdArtifact.contentType = mediaMsg.contentType;
+      //set content type, related to application platfom
+      if (application.platform.toUpperCase() == "IOS"){
+        createdArtifact.contentType = "application/octet-stream ipa";
+      }else if (application.platform.toUpperCase() == "ANDROID"){
+        createdArtifact.contentType = "application/vnd.android.package-archive";
+      }
+      
       await mgrs.addFileToArtifact(
           tempFile, createdArtifact, mgrs.defaultStorage);
     } catch (e) {
