@@ -53,6 +53,7 @@ transformers:
       - web/lib/components/artifact.html
       - web/lib/components/user_login.html
       - web/lib/components/user_register.html
+      - web/lib/components/account_activation.html
 - $dart2js:
     environment:
       mode: javascript
