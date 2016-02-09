@@ -56,7 +56,7 @@ class UserService {
   var confirmationUrl;
   UserService(){
     jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
-    needRegistration = config.currentLoadedConfig[config.MDT_REGISTRATION_NEED_ACTIVATION];
+    needRegistration = config.currentLoadedConfig[config.MDT_REGISTRATION_NEED_ACTIVATION] == "true";
     Map smtpConfig = config.currentLoadedConfig[config.MDT_SMTP_CONFIG];
     if (needRegistration && smtpConfig != null) {
       var options = new SmtpOptions()

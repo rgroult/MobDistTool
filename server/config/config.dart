@@ -11,7 +11,7 @@ final Map defaultConfig = {
   MDT_STORAGE_CONFIG:{},
   MDT_SMTP_CONFIG:{},
   MDT_REGISTRATION_WHITE_DOMAINS:[],
-  MDT_REGISTRATION_NEED_ACTIVATION:false,
+  MDT_REGISTRATION_NEED_ACTIVATION:"false",
   MDT_TOKEN_SECRET:"secret token dsfsxfsfsqd%%Qsdqs"
 };
 
