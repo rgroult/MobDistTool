@@ -39,13 +39,12 @@
         </div>
     </div>
 </div>
-
+<div class="col-lg-12">
 <ol class="breadcrumb">
     <li ng-repeat="route in routeHistory"><a href="#{{route['path']}}">{{route['name']}}</a></li>
   <!--  <li><a href="#/home">Home</a></li>
     <li><a href="#/apps">Library</a></li>
     <li class="active">Data</li> -->
 </ol>
-<div id="pageContent" class="col-lg-12">
+    </div>
     <ng-view></ng-view>
-</div>

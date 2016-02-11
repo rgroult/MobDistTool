@@ -1,9 +1,27 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-body">
+            <div class="row">
+                <div class="col-md-10">
             <form class="form-horizontal">
                 <fieldset>
                     <legend>Login</legend>
+                    <div class="inputs">
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-md-2 control-label">Email</label>
+
+                        <div class="col-md-10">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                    </div>
+
+                        <div class="form-group label-floating is-empty">
+
+                        <label for="111" class="control-label">Email</label>
+                        <input type="email" class="form-control" id="111">
+                        <span class="material-input"></span>
+
+                    </div>
                     <div class="form-group" >
                         <label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
@@ -19,8 +37,10 @@
                                    placeholder="Password" ng-model="password">
                         </div>
                     </div>
+                    </div>
                 </fieldset>
             </form>
+            </div></div>
             <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
         </div>
         <div class="modal-footer">
