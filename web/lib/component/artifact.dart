@@ -3,13 +3,16 @@ import 'dart:core';
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 import 'add_artifact.dart';
+import 'artifact_download_qrcode.dart';
 import 'application_detail.dart';
 import '../service/mdt_query.dart';
+import 'artifact_download_qrcode.dart';
 
 class MDTArtifactModule extends Module {
   MDTArtifactModule() {
     bind(ArtifactElementComponent);
     bind(AddArtifactComponent);
+    bind(ArtifactDownloadQRCode);
   }
 }
 
@@ -30,6 +33,7 @@ class ArtifactElementComponent extends BaseComponent  {
   @NgOneWay('artifact')
   MDTArtifact artifact;
   bool isCollapsed = true;
+
   List<String> get metaDataKeys => artifact.metaDataTags != null ? artifact.metaDataTags.keys.toList() : new List<String>();
   int artifactSize(){
     return (artifact.size/(1024*1024)).round();
@@ -47,6 +51,17 @@ class ArtifactElementComponent extends BaseComponent  {
 
   void deleteArtifact(){
     _parent.deleteArtifact(artifact,sortIdentifier);
+  }
+
+  void generateQrCode(){
+    var qrCodeTitle = artifact.name;
+    if (artifact.branch == null){
+      //latest
+      qrCodeTitle = "$qrCodeTitle - Latest";
+    }else {
+      qrCodeTitle = "$qrCodeTitle - ${artifact.version} - ${artifact.branch}";
+    }
+    ArtifactDownloadQRCode.createQRCode(this._parent.modal,scope,qrCodeTitle,artifact.uuid);
   }
 
   ArtifactElementComponent(this.mdtQueryService,this._parent){

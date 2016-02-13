@@ -4,6 +4,7 @@
         <!-- <span class="badge label-info">{{artifact.branch}}</span> -->
         <span><small> {{artifactSize()}} Mo - Created: {{artifact.creationDate | date:'mediumDate'}}</small></span>
         <br/>
+        <a type="button" ng-click="generateQrCode()" ng-unless="canInstall" class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">crop_free</i> QRCode</a>
         <a type="button" ng-click="downloadArtifact()" ng-unless="canInstall" class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">file_download</i> Download</a>
         <a type="button" ng-click="installArtifact()" ng-if="canInstall" class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">file_download</i> Install</a>
         <a type="button" ng-click="isCollapsed = !isCollapsed" class="btn btn-raised btn-default"><i class="material-icons">info_outline</i> More ...</a>

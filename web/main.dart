@@ -87,7 +87,7 @@ class MainComponent implements ScopeAware {
 
 
   void displayPopup(String template){
-    modalInstance = modal.open(new ModalOptions(template:template, backdrop: 'true'),scope);
+    modalInstance = modal.open(new ModalOptions(template:template, backdrop: 'false'),scope);
   }
 
   void hidePopup(){

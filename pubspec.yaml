@@ -37,6 +37,8 @@ dependencies:
   hammock: "^0.4.0"
   googleapis_auth: any
   googleapis: any
+  qr:
+     git: git://github.com/rgroult/qr.dart.git
 dependency_overrides:
 transformers:
 - angular:
@@ -44,6 +46,7 @@ transformers:
       - web/index.html
       - web/pages/home.html
       - web/pages/main_page.html
+      - web/pages/activation.html
       - web/lib/components/add_artifact.html
       - web/lib/components/application_create.html
       - web/lib/components/application_detail.html
@@ -51,6 +54,7 @@ transformers:
       - web/lib/components/application_list.html
       - web/lib/components/application_version.html
       - web/lib/components/artifact.html
+      - web/lib/components/artifact_download_qrcode.html
       - web/lib/components/user_login.html
       - web/lib/components/user_register.html
       - web/lib/components/account_activation.html

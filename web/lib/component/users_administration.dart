@@ -13,7 +13,7 @@ import '../model/errors.dart';
 )
 class UsersAdministration extends BaseComponent {
   MDTQueryService mdtQueryService;
-  List<MDTUser> allUsers = List<MDTUser>();
+  List<MDTUser> allUsers = new List<MDTUser>();
   UsersAdministration(this.mdtQueryService){
 
   }
