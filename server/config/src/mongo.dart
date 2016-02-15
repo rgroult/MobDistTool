@@ -1,3 +1,7 @@
+// Copyright (c) 2016, the Dart project authors.
+// All rights reserved. Use of this source code is governed by a
+// MIT-style license that can be found in the LICENSE file.
+
 import '../../../packages/mongo_dart/mongo_dart.dart';
 import 'dart:async';
 import '../../../packages/objectory/objectory_console.dart';

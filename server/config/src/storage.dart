@@ -1,3 +1,7 @@
+// Copyright (c) 2016, the Dart project authors.
+// All rights reserved. Use of this source code is governed by a
+// MIT-style license that can be found in the LICENSE file.
+
 import 'dart:async';
 import '../../managers/src/storage/yes_storage_manager.dart';
 import '../../managers/src/storage/google_drive_manager.dart';
