@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/rgroult/MobDistTool.svg?branch=master)](https://travis-ci.org/rgroult/MobDistTool)
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/codeship/documentation/blob/master/LICENSE.md)
 [![Codeship Status](https://codeship.com/projects/dc7cfa30-5957-0133-768c-4255fd5efb39/status?branch=master)](https://codeship.com/projects/109988)
-
+[![codecov.io](https://codecov.io/github/rgroult/MobDistTool/coverage.svg?branch=master)](https://codecov.io/github/rgroult/MobDistTool?branch=master)
 
 # Overview
 
