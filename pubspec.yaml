@@ -9,6 +9,11 @@ environment:
   sdk: '>=1.0.0 <2.0.0'
 
 dependencies:
+  coverage: "^0.7.0"
+  dart_codecov_generator:
+    git:
+        url: git://github.com/codecov/dart.git
+        ref: master
   apk_parser: "^0.0.2+2"
   angular: any
   angular_ui: any

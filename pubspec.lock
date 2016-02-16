@@ -89,6 +89,10 @@ packages:
     description: convert
     source: hosted
     version: "1.0.1"
+  coverage:
+    description: coverage
+    source: hosted
+    version: "0.7.2"
   crypto:
     description: crypto
     source: hosted
@@ -97,6 +101,13 @@ packages:
     description: csslib
     source: hosted
     version: "0.12.2"
+  dart_codecov_generator:
+    description:
+      ref: master
+      resolved-ref: "23646e45ea1951c295e9d7e53a936331f3131424"
+      url: "git://github.com/codecov/dart.git"
+    source: git
+    version: "0.4.0"
   dart_jwt:
     description: dart_jwt
     source: hosted
