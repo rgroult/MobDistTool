@@ -1,4 +1,14 @@
-export '../../bin/managers/users_manager.dart';
-export '../../bin/managers/apps_manager.dart';
-export '../../bin/managers/artifacts_manager.dart';
-export '../../bin/managers/errors.dart';
+// Copyright (c) 2016, the Dart project authors.
+// All rights reserved. Use of this source code is governed by a
+// MIT-style license that can be found in the LICENSE file.
+
+export 'src/users_manager.dart';
+export 'src/apps_manager.dart';
+export 'src/artifacts_manager.dart';
+export 'errors.dart';
+export '../model/model.dart';
+
+
+//import 'src/artifacts_manager.dart' as artifacts;
+
+//artifacts.defaultStorage = new YesStorageManager();

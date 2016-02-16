@@ -1,21 +1,31 @@
-import 'package:test/test.dart';
-import 'dart:async';
+// Copyright (c) 2016, the Dart project authors.
+// All rights reserved. Use of this source code is governed by a
+// MIT-style license that can be found in the LICENSE file.
+
+import "all_core_tests.dart" as core;
+import "all_rpc_tests.dart" as rpc;
+import '../server/config/src/mongo.dart' as mongo;
+import '../server/config/config.dart' as config;
+import '../server/config/src/storage.dart' as storage;
 import 'package:objectory/objectory_console.dart';
-import 'apps_manager_test.dart' as app_test;
-import 'users_manager_test.dart' as user_test;
-import 'artifacts_manager_test.dart' as artifact_test;
-import '../bin/config/mongo.dart' as mongo;
+import 'package:test/test.dart';
 
 void main() {
-   test("init database", () async {
-      var value = await mongo.initialize();
-   });
+  test("init ", () async {
+    await config.loadConfig();
+    await mongo.initialize(dropCollectionOnStartup:true);
+    await storage.initialize();
+  });
+  test ("Clean database", ()async {
+    await objectory.dropCollections();
+  });
+  core.allTests();
+  test ("Clean database", ()async {
+    await objectory.dropCollections();
+  });
+  rpc.allTests();
 
-   user_test.allTests();
-   app_test.allTests();
-   artifact_test.allTests();
-
-   test("close database", () async {
-      var value = await objectory.close();
-   });
+  test("close database", () {
+    mongo.close();
+  });
 }

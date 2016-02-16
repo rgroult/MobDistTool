@@ -4,19 +4,35 @@ packages:
   _discoveryapis_commons:
     description: _discoveryapis_commons
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   analyzer:
     description: analyzer
     source: hosted
-    version: "0.26.1+7"
+    version: "0.26.4"
+  angular:
+    description: angular
+    source: hosted
+    version: "1.1.2+2"
+  angular_ui:
+    description: angular_ui
+    source: hosted
+    version: "0.6.11"
+  apk_parser:
+    description: apk_parser
+    source: hosted
+    version: "0.0.2+2"
+  archive:
+    description: archive
+    source: hosted
+    version: "1.0.20"
   args:
     description: args
     source: hosted
-    version: "0.13.2"
+    version: "0.12.2+6"
   async:
     description: async
     source: hosted
-    version: "1.3.0"
+    version: "1.8.0"
   barback:
     description: barback
     source: hosted
@@ -25,6 +41,10 @@ packages:
     description: bignum
     source: hosted
     version: "0.0.7"
+  bot:
+    description: bot
+    source: hosted
+    version: "0.27.0+2"
   browser:
     description: browser
     source: hosted
@@ -41,6 +61,14 @@ packages:
     description: cipher
     source: hosted
     version: "0.7.1"
+  cli_util:
+    description: cli_util
+    source: hosted
+    version: "0.0.1+2"
+  code_transformers:
+    description: code_transformers
+    source: hosted
+    version: "0.2.11"
   collection:
     description: collection
     source: hosted
@@ -52,7 +80,19 @@ packages:
   console_log_handler:
     description: console_log_handler
     source: hosted
-    version: "0.1.4"
+    version: "0.2.1"
+  content_type:
+    description: content_type
+    source: hosted
+    version: "0.5.1"
+  convert:
+    description: convert
+    source: hosted
+    version: "1.0.1"
+  coverage:
+    description: coverage
+    source: hosted
+    version: "0.7.2"
   crypto:
     description: crypto
     source: hosted
@@ -60,11 +100,22 @@ packages:
   csslib:
     description: csslib
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
+  dart_codecov_generator:
+    description:
+      ref: master
+      resolved-ref: "23646e45ea1951c295e9d7e53a936331f3131424"
+      url: "git://github.com/codecov/dart.git"
+    source: git
+    version: "0.4.0"
   dart_jwt:
     description: dart_jwt
     source: hosted
-    version: "0.4.4"
+    version: "0.4.5"
+  di:
+    description: di
+    source: hosted
+    version: "3.3.5+1"
   discoveryapis_generator:
     description: discoveryapis_generator
     source: hosted
@@ -73,6 +124,10 @@ packages:
     description: either
     source: hosted
     version: "0.1.8"
+  event_stream:
+    description: event_stream
+    source: hosted
+    version: "0.3.2"
   fixnum:
     description: fixnum
     source: hosted
@@ -80,27 +135,39 @@ packages:
   gcloud:
     description: gcloud
     source: hosted
-    version: "0.2.0+8"
+    version: "0.2.0+9"
   glob:
     description: glob
     source: hosted
-    version: "1.0.5"
+    version: "1.1.0"
   googleapis:
     description: googleapis
     source: hosted
-    version: "0.16.1"
+    version: "0.20.0"
+  googleapis_auth:
+    description: googleapis_auth
+    source: hosted
+    version: "0.2.3+1"
   googleapis_beta:
     description: googleapis_beta
     source: hosted
-    version: "0.19.1"
+    version: "0.22.0"
+  hammock:
+    description: hammock
+    source: hosted
+    version: "0.4.0"
   html:
     description: html
     source: hosted
-    version: "0.12.2"
+    version: "0.12.2+1"
+  html5lib:
+    description: html5lib
+    source: hosted
+    version: "0.12.1"
   http:
     description: http
     source: hosted
-    version: "0.11.3+2"
+    version: "0.11.3+3"
   http_exception:
     description: http_exception
     source: hosted
@@ -108,15 +175,19 @@ packages:
   http_multi_server:
     description: http_multi_server
     source: hosted
-    version: "1.3.2"
+    version: "2.0.0"
   http_parser:
     description: http_parser
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   intl:
     description: intl
     source: hosted
-    version: "0.12.4+2"
+    version: "0.8.10+4"
+  jwt:
+    description: jwt
+    source: hosted
+    version: "0.1.4"
   logging:
     description: logging
     source: hosted
@@ -125,21 +196,29 @@ packages:
     description: logging_handlers
     source: hosted
     version: "0.8.0"
+  mailer:
+    description: mailer
+    source: hosted
+    version: "0.8.7"
   matcher:
     description: matcher
     source: hosted
     version: "0.12.0+1"
+  meta:
+    description: meta
+    source: hosted
+    version: "0.8.8"
   mime:
     description: mime
     source: hosted
     version: "0.9.3"
   mongo_dart:
     description:
-      ref: null
-      resolved-ref: eecb36176e31cbe3576eabedb14f4afdf4e4e5c4
+      ref: HEAD
+      resolved-ref: dd5e06f2062183b0af68d0f377eb40a238cbcb04
       url: "https://github.com/vadimtsushko/mongo_dart.git"
     source: git
-    version: "0.2.4"
+    version: "0.2.5-beta"
   mongo_dart_query:
     description: mongo_dart_query
     source: hosted
@@ -147,14 +226,18 @@ packages:
   more:
     description: more
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0"
   objectory:
     description:
       ref: master
-      resolved-ref: "3a882e0aa02ac44a6e77bb708e2ef1dbf19a34b1"
+      resolved-ref: eaf5725cebec04249f7989b56be2007b5b423693
       url: "git://github.com/vadimtsushko/objectory.git"
     source: git
-    version: "0.4.3-dev"
+    version: "0.4.4-dev"
+  observe:
+    description: observe
+    source: hosted
+    version: "0.13.1+3"
   option:
     description: option
     source: hosted
@@ -166,11 +249,19 @@ packages:
   path:
     description: path
     source: hosted
-    version: "1.3.6"
+    version: "1.3.9"
+  perf_api:
+    description: perf_api
+    source: hosted
+    version: "0.0.9"
   petitparser:
     description: petitparser
     source: hosted
-    version: "1.4.3"
+    version: "1.5.1"
+  plist:
+    description: plist
+    source: hosted
+    version: "1.0.1"
   plugin:
     description: plugin
     source: hosted
@@ -178,27 +269,42 @@ packages:
   pool:
     description: pool
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   pub_semver:
     description: pub_semver
     source: hosted
-    version: "1.2.2"
+    version: "1.2.3"
+  qr:
+    description:
+      ref: HEAD
+      resolved-ref: "94506f92df6be10a6fb4d179c75b8a2aa58c8be5"
+      url: "git://github.com/rgroult/qr.dart.git"
+    source: git
+    version: "0.0.0"
   quiver:
     description: quiver
     source: hosted
     version: "0.19.0+1"
+  route_hierarchical:
+    description: route_hierarchical
+    source: hosted
+    version: "0.6.2"
   rpc:
     description: rpc
     source: hosted
-    version: "0.5.4"
+    version: "0.5.5"
   shelf:
     description: shelf
     source: hosted
-    version: "0.6.3"
+    version: "0.6.4+3"
   shelf_auth:
     description: shelf_auth
     source: hosted
-    version: "0.7.0"
+    version: "0.7.1"
+  shelf_cors:
+    description: shelf_cors
+    source: hosted
+    version: "0.2.1"
   shelf_exception_handler:
     description: shelf_exception_handler
     source: hosted
@@ -222,11 +328,15 @@ packages:
   shelf_static:
     description: shelf_static
     source: hosted
-    version: "0.2.3+1"
+    version: "0.2.3+2"
   shelf_web_socket:
     description: shelf_web_socket
     source: hosted
-    version: "0.0.1+4"
+    version: "0.0.1+5"
+  smoke:
+    description: smoke
+    source: hosted
+    version: "0.3.5"
   source_map_stack_trace:
     description: source_map_stack_trace
     source: hosted
@@ -242,15 +352,23 @@ packages:
   stack_trace:
     description: stack_trace
     source: hosted
-    version: "1.4.2"
+    version: "1.6.0"
   string_scanner:
     description: string_scanner
     source: hosted
-    version: "0.1.4"
+    version: "0.1.4+1"
   test:
     description: test
     source: hosted
-    version: "0.12.5+1"
+    version: "0.12.8"
+  typed_data:
+    description: typed_data
+    source: hosted
+    version: "1.1.1"
+  unittest:
+    description: unittest
+    source: hosted
+    version: "0.11.6+1"
   uri:
     description: uri
     source: hosted
@@ -263,15 +381,32 @@ packages:
     description: uuid
     source: hosted
     version: "0.5.0"
+  validator:
+    description: validator
+    source: hosted
+    version: "0.0.7"
   watcher:
     description: watcher
     source: hosted
     version: "0.9.7"
+  when:
+    description: when
+    source: hosted
+    version: "0.2.0"
+  which:
+    description: which
+    source: hosted
+    version: "0.1.3"
   xml:
     description: xml
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
+  xmlstream:
+    description: xmlstream
+    source: hosted
+    version: "0.10.0"
   yaml:
     description: yaml
     source: hosted
-    version: "2.1.6"
+    version: "2.1.8"
+sdk: ">=1.13.0 <1.16.0"

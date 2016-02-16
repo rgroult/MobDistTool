@@ -1,6 +1,6 @@
 name: 'MobDistTool'
 version: 0.0.1
-description: A web server built using the shelf package.
+description: Platform which allows to distribute applications to beta testers (IOS, Android).
 #author: Your Name <email@example.com>
 #homepage: https://www.example.com
   #objectory: "^0.3.22"
@@ -9,19 +9,62 @@ environment:
   sdk: '>=1.0.0 <2.0.0'
 
 dependencies:
+  coverage: "^0.7.0"
+  dart_codecov_generator:
+    git:
+        url: git://github.com/codecov/dart.git
+        ref: master
+  apk_parser: "^0.0.2+2"
+  angular: any
+  angular_ui: any
+  browser: any
   objectory:
       git:
         url: git://github.com/vadimtsushko/objectory.git
         ref: master
   args: '>=0.10.0 <0.14.0'
   shelf: '>=0.6.0 <0.7.0'
-  rpc: "^0.5.3"
+  rpc: "^0.5.5"
   shelf_rpc: "^0.0.3+2"
   shelf_route: ">0.13.0"
-  shelf_auth: "^0.7.0"
+  shelf_auth: ">=0.7.0"
+  shelf_cors: ">=0.2.1"
+  jwt: "^0.1.4"
+  validator: ">=0.0.4 <0.1.0"
   logging_handlers: "^0.8.0"
   shelf_exception_handler: "^0.1.0"
+  mailer: any
+  archive: "^1.0.20"
+  plist: "^1.0.1"
   option: "^1.1.0"
   test: "^0.12.5+1"
-  
+  uuid: "0.5.0"
+  hammock: "^0.4.0"
+  googleapis_auth: any
+  googleapis: any
+  qr:
+     git: git://github.com/rgroult/qr.dart.git
+dependency_overrides:
+transformers:
+- angular:
+    html_files:
+      - web/index.html
+      - web/pages/home.html
+      - web/pages/main_page.html
+      - web/pages/activation.html
+      - web/lib/components/add_artifact.html
+      - web/lib/components/application_create.html
+      - web/lib/components/application_detail.html
+      - web/lib/components/application_edition.html
+      - web/lib/components/application_list.html
+      - web/lib/components/application_version.html
+      - web/lib/components/artifact.html
+      - web/lib/components/artifact_download_qrcode.html
+      - web/lib/components/user_login.html
+      - web/lib/components/user_register.html
+      - web/lib/components/account_activation.html
+- $dart2js:
+    environment:
+      mode: javascript
+
 

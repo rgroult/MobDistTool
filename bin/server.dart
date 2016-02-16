@@ -10,8 +10,10 @@ import 'package:logging_handlers/server_logging_handlers.dart';
 //rpc
 import 'package:rpc/rpc.dart';
 import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf_static/shelf_static.dart' as shelf_static;
 import 'package:shelf_rpc/shelf_rpc.dart' as shelf_rpc;
 import 'package:shelf_route/shelf_route.dart' as shelf_route;
+import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
 import 'package:shelf_exception_handler/shelf_exception_handler.dart';
 //authentication / authorisation
 import 'package:shelf_auth/shelf_auth.dart';
@@ -20,34 +22,52 @@ import 'package:shelf_auth/src/authorisers/authenticated_only_authoriser.dart';
 //server
 import 'package:shelf/shelf_io.dart' as shelf_io;
 //mongo DB
-import 'config/mongo.dart' as mongo;
+import '../server/config/src/mongo.dart' as mongo;
+//config
+import '../server/config/config.dart' as config;
+//storage
+import '../server/config/src/storage.dart' as storage;
+//API
+import '../server/managers/managers.dart';
 
-//import 'package:rpc-examples/toyapi.dart';
-import 'model/model.dart';
-
-import 'user_authentication_service.dart';
-import 'application_service.dart';
+import '../server/services/user_service.dart';
+import '../server/services/application_service.dart';
+import '../server/services/artifact_service.dart';
+import '../server/services/in_service.dart';
 
 const _API_PREFIX = '/api';
-const _SIGNED_PREFIX = _API_PREFIX+'/in';
+/*const _SIGNED_PREFIX = _API_PREFIX+'/in';
 const _AUTHORIZED_PREFIX = _API_PREFIX;
-const _LOGIN_PREFIX = _API_PREFIX+'/users';
+const _LOGIN_PREFIX = _API_PREFIX+'/users';*/
 
 final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: true);
 //final ApiServer _statelessApiServer = new ApiServer(apiPrefix: _STATELESS_PREFIX, prettyPrint: true);
 
-Future main() async {
+HttpServer httpServer;
+
+Future stopServer({bool force:false}) async {
+  await httpServer.close(force:true);
+}
+
+Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
+  await config.loadConfig();
+
   // Add a simple log handler to log information to a server side file.
-  Logger.root.level = Level.ALL;
+  Logger.root.level = Level.WARNING;
   Logger.root.onRecord.listen(new SyncFileLoggingHandler('myLogFile.txt'));
   if (stdout.hasTerminal) {
     Logger.root.onRecord.listen(new LogPrintHandler());
   }
-  mongo.initialize();
+
+  await mongo.initialize(dropCollectionOnStartup:resetDatabaseContent);
+
+  await storage.initialize();
 
   //_apiServer.addApi(new ToyApi());
-  _apiServer.addApi(new UserAuthenticationService());
+  _apiServer.addApi(new UserService());
   _apiServer.addApi(new ApplicationService());
+  _apiServer.addApi(new ArtifactService());
+  _apiServer.addApi(new InService());
   _apiServer.enableDiscoveryApi();
 
   //authentication
@@ -64,20 +84,45 @@ Future main() async {
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
 
+  var staticHandler =  shelf_static.createStaticHandler('build/web',
+      defaultDocument: 'index.html');
+
   var apiRouter = shelf_route.router()
+      //disable authent for register
+      ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
+      ..get('api/in/v1/artifacts/{artifactid}/file',(request) => ArtifactService.downloadFile(shelf_route.getPathParameter(request, 'artifactid')))
+      ..add('/api/in/',null,apiHandler,exactMatch: false)
       ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
-      ..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
+      //..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
       //disable authent for discovery ?
       ..add('api/discovery',null,apiHandler,exactMatch: false)
+      //gui
+      ..add('web/',null,staticHandler,exactMatch: false)
+      //authenticate api
       ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
+  shelf_route.printRoutes(apiRouter);
+
   var handler = const shelf.Pipeline()
+      //.addMiddleware(shelf_cors.createCorsHeadersMiddleware(corsHeaders:{'Access-Control-Allow-Origin': '*' /*, 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, authorization','Access-Control-Allow-Credentials':'true'*/}))
       .addMiddleware(exceptionHandler())
       .addMiddleware(shelf.logRequests())
       .addHandler(apiRouter.handler);
 
-  var server = await shelf_io.serve(handler, '0.0.0.0', 8080);
-  print('Listening at port ${server.port}.');
+  print("bind localhost on port ${config.currentLoadedConfig[config.MDT_SERVER_PORT]}");
+
+  var server =  shelf_io.serve(handler, '0.0.0.0', config.currentLoadedConfig[config.MDT_SERVER_PORT]);
+  server.then((server) { print('Listening at port ${server.port}.');httpServer=server;});
+//  print('Listening at port ${await server.port}.');
+
+
+  return new Future.value(server);
+  //return server;
+  //return new Future(server;
+}
+
+Future main() async{
+  var server = await startServer();
 }
 
 
@@ -87,5 +132,7 @@ Future main() async {
 lookupByUsernamePassword(String username, String password) async =>
 new Future.value(new Option(new Principal(username)));*/
 /// Stub implementation
+/*
 usernameLookup(String username) async =>
 new Future.value(new Option(new Principal(username)));
+*/
