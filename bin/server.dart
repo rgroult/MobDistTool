@@ -54,10 +54,13 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
 
   // Add a simple log handler to log information to a server side file.
   Logger.root.level = Level.WARNING;
-  Logger.root.onRecord.listen(new SyncFileLoggingHandler('myLogFile.txt'));
+  DateTime now = new DateTime.now();
+  var logFile = "${config.currentLoadedConfig[config.MDT_LOG_DIR]}mdt_logs_${now.year}${now.month.toString().padLeft(2,'0')}${now.day.toString().padLeft(2,'0')}.txt";
+  Logger.root.onRecord.listen(new SyncFileLoggingHandler(logFile));
   if (stdout.hasTerminal) {
     Logger.root.onRecord.listen(new LogPrintHandler());
   }
+  print("logging file : $logFile");
 
   await mongo.initialize(dropCollectionOnStartup:resetDatabaseContent);
 
@@ -113,26 +116,10 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
 
   var server =  shelf_io.serve(handler, '0.0.0.0', config.currentLoadedConfig[config.MDT_SERVER_PORT]);
   server.then((server) { print('Listening at port ${server.port}.');httpServer=server;});
-//  print('Listening at port ${await server.port}.');
-
 
   return new Future.value(server);
-  //return server;
-  //return new Future(server;
 }
 
 Future main() async{
   var server = await startServer();
 }
-
-
-/// Stub implementation
-///
-/*
-lookupByUsernamePassword(String username, String password) async =>
-new Future.value(new Option(new Principal(username)));*/
-/// Stub implementation
-/*
-usernameLookup(String username) async =>
-new Future.value(new Option(new Principal(username)));
-*/
