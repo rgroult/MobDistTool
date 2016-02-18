@@ -39,7 +39,7 @@ void allTests()  {
       expect(user, isNotNull);
       expect(user.name, equals(name));
       expect(user.email, equals(email));
-      expect(user.password, equals(password));
+      expect(user.password, equals(mdt_mgr.generateHash(password,user.salt)));
     });
 
     test("Create same user", () async {
@@ -52,7 +52,7 @@ void allTests()  {
       var user =  await mdt_mgr.findUserByEmail(email);
       expect(user.name, equals(name));
       expect(user.email, equals(email));
-      expect(user.password, equals(password));
+      expect(user.password, equals(mdt_mgr.generateHash(password,user.salt)));
       expect(user.isSystemAdmin, equals(false));
     });
 

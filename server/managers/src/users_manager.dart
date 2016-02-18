@@ -23,7 +23,7 @@ Future<MDTUser> findUser(String email, String password) async {
   }
   var user = await userCollection.findOne(where.eq("email", email));
   if (user != null) {
-    if (user.password == _generateHash(password,user.salt)) {
+    if (user.password == generateHash(password,user.salt)) {
       return user;
     }
   }
@@ -77,7 +77,7 @@ Future<MDTUser> createUser(String name, String email, String password,
     ..name = name
     ..email = email
     ..salt = salt
-    ..password = _generateHash(password,salt)
+    ..password = generateHash(password,salt)
     ..isSystemAdmin = isSystemAdmin
     ..isActivated = isActivated;
 
@@ -91,7 +91,7 @@ Future<MDTUser> createUser(String name, String email, String password,
   return createdUser;
 }
 
-String _generateHash(String password,String salt) {
+String generateHash(String password,String salt) {
   var stringToHash = "$password:$salt";
   var md5 = new crypto.MD5();
   md5.add(stringToHash.codeUnits);
