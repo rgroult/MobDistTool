@@ -4,11 +4,11 @@
 
 import 'dart:async';
 import 'package:uuid/uuid.dart';
+import 'package:crypto/crypto.dart' as crypto;
 import 'package:objectory/objectory_console.dart';
 import '../../model/model.dart';
 import 'apps_manager.dart' as app_mgr;
 import '../errors.dart';
-
 
 var userCollection = objectory[MDTUser];
 var UuidGenerator = new Uuid();
@@ -23,12 +23,13 @@ Future<MDTUser> findUser(String email, String password) async {
   }
   var user = await userCollection.findOne(where.eq("email", email));
   if (user != null) {
-    if (user.password == _generateHash(password)) {
+    if (user.password == _generateHash(password,user.salt)) {
       return user;
     }
   }
   return null;
 }
+
 /*
 Future<MDTUser> findUserByUuid(String uuid) async {
   return await userCollection.find(where.eq("uuid", uuid));
@@ -71,10 +72,12 @@ Future<MDTUser> createUser(String name, String email, String password,
     throw new UserError('User already exist with this email');
   }
 
+  var salt = _generateSalt();
   var createdUser = new MDTUser()
     ..name = name
     ..email = email
-    ..password = _generateHash(password)
+    ..salt = salt
+    ..password = _generateHash(password,salt)
     ..isSystemAdmin = isSystemAdmin
     ..isActivated = isActivated;
 
@@ -88,6 +91,14 @@ Future<MDTUser> createUser(String name, String email, String password,
   return createdUser;
 }
 
-String _generateHash(String password) {
-  return password;
+String _generateHash(String password,String salt) {
+  var stringToHash = "$password:$salt";
+  var md5 = new crypto.MD5();
+  md5.add(stringToHash.codeUnits);
+  var hash = crypto.CryptoUtils.bytesToHex(md5.close());
+  return hash;
+}
+
+String _generateSalt(){
+  return UuidGenerator.v4();
 }

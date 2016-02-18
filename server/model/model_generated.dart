@@ -5,14 +5,16 @@ class $MDTUser {
   static String get name => 'name';
   static String get email => 'email';
   static String get password => 'password';
+  static String get salt => 'salt';
   static String get activationToken => 'activationToken';
   static String get isSystemAdmin => 'isSystemAdmin';
   static String get isActivated => 'isActivated';
-  static final List<String> allFields = [name, email, password, activationToken, isSystemAdmin, isActivated];
+  static final List<String> allFields = [name, email, password, salt, activationToken, isSystemAdmin, isActivated];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('email', PropertyType.String, 'email')
     ,const PropertyDescriptor('password', PropertyType.String, 'password')
+    ,const PropertyDescriptor('salt', PropertyType.String, 'salt')
     ,const PropertyDescriptor('activationToken', PropertyType.String, 'activationToken')
     ,const PropertyDescriptor('isSystemAdmin', PropertyType.bool, 'isSystemAdmin')
     ,const PropertyDescriptor('isActivated', PropertyType.bool, 'isActivated')
@@ -28,6 +30,8 @@ class MDTUser extends PersistentObject {
   set email (String value) => setProperty('email',value);
   String get password => getProperty('password');
   set password (String value) => setProperty('password',value);
+  String get salt => getProperty('salt');
+  set salt (String value) => setProperty('salt',value);
   String get activationToken => getProperty('activationToken');
   set activationToken (String value) => setProperty('activationToken',value);
   bool get isSystemAdmin => getProperty('isSystemAdmin');

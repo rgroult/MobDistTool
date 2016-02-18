@@ -17,6 +17,7 @@ class MDTUser/* extends MDTBaseObject*/ {
   String name;
   String email;
   String password;
+  String salt;
  // String externalTokenId;
   String activationToken;
   bool isSystemAdmin;

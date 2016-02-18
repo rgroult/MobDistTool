@@ -4,6 +4,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:option/option.dart';
+import 'package:uuid/uuid.dart';
 //logging
 import 'package:logging/logging.dart';
 import 'package:logging_handlers/server_logging_handlers.dart';
@@ -74,7 +75,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   _apiServer.enableDiscoveryApi();
 
   //authentication
-  var sessionHandler = new JwtSessionHandler('MobDistTool', 'qsdqfsdvdf secret', usernameLookup);
+  var UuidGenerator = new Uuid();
+  var sessionHandler = new JwtSessionHandler('MobDistTool', '${UuidGenerator.v4} secret', usernameLookup);
   var loginMiddleware = authenticate([new UsernamePasswordAuthenticator(authenticateUser)],
   sessionHandler:sessionHandler , allowHttp: true);
 
