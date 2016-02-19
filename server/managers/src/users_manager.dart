@@ -9,6 +9,7 @@ import 'package:objectory/objectory_console.dart';
 import '../../model/model.dart';
 import 'apps_manager.dart' as app_mgr;
 import '../errors.dart';
+import '../../utils/utils.dart' as utils;
 
 var userCollection = objectory[MDTUser];
 var UuidGenerator = new Uuid();
@@ -100,5 +101,6 @@ String generateHash(String password,String salt) {
 }
 
 String _generateSalt(){
-  return UuidGenerator.v4();
+  return utils.randomString(10);
 }
+

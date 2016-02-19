@@ -4,7 +4,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:option/option.dart';
-import 'package:uuid/uuid.dart';
 //logging
 import 'package:logging/logging.dart';
 import 'package:logging_handlers/server_logging_handlers.dart';
@@ -35,6 +34,7 @@ import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
 import '../server/services/artifact_service.dart';
 import '../server/services/in_service.dart';
+import '../server/utils/utils.dart' as utils;
 
 const _API_PREFIX = '/api';
 /*const _SIGNED_PREFIX = _API_PREFIX+'/in';
@@ -75,8 +75,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   _apiServer.enableDiscoveryApi();
 
   //authentication
-  var UuidGenerator = new Uuid();
-  var sessionHandler = new JwtSessionHandler('MobDistTool', '${UuidGenerator.v4} secret', usernameLookup);
+  var sessionHandler = new JwtSessionHandler('MobDistTool', '${utils.randomString(15)} secret', usernameLookup);
   var loginMiddleware = authenticate([new UsernamePasswordAuthenticator(authenticateUser)],
   sessionHandler:sessionHandler , allowHttp: true);
 
