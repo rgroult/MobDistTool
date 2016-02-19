@@ -6,4 +6,4 @@ services:
 cache:
   directories:
   - $HOME/.pub-cache
-script: test/allTests.dart
+script: dart test/allTests.dart
