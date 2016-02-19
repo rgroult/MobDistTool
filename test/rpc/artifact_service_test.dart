@@ -27,8 +27,8 @@ void main() {
   });
 
   test("test configure values", () async {
-    baseUrlHost = "http://${httpServer.address.host}:${httpServer.port}";
-    print('baseUrlHost : $baseUrlHost');
+    var serverBaseUrlHost = "http://${httpServer.address.host}:${httpServer.port}";
+    print('baseUrlHost : $serverBaseUrlHost');
   });
 
   baseUrlHost = "http://localhost:8080";
@@ -53,9 +53,13 @@ void createAndLogin(){
   });
 }
 
-Future<http.Response>  uploadArtifact(String apiKey,String branch,String version, String name,{String jsonField}) async{
+Future<http.Response>  uploadArtifact(String apiKey,String branch,String version, String name,{String jsonField,String artifactName}) async{
   var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/in/v1/artifacts/${apiKey}/master/$version/$name"));
-  var filePart = await http.MultipartFile.fromPath('artifactFile', Directory.current.path+'/test/core/artifact_sample.txt');
+  var artifactFilename = 'core/artifact_sample.txt';
+  if (artifactName != null){
+    artifactFilename = artifactName;
+  }
+  var filePart = await http.MultipartFile.fromPath('artifactFile', Directory.current.path+'/test/$artifactFilename');
   httprequest.files.add(filePart);
   httprequest.fields['sortIdentifier'] = 'sortId_$version';
   var tags = new Map();
@@ -75,10 +79,46 @@ void allTests() {
   Map currentUser;
   Map currentApp;
   Map currentArtifact;
-  //createAndLogin();
-  test("Upload artifact OK", () async {
+
+  test("Upload artifact OK Android", () async {
     var user = await createAndLoginUser();
-    var application = await createApplication();
+    var application = await createApplication(infos:applicationCreationAndroid);
+    user = user["data"];
+    application = application["data"];
+
+    var apiKey = application["apiKey"];
+    currentUser= user;
+    currentApp = application;
+
+    var tags = new Map();
+    tags['tag1'] = "test tag1";
+    tags['tag2'] = "test tag2";
+    // httprequest.fields['jsonTags'] = ;
+
+    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags),artifactName:"rpc/ApkTest.apk" );
+    var responseJson = parseResponse(response);
+    currentArtifact = responseJson["data"];
+    expect(response.statusCode, equals(200));
+
+  });
+
+  test("Retrieve download infos Android", () async {
+    var uuid =  currentArtifact["uuid"];
+    var artifactdownloadInfoUrl = '/api/art/v1/artifacts/$uuid/download';
+    var response = await sendRequest('GET', artifactdownloadInfoUrl);
+    expect(response.statusCode, equals(200));
+    var responseJson = parseResponse(response);
+    responseJson = responseJson["data"];
+    var prefix = baseUrlHost;
+    var match = prefix.matchAsPrefix(responseJson['directLinkUrl']);
+    expect(match,isNotNull);
+    expect(responseJson['directLinkUrl'],equals(responseJson['installUrl']));
+  });
+
+  //createAndLogin();
+  test("Upload artifact OK IOS", () async {
+    var user = await loginUser(userInfosSample["email"],userInfosSample["password"]) ;
+    var application = await createApplication(infos:applicationCreationiOS);
     user = user["data"];
     application = application["data"];
 
@@ -91,11 +131,28 @@ void allTests() {
     tags['tag2'] = "test tag2";
    // httprequest.fields['jsonTags'] = ;
 
-    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags));
+    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags),artifactName:"rpc/test.ipa" );
     var responseJson = parseResponse(response);
     currentArtifact = responseJson["data"];
     expect(response.statusCode, equals(200));
+
   });
+
+  test("Retrieve download infos IOS", () async {
+    var uuid =  currentArtifact["uuid"];
+    var artifactdownloadInfoUrl = '/api/art/v1/artifacts/$uuid/download';
+    var response = await sendRequest('GET', artifactdownloadInfoUrl);
+    expect(response.statusCode, equals(200));
+    var responseJson = parseResponse(response);
+    responseJson = responseJson["data"];
+    var prefix = baseUrlHost;
+    var match = prefix.matchAsPrefix(responseJson['directLinkUrl']);
+    expect(match,isNotNull);
+    prefix ='itms-services://?action=download-manifest&url=$baseUrlHost';
+    match = prefix.matchAsPrefix(responseJson['installUrl']);
+    expect(match,isNotNull);
+  });
+
 
   test("delete  artifact OK", () async {
     String artifactId = currentArtifact["uuid"];
@@ -113,7 +170,7 @@ void allTests() {
     // httprequest.fields['jsonTags'] = ;
     var artifactsCreated = [];
     for (int i = 0; i<30;i++){
-      var response = await uploadArtifact(apiKey,"test","X.Y.${i}_prod","prod");
+      var response = await uploadArtifact(apiKey,"test","X.Y.${i}_prod","prod",artifactName:"rpc/test.ipa");
       expect(response.statusCode, equals(200));
       var responseJson = parseResponse(response);
       artifactsCreated.add(responseJson["data"]);
@@ -152,5 +209,9 @@ void allTests() {
     var responseJson = parseResponse(response);
     expect(response.statusCode, equals(200));
     expect(responseJson['list'].length, equals(10));
+    allArtifacts.clear();
+    allArtifacts.addAll(responseJson['list']);
   });
+
+
 }

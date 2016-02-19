@@ -43,8 +43,12 @@ Future<Map> createAndLoginUser() async {
   return loginUser(userInfosSample["email"],userInfosSample["password"]);
 }
 
-Future<Map> createApplication() async {
-  var appInfos = new Map.from(applicationCreationiOS);
+Future<Map> createApplication({Map infos}) async {
+  var appJsonInfos = applicationCreationiOS;
+  if (infos != null){
+    appJsonInfos = infos;
+  }
+  var appInfos = new Map.from(appJsonInfos);
 
   var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfos));
   var responseJson = parseResponse(response);

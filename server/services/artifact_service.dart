@@ -20,7 +20,8 @@ class ArtifactService {
 
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "latest";
-
+/*
+Not used yet
   @ApiMethod(method: 'PUT', path: 'artifacts/{idArtifact}')
   Future<Response> addArtifact(String idArtifact,  FullArtifactMsg artifactsMsg) async{
     //current user
@@ -55,7 +56,7 @@ class ArtifactService {
 
     await artifact.save();
     return new Response(200, toJson(artifact,isAdmin:true));
-  }
+  }*/
 
   @ApiMethod(method: 'DELETE', path: 'artifacts/{idArtifact}')
   Future<Response> deleteArtifact(String idArtifact) async{
@@ -85,16 +86,19 @@ class ArtifactService {
       throw new NotFoundError("Unable to find artifact");
     }
     var downloadInfo = new DownloadInfo();
-    downloadInfo.directLinkUrl = '/api/in/v1/artifacts/$idArtifact/file';
+    var baseArtifactPath = '/api/in/v1/artifacts/$idArtifact';
+    if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
+      baseArtifactPath = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${baseArtifactPath}';
+    }
+
+    downloadInfo.directLinkUrl = '$baseArtifactPath/file';
     var app = await artifact.application.getMeFromDb();
     if (app == null){
       throw new NotFoundError("Unable to find application");
     }
+
     if (app.platform.toUpperCase() == 'IOS'){
-      downloadInfo.installUrl = '/api/in/v1/artifacts/$idArtifact/ios_plist';
-      if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
-        downloadInfo.installUrl = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${downloadInfo.installUrl}';
-      }
+      downloadInfo.installUrl = '$baseArtifactPath/ios_plist';
       downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${downloadInfo.installUrl}";
     }else {
       downloadInfo.installUrl = downloadInfo.directLinkUrl;

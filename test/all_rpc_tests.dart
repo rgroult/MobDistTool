@@ -9,10 +9,11 @@ import 'dart:io';
 import 'dart:convert';
 import 'rpc/user_service_test.dart' as users;
 import 'rpc/app_service_test.dart' as apps;
+import 'rpc/artifact_service_test.dart' as artifacts;
 import 'rpc/rpc_commons.dart';
 import '../bin/server.dart' as server;
 import '../server/config/src/mongo.dart' as mongo;
-
+import '../server/config/config.dart' as config;
 void main()  {
 
   allTests();
@@ -34,11 +35,17 @@ void allTests() {
   test("configure values", () async {
     baseUrlHost = "http://${httpServer.address.host}:${httpServer.port}";
     print('baseUrlHost : $baseUrlHost');
+    config.currentLoadedConfig[config.MDT_SERVER_URL] = baseUrlHost;
   });
 
   users.allTests();
   apps.allTests();
 
+  test("reset database before artifacts tests", ()  async {
+    await mongo.dropCollections();
+  });
+
+  artifacts.allTests();
 
   test("stop server", ()  {
     // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
