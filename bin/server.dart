@@ -51,6 +51,7 @@ Future stopServer({bool force:false}) async {
 }
 
 Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
+  print ("MDT starting ...");
   await config.loadConfig();
 
   // Add a simple log handler to log information to a server side file.
@@ -116,7 +117,11 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   print("bind localhost on port ${config.currentLoadedConfig[config.MDT_SERVER_PORT]}");
 
   var server =  shelf_io.serve(handler, '0.0.0.0', config.currentLoadedConfig[config.MDT_SERVER_PORT]);
-  server.then((server) { print('Listening at port ${server.port}.');httpServer=server;});
+  server.then((server) {
+      print('MDT started o@ port ${server.port}.');
+      print('You can access server Web UI on http://localhost:${server.port}/web/');
+      httpServer=server;
+  });
 
   return new Future.value(server);
 }
