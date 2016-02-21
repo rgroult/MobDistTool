@@ -1,46 +1,100 @@
-# MobDistTool : Mobile Application Distribution Tool
+# Mobile App Distribution Tool
 
 [![Build Status](https://travis-ci.org/rgroult/MobDistTool.svg?branch=master)](https://travis-ci.org/rgroult/MobDistTool)
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/codeship/documentation/blob/master/LICENSE.md)
 [![Codeship Status](https://codeship.com/projects/dc7cfa30-5957-0133-768c-4255fd5efb39/status?branch=master)](https://codeship.com/projects/109988)
 [![codecov.io](https://codecov.io/github/rgroult/MobDistTool/coverage.svg?branch=master)](https://codecov.io/github/rgroult/MobDistTool?branch=master)
 
-# Overview
+**Note**: The `master` branch may be in an *unstable or even broken state* during development. Please use [releases][github-release] instead of the `master` branch in order to get stable binaries.
+***
+###Glossary
+*Artifact*: A specific version of an application (etc: My great App V1.2.3) in an installable package (ex: IPA, APK)
 
-This solution allows to store different application's versions IOS and Android and distribute them to tester. 
-You can upload them manually through Web Interface or automatically with integration server like Jenkins. 
-Application's version can be grouped to be able to have multiple application file called "artifact" for a specific version (ex dev, integration, prod...).
+*OTA*: Over the air.
+***
+# MDT
 
-Artifacts also have a branch parameter to reflect your git branches (or other structure if you want) and have the capability to produce same versions between them if necessary.
 
-Platform have also a specific version 'latest' version witch allows to provided latest builds to continuous tester after each build.
+MDT is a mobile application OTA platform which allows to distribute and install multiple application's versions to registred users.
 
-# Supported platforms
+The mains specifications are:
 
-Platform can manage any kind of file but yet, only IOS And Android installation of artifact is managed so platform allows only IOS and Android application for now, aka .ipa and .apk. 
+* **RESTful server**
+* **Responsive Web Client/admin interface**
+* Upload of artifacts through Web Interface or with ** integration server like Jenkins**.
+* Artifacts can be **grouped for a specific version** to have multiples artifacts per version (ex: production, integration, dev,etc..)
+* **Artifacts have a branch parameters to reflect your git branch workflow** (or other structure if you want) to be capable of produce same version between them if necessary (ex: version X.Y.Z on dev branch for tests before commit to master).
+* **All registered applications are public for all registered users. No need to manage application acess by users**. 
+* Users registration can be filtered by **white emails domains with activation email**.
+* **Application has a specific version latest version** witch allows to provided latest builds to continuous tester after each build.
+* **Install OTA for artifacts**.
 
-# Glossary
-writing in progress ..
 
-# Goal
-writing in progress ..
+## Supported Mobile platforms
+
+MDT can manage any kind of artifacts but yet, only **IOS And Android** OTA install is managed so platform allows only IOS and Android application for now (aka .ipa and .apk artifacts). 
+
 # Architecture
 
-All platform is written with Dart (https://www.dartlang.org). Server use mongoDB for Users, Applications and Artifacts data. Artifact files (ipa, apk) are stored in another storage.
-Platform provides yet 2 artifact storage : fake storage (yes storage) and google drive. Another storage backends will be implemented soon..
-RPC Api is provided by Shelf (RPC, ROUTE, AUTH, CORS) frameworks.
+MDT server is written in [Dart] with mongoDB database for Users,Application an artifacts metadata. Artifact files(.ipa, .apk) are stored on an external storage (now: googledrive). 
 
-Web client is also written in Dart language with angular dart framework and bootstrap with material theme.
+MDT web is written in Dart with Angular dart [AngularDart], [Angular UI] and and bootstrap with material theme. Web GUI is also compiled in javascript for running in all browsers (build/web).
 
-A mobile application written with flutter will be available in next months.
+**Note**:A mobile application written with [Flutter] will be available in next months.
 
-# Install
-writing in progress ..
-    # Local
-    # Docker
-    
+[Dart]: https://www.dartlang.org
+[AngularDart]:https://angulardart.org
+[Angular UI]:http://www.angulardartui.com
+[Flutter]:https://flutter.io
+
+
+## Getting Started
+
+### Getting and running MDT
+
+The easiest way to get ant test MDT is to use **[docker pre-built images][docker]**.
+Instructions to configure it is on configuration section.
+
+You can install manually MDT from the `master` branch and run:
+
+```
+pub install
+dart bin/server.dart
+
+>> MDT starting ...
+>> logging file : mdt_logs_20160220.txt
+>> ...
+>> bind localhost on port 8080
+>> MDT started on port 8080.
+>> You can access server Web UI on http://localhost:8080/web/
+
+```
+
+**Note**: You need a reachable mongoDB server to start server.
+
+See instructions section to configure server.
+[docker]:https://hub.docker.com/r/rgroult/mobdisttool/
+
+
 # Configuration
-writing in progress ..
-# Versus other solutions
+work in progress ..
 
-  writing in progress ..
+
+#Why use MDT ?
+
+* Unlike other solutions ([Fabrics], [TestFlight],...), you have no need to add all your users emails or manage groups to distribute your apps. Users can register themself (with white domains email configuration if needed) and access all your distributes apps. This is very usefull for example on IOS with 'InHouse' certificates in company where anybody can test beta versions of applications.
+
+* You can delete artifacts, to avoid out of date versions (certificats expiration, bad versions, etc..)
+
+* MDT have a special "latest" version usefull if you have continous testers: no need to make a new version after each fonctionality implemented.
+
+* All your artifacts are stored in **yours** storage area 
+
+
+
+[Fabrics]: https://get.fabric.io
+[TestFlight]: https://developer.apple.com/testflight/
+  
+### License
+
+MDT is under the MIT license. See the [LICENSE](LICENSE) file for details.
