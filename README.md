@@ -77,6 +77,38 @@ See instructions section to configure server.
 
 
 # Configuration
+
+Configuration can be done with a 'config.json' file in 'server/config/' directory.
+Each config key can be overridden by environnement value with same key.
+
+Sample:
+
+```
+cat ./server/config/config.json
+
+{
+  "MDT_DATABASE_URI":"mongodb://localhost:27017/mdt_dev",
+  "MDT_STORAGE_NAME":"yes_storage_manager",
+  "MDT_STORAGE_CONFIG":{},
+  "MDT_SMTP_CONFIG":{
+    "serverUrl" : "smtp.gmail.com",
+    "username":"XXXX@gmail.com",
+    "password":"XXXXXXX"
+  },
+  "MDT_REGISTRATION_WHITE_DOMAINS":["@gmail.com"],
+  "MDT_REGISTRATION_NEED_ACTIVATION":"true"
+ }
+  
+```
+* ***MDT_DATABASE_URI***:  MongoDB database location.
+* ***MDT_STORAGE_NAME***:  External storage used for artifact file.
+* ***MDT_STORAGE_CONFIG***:  External storage configuration, see External Storage configuration for info.
+* ***MDT_SMTP_CONFIG***:  SMTP server configuration for emails (activation,...).
+* ***MDT_REGISTRATION_WHITE_DOMAINS***: Array of white suffix emails allowed for registration. If empty, no filter will be apply for registration.
+* ***MDT_REGISTRATION_NEED_ACTIVATION***: 'true' if registration use a activation email to activate account.
+
+### External Storages 
+
 work in progress ..
 
 
