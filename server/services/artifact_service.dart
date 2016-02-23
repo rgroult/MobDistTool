@@ -155,6 +155,7 @@ Not used yet
       return new shelf.Response.notFound("");
     }
     catch(e){
+      print("downloadFile error:${e.toString()}");
       return new shelf.Response.internalServerError();
     }
   }
