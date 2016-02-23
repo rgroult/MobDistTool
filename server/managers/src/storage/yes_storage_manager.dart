@@ -11,7 +11,7 @@ import '../../errors.dart';
 class YesStorageManager extends BaseStorageManager {
   String storageIdentifier = "YesStorage";
 
-  Future<String> storeFile(File file, {String filename, String contentType}) async {
+  Future<String> storeFile(File file, {String appName, String version, String filename, String contentType}) async {
     return new Future.value(generateStorageInfos("fakeFile"));
   }
 

@@ -26,7 +26,7 @@ class BaseStorageManager {
 
   }
 
-  Future<String> storeFile(File file, {String filename, String contentType}) async {
+  Future<String> storeFile(File file, {String appName, String version, String filename, String contentType}) async {
     throw new ArtifactError('Not implemented');
   }
 

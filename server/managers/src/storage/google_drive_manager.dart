@@ -29,7 +29,7 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     api = new drive.DriveApi(authClient);
   }
 
-  Future<String> storeFile(File file,{String filename, String contentType}) async {
+  Future<String> storeFile(File file,{String appName, String version, String filename, String contentType}) async {
     var media = new Media(file.openRead(), file.lengthSync());
     var driveFile = new drive.File();
     if (filename != null){
@@ -41,7 +41,7 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     }
     var result = await api.files.insert(driveFile, uploadMedia: media);
     if (result == null){
-      throw new ArtifactError("Error on storaging file");
+      throw new ArtifactError("Error on saving file");
     }
     return generateStorageInfos(result.id);
   }

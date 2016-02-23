@@ -104,7 +104,7 @@ Future addFileToArtifact(File file,MDTArtifact artifact,BaseStorageManager stora
 
   //store new file
   try {
-    var storageInfos = await storageMgr.storeFile(file,filename:artifact.filename, contentType:artifact.contentType);
+    var storageInfos = await storageMgr.storeFile(file, appName:artifact.application.name, version:artifact.version, filename:artifact.filename, contentType:artifact.contentType);
     artifact.storageInfos = storageInfos;
 
     return artifact.save();
