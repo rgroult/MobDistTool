@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:rpc/rpc.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/src/body.dart';
+import 'package:jwt/json_web_token.dart';
 import 'dart:convert';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
@@ -20,6 +21,11 @@ class ArtifactService {
 
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "latest";
+  JsonWebTokenCodec jsonWebToken;
+
+  ArtifactService(){
+    jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
+  }
 /*
 Not used yet
   @ApiMethod(method: 'PUT', path: 'artifacts/{idArtifact}')
@@ -92,6 +98,16 @@ Not used yet
     }
 
     downloadInfo.directLinkUrl = '$baseArtifactPath/file';
+    //add security web token
+    DateTime now = new DateTime.now();
+    now = now.add(new Duration(minutes: 3));
+    final token = {
+      'id':idArtifact,
+      'validity': now.millisecondsSinceEpoch
+    };
+    var activationToken = jsonWebToken.encode(token);
+    downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$activationToken";
+
     var app = await artifact.application.getMeFromDb();
     if (app == null){
       throw new NotFoundError("Unable to find application");
@@ -108,10 +124,26 @@ Not used yet
 
   static Future downloadFile(String idArtifact,{String token}) async {
     try {
+      //verify token
+      var jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
+      Map tokenInfo = jsonWebToken.decode(token);
+      DateTime now = new DateTime.now();
+      DateTime validity = new DateTime.fromMillisecondsSinceEpoch(tokenInfo["validity"]);
+      if (now.isAfter(validity)){
+        throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
+      }
+
+      var tokenArtifactId = tokenInfo["id"];
+      //artifactID same as those in token
+      if (idArtifact != tokenArtifactId){
+        return new RpcError(401,"ARTIFACT_ERROR","Access denied");
+      }
+
       var artifact = await mgrs.findArtifact(idArtifact);
       if (artifact == null){
-        throw new NotFoundError();
+        return new NotFoundError();
       }
+
       Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
       var body = new Body(stream);
       var headers = {"Content-Type":artifact.contentType,"Content-length":"${artifact.size}","Content-Disposition":"attachment; filename=${artifact.filename}"};
