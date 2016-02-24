@@ -1,4 +1,7 @@
-# Mobile App Distribution Tool
+![MDT icon](DOC/MDT_banner.png)  
+  
+#  
+#  
 
 [![Build Status](https://travis-ci.org/rgroult/MobDistTool.svg?branch=master)](https://travis-ci.org/rgroult/MobDistTool)
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/codeship/documentation/blob/master/LICENSE.md)
