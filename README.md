@@ -1,4 +1,4 @@
-![MDT icon](DOC/MDT_banner.png)  
+![MDT icon](doc/MDT_banner.png)  
   
 #  
 #  
