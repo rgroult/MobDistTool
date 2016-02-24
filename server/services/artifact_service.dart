@@ -4,6 +4,7 @@
 
 import 'dart:io';
 import 'dart:async';
+import 'dart:core';
 import 'package:rpc/rpc.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/src/body.dart';
@@ -106,7 +107,7 @@ Not used yet
     now = now.add(new Duration(minutes: 3));
     final token = {
       'id':idArtifact,
-      'v': now.millisecondsSinceEpoch
+      'expireAt': now.millisecondsSinceEpoch
     };
     var dwToken = cache.instance.addValue(token);
 
@@ -119,7 +120,7 @@ Not used yet
 
     if (app.platform.toUpperCase() == 'IOS'){
       downloadInfo.installUrl = '$baseArtifactPath/ios_plist?token=$dwToken';
-      downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${downloadInfo.installUrl}";
+      downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${Uri.encodeComponent(downloadInfo.installUrl)}";
     }else {
       downloadInfo.installUrl = downloadInfo.directLinkUrl;
     }
@@ -134,7 +135,7 @@ Not used yet
         throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
       }
       DateTime now = new DateTime.now();
-      DateTime validity = new DateTime.fromMillisecondsSinceEpoch(tokenInfo["v"]);
+      DateTime validity = new DateTime.fromMillisecondsSinceEpoch(tokenInfo["expireAt"]);
       if (now.isAfter(validity)){
         throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
       }
