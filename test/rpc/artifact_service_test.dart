@@ -148,7 +148,7 @@ void allTests() {
     var prefix = baseUrlHost;
     var match = prefix.matchAsPrefix(responseJson['directLinkUrl']);
     expect(match,isNotNull);
-    prefix ='itms-services://?action=download-manifest&url=$baseUrlHost';
+    prefix ='itms-services://?action=download-manifest&url=${Uri.encodeComponent(baseUrlHost)}';
     match = prefix.matchAsPrefix(responseJson['installUrl']);
     expect(match,isNotNull);
   });
