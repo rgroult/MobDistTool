@@ -14,17 +14,20 @@ import 'user_service.dart' as userService;
 import 'model.dart';
 import 'json_convertor.dart';
 import '../config/config.dart' as config;
+import '../utils/utils.dart' as utils;
+import '../utils/lite_mem_cache.dart' as cache;
 
+JsonWebTokenCodec jsonWebToken;
 
 @ApiClass( name:'art' , version: 'v1')
 class ArtifactService {
 
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "latest";
-  JsonWebTokenCodec jsonWebToken;
+
 
   ArtifactService(){
-    jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
+    //jsonWebToken = new JsonWebTokenCodec(header: {}, secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
   }
 /*
 Not used yet
@@ -103,9 +106,10 @@ Not used yet
     now = now.add(new Duration(minutes: 3));
     final token = {
       'id':idArtifact,
-      'validity': now.millisecondsSinceEpoch
+      'v': now.millisecondsSinceEpoch
     };
-    var dwToken = jsonWebToken.encode(token);
+    var dwToken = cache.instance.addValue(token);
+
     downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$dwToken";
 
     var app = await artifact.application.getMeFromDb();
@@ -125,10 +129,12 @@ Not used yet
   static Future downloadFile(String idArtifact,{String token}) async {
     try {
       //verify token
-      var jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
-      Map tokenInfo = jsonWebToken.decode(token);
+      Map tokenInfo = cache.instance.get(token);
+      if (tokenInfo == null){
+        throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
+      }
       DateTime now = new DateTime.now();
-      DateTime validity = new DateTime.fromMillisecondsSinceEpoch(tokenInfo["validity"]);
+      DateTime validity = new DateTime.fromMillisecondsSinceEpoch(tokenInfo["v"]);
       if (now.isAfter(validity)){
         throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
       }

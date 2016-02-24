@@ -3,6 +3,7 @@
 // MIT-style license that can be found in the LICENSE file.
 
 import 'dart:math';
+import 'package:crypto/crypto.dart' as crypto;
 
 String randomString(int length) {
   var rand = new Random();
@@ -12,6 +13,13 @@ String randomString(int length) {
     return rand.nextInt(33)+89;
   }
   );
-
   return new String.fromCharCodes(codeUnits);
+}
+
+
+String generateHash(String stringToHash) {
+  var md5 = new crypto.MD5();
+  md5.add(stringToHash.codeUnits);
+  var hash = crypto.CryptoUtils.bytesToHex(md5.close());
+  return hash;
 }

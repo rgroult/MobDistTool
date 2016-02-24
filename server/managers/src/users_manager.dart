@@ -94,10 +94,7 @@ Future<MDTUser> createUser(String name, String email, String password,
 
 String generateHash(String password,String salt) {
   var stringToHash = "$password:$salt";
-  var md5 = new crypto.MD5();
-  md5.add(stringToHash.codeUnits);
-  var hash = crypto.CryptoUtils.bytesToHex(md5.close());
-  return hash;
+  return utils.generateHash(stringToHash);
 }
 
 String _generateSalt(){
