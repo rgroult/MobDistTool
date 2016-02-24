@@ -105,8 +105,8 @@ Not used yet
       'id':idArtifact,
       'validity': now.millisecondsSinceEpoch
     };
-    var activationToken = jsonWebToken.encode(token);
-    downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$activationToken";
+    var dwToken = jsonWebToken.encode(token);
+    downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$dwToken";
 
     var app = await artifact.application.getMeFromDb();
     if (app == null){
@@ -114,7 +114,7 @@ Not used yet
     }
 
     if (app.platform.toUpperCase() == 'IOS'){
-      downloadInfo.installUrl = '$baseArtifactPath/ios_plist';
+      downloadInfo.installUrl = '$baseArtifactPath/ios_plist?token=$dwToken';
       downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${downloadInfo.installUrl}";
     }else {
       downloadInfo.installUrl = downloadInfo.directLinkUrl;

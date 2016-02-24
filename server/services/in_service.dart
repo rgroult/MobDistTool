@@ -198,8 +198,7 @@ class InService {
   }
 
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/ios_plist')
-  Future<MediaMessage> getArtifactDescriptor(String idArtifact,
-      {String token}) async {
+  Future<MediaMessage> getArtifactDescriptor(String idArtifact, {String token}) async {
     try {
       var artifact = await mgrs.findArtifact(idArtifact);
       if (artifact == null) {
@@ -208,7 +207,7 @@ class InService {
       var result = new MediaMessage();
       result.contentType = 'application/plist';
       var plistString = plistTemplate;
-      var fileDownloadUrl = '/api/in/v1/artifacts/$idArtifact/file';
+      var fileDownloadUrl = '/api/in/v1/artifacts/$idArtifact/file?token=$token';
       if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
         fileDownloadUrl = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${fileDownloadUrl}';
       }
