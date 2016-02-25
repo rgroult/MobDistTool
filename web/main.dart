@@ -56,7 +56,7 @@ class MDTRootScope {
     selector: 'mdt_comp',
     templateUrl: 'pages/main_page.html',
     useShadowDom: false)
-class MainComponent implements ScopeAware {
+class MainComponent implements ScopeAware,MDTQueryServiceAware {
   bool get isUserConnected => scope.rootScope.context.isUserConnected;
  // bool isUserConnected = false;
   bool isHttpLoading = false;
@@ -76,6 +76,11 @@ class MainComponent implements ScopeAware {
   Modal modal;
   ModalInstance modalInstance;
   Scope scope;
+
+  void loginExceptionOccured(){
+    logout();
+    displayLoginPopup();
+  }
 
   void displayRegisterPopup(){
     displayPopup("<register_comp></register_comp>");
@@ -113,9 +118,26 @@ class MainComponent implements ScopeAware {
 */
   MainComponent(this._http,LocationWrapper location, HttpInterceptors interceptors,this.modal,this.mdtService,this.locationService){
     print("Main component created $this");
-    mdtService.setHttpService(_http,location);
+    mdtService.setHttpService(this,_http,location,locationService);
     mdtService.configureInjector(interceptors);
     //scope.rootScope.context.mainComp = this;
+    /*
+    print("$routeProvider");
+
+    if (routeProvider!= null){
+      print("${routeProvider.route}");
+      RouteHandle route = routeProvider.route.newHandle();
+
+      route.onEnter.listen((RouteEvent e){
+        if (e.parameters != null){
+          var action=e.parameters["action"];
+          if (action == "login"){
+            displayLoginPopup();
+          }
+        }
+    });
+
+    };*/
 /*
     RouteHandle route = routeProvider.route.newHandle();
     route.onEnter.listen((RouteEvent e){
@@ -135,7 +157,7 @@ void main() {
   Logger.root..level = Level.FINEST
     ..onRecord.listen((LogRecord r) { print(r.message); });
 
-  print("s tart main");
+  print("start main");
   applicationFactory()
   .addModule(new AngularUIModule())
   .addModule(new MDTAppModule())

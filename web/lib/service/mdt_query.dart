@@ -22,43 +22,21 @@ enum Platform { ANDROID, IOS, OTHER }
       mdtServerApiRootUrl = "${currentUrl.scheme}://${currentUrl.host}:${currentUrl.port}${mdtServerApiRootUrl}";
     }*/
 
+
+abstract class MDTQueryServiceAware {
+  void loginExceptionOccured();
+}
+
 @Injectable()
 class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServiceUsers,MDTQueryServiceApplications,MDTQueryServiceArtifacts{
  Http _http;
-
-
-  void setHttpService(Http http,LocationWrapper location) {
+ NgRoutingHelper _locationService;
+ MDTQueryServiceAware _mdtQueryServiceAware;
+  void setHttpService(MDTQueryServiceAware mdtQueryServiceAware,Http http,LocationWrapper location,NgRoutingHelper locationService) {
     this._http = http;
-
+    this._locationService = locationService;
+    this._mdtQueryServiceAware = mdtQueryServiceAware;
   }
-  /*
-  HttpInterceptors interceptors;
-
-  void configureInjector(HttpInterceptors _interceptors){
-    interceptors = _interceptors;
-    var headerInterceptor = new HttpInterceptor();
-    headerInterceptor.request = (HttpResponseConfig request) {
-      if (lastAuthorizationHeader.length>0 && mdtServerApiRootUrl.matchAsPrefix(request.url) != null){
-        print("Add authoriztion to url ${request.url}");
-        request.headers['authorization'] = lastAuthorizationHeader;
-      }
-      return request;
-    };
-    headerInterceptor.response = (HttpResponse response){
-      if (response.status == 401) {
-        lastAuthorizationHeader = '';
-      }
-      var newHeader = response.headers('authorization');
-      if (newHeader != null) {
-        lastAuthorizationHeader = newHeader;
-      }
-      return response;
-    };
-
-    interceptors.add(headerInterceptor);
-  }
-*/
-
 
   MDTQueryService() {
     print("MDTQueryService constructor, mode ${const String.fromEnvironment('mode')} base URL $mdtServerApiRootUrl");
@@ -80,6 +58,13 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
   }
 
   Future checkAuthorizationHeader(HttpResponse response) async {
+    if (response.status == 401) {
+      //return to home / login
+      if (_mdtQueryServiceAware != null){
+
+        _mdtQueryServiceAware.loginExceptionOccured();
+      }
+    }
     return;
     /*if (response.status == 401) {
       lastAuthorizationHeader = '';

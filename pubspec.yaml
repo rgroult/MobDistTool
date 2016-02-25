@@ -49,6 +49,7 @@ dependency_overrides:
 transformers:
 - angular:
     html_files:
+      - web/main.dart
       - web/index.html
       - web/pages/home.html
       - web/pages/main_page.html
