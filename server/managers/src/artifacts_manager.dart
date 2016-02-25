@@ -25,7 +25,7 @@ class MDTArtifact extends MDTBaseObject {
  */
 
 BaseStorageManager defaultStorage;// = new YesStorageManager();
-var UuidGenerator = new Uuid();
+var artifactuuidGenerator = new Uuid();
 
 var artifactCollection = objectory[MDTArtifact];
 
@@ -53,7 +53,7 @@ Future<MDTArtifact> createArtifact(MDTApplication app,String name,String version
     ..version = version
     ..branch = branch
     ..creationDate = new DateTime.now()
-    ..uuid = UuidGenerator.v4();
+    ..uuid = artifactuuidGenerator.v4();
 
   if (sortIdentifier != null){
     artifact.sortIdentifier = sortIdentifier;

@@ -6,10 +6,6 @@ class BaseComponent implements ScopeAware {
 
   void hideMessage() {
     errorMessage = null;
-
-    void hideMessage() {
-      errorMessage = null;
-    }
   }
 
   Scope scope;

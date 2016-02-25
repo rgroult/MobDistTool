@@ -3,7 +3,6 @@
 // MIT-style license that can be found in the LICENSE file.
 
 import 'dart:io';
-import '../managers/src/artifacts_manager.dart';
 import 'dart:async';
 import 'dart:convert';
 

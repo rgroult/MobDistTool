@@ -79,12 +79,12 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
     return initialHeaders;
   }
 
-  void checkAuthorizationHeader(HttpResponse response) async {
+  Future checkAuthorizationHeader(HttpResponse response) async {
     return;
-    if (response.status == 401) {
+    /*if (response.status == 401) {
       lastAuthorizationHeader = '';
       throw new LoginError();
-    }
+    }*/
 /*
     var newHeader = response.headers('authorization');
     print("auth Header $newHeader");

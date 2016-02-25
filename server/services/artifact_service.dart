@@ -8,7 +8,6 @@ import 'dart:core';
 import 'package:rpc/rpc.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/src/body.dart';
-import 'package:jwt/json_web_token.dart';
 import 'dart:convert';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
@@ -17,18 +16,17 @@ import 'json_convertor.dart';
 import '../config/config.dart' as config;
 import '../utils/utils.dart' as utils;
 import '../utils/lite_mem_cache.dart' as cache;
-
-JsonWebTokenCodec jsonWebToken;
+import 'package:logging/logging.dart';
 
 @ApiClass( name:'art' , version: 'v1')
 class ArtifactService {
 
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "latest";
-
+  final Logger log = new Logger('ArtifactService');
 
   ArtifactService(){
-    //jsonWebToken = new JsonWebTokenCodec(header: {}, secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
+
   }
 /*
 Not used yet
@@ -82,8 +80,8 @@ Not used yet
     }
     try {
       await mgrs.deleteArtifact(artifact,mgrs.defaultStorage);
-    }on ArtifactError catch(e){
-
+    }catch(e){
+      log.severe("Delete Artifact error: ${e.toString()}");
     }
     return new OKResponse();
   }
@@ -159,6 +157,7 @@ Not used yet
       //response.contentLength = artifact.size;
       return response;
     }on NotFoundError catch(e){
+      log.severe("downloadFile error: ${e.toString()}");
       return new shelf.Response.notFound("");
     }
     catch(e){

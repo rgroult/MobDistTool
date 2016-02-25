@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_ui/angular_ui.dart';
 import 'base_component.dart';
@@ -44,7 +45,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     }
   }
 
-  void loadApp() async{
+  Future loadApp() async{
     errorMessage = null;
     try {
       isHttpLoading = true;
@@ -61,7 +62,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     }
   }
 
-  void loadAppVersions() async{
+  Future loadAppVersions() async{
     errorMessage = null;
     try {
       isHttpLoading = true;
@@ -87,7 +88,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     sortArtifacts();
   }
 
-  void addAdministrator(String email) async{
+  Future addAdministrator(String email) async{
     errorMessage = null;
     try {
       isHttpLoading = true;
@@ -100,7 +101,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     }
   }
 
-  void deleteAdministrator(String email) async{
+  Future deleteAdministrator(String email) async{
     errorMessage = null;
     try {
       isHttpLoading = true;
@@ -163,7 +164,7 @@ class ApplicationDetailComponent extends BaseComponent  {
     });
   }
 
-  void deleteArtifact(MDTArtifact artifact, String fromSortIdentifier) async{
+  Future deleteArtifact(MDTArtifact artifact, String fromSortIdentifier) async{
     var result = await mdtQueryService.deleteArtifact(artifact.uuid);
     if (result == true){
         if (fromSortIdentifier != null){

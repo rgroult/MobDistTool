@@ -33,6 +33,12 @@ void main() {
 
   baseUrlHost = "http://localhost:8080";
   allTests();
+
+  test("stop server", () async  {
+    // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
+    await server.stopServer(force:true);
+    print('server stopped');
+  });
 }
 
 var userRegistration1 = {"email":"apptest@test.com", "password":"passwd", "name":"app user 1"};
@@ -181,7 +187,7 @@ void allTests() {
 
   List<Map> allArtifacts = new List<Map>();
   test("Retrieve list artifacts OK", () async {
-    var user = await loginUser(userInfosSample["email"],userInfosSample["password"]);
+    await loginUser(userInfosSample["email"],userInfosSample["password"]);
     var appId = currentApp["uuid"];
     var artifactUrl = '/api/applications/v1/app/${appId}/versions?pageIndex=0&limitPerPage=20';
     print('url $artifactUrl');

@@ -24,11 +24,13 @@ void main() {
     try {
       var file = new File(Directory.current.path + '/test/core/artifact_sample.txt');
       var tags = await analyzer.analyzeAndExtractIOSArtifactInfos(file);
+      expect(tags,isNotNull);
     }catch(e){
       expect((e is ArtifactError), isTrue);
       result = false;
     }
     expect(result,isFalse);
+
   });
 
   test("test Android analyzer OK", () async {
@@ -44,6 +46,7 @@ void main() {
     try {
       var file = new File("/Users/shallay/Desktop/dev/test_dart/bin/MyOfficePhone-prod_1.0.3_RC1_releaseSigned.apk");
       var tags = await analyzer.analyzeAndExtractArtifactInfos(file, "ios");
+      expect(tags,isNotNull);
     }catch(e){
       expect((e is ArtifactError), isTrue);
       result = false;
@@ -56,6 +59,7 @@ void main() {
     try {
       var file = new File(Directory.current.path + '/test/core/artifact_sample.txt');
       var tags = await analyzer.analyzeAndExtractArtifactInfos(file, "android");
+      expect(tags,isNotNull);
     }catch(e){
       expect((e is ArtifactError), isTrue);
       result = false;

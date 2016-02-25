@@ -21,8 +21,6 @@ Future<List<MDTApplication>> allApplications({String platform}) async{
   }
 }
 
-
-
 Future<MDTApplication> createApplication(String name, String platform,
     {String description,MDTUser adminUser,String base64Icon}) async {
   if (name == null || name.isEmpty) {

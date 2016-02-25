@@ -145,7 +145,7 @@ class InService {
       throw new NotFoundError('Application not found');
     }
     var existingArtifact =
-    await mgrs.findArtifactByInfos(app, branch, version, artifactName);
+    await mgrs.findArtifactByInfos(application, branch, version, artifactName);
     if (existingArtifact != null) {
       await mgrs.deleteArtifact(existingArtifact, mgrs.defaultStorage);
     }

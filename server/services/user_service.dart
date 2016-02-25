@@ -148,7 +148,7 @@ class UserService {
   @ApiMethod(method: 'GET', path: 'me')
   Response userMe() {
     var me = currentAuthenticatedUser();
-    var response = toJson(currentUser, isAdmin:true);
+    var response = toJson(me, isAdmin:true);
     var allAdministratedApps = apps.findAllApplicationsForUser(me);
     var administratedAppJson = [];
     for (var app in allAdministratedApps){

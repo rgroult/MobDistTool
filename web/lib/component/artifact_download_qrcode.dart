@@ -21,7 +21,7 @@ class ArtifactDownloadQRCode extends ShadowRootAware  {
   bool errorOccured = false;
   MDTQueryService mdtService;
 
-  void onShadowRoot(ShadowRoot shadowRoot) async {
+  Future onShadowRoot(ShadowRoot shadowRoot) async {
     try {
       var downloadInfos = await mdtService.artifactDownloadInfo(artifactId);
       generateQRCode(downloadInfos["installUrl"]);

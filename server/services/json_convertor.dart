@@ -20,7 +20,7 @@ Map propertiePerClass = {
 
 Map toJsonStringValues(PersistentObject object, List<String> properties){
   var json = {};
-  for (var property in listProperties) {
+  for (var property in properties) {
     var value = object.getProperty(property);
     if (value is List) {
       //nothing

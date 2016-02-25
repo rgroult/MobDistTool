@@ -11,6 +11,7 @@ import '../../bin/server.dart' as server;
 import 'rpc_commons.dart';
 import '../../server/managers/managers.dart' as mgrs;
 import 'user_service_test.dart';
+import 'rpc_utilities.dart';
 
 var baseAppUri = "/api/applications/v1";
 
@@ -29,6 +30,12 @@ void main() {
 
 
   allTests();
+
+  test("stop server", () async  {
+    // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
+    await server.stopServer(force:true);
+    print('server stopped');
+  });
 
   /* test("stop server", () async {
     // HttpApiResponse response = await _sendRequest('GET', 'get/simple');

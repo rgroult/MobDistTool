@@ -151,7 +151,7 @@ void allTests()  {
         await mdt_mgr.updateApplication(app,platform:newPlatform,description:newDesc);
         expect(app.description,equals(newDesc));
         expect(app.platform,equals(newPlatform));
-      }on StateError catch (e) {
+      }on StateError  {
         result = false;
       }
       expect(result, isTrue);

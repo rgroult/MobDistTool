@@ -66,7 +66,7 @@ class ApplicationEditionComponent extends BaseComponent {
     errorMessage = null;
   }
 
-  void upfilesSelected(dynamic values) async{
+  Future upfilesSelected(dynamic values) async{
     File file = values.first;
  /*   if (file.type.isNotEmpty && file.type.matchAsPrefix("image/") == null){
       appIcon = "images/placeholderImage.jpg";
@@ -104,7 +104,7 @@ class ApplicationEditionComponent extends BaseComponent {
     return true;
   }
 
-  void updateApp() async{
+  Future updateApp() async{
     errorMessage = null;
     if (isHttpLoading){
       return;
@@ -133,7 +133,7 @@ class ApplicationEditionComponent extends BaseComponent {
 
   }
 
-  void createApp() async{
+  Future createApp() async{
     errorMessage = null;
     if (isHttpLoading){
       return;

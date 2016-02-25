@@ -47,8 +47,9 @@ void allTests() {
 
   artifacts.allTests();
 
-  test("stop server", ()  {
+  test("stop server", () async  {
     // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
-    server.stopServer(force:true).then((_) => print('server stopped'));
+    await server.stopServer(force:true);
+    print('server stopped');
   });
 }

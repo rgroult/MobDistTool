@@ -9,6 +9,7 @@ import 'dart:io';
 import 'dart:convert';
 import '../../bin/server.dart' as server;
 import 'rpc_commons.dart';
+import 'rpc_utilities.dart';
 import '../../server/managers/managers.dart' as mgrs;
 
 void main() {
@@ -25,6 +26,12 @@ void main() {
   });
 
   allTests();
+
+  test("stop server", () async  {
+    // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
+    await server.stopServer(force:true);
+    print('server stopped');
+  });
 /*
   test("stop server", () async {
     // HttpApiResponse response = await _sendRequest('GET', 'get/simple');
@@ -51,7 +58,7 @@ Future loginTest(String login, String password, {bool mustSuccessful:true, Strin
     expect(response.statusCode, equals(401));
   }
 }
-
+/*
 Future registerUser(Map userInfos,{bool mustSuccessful:true}) async{
   var response = await sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userInfos));
   if (mustSuccessful){
@@ -62,7 +69,7 @@ Future registerUser(Map userInfos,{bool mustSuccessful:true}) async{
   }else {
     expect(response.statusCode, equals(400));
   }
-}
+}*/
 
 void allTests() {
 

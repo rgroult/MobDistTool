@@ -6,7 +6,6 @@ import 'add_artifact.dart';
 import 'artifact_download_qrcode.dart';
 import 'application_detail.dart';
 import '../service/mdt_query.dart';
-import 'artifact_download_qrcode.dart';
 
 class MDTArtifactModule extends Module {
   MDTArtifactModule() {
@@ -25,7 +24,7 @@ class ArtifactElementComponent extends BaseComponent  {
   MDTQueryService mdtQueryService;
   ApplicationDetailComponent _parent;
   @NgOneWay('sortIdentifier')
-  bool sortIdentifier;
+  String sortIdentifier;
   @NgOneWay('displayVersion')
   bool displayVersion;
   @NgOneWay('canDelete')

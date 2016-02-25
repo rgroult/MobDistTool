@@ -16,7 +16,6 @@ Db mongoDb = null;
 
   if (objectory != null) {
    return objectory.ensureInitialized();
-    return new Future.value(null);
   }
   //mongoDb =  new Db("mongodb://localhost:27017/mdt_dev");
 

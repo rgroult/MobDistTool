@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:validator/validator.dart';
 import 'base_component.dart';
@@ -31,7 +32,7 @@ class RegisterComponent extends BaseComponent  {
     return true;
   }
 
-  void registerUser(String username,String email, String password) async {
+  Future registerUser(String username,String email, String password) async {
     errorMessage = null;
     var response = null;
     if (checkParameters(username,email,password) == false){

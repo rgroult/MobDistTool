@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'package:option/option.dart';
 //logging
 import 'package:logging/logging.dart';
 import 'package:logging_handlers/server_logging_handlers.dart';
@@ -14,11 +13,10 @@ import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_static/shelf_static.dart' as shelf_static;
 import 'package:shelf_rpc/shelf_rpc.dart' as shelf_rpc;
 import 'package:shelf_route/shelf_route.dart' as shelf_route;
-import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
+//import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
 import 'package:shelf_exception_handler/shelf_exception_handler.dart';
 //authentication / authorisation
 import 'package:shelf_auth/shelf_auth.dart';
-import 'package:shelf_auth/src/authorisers/authenticated_only_authoriser.dart';
 
 //server
 import 'package:shelf/shelf_io.dart' as shelf_io;
@@ -29,7 +27,6 @@ import '../server/config/config.dart' as config;
 //storage
 import '../server/config/src/storage.dart' as storage;
 //API
-import '../server/managers/managers.dart';
 
 import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
@@ -85,8 +82,6 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   sessionHandler: sessionHandler, allowHttp: true,
   allowAnonymousAccess: false);
 
-  var authenticatedMiddleware = authorise([new AuthenticatedOnlyAuthoriser()]);
-
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
 
@@ -128,5 +123,5 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
 }
 
 Future main() async{
-  var server = await startServer();
+  await startServer();
 }
