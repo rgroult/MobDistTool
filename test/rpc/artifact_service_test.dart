@@ -59,6 +59,11 @@ void createAndLogin(){
   });
 }
 
+Future<http.Response>  deleteArtifact(String apiKey,String branch,String version, String name) async{
+  var artifactUrl = "/api/in/v1/artifacts/${apiKey}/master/$version/$name";
+  return await sendRequest('DELETE', artifactUrl);
+}
+
 Future<http.Response>  uploadArtifact(String apiKey,String branch,String version, String name,{String jsonField,String artifactName}) async{
   var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/in/v1/artifacts/${apiKey}/master/$version/$name"));
   var artifactFilename = 'core/artifact_sample.txt';
@@ -121,6 +126,14 @@ void allTests() {
     expect(responseJson['directLinkUrl'],equals(responseJson['installUrl']));
   });
 
+  test("Delete artifact  Android", () async {
+    var apiKey = currentApp["apiKey"];
+    var response = await deleteArtifact(apiKey,"master","X.Y.Z_prod","prod");
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+  });
+
+  return;
   //createAndLogin();
   test("Upload artifact OK IOS", () async {
     var user = await loginUser(userInfosSample["email"],userInfosSample["password"]) ;

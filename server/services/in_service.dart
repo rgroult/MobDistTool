@@ -64,6 +64,27 @@ class InService {
   InService(){
     jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
   }
+
+  @ApiMethod(
+      method: 'GET',
+      path: 'artifacts/{apiKey}/deploy')
+  Future<MediaMessage> deployScript(String apiKey) async {
+    //check if application exist
+    /*var application = await mgrs.findApplicationByApiKey(apiKey);
+    if (application == null) {
+      throw new NotFoundError('Application not found');
+    }*/
+
+    var scriptCcontent = await new File('scripts/deploy.py').readAsString();
+    //replace values
+    scriptCcontent= scriptCcontent.replaceFirst(new RegExp("<REPLACE_WITH_SERVER>", multiLine: true), config.currentLoadedConfig[config.MDT_SERVER_URL]);
+    scriptCcontent= scriptCcontent.replaceFirst(new RegExp("<REPLACE_WITH_API_KEY>", multiLine: true), apiKey);
+
+    var script  = new MediaMessage()
+      ..bytes = scriptCcontent.codeUnits;
+    return script;
+  }
+
   @ApiMethod(
       method: 'POST',
       path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
