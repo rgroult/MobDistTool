@@ -22,6 +22,10 @@ class LoginComponent extends BaseComponent {
   String backdrop = 'true';
   //@NgTwoWay('isHttpLoading')
 
+  void login(){
+    loginUser(email, password);
+  }
+
   Future loginUser(String email, String password) async {
     var response = null;
     try {

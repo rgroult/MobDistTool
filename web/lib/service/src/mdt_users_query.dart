@@ -13,7 +13,7 @@ abstract class MDTQueryServiceUsers{
     var response = await sendRequest('POST', url,
     body: 'username=${email}&password=${password}',
     contentType: 'application/x-www-form-urlencoded');
-    var responseJson = parseResponse(response);
+    var responseJson = parseResponse(response,checkAuthorization:false);
 
     return responseJson;
   }
