@@ -37,20 +37,20 @@ The mains specifications are:
 [![alt text] (doc/gallery/home_small.png)] (doc/gallery/home.png)
 
 [![Home ][1]][2]
-  [1]: doc/gallery/home_small.png
-  [2]: doc/gallery/home.png
+  [1]: doc/Gallery/home_small.png
+  [2]: doc/Gallery/home.png
   
  [![Apps ][3]][4]
-  [3]: doc/gallery/apps_small.png
-  [4]: doc/gallery/apps.png
+  [3]: doc/Gallery/apps_small.png
+  [4]: doc/Gallery/apps.png
 
 [![Apps ][5]][6]
-  [5]: doc/gallery/versions_small.png
-  [6]: doc/gallery/versions.png
+  [5]: doc/Gallery/versions_small.png
+  [6]: doc/Gallery/versions.png
   
 [![Apps ][7]][8]
-  [7]: doc/gallery/qrcode_small.png
-  [8]: doc/gallery/qrcode.png
+  [7]: doc/Gallery/qrcode_small.png
+  [8]: doc/Gallery/qrcode.png
 
 ## Supported Mobile platforms
 
