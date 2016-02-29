@@ -34,8 +34,6 @@ The mains specifications are:
 
 ## Gallery
 
-[![alt text] (doc/gallery/home_small.png)] (doc/gallery/home.png)
-
 [![Home ][1]][2]
   [1]: doc/Gallery/home_small.png
   [2]: doc/Gallery/home.png
