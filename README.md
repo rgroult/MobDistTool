@@ -32,6 +32,25 @@ The mains specifications are:
 * **Application has a specific version latest version** witch allows to provided latest builds to continuous tester after each build.
 * **Install OTA for artifacts**.
 
+## Gallery
+
+[![alt text] (doc/gallery/home_small.png)] (doc/gallery/home.png)
+
+[![Home ][1]][2]
+  [1]: doc/gallery/home_small.png
+  [2]: doc/gallery/home.png
+  
+ [![Apps ][3]][4]
+  [3]: doc/gallery/apps_small.png
+  [4]: doc/gallery/apps.png
+
+[![Apps ][5]][6]
+  [5]: doc/gallery/versions_small.png
+  [6]: doc/gallery/versions.png
+  
+[![Apps ][7]][8]
+  [7]: doc/gallery/qrcode_small.png
+  [8]: doc/gallery/qrcode.png
 
 ## Supported Mobile platforms
 
@@ -75,7 +94,6 @@ dart bin/server.dart
 
 **Note**: You need a reachable mongoDB server to start server.
 
-See instructions section to configure server.
 [docker]:https://hub.docker.com/r/rgroult/mobdisttool/
 
 
@@ -99,7 +117,9 @@ cat ./server/config/config.json
     "password":"XXXXXXX"
   },
   "MDT_REGISTRATION_WHITE_DOMAINS":["@gmail.com"],
-  "MDT_REGISTRATION_NEED_ACTIVATION":"true"
+  "MDT_REGISTRATION_NEED_ACTIVATION":"true",
+  "MDT_TOKEN_SECRET":"secret token",
+  "MDT_LOG_DIR":""
  }
   
 ```
@@ -109,11 +129,148 @@ cat ./server/config/config.json
 * ***MDT_SMTP_CONFIG***:  SMTP server configuration for emails (activation,...).
 * ***MDT_REGISTRATION_WHITE_DOMAINS***: Array of white suffix emails allowed for registration. If empty, no filter will be apply for registration.
 * ***MDT_REGISTRATION_NEED_ACTIVATION***: 'true' if registration use a activation email to activate account.
+* ***MDT_TOKEN_SECRET***: Secret used to secure links web token.
+* ***MDT_LOG_DIR***: Log directory.
 
 ### External Storages 
 
-work in progress ..
+MDT use mongoDB to store Users account, Applications and Artifact info but use a external storage for Artifact files (etc: .ipa, .apk).
 
+There are currently 3 external storage managed by MDT.
+
+#### Yes Storage
+
+Yes storage is a fake storage wich respond always yes on storage requests en return always same file on get artifact file requests. It can be use for platform tests without install managed. 
+
+Sample: 
+
+```
+cat ./server/config/config.json
+
+{
+  ...
+  "MDT_STORAGE_NAME":"yes_storage_manager",
+  "MDT_STORAGE_CONFIG":{},
+  ...
+ }
+  
+```
+
+
+#### Google Drive Storage
+
+As his name said, it use [Google Drive] as storage for Artifacts files.
+
+[Google Drive]: https://www.google.com/intl/us_us/drive/
+
+To use this storage you need to create a projet and download credentials file in [Google Developers Console] and copy it in the MDT_STORAGE_CONFIG value in config file (or through env set). 
+
+For more informations and how to create project and download credentials, see [google documentation apis].
+
+Sample: 
+
+```
+cat ./server/config/config.json
+
+{
+  ...
+  "MDT_STORAGE_NAME":"google_drive_manager",
+  "MDT_STORAGE_CONFIG":{
+  	"project_id": "<please fill in>",
+  	"private_key_id": "<please fill in>",
+  	"private_key": "<please fill in>",
+  	"client_email": "<please fill in>@developer.gserviceaccount.com",
+  	"client_id": "<please fill in>.apps.googleusercontent.com",
+  	"auth_uri": "<please fill in>",
+  	"token_uri": "<please fill in>",
+  	"auth_provider_x509_cert_url": "<please fill in>",
+  	"client_x509_cert_url": "<please fill in>",
+  	"type": "service_account"}, 
+  ...
+ }
+  
+```
+
+
+[Google Developers Console]:https://console.developers.google.com/
+[google documentation apis]: https://github.com/dart-lang/googleapis#using-a-service-account-for-a-cloud-api
+
+#### Local Storage
+
+This storage uses a local directory to store Artifacts file. Usefull with a NAS directory or Docker volumes. It create directory structure to store files.
+
+Sample: 
+
+```
+cat ./server/config/config.json
+
+{
+  ...
+  "MDT_STORAGE_NAME":"local_storage_manager",
+  "MDT_STORAGE_CONFIG"={
+  	"RootDirectory":"/data/MDT"
+  	}, 
+  ...
+ }
+  
+```
+
+#Artifacts provisionning
+
+Artifacts provisionning can be done either through UI web or ethier directly on a non authenticate REST Api, only application private apiKey is needed. Usefull for integration server.
+
+Apis:
+
+* POST/DELETE on `/api/in/v1/artifacts/{apiKey}/{branch}/{version}/{artifactName}`
+* POST/DELETE on `/api/in/v1/artifacts/{apiKey}/{branch}/{version}/{artifactName}`
+* POST/DELETE on `/api/in/v1/artifacts/{apiKey}/last/{artifactName}`
+* POST/DELETE on `/api/in/v1/artifacts/{apiKey}/last/{artifactName}`
+
+
+MDT provides a python script to help using artifact provisionning.
+
+**Note**: You need requests python module installed to use it.
+
+For help:
+
+```
+curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - -h
+```
+
+Sample
+
+```
+From deploy input file:
+	- version:
+curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - ADD|DELETE fromFile sample.json
+
+	- latest:
+curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - ADD|DELETE --latest fromFile sample.json
+
+cat sample.json
+[{
+    "branch":"master",
+    "version":"X.Y.Z",
+    "name":"dev",
+     "file":"myGreatestApp_dev.ipa"
+},{
+    "branch":"master",
+    "version":"X.Y.Z",
+    "name":"prod",
+     "file":"myGreatestApp.ipa"
+},...]
+Note : For latest deploy/delete somes unused values will be ignore.
+
+
+From parameters:
+	- version:
+curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - ADD|DELETE fullParameters -version X.Y.Z -branch master -name prod -file app.apk|.ipa
+
+	- latest:
+curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - ADD|DELETE --latest fullParameters -name prod -file app.apk|.ipa
+
+
+```
 
 #Why use MDT ?
 
@@ -123,8 +280,7 @@ work in progress ..
 
 * MDT have a special "latest" version usefull if you have continous testers: no need to make a new version after each fonctionality implemented.
 
-* All your artifacts are stored in **yours** storage area 
-
+* All your artifacts are stored in **your** storage area 
 
 
 [Fabrics]: https://get.fabric.io
