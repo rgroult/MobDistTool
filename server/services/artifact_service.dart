@@ -157,6 +157,7 @@ Not used yet
       //response.contentLength = artifact.size;
       return response;
     }on NotFoundError catch(e){
+      var log = new Logger('ArtifactService');
       log.severe("downloadFile error: ${e.toString()}");
       return new shelf.Response.notFound("");
     }
