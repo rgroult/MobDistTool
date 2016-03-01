@@ -28,10 +28,7 @@ abstract class MDTQueryServiceUsers{
     }
 
     var responseJson = parseResponse(response);
-
-
-
-    if (responseJson["error"] != null) {
+   if (responseJson["error"] != null) {
       throw new ActivationError(responseJson["error"]["message"]);
     }
 
@@ -56,4 +53,27 @@ abstract class MDTQueryServiceUsers{
     }
     return responseJson;
   }
+
+  Future<UserListResponse> listUsers(int pageIndex, int maxResult) async{
+    String url = "${mdtServerApiRootUrl}${usersPath}/all?pageIndex=${pageIndex}&maxResult=${maxResult}";
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new UsersError(responseJson["error"]["message"]);
+    }
+
+    var result = new UserListResponse();
+    result.hasMore = responseJson["hasMore"];
+    result.pageIndex = responseJson["pageIndex"];
+
+    var usersList = responseJson["list"];
+    if (usersList != null) {
+      for (Map user in usersList) {
+        var userCreated = new MDTUser(user);
+        result.users.add(userCreated);
+      }
+    }
+    return result;
+    }
 }

@@ -17,6 +17,11 @@ class MDTUser {
   }
 }
 
+class UserListResponse {
+  bool hasMore = false;
+  int pageIndex;
+  List<MDTUser> users = new List<MDTUser>();
+}
 
 class MDTApplication {
   String uuid;

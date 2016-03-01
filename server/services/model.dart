@@ -45,6 +45,13 @@ class ResponseList {
   ResponseList(this.status,this.list);
 }
 
+class ResponseListPagined {
+  bool hasMore;
+  int pageIndex;
+  List<Map<String,String>> list;
+  ResponseListPagined(this.list,this.hasMore,this.pageIndex);
+}
+
 class OKResponse extends Response {
   OKResponse():super(200,{});
 }

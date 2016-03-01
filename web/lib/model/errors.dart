@@ -38,6 +38,14 @@ class RegisterError extends BaseError {
   }
 }
 
+class UsersError extends BaseError {
+static String errorCode = "USERS_ERROR";
+//String reason;
+
+  UsersError(String reason):super(errorCode,reason:reason) {
+}
+}
+
 class ActivationError extends BaseError {
   static String errorCode = "ACTIVATION_ERROR";
   ActivationError(String reason):super(errorCode,reason:reason){}

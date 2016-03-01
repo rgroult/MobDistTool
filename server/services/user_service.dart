@@ -163,8 +163,38 @@ class UserService {
   //user/logout
   //only work for session login
   @ApiMethod(method: 'GET', path: 'logout')
-  VoidMessage userLgout() {
+  VoidMessage userLogout() {
 
+  }
+
+  //Sys admin user
+  void checkSysAdmin(){
+    var me = currentAuthenticatedUser();
+    if (me.isSystemAdmin == false){
+      throw new RpcError(401,"ACCESS_DENIED","Admin Access Denied");
+    }
+  }
+
+  @ApiMethod(method: 'GET', path: 'all')
+  Future<ResponseListPagined> listUsers({int pageIndex,int maxResult}) async{
+    checkSysAdmin();
+    var page = 1;
+    var limit = 25;
+    if(maxResult != null){
+      limit = maxResult+1;
+    }
+    if(pageIndex!=null){
+      page = pageIndex;
+    }
+
+    var usersList = await users.searchUsers(page,limit);
+    bool hasMore = false;
+    if (usersList.length == limit){
+      hasMore = true;
+      usersList.removeLast();
+    }
+    var responseJson = listToJson(usersList,isAdmin:true);
+    return new ResponseListPagined(responseJson,hasMore,page);
   }
 }
 
