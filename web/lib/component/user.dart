@@ -3,6 +3,7 @@ import 'user_login.dart';
 import 'user_register.dart';
 import 'account_activation.dart';
 import 'users_administration.dart';
+import 'user_detail.dart';
 
 class MDTUserModule extends Module {
   MDTUserModule() {
@@ -10,6 +11,7 @@ class MDTUserModule extends Module {
     bind(RegisterComponent);
     bind(AccountActivationComponent);
     bind(UsersAdministration);
+    bind(UsersDetail);
   }
 }
 

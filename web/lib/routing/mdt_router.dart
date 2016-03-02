@@ -35,9 +35,10 @@ void MDTRouteInitializer(Router router, RouteViewFactory views) {
           )}),
     'users': ngRoute(
         path: '/users',
-        view: 'pages/users.html')
-      //  enter: (RouteEnterEvent e) => _enterRoute(e,1)
-  });
+        viewHtml: '<users_administration></users_administration>',
+        enter: (RouteEnterEvent e) => _enterRoute(e,"Users Administration",1),
+        preLeave: (RoutePreLeaveEvent e) =>  preLeaveRoute(e,"Users Administration")
+    )});
 }
 
 void _enterRoute(RouteEnterEvent e,String name, int level){

@@ -2,7 +2,37 @@
     <div class="jumbotron">
         <div class="container">
             <h1 class="">Users </h1>
+            <div class="container">
+            <nav>
+                <ul class="pagination navbar-form navbar-left">
+                    <li ng-class="currentPage>1 ? 'enable' : 'disabled'"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li ><a>{{currentPage}} <span class="sr-only">(current)</span></a></li>
+                    <li class="hasMore ? 'enable' : 'disabled'">
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left"  ng-submit="reload()">
+                    <div class="form-group">
+                        <label for="inputEmail" class="control-label">Max Per Page:  </label>
+                        <input style="width:50px;text-align: center;" type="text" class="form-control" ng-model="maxUsersPerPage">
+                    </div>
+                    <button type="submit" class="btn btn-default glyphicon glyphicon-refresh"></button>
+                </form>
 
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+            </nav>
+                </div>
+            <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+            <div ng-repeat='user in allUsers'>
+            <user_detail user='userByEmail(user.email)'></user_detail>
+            </div>
             <table class="table table-striped">
                 <thead class="thead-inverse">
                 <tr>
@@ -12,8 +42,33 @@
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody >
+                    <tr  is="user_detail" ng-repeat='user in allUsers' user="user"></tr>
                 </tbody>
+
+
+
+
+            <!--    <tr>
+                    <td></td>
+                    <td><input style="text-align: center" type="text" class="form-control" ng-model1="name"></td>
+                    <td>test@test.com</td>
+                    <td><input style="text-align: center" class="form-control" type="password" placeholder="new password"  ng-model1="password">
+                        <a><label class="checkbox-inline"><input ng-model1="isAdmin" type="checkbox" value="">Admin</label></a>
+                        <a><label class="checkbox-inline"><input ng-model1="isActivated" type="checkbox" value="">Activated</label></a>
+                    </td>
+                </tr>
+-->          <!--   <tr><td>TEST</td></tr>
+                <tr  ng-model="user"><user_detail user="user"></user_detail></tr>
+                <tr user="user" is="user_detail"></tr> -->
+
+              <!--  <tbody>
+                    <tr ng-repeat="user in allUsers"> <user_detail user="userByEmail('test@test.com')"></user_detail></tr>
+                </tbody>-->
+
+              <!--  <tbody ng-repeat="user in allUsers">
+                    <tr><user_detail user="user"></user_detail></tr>
+                </tbody> -->
             </table>
         </div>
     </div>

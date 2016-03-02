@@ -133,11 +133,11 @@ class UserService {
 
   //user/login
   //http://localhost:8080/api/users/v1/login?login=toto&password=titi&type=test
-  @ApiMethod(method: 'GET', path: 'login')
+  /*@ApiMethod(method: 'GET', path: 'login')
   Response userGetLogin() {
     var currentUser = currentAuthenticatedUser();
     return new Response(200, toJson(currentUser));
-  }
+  }*/
 
   @ApiMethod(method: 'POST', path: 'login')
   Response userPostLogin(EmptyMessage message) {
@@ -177,7 +177,7 @@ class UserService {
 
   @ApiMethod(method: 'GET', path: 'all')
   Future<ResponseListPagined> listUsers({int pageIndex,int maxResult}) async{
-    checkSysAdmin();
+   // checkSysAdmin();
     var page = 1;
     var limit = 25;
     if(maxResult != null){
