@@ -83,6 +83,10 @@ abstract class MDTQueryServiceUsers{
     if (password != null){
       requestData["password"] = password;
     }
+    if (username != null){
+      requestData["name"] = username;
+    }
+
     if (isAdmin != null){
       requestData["sysadmin"] = isAdmin;
     }

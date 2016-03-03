@@ -60,6 +60,7 @@ class MainComponent implements ScopeAware,MDTQueryServiceAware {
   bool get isUserConnected => scope.rootScope.context.isUserConnected;
  // bool isUserConnected = false;
   bool isHttpLoading = false;
+  bool get isSystemAdmin => scope.rootScope.context.isUserAdmin;
   Map get  currentUser => scope.rootScope.context.currentUser;
   List<Map> get routeHistory => scope.rootScope.context.currentRouteHistory;
   final Http _http;

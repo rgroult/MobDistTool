@@ -27,7 +27,7 @@ import '../server/config/config.dart' as config;
 //storage
 import '../server/config/src/storage.dart' as storage;
 //API
-
+import '../server/managers/src/users_manager.dart' as userMgr;
 import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
 import '../server/services/artifact_service.dart';
@@ -124,4 +124,5 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
 
 Future main() async{
   await startServer();
+  await userMgr.createSysAdminIfNeeded();
 }

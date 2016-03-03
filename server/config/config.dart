@@ -16,7 +16,9 @@ final Map defaultConfig = {
   MDT_REGISTRATION_WHITE_DOMAINS:[],
   MDT_REGISTRATION_NEED_ACTIVATION:"false",
   MDT_TOKEN_SECRET:"secret token dsfsxfsfsqd%%Qsdqs",
-  MDT_LOG_DIR:""
+  MDT_LOG_DIR:"",
+  MDT_SYSADMIN_INITIAL_PASSWORD:"sysadmin",
+  MDT_SYSADMIN_INITIAL_EMAIL:"admin@localhost.com"
 };
 
 Map<String, Object> currentLoadedConfig = defaultConfig;
@@ -32,6 +34,8 @@ final String MDT_REGISTRATION_NEED_ACTIVATION = "MDT_REGISTRATION_NEED_ACTIVATIO
 final String MDT_SERVER_PORT = "MDT_SERVER_PORT";
 final String MDT_TOKEN_SECRET = "MDT_TOKEN_SECRET";
 final String MDT_LOG_DIR = "MDT_LOG_DIR";
+final String MDT_SYSADMIN_INITIAL_PASSWORD = "MDT_SYSADMIN_INITIAL_PASSWORD";
+final String MDT_SYSADMIN_INITIAL_EMAIL = "MDT_SYSADMIN_INITIAL_EMAIL";
 
 Future loadConfig() async{
   //load 'config.json' file is present
@@ -49,6 +53,14 @@ Future loadConfig() async{
 
   //override by env values if present
   Map<String, String> env = Platform.environment;
+
+  if (env[MDT_SYSADMIN_INITIAL_PASSWORD] != null){
+    currentLoadedConfig[MDT_SYSADMIN_INITIAL_PASSWORD] = env[MDT_SYSADMIN_INITIAL_PASSWORD];
+  }
+
+  if (env[MDT_SYSADMIN_INITIAL_EMAIL] != null){
+    currentLoadedConfig[MDT_SYSADMIN_INITIAL_EMAIL] = env[MDT_SYSADMIN_INITIAL_EMAIL];
+  }
 
   if (env[MDT_LOG_DIR] != null){
     currentLoadedConfig[MDT_LOG_DIR] = env[MDT_LOG_DIR];

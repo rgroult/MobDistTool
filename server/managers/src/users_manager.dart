@@ -11,6 +11,7 @@ import '../../model/model.dart';
 import 'apps_manager.dart' as app_mgr;
 import '../errors.dart';
 import '../../utils/utils.dart' as utils;
+import '../../config/config.dart' as config;
 
 var userCollection = objectory[MDTUser];
 var UuidGenerator = new Uuid();
@@ -40,6 +41,25 @@ Future<MDTUser> findUserByUuid(String uuid) async {
 Future<MDTUser> findUserByToken(String token) async {
   return await userCollection.findOne(where.eq("externalTokenId", token));
 }*/
+
+Future createSysAdminIfNeeded() async{
+  //find a sysadmin
+  var aSysdmin = await userCollection.findOne(where.eq("isSystemAdmin", true));
+  if (aSysdmin == null){
+    //Create a sysadmin
+    var salt = _generateSalt();
+    var createdUser = new MDTUser()
+      ..name = "admin"
+      ..email = config.currentLoadedConfig[config.MDT_SYSADMIN_INITIAL_EMAIL]
+      ..salt = salt
+      ..password = generateHash(config.currentLoadedConfig[config.MDT_SYSADMIN_INITIAL_PASSWORD],salt)
+      ..isSystemAdmin = true
+      ..isActivated = true;
+
+    await createdUser.save();
+    print("Sys Admin ${createdUser.email}");
+  }
+}
 
 Future<MDTUser> findUserByEmail(String email) async {
   return await userCollection.findOne(where.eq("email", email));

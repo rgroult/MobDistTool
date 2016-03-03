@@ -20,21 +20,6 @@ class UsersAdministration extends BaseComponent {
 
   UsersAdministration(this.mdtQueryService) {
     reload();
-    /*
-    var user1 = new MDTUser({})
-        ..email = 'test@toto.com'
-        ..name = 'user1'
-        ..isActivated = false
-        ..isSystemAdmin = true;
-    var user2 = new MDTUser({})
-      ..email = 'test2@toto.com'
-      ..name = 'user2'
-      ..isActivated = true
-      ..isSystemAdmin = true;
-
-
-    allUsers.add(user1);
-    allUsers.add(user2);*/
   }
 
 
@@ -43,7 +28,7 @@ class UsersAdministration extends BaseComponent {
   }
 
   void userDeleted(MDTUser user){
-
+      allUsers.remove(user);
   }
 
   void next(){

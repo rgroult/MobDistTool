@@ -144,7 +144,7 @@ class UserService {
   @ApiMethod(method: 'POST', path: 'login')
   Response userPostLogin(EmptyMessage message) {
     var currentUser = currentAuthenticatedUser();
-    return new Response(200, toJson(currentUser));
+    return new Response(200, toJson(currentUser,isAdmin:true));
   }
 
   @ApiMethod(method: 'GET', path: 'me')
@@ -179,7 +179,7 @@ class UserService {
 
   @ApiMethod(method: 'GET', path: 'all')
   Future<ResponseListPagined> listUsers({int pageIndex,int maxResult}) async{
-   // checkSysAdmin();
+    checkSysAdmin();
     var page = 1;
     var limit = 25;
     if(maxResult != null){
@@ -201,26 +201,35 @@ class UserService {
   }
 
   @ApiMethod(method: 'PUT', path: 'user')
-  Future<Response> updateUser(UpdateUserMessage message) async{
+  Future<Response> updateUser(UpdateUserMessage message) async {
+    var me = currentAuthenticatedUser();
     String email = message.email;
+
+    if (me.email != email && me.isSystemAdmin == false) {
+      throw new RpcError(401, "ACCESS_DENIED", "Admin Access Denied");
+    }
+
     //find user
     var user = await users.findUserByEmail(email);
 
-    if (user == null){
+    if (user == null) {
       throw new NotFoundError("User not found");
     }
 
-    if (message.password != null){
-      user.password = users.generateHash(message.password,user.salt);
+    if (message.password != null) {
+      user.password = users.generateHash(message.password, user.salt);
     }
-    if (message.name != null){
+    if (message.name != null) {
       user.name = message.name;
     }
-    if (message.sysadmin != null){
-      user.isSystemAdmin = message.sysadmin;
-    }
-    if (message.activated != null){
-      user.isActivated = message.activated;
+    //only sysadmin can activated/desactivate and enable sysadmin
+    if (me.isSystemAdmin) {
+      if (message.sysadmin != null) {
+        user.isSystemAdmin = message.sysadmin;
+      }
+      if (message.activated != null) {
+        user.isActivated = message.activated;
+      }
     }
 
     //save user
@@ -232,6 +241,7 @@ class UserService {
 
   @ApiMethod(method: 'DELETE', path: 'user')
   Future<Response> deleteUser({String email}) async {
+    checkSysAdmin();
     try {
       if (email == null) {
         throw new NotFoundError("User Not Found");

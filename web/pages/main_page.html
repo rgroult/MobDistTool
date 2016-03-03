@@ -11,7 +11,6 @@
                 <a class="navbar-brand mdtLogo" href="#/home">MDT
                     <div class="ripple-wrapper"></div>
                 </a>
-                <a class="navbar-brand" href="#/users">Users Administration</a>
             </div>
             <div class="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
                 <ul ng-if="isUserConnected" class="nav navbar-nav navbar-right">
@@ -26,7 +25,9 @@
                         <ul class="dropdown-menu">
                             <li><a href="javascript:void(0)">Settings</a></li>
                             <li><a><label class="checkbox-inline"><input ng-model="adminOption" type="checkbox" value="">Display Admin Options</label></a></li>
-                            <li class="divider"></li>
+                            <li role="separator" class="divider"></li>
+                            <li ng-class="isSystemAdmin ? '' : 'hidden'"><a class="" href="#/users">Users Administration</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
                         </ul>
                     </li>
