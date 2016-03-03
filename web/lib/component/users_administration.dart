@@ -19,11 +19,45 @@ class UsersAdministration extends BaseComponent {
   List<MDTUser> allUsers = new List<MDTUser>();
 
   UsersAdministration(this.mdtQueryService) {
+    reload();
+    /*
+    var user1 = new MDTUser({})
+        ..email = 'test@toto.com'
+        ..name = 'user1'
+        ..isActivated = false
+        ..isSystemAdmin = true;
+    var user2 = new MDTUser({})
+      ..email = 'test2@toto.com'
+      ..name = 'user2'
+      ..isActivated = true
+      ..isSystemAdmin = true;
 
+
+    allUsers.add(user1);
+    allUsers.add(user2);*/
   }
+
 
   MDTUser userByEmail(String email){
     return allUsers.firstWhere((o) => o.email == email);
+  }
+
+  void userDeleted(MDTUser user){
+
+  }
+
+  void next(){
+    if (hasMore) {
+      currentPage = currentPage + 1;
+      loadNextUsersPage();
+    }
+  }
+
+  void previous(){
+      if (currentPage>1) {
+        currentPage = currentPage - 1;
+        loadNextUsersPage();
+      }
   }
 
   void reload() {
@@ -40,7 +74,7 @@ class UsersAdministration extends BaseComponent {
       allUsers.addAll(listOfUsers.users);
       hasMore = listOfUsers.hasMore;
       currentPage = listOfUsers.pageIndex;
-      print("display ${allUsers.length} users on page ${currentPage}");
+      print("display ${allUsers.length} users on page ${currentPage}, hasMore: $hasMore");
     } catch (e) {
       errorMessage =
       { 'type': 'danger', 'msg': 'Error while loading Users:${e.toString()}'};

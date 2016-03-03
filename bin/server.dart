@@ -114,7 +114,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
 
   var server =  shelf_io.serve(handler, '0.0.0.0', config.currentLoadedConfig[config.MDT_SERVER_PORT]);
   server.then((server) {
-      print('MDT started o@ port ${server.port}.');
+      print('MDT started on port ${server.port}.');
       print('You can access server Web UI on http://localhost:${server.port}/web/');
       httpServer=server;
   });

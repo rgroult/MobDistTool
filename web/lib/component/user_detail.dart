@@ -6,24 +6,28 @@ import 'base_component.dart';
 import '../service/mdt_query.dart';
 import '../model/errors.dart';
 import '../model/mdt_model.dart';
+import 'users_administration.dart';
 
 //useShadowDom: false
 @Component(
     selector: 'tr[is=user_detail]',
-    templateUrl: 'user_detail.html'
+    templateUrl: 'user_detail.html',
+    cssUrl:"user_detail.css"
 // use <span> instead of <td> because the browsers drop <td>' not inside a <table>.
 // <td>'s are created dynamically when the content is inserted into <tr>
 )
 class UsersDetail extends ShadowRootAware{
   @NgOneWay('user')
   MDTUser user;
+  UsersAdministration _parent;
+  MDTQueryService _mdtQueryService;
 
   bool isActivated = false;
   bool isAdmin = false;
-  String password;
+  String password = "";
   String name;
 
-  UsersDetail(){
+  UsersDetail(this._parent,this._mdtQueryService){
     print("UsersDetail created");
   }
 
@@ -38,18 +42,37 @@ class UsersDetail extends ShadowRootAware{
   }
 
   void resetUser(){
-    password = null;
+    password = "";
     name = user.name;
     isActivated = user.isActivated;
     isAdmin = user.isSystemAdmin;
   }
 
-  bool get canUpdate => (user.name != name) || (user.isActivated != isActivated) || (user.isSystemAdmin != isAdmin) || password!=null;
+  bool get canUpdate => (user.name != name) || (user.isActivated != isActivated) || (user.isSystemAdmin != isAdmin) || password.length>0;
 
 
+  Future delete() async{
+    try{
+      await _mdtQueryService.deleteUser(user.email);
+      _parent.userDeleted(user);
+    }catch(e){
+      _parent.errorMessage = {'type': 'danger', 'msg': 'Unable to delete user: ${e.toString()}'};
+    }
+  }
 
-  void delete(){
+  Future update()async{
+    try{
+      var newPassword = password.length>0 ? password : null;
+      var newName = user.name != name? name : null;
+      var activated = user.isActivated != isActivated ? isActivated : null;
+      var sysadmin = user.isSystemAdmin != isAdmin ? isAdmin : null;
+      var newUser = await _mdtQueryService.updateUser(user.email,username:newName,password:newPassword,isAdmin:sysadmin,isActivated:activated);
+      user = newUser;
 
+      resetUser();
+    }catch(e){
+      _parent.errorMessage = {'type': 'danger', 'msg': 'Unable to update user: ${e.toString()}'};
+    }
   }
 
   @override

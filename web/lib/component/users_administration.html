@@ -5,10 +5,10 @@
             <div class="container">
             <nav>
                 <ul class="pagination navbar-form navbar-left">
-                    <li ng-class="currentPage>1 ? 'enable' : 'disabled'"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li ng-class="currentPage>1 ? '' : 'disabled'"><a href1="#" ng-click="previous()" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                     <li ><a>{{currentPage}} <span class="sr-only">(current)</span></a></li>
-                    <li class="hasMore ? 'enable' : 'disabled'">
-                        <a href="#" aria-label="Next">
+                    <li ng-class="hasMore ? '' : 'disabled'">
+                        <a href1="#" ng-click="next()" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -34,42 +34,19 @@
             <user_detail user='userByEmail(user.email)'></user_detail>
             </div>
             <table class="table table-striped">
-                <thead class="thead-inverse">
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody >
-                    <tr  is="user_detail" ng-repeat='user in allUsers' user="user"></tr>
-                </tbody>
-
-
-
-
-            <!--    <tr>
-                    <td></td>
-                    <td><input style="text-align: center" type="text" class="form-control" ng-model1="name"></td>
-                    <td>test@test.com</td>
-                    <td><input style="text-align: center" class="form-control" type="password" placeholder="new password"  ng-model1="password">
-                        <a><label class="checkbox-inline"><input ng-model1="isAdmin" type="checkbox" value="">Admin</label></a>
-                        <a><label class="checkbox-inline"><input ng-model1="isActivated" type="checkbox" value="">Activated</label></a>
-                    </td>
-                </tr>
--->          <!--   <tr><td>TEST</td></tr>
-                <tr  ng-model="user"><user_detail user="user"></user_detail></tr>
-                <tr user="user" is="user_detail"></tr> -->
-
-              <!--  <tbody>
-                    <tr ng-repeat="user in allUsers"> <user_detail user="userByEmail('test@test.com')"></user_detail></tr>
-                </tbody>-->
-
-              <!--  <tbody ng-repeat="user in allUsers">
-                    <tr><user_detail user="user"></user_detail></tr>
-                </tbody> -->
-            </table>
+            <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr is="user_detail" ng-repeat='user in allUsers' user="user"></tr>
+            </tbody>
+        </table>
         </div>
     </div>
 </div>

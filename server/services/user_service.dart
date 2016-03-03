@@ -33,7 +33,7 @@ Future<Option<User>> authenticateUser(String username, String password) async {
 
 Future<Option<User>> findUser(String username) async {
   var user = await users.findUserByEmail(username);
-  if (user != null) {
+  if (user != null && user.isActivated) {
     return new Some(new User(user));
   }
   return new None();
@@ -139,6 +139,8 @@ class UserService {
     return new Response(200, toJson(currentUser));
   }*/
 
+
+
   @ApiMethod(method: 'POST', path: 'login')
   Response userPostLogin(EmptyMessage message) {
     var currentUser = currentAuthenticatedUser();
@@ -186,8 +188,9 @@ class UserService {
     if(pageIndex!=null){
       page = pageIndex;
     }
+    var numberToSkip = (page-1)*maxResult;
 
-    var usersList = await users.searchUsers(page,limit);
+    var usersList = await users.searchUsers(page,numberToSkip,limit);
     bool hasMore = false;
     if (usersList.length == limit){
       hasMore = true;
@@ -195,6 +198,51 @@ class UserService {
     }
     var responseJson = listToJson(usersList,isAdmin:true);
     return new ResponseListPagined(responseJson,hasMore,page);
+  }
+
+  @ApiMethod(method: 'PUT', path: 'user')
+  Future<Response> updateUser(UpdateUserMessage message) async{
+    String email = message.email;
+    //find user
+    var user = await users.findUserByEmail(email);
+
+    if (user == null){
+      throw new NotFoundError("User not found");
+    }
+
+    if (message.password != null){
+      user.password = users.generateHash(message.password,user.salt);
+    }
+    if (message.name != null){
+      user.name = message.name;
+    }
+    if (message.sysadmin != null){
+      user.isSystemAdmin = message.sysadmin;
+    }
+    if (message.activated != null){
+      user.isActivated = message.activated;
+    }
+
+    //save user
+    await user.save();
+
+    var jsonResult = toJson(user,isAdmin:true);
+    return new Response(200, jsonResult);
+  }
+
+  @ApiMethod(method: 'DELETE', path: 'user')
+  Future<Response> deleteUser({String email}) async {
+    try {
+      if (email == null) {
+        throw new NotFoundError("User Not Found");
+      }
+
+      await users.deleteUserByEmail(email);
+
+      return new OKResponse();
+    } on UserError catch (e) {
+      throw new NotFoundError(e.message);
+    }
   }
 }
 
@@ -207,6 +255,21 @@ class RegisterMessage {
   String name;
 
   RegisterMessage();
+}
+
+class UpdateUserMessage {
+  @ApiProperty(required: true)
+  String email;
+  @ApiProperty(required: false)
+  String password;
+  @ApiProperty(required: false)
+  String name;
+  @ApiProperty(required: false)
+  bool sysadmin;
+  @ApiProperty(required: false)
+  bool activated;
+
+  UpdateUserMessage();
 }
 
 class EmptyMessage {

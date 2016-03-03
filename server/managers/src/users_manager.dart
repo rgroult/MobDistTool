@@ -94,9 +94,8 @@ Future<MDTUser> createUser(String name, String email, String password,
 }
 
 //first page : pageIndex = 1
-Future<List<MDTUser>> searchUsers(int pageIndex,int limitPerPage) async{
+Future<List<MDTUser>> searchUsers(int pageIndex,int numberToSkip, int limitPerPage) async{
   var page = max(1,pageIndex);
-  var numberToSkip = (page-1)*limitPerPage;
 
   return userCollection.find(where.sortBy("email",descending:true).skip(numberToSkip).limit(limitPerPage));
 }

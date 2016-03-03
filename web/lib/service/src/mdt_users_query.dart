@@ -75,5 +75,44 @@ abstract class MDTQueryServiceUsers{
       }
     }
     return result;
+  }
+
+  Future<MDTUser> updateUser(String email, {String username, String password, bool isAdmin, bool isActivated}) async {
+    String url = "${mdtServerApiRootUrl}${usersPath}/user";
+    var requestData ={"email":email};
+    if (password != null){
+      requestData["password"] = password;
     }
+    if (isAdmin != null){
+      requestData["sysadmin"] = isAdmin;
+    }
+    if (isActivated != null){
+      requestData["activated"] = isActivated;
+    }
+
+    var response = await sendRequest(
+        'PUT', url,
+        body: JSON.encode(requestData));
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new UsersError(responseJson["error"]["message"]);
+    }
+
+    var userCreated = new MDTUser(responseJson["data"]);
+
+    return userCreated;
+  }
+
+  Future<Map> deleteUser(String email) async {
+    String url = "${mdtServerApiRootUrl}${usersPath}/user?email=$email";
+
+    var response = await sendRequest( 'DELETE', url);
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new UsersError(responseJson["error"]["message"]);
+    }
+    return true;
+  }
 }
