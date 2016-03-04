@@ -118,8 +118,10 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
       }
     } catch (e) {
       print("send request error $e");
+      if (e.status == 0){
+        throw new ConnectionError();
+      }
       return e;
-      //throw new ConnectionError();
     }
     return null;
   }

@@ -64,13 +64,7 @@ class AddArtifactComponent extends BaseComponent {
       };
       return false;
     }
-    if (artifactBranch == null) {
-      errorMessage = {
-        'type': 'warning',
-        'msg': 'Developement Branch can not be null.'
-      };
-      return false;
-    }
+
     if (artifactFile == null) {
       errorMessage = {
         'type': 'warning',
@@ -79,6 +73,13 @@ class AddArtifactComponent extends BaseComponent {
       return false;
     }
     if (!lastVersion) {
+      if (artifactBranch == null) {
+        errorMessage = {
+          'type': 'warning',
+          'msg': 'Developement Branch can not be null.'
+        };
+        return false;
+      }
       if (artifactVersion == null) {
         errorMessage = {'type': 'warning', 'msg': 'Version can not be null.'};
         return false;

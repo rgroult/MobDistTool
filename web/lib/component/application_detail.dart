@@ -12,6 +12,7 @@ import 'confirmation_popover.dart';
 @Component(
     selector: 'application_detail',
     templateUrl: 'application_detail.html',
+    exportExpressions: const ['isOpened'],
     useShadowDom: false
 )
 class ApplicationDetailComponent extends BaseComponent  {
@@ -35,6 +36,8 @@ class ApplicationDetailComponent extends BaseComponent  {
   List<String> allAvailableBranches = new List<String>();
   String currentBranchFilter = "";
   String currentSelectedBranch = "All";
+  bool isOpened = false;
+
   void selectFilter(String branch){
     if (branch == ""){
       currentBranchFilter = "";

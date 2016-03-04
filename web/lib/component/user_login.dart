@@ -41,7 +41,7 @@ class LoginComponent extends BaseComponent {
         //mainComp().hidePopup();
         locationService.router.go('apps',{});
       }else {
-        errorMessage = { 'type': 'danger', 'msg': 'Unknown error: $response'};
+        errorMessage = { 'type': 'danger', 'msg': 'Error: $response'};
       }
     } on LoginError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.message};
@@ -52,34 +52,6 @@ class LoginComponent extends BaseComponent {
     } finally {
       isHttpLoading = false;
     }
-
-
-
-
-      /*
-    String url = "${scope.rootScope.context.mdtServerApiRootUrl}/users/v1/login";
-    var userLogin = {"email":"$email", "password":"$password"};
-    isHttpLoading = true;
-    var response =  await mainComp().sendRequest('POST', url, body:'username=${email}&password=${password}', contentType:'application/x-www-form-urlencoded');
-    */
-    /*
-    if (response.status == 200){
-      //hide popup
-      mainComp().isUserConnected= true;
-      mainComp().currentUser = response.responseText["data"];
-      mainComp().hidePopup();
-      locationService.router.go('apps',{});
-    }else  if (response.status == 401){
-      isCollapsed = false;
-      errorMessage = "Login failed, Bad login or password.";
-    }else {
-      isCollapsed = false;
-      if (response.status == 0){
-        errorMessage = "Login failed, Error :${response}";
-      }else {
-        errorMessage = "Login failed, Error :${response.responseText}";
-      }
-    }*/
   }
 
   LoginComponent(this.locationService,this.mdtQueryService,this.modal){
