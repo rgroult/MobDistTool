@@ -44,7 +44,9 @@ class LoginComponent extends BaseComponent {
         errorMessage = { 'type': 'danger', 'msg': 'Unknown error: $response'};
       }
     } on LoginError catch(e) {
-      errorMessage = { 'type': 'danger', 'msg': e.toString()};
+      errorMessage = { 'type': 'danger', 'msg': e.message};
+    } on ConnectionError catch(e) {
+      errorMessage = { 'type': 'danger', 'msg': e.message};
     } catch(e) {
       errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
     } finally {

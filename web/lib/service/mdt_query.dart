@@ -117,8 +117,9 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
           return await http.delete(url, headers: headers);
       }
     } catch (e) {
-      print("error $e");
+      print("send request error $e");
       return e;
+      //throw new ConnectionError();
     }
     return null;
   }

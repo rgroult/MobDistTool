@@ -3,7 +3,8 @@ final allErrorsMessageByCode = {
   "LOGIN_ERROR" : "Bad Login or Password",
   "BASE_ERROR" : "Base Error message",
   "REGISTER_ERROR": "Registration Error",
-  "ACTIVATION_ERROR": "Activation Error"
+  "ACTIVATION_ERROR": "Activation Error",
+  "REQUEST_ERROR": "Network request Error"
 };
 
 class BaseError extends StateError {
@@ -23,7 +24,10 @@ class BaseError extends StateError {
  // String toString() => "Error: $message";
 }
 
-
+class ConnectionError extends BaseError {
+  static String errorCode = "REQUEST_ERROR";
+  ConnectionError():super(errorCode,reason:"Something were wrong on request, verify that your server is online and you are connected to Internet !" ){}
+}
 
 class LoginError extends BaseError {
   static String errorCode = "LOGIN_ERROR";
