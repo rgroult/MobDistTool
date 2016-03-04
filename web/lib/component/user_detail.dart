@@ -25,7 +25,7 @@ class UsersDetail extends ShadowRootAware{
   bool isActivated = false;
   bool isAdmin = false;
   String password = "";
-  String name;
+  String name = "";
 
   UsersDetail(this._parent,this._mdtQueryService){
     print("UsersDetail created");
@@ -35,10 +35,6 @@ class UsersDetail extends ShadowRootAware{
       name = user.name;
       isActivated = user.isActivated;
       isAdmin = user.isSystemAdmin;
-  }
-
-  void updateUser(){
-
   }
 
   void resetUser(){

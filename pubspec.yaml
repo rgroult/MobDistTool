@@ -64,6 +64,8 @@ transformers:
       - web/lib/components/artifact_download_qrcode.html
       - web/lib/components/user_login.html
       - web/lib/components/user_register.html
+      - web/lib/components/users_administration.html
+      - web/lib/components/user_detail.html
       - web/lib/components/account_activation.html
 - $dart2js:
     environment:

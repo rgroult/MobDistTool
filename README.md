@@ -92,7 +92,7 @@ dart bin/server.dart
 
 **Note**: You need a reachable mongoDB server to start server.
 
-[docker]:https://hub.docker.com/r/rgroult/mobdisttool/
+[docker]:https://hub.docker.com/r/rgroult2/mobdisttool/
 
 
 # Configuration
@@ -117,7 +117,9 @@ cat ./server/config/config.json
   "MDT_REGISTRATION_WHITE_DOMAINS":["@gmail.com"],
   "MDT_REGISTRATION_NEED_ACTIVATION":"true",
   "MDT_TOKEN_SECRET":"secret token",
-  "MDT_LOG_DIR":""
+  "MDT_LOG_DIR":"",
+  "MDT_SYSADMIN_INITIAL_PASSWORD":"sysadmin",
+  "MDT_SYSADMIN_INITIAL_EMAIL":"admin@localhost.com"
  }
   
 ```
@@ -129,6 +131,8 @@ cat ./server/config/config.json
 * ***MDT_REGISTRATION_NEED_ACTIVATION***: 'true' if registration use a activation email to activate account.
 * ***MDT_TOKEN_SECRET***: Secret used to secure links web token.
 * ***MDT_LOG_DIR***: Log directory.
+* ***MDT_SYSADMIN_INITIAL_PASSWORD***: Initial sysadmin password, created when no sysadmin present.
+* ***MDT_SYSADMIN_INITIAL_EMAIL***: Initial sysadmin email, created when no sysadmin present.
 
 ### External Storages 
 

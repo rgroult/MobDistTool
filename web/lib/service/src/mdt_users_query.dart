@@ -108,7 +108,7 @@ abstract class MDTQueryServiceUsers{
     return userCreated;
   }
 
-  Future<Map> deleteUser(String email) async {
+  Future<bool> deleteUser(String email) async {
     String url = "${mdtServerApiRootUrl}${usersPath}/user?email=$email";
 
     var response = await sendRequest( 'DELETE', url);

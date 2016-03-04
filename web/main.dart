@@ -28,7 +28,7 @@ class MDTRootScope {
   List<Map> get currentRouteHistory => isUserConnected ? routeHistory : routeHistory.sublist(0,min(routeHistory.length,1));
   MainComponent mainComp;
   bool get isUserConnected => (currentUser!=null);
-  bool get isUserAdmin => (currentUser["isSystemAdmin"] == true);
+  bool get isUserAdmin => (currentUser!=null) && (currentUser["isSystemAdmin"] == true);
   Map currentUser = null;
   bool adminOptionsDisplayed = false;
   Platform currentDevice = Platform.OTHER;

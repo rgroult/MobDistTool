@@ -53,16 +53,15 @@ class UsersAdministration extends BaseComponent {
   Future loadNextUsersPage() async {
     try {
       isHttpLoading = true;
-      var listOfUsers = await mdtQueryService.listUsers(
-          currentPage, maxUsersPerPage);
+      var listOfUsers = await mdtQueryService.listUsers( currentPage, maxUsersPerPage);
       allUsers.clear();
       allUsers.addAll(listOfUsers.users);
       hasMore = listOfUsers.hasMore;
       currentPage = listOfUsers.pageIndex;
       print("display ${allUsers.length} users on page ${currentPage}, hasMore: $hasMore");
     } catch (e) {
-      errorMessage =
-      { 'type': 'danger', 'msg': 'Error while loading Users:${e.toString()}'};
+      print("Error on retrieving users");
+      errorMessage = { 'type': 'danger', 'msg': 'Error while loading Users:${e.toString()}'};
     } finally {
       isHttpLoading = false;
     }

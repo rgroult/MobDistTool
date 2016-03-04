@@ -2,6 +2,7 @@
     <div class="jumbotron">
         <div class="container">
             <h1 class="">Users </h1>
+            <p class="lead"><b>Note:</b> This page does not work yet on safari, due to a shadow DOM / shim problem.</p>
             <div class="container">
             <nav>
                 <ul class="pagination navbar-form navbar-left">
@@ -30,9 +31,6 @@
             </nav>
                 </div>
             <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
-            <div ng-repeat='user in allUsers'>
-            <user_detail user='userByEmail(user.email)'></user_detail>
-            </div>
             <table class="table table-striped">
             <thead class="thead-inverse">
             <tr>
@@ -44,7 +42,7 @@
             </tr>
             </thead>
             <tbody >
-            <tr is="user_detail" ng-repeat='user in allUsers' user="user"></tr>
+                <tr is="user_detail" ng-repeat='user in allUsers' user="user"></tr>
             </tbody>
         </table>
         </div>
