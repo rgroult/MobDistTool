@@ -21,9 +21,34 @@
     height: 32px;
 }
 
+.media-left{
+    height:80%;
+    width: auto;
+}
+
+.media-icon{
+    height: 128px;
+    max-width: 128px;
+    width: auto;
+    height: auto;
+}
+
+.app-list-info {
+    height: 100px;
+}
+
 .platformAndroid {
+    float: left;
+    vertical-align:middle;
+    width:32px;
+    height:32px;
+    background-image: url(../images/android_64.png);
+    background-size: 100%;
+    margin-right: 10px;
+}
+.platformAndroid1 {
     position:relative;
-    top:-20px;
+    top:0px;
     right:0px;
     text-align:right;
     display:block;
@@ -33,15 +58,13 @@
     background-size: 100%;
 }
 .platformIOS {
-    position:relative;
-    top:-20px;
-    right:0px;
-    text-align:right;
-    display:block;
+    float: left;
+    vertical-align:middle;
     width:32px;
     height:32px;
     background-image: url(../images/apple_64.png);
     background-size: 100%;
+    margin-right: 10px;
 }
 
 .glyphicon-refresh-animate {
@@ -90,3 +113,20 @@
     /* shadow */
     text-shadow: 0 0 5px #444;
 }
+
+.module {
+    width: 250px;
+    margin: 0 0 1em 0;
+    overflow: hidden;
+}
+.module h4 {
+    margin: 0;
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+

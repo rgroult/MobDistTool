@@ -4,7 +4,44 @@
             <ng-view></ng-view>
         </div>
         <div ng-unless="isApplicationSelected" class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <a type="button" class="btn btn-raised btn-default"
+                       ng-click="applicationListNeedBeReloaded()"> <i class="material-icons">refresh</i></a>
+                </div>
+                <div class="col-md-2">
+                    <a type="button" class="btn btn-raised btn-default"
+                       ng-click="displayApplicationCreationPopup()"> <i class="material-icons">add_circle_outline</i></a>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-3">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button ng-click="setListMode(false)" ng-class="isViewAsList == false ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_module</i></button>
+                        <button ng-click="setListMode(true)" ng-class="isViewAsList == true ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_list</i></button>
+                    </div>
+                </div>
+            </div>
+
+    <!--        <div class="btn-group">
+                <a href="javascript:void(0)" class="btn btn-raised">8</a>
+
+                <div class="btn-group">
+                    <a href="bootstrap-elements.html" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
+                        Dropdown
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">Dropdown link</a></li>
+                        <li><a href="javascript:void(0)">Dropdown link</a></li>
+                        <li><a href="javascript:void(0)">Dropdown link</a></li>
+                    </ul>
+                </div>
+            </div>
+--->
             <div class="dropdown">
+
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
                     Platform : {{currentSelectedPlatform}}
@@ -18,23 +55,23 @@
                 </ul>
             </div>
 
+
             <div class="row">
                 <div class="col-md-6">
-                    <a type="button" class="btn btn-raised btn-default"
-                       ng-click="applicationListNeedBeReloaded()"> Refresh</a>
-                    <a type="button" class="btn btn-raised btn-default glyphicon glyphicon glyphicon-plus"
-                       ng-click="displayApplicationCreationPopup()"> Create Application</a>
+
+
                 </div>
             </div>
+
             <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">
                 {{errorMessage['msg']}}
             </alert>
-            <div class="row">
+            <div ng-if="isViewAsList == false" class="row">
                 <div class="col-xs-6 col-md-3" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter}">
                     <div class="thumbnail">
-                        <a class="" href1="#/apps/{{app.uuid}}/artifacts" ng-click="appSelected(app.uuid)">
-                            <img alt="100%x180" src="{{app.appIcon}}" data-holder-rendered="true" class="img-rounded" style="height:180px;">
-                                <span class="platform{{app.platform}}"></span>
+                        <a class="" href="javascript:void(0)" ng-click="appSelected(app.uuid)">
+                            <img alt="100%x180" src="{{app.appIcon}}" data-holder-rendered="true" class="img-rounded media-icon" style="height:180px;">
+                            <span class="platform{{app.platform}}"></span>
                             </img>
                             <div class="caption">
                                 <h3 class="truncated_text">{{app.name}}</h3>
@@ -44,7 +81,30 @@
                     </div>
                 </div>
             </div>
+            <div ng-if="isViewAsList == true" class="row">
+                <div class="col-md-6" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter}">
+                    <div class="panel panel-default">
+                        <a href="javascript:void(0)" ng-click="appSelected(app.uuid)">
+                            <div class="panel-body">
+                                <div class="media">
 
+                                    <div class="media-left">
+
+                                            <img class="media-icon media-object" src="{{app.appIcon}}" alt="...">
+
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading truncated_text"><span class="platform{{app.platform}}"></span>{{app.name}}</h3>
+                                        <div class="app-list-info">
+                                            <h4 class="line-clamp app-description">{{app.description}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

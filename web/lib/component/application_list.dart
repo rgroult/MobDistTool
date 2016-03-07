@@ -20,6 +20,10 @@ class ApplicationListComponent extends BaseComponent  {
   NgRoutingHelper locationService;
   MDTQueryService mdtQueryService;
   Modal modal;
+  var isViewAsList = false;
+  void setListMode(bool viewAsList){
+    isViewAsList = viewAsList;
+  }
   //strange :unable to rename it to another name :S
   ApplicationListComponent get app => this;
 /*
