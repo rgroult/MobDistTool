@@ -3,24 +3,22 @@
         <div ng-if="isApplicationSelected">
             <ng-view></ng-view>
         </div>
-        <div ng-unless="isApplicationSelected" class="container">
+        <div ng-unless="isApplicationSelected" class="container-fluid">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3 col-xs-12">
                     <a type="button" class="btn btn-raised btn-default"
                        ng-click="applicationListNeedBeReloaded()"> <i class="material-icons">refresh</i></a>
-                </div>
-                <div class="col-md-2">
                     <a type="button" class="btn btn-raised btn-default"
                        ng-click="displayApplicationCreationPopup()"> <i class="material-icons">add_circle_outline</i></a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-2 col-xs-1">
 
                 </div>
-                <div class="col-md-3">
-                    <div class="btn-group" role="group" aria-label="...">
+                <div class="col-md-3 col-xs-12">
+
                         <button ng-click="setListMode(false)" ng-class="isViewAsList == false ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_module</i></button>
                         <button ng-click="setListMode(true)" ng-class="isViewAsList == true ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_list</i></button>
-                    </div>
+
                 </div>
             </div>
 

@@ -13,8 +13,12 @@
 }
 
 .appDetailIcon {
-    width1: 128px;
-    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    min-width: 64px;
+    min-height: 64px;
+    width: auto;
+    height: auto;
 }
 
 .brandIcon {
