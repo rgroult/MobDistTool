@@ -1,3 +1,5 @@
+body { margin-bottom: 70px; }
+
 .row-height {
     display: table;
     table-layout: fixed;
