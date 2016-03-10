@@ -21,23 +21,6 @@
 
                 </div>
             </div>
-
-    <!--        <div class="btn-group">
-                <a href="javascript:void(0)" class="btn btn-raised">8</a>
-
-                <div class="btn-group">
-                    <a href="bootstrap-elements.html" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
-                        Dropdown
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0)">Dropdown link</a></li>
-                        <li><a href="javascript:void(0)">Dropdown link</a></li>
-                        <li><a href="javascript:void(0)">Dropdown link</a></li>
-                    </ul>
-                </div>
-            </div>
---->
             <div class="dropdown">
 
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -68,7 +51,7 @@
                 <div class="col-xs-6 col-md-3" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter}">
                     <div class="thumbnail">
                         <a class="" href="javascript:void(0)" ng-click="appSelected(app.uuid)">
-                            <img alt="100%x180" src="{{app.appIcon}}" data-holder-rendered="true" class="img-rounded media-icon" style="height:180px;">
+                            <img alt="" onError="this.onError=null;this.src='images/placeholder.jpg'" src="{{app.appIcon}}" class="img-rounded media-icon" style="height:180px;">
                             <span class="platform{{app.platform}}"></span>
                             </img>
                             <div class="caption">
@@ -87,9 +70,7 @@
                                 <div class="media">
 
                                     <div class="media-left">
-
-                                            <img class="media-icon media-object" src="{{app.appIcon}}" alt="...">
-
+                                            <img onError="this.onError=null;this.src='images/placeholder.jpg'" class="media-icon media-object" src="{{app.appIcon}}" alt="...">
                                     </div>
                                     <div class="media-body">
                                         <h3 class="media-heading truncated_text"><span class="platform{{app.platform}}"></span>{{app.name}}</h3>
