@@ -59,7 +59,7 @@ class ApplicationEditionComponent extends BaseComponent {
   String appPlatform;
   String appDescription;
   String appUUID;
-  String appIcon;
+  String appIcon ="images/placeholder.jpg";
   File appIconFile;
 
   void hideMessage(){

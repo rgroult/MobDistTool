@@ -1,6 +1,6 @@
 <div class="media">
     <div class="media-left">
-        <img class="media-object appDetailIcon" src="{{currentApp.appIcon}}" alt="appIcon">
+        <img class="media-object appDetailIcon" src="{{currentApp.appIcon}}" alt="appIcon" onError="this.onError=null;this.src='images/placeholder.jpg'">
     </div>
     <div class="media-body">
         <h4 class="media-heading">{{currentApp.name}}</h4>
