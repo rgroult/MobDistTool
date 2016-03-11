@@ -9,6 +9,7 @@ import 'lib/component/user.dart';
 import 'lib/component/artifact.dart';
 import 'lib/routing/mdt_router.dart';
 import 'lib/service/mdt_query.dart';
+import 'version.dart' as version;
 
 class MDTAppModule extends Module {
   MDTAppModule() {
@@ -60,6 +61,7 @@ class MainComponent implements ScopeAware,MDTQueryServiceAware {
   bool get isUserConnected => scope.rootScope.context.isUserConnected;
  // bool isUserConnected = false;
   bool isHttpLoading = false;
+  String get mdt_version => version.MDT_VERSION;
   bool get isSystemAdmin => scope.rootScope.context.isUserAdmin;
   Map get  currentUser => scope.rootScope.context.currentUser;
   List<Map> get routeHistory => scope.rootScope.context.currentRouteHistory;
@@ -105,48 +107,10 @@ class MainComponent implements ScopeAware,MDTQueryServiceAware {
     mdtService.lastAuthorizationHeader = '';
     locationService.router.go('home',{});
   }
-/*
-  Map allHeaders({String contentType}){
-    var requestContentType = contentType!=null ? contentType : 'application/json; charset=utf-8';
-    var initialHeaders = {"content-type": requestContentType,"accept":'application/json'/*,"Access-Control-Allow-Headers":"*"*/};
-    if (lastAuthorizationHeader.length > 0){
-      initialHeaders['authorization'] = lastAuthorizationHeader;
-    }else {
-      initialHeaders.remove('authorization');
-    }
-    return initialHeaders;
-  }
-*/
   MainComponent(this._http,LocationWrapper location, HttpInterceptors interceptors,this.modal,this.mdtService,this.locationService){
     print("Main component created $this");
     mdtService.setHttpService(this,_http,location,locationService);
     mdtService.configureInjector(interceptors);
-    //scope.rootScope.context.mainComp = this;
-    /*
-    print("$routeProvider");
-
-    if (routeProvider!= null){
-      print("${routeProvider.route}");
-      RouteHandle route = routeProvider.route.newHandle();
-
-      route.onEnter.listen((RouteEvent e){
-        if (e.parameters != null){
-          var action=e.parameters["action"];
-          if (action == "login"){
-            displayLoginPopup();
-          }
-        }
-    });
-
-    };*/
-/*
-    RouteHandle route = routeProvider.route.newHandle();
-    route.onEnter.listen((RouteEvent e){
-      if (_scope != null) {
-        _scope.rootScope.context.enterRoute("Home", "/home", 0);
-        _scope.rootScope.context.enterRoute("Home", "/apps/", 1);
-      }
-    });*/
   }
 
   displayErrorFromResponse(HttpResponse response){
