@@ -1,0 +1,14 @@
+/* navbar */
+
+.navbar-default.navbar {
+    background-color: rgba(232, 109, 42, 1);
+}
+
+/* title */
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.btn-primary:not(.btn-link):not(.btn-flat){
+    background-color: rgba(232, 109, 42, 1);
+}
