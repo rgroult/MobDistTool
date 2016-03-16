@@ -17,14 +17,14 @@
                     <li ng-if="isSystemAdmin && adminOption" role="presentation"><a href="#/users">Users Administration</a></li>
                     <li class="navbar-brand">Welcome {{currentUser["name"]}}</li>
                     <li class="dropdown">
-                        <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle"
+                        <a href="javascript:void(0)" data-target="#" class="dropdown-toggle"
                            data-toggle="dropdown"
                            aria-expanded="false">Account <b class="caret"></b>
 
                             <div class="ripple-wrapper"></div>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Settings</a></li>
+                            <li><a href="#/account">Settings</a></li>
                             <li><a><label class="checkbox-inline"><input ng-model="adminOption" type="checkbox" value="">Display Admin Options</label></a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
