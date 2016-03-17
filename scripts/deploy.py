@@ -27,8 +27,8 @@ def urlForParameters(isLatest,branch,version,name):
 def postArtifact(isLatest,branch,version,name,filename):
     url = urlForParameters(isLatest,branch,version,name)
     try:
-        file = {'artifactFile': (filename, open(filename, 'rb'), 'application/octet-stream')}
-        print 'send artifact '+filename+ ' to /'+branch+'/'+version+'/'+name
+        file = {'artifactFile': (os.path.basename(filename), open(filename, 'rb'), 'application/octet-stream')}
+        print 'send artifact '+os.path.basename(filename)+ ' to /'+branch+'/'+version+'/'+name
        # print 'send artifact '+url
         r = requests.post(url, files=file)
         if r.status_code != 200:
