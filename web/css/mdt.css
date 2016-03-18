@@ -39,6 +39,13 @@ body { margin-bottom: 70px; }
     height: auto;
 }
 
+.small-media-icon{
+    height: 40px;
+    max-width: 80px;
+    width: auto;
+    height: auto;
+}
+
 .app-list-info {
     height: 100px;
 }

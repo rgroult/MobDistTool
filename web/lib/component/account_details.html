@@ -25,18 +25,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
+        <div class="col-lg-2 row">
+            <div class="col-md-6 col-xs-10">
                 <h4 class="col-lg-2">Administed Apps:</h4>
+                <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+                <div class="row" ng-repeat="app in administratedApps">
+                    <div class="col-md-10 panel panel-default" >
+                        <div class="panel-body">
+                            <img class="small-media-icon" src="{{app.appIcon}}"></img>
+                            <span class="platform{{app.platform}}"></span>{{app.name}}
+                        </div>
+                    </div>
+                    <div class="col-md-2"><button class="btn btn-xs btn-flat btn-primary" ng-click="remove(app)"><i class="material-icons">remove</i>remove administration</button>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
 </div>
-
-//email
-
-//name
-
-//change password
-
-///list of administrated app
