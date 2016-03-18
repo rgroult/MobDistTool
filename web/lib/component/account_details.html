@@ -3,10 +3,10 @@
         <h2>Account Settings</h2>
         <div class="row">
             <div class="col-md-6 col-xs-12">
-                <h3 class="col-lg-2">Email : {{currentUser.email}}</h3>
+                <h3 class="">Email : {{currentUser.email}}</h3>
                 <div class="thumbnail">
                     <div class="row">
-                        <div class="col-sm-10">
+                        <div class="col-md-10">
                             <div class="input-group">
                                 <label class="input-group-addon">User Name :</label>
                                 <input type="text"  class="col-lg-2 form-control" ng-model="newName">
@@ -25,20 +25,27 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 row">
-            <div class="col-md-6 col-xs-10">
-                <h4 class="col-lg-2">Administed Apps:</h4>
-                <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
-                <div class="row" ng-repeat="app in administratedApps">
-                    <div class="col-md-10 panel panel-default" >
-                        <div class="panel-body">
-                            <img class="small-media-icon" src="{{app.appIcon}}"></img>
-                            <span class="platform{{app.platform}}"></span>{{app.name}}
+        <div class=" row">
+            <h4 class="col-lg-2 col-md-12">Administed Apps:</h4>
+        </div>
+        <div class=" row">
+            <alert class="col-lg-2 col-md-8" ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+        </div>
+        <div class=" row">
+            <div class="col-md-8 col-xs-12">
+                <div class="container" ng-repeat="app in administratedApps">
+                    <div class=" row">
+                        <div class="col-md-8 panel panel-default" >
+                            <div class="panel-body">
+                                <img class="small-media-icon" src="{{app.appIcon}}"/>
+                                <span class="platform{{app.platform}}"></span>{{app.name}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-xs btn-flat btn-primary" ng-click="remove(app)"><i class="material-icons">remove</i>remove administration</button>
                         </div>
                     </div>
-                    <div class="col-md-2"><button class="btn btn-xs btn-flat btn-primary" ng-click="remove(app)"><i class="material-icons">remove</i>remove administration</button>
-                    </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
