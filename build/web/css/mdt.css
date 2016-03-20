@@ -95,38 +95,6 @@ body { margin-bottom: 70px; }
     to { transform: scale(1) rotate(360deg);}
 }
 
-.ribbon {
-    background-color: #a00;
-    overflow: hidden;
-    white-space: nowrap;
-    /* top left corner */
-    position: absolute;
-    left: -50px;
-    top: 00px;
-    /* 45 deg ccw rotation */
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-    /* shadow */
-    -webkit-box-shadow: 0 0 10px #888;
-    -moz-box-shadow: 0 0 10px #888;
-    box-shadow: 0 0 10px #888;
-}
-.ribbon a {
-    border: 1px solid #faa;
-    color: #fff;
-    display: block;
-    font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin: 1px 0;
-    padding: 10px 50px;
-    text-align: center;
-    text-decoration: none;
-    /* shadow */
-    text-shadow: 0 0 5px #444;
-}
-
 .module {
     width: 250px;
     margin: 0 0 1em 0;
@@ -143,3 +111,110 @@ body { margin-bottom: 70px; }
     overflow: hidden;
 }
 
+
+/* line 5, stdin */
+.github-ribbon-container {
+    width: 10em;
+    height: 10em;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0; }
+
+/* line 13, stdin */
+.github-ribbon {
+    z-index: 10;
+    display: block;
+    text-decoration: none;
+    background-color: #34495e;
+    position: relative;
+    left: -6em;
+    height: 2em;
+    width: 16em;
+    text-align: center;
+    line-height: 2.2em;
+    font-family: Helvetica, Arial, sans-serif;
+    -webkit-transform: translate(50%, -50%) rotate(45deg) translateY(6em);
+    -moz-transform: translate(50%, -50%) rotate(45deg) translateY(6em);
+    -o-transform: translate(50%, -50%) rotate(45deg) translateY(6em);
+    -ms-transform: translate(50%, -50%) rotate(45deg) translateY(6em);
+    transform: translate(50%, -50%) rotate(45deg) translateY(6em); }
+
+/* line 34, stdin */
+a.github-ribbon:visited,
+a.github-ribbon {
+    color: #ecf0f1 !important; }
+
+/* line 38, stdin */
+a.github-ribbon:hover {
+    text-decoration: none;
+    background-color: #2c3e50;
+    -webkit-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    -moz-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out; }
+
+/* line 45, stdin */
+a.github-ribbon:active,
+a.github-ribbon:hover {
+    color: #fff !important; }
+
+/* line 49, stdin */
+.github-ribbon.amethyst {
+    background-color: #9b59b6; }
+/* line 51, stdin */
+.github-ribbon.amethyst:hover {
+    background-color: #8e44ad; }
+
+/* line 55, stdin */
+.github-ribbon.turquoise {
+    background-color: #1abc9c; }
+/* line 57, stdin */
+.github-ribbon.turquoise:hover {
+    background-color: #16a085; }
+
+/* line 61, stdin */
+.github-ribbon.peter-river {
+    background-color: #3498db; }
+/* line 63, stdin */
+.github-ribbon.peter-river:hover {
+    background-color: #2980b9; }
+
+/* line 67, stdin */
+.github-ribbon.alizarin {
+    background-color: #e74c3c; }
+/* line 69, stdin */
+.github-ribbon.alizarin:hover {
+    background-color: #c0392b; }
+
+/* line 73, stdin */
+.github-ribbon.nephritis {
+    background-color: #27ae60; }
+/* line 75, stdin */
+.github-ribbon.nephritis:hover {
+    background-color: #3d9970; }
+
+/* line 79, stdin */
+.github-ribbon.carrot {
+    background-color: #e67e22; }
+/* line 81, stdin */
+.github-ribbon.carrot:hover {
+    background-color: #d35400; }
+
+@media (max-width: 768px) {
+    /* line 88, stdin */
+    .github-ribbon-container {
+        position: static;
+        width: 14em;
+        height: 3em;
+        margin-left: auto;
+        margin-right: auto; }
+    /* line 95, stdin */
+    a.github-ribbon {
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        transform: none;
+        position: static;
+        width: auto;
+        line-height: 2.1em; } }
