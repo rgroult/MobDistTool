@@ -20,11 +20,37 @@ class ArtifactDownloadQRCode extends ShadowRootAware  {
   bool isloading = true;
   bool errorOccured = false;
   MDTQueryService mdtService;
+  var sliderValue = 100;
+  var qrCodeValidity = 0;
+  var qrCodeEndOfValidity = null;
+  Timer _timer = null;
 
-  Future onShadowRoot(ShadowRoot shadowRoot) async {
+  Future onShadowRoot(ShadowRoot shadowRoot) {
+    loadQrCode();
+  }
+
+  Future loadQrCode() async {
     try {
+      if (_timer != null) {
+        _timer.cancel();
+      }
       var downloadInfos = await mdtService.artifactDownloadInfo(artifactId);
       generateQRCode(downloadInfos["installUrl"]);
+      var validity = downloadInfos["validity"];
+      if (validity != null) {
+        sliderValue = 100;
+        qrCodeValidity = validity -10;
+        DateTime now = new DateTime.now();
+        qrCodeEndOfValidity = now.add(new Duration(seconds: qrCodeValidity));
+        _timer = new Timer.periodic(new Duration(seconds: 1), ((timer) {
+          var delta = qrCodeEndOfValidity.difference(new DateTime.now()).inSeconds;
+          sliderValue = math.max(0,delta/qrCodeValidity*100);
+          if (sliderValue == 0){
+            //reload qrCode
+            loadQrCode();
+          }
+        }));
+      }
     } catch (e) {
       errorOccured = true;
     }
