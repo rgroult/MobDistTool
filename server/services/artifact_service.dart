@@ -93,7 +93,9 @@ Not used yet
     if (artifact == null ){
       throw new NotFoundError("Unable to find artifact");
     }
+    var tokenValidity = 3; //in minutes
     var downloadInfo = new DownloadInfo();
+    downloadInfo.validity = tokenValidity*60; //3 minutes
     var baseArtifactPath = '/api/in/v1/artifacts/$idArtifact';
     if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
       baseArtifactPath = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${baseArtifactPath}';
@@ -102,7 +104,7 @@ Not used yet
     downloadInfo.directLinkUrl = '$baseArtifactPath/file';
     //add security web token
     DateTime now = new DateTime.now();
-    now = now.add(new Duration(minutes: 3));
+    now = now.add(new Duration(minutes: tokenValidity));
     final token = {
       'id':idArtifact,
       'expireAt': now.millisecondsSinceEpoch
