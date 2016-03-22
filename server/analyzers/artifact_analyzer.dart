@@ -20,7 +20,7 @@ Future<Map> analyzeAndExtractArtifactInfos(File fileToAnalyze,String platform) a
   }
 }
 
-final List<String> iosPlistKeysToExtract = ["CFBundleIdentifier","CFBundleVersion","MinimumOSVersion"];
+final List<String> iosPlistKeysToExtract = ["CFBundleIdentifier","CFBundleVersion","MinimumOSVersion","CFBundleShortVersionString"];
 
 Future<Map> analyzeAndExtractIOSArtifactInfos(File fileToAnalyze) async{
   try {
