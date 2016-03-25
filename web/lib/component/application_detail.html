@@ -27,14 +27,18 @@
 <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
 <hr/>
 <div class="row">
-    <div class="col-md-6 clearfix">
+   <div class="col-md-6 clearfix">
+       <!--   <accordion>
+             <accordion-group heading="Latest Build ">
+             </accordion-group>
+         </accordion>-->
         <accordion>
-        <accordion-group is-open="isOpened">
-            <accordion-heading>
-                Latest Build <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpened, 'glyphicon-chevron-right': !isOpened}"></i>
-            </accordion-heading>
-              <artifact ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()" displayVersion="true"></artifact>
-        </accordion-group>
+            <accordion-group is-open="isOpened">
+                <accordion-heading>
+                    Latest Build <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpened, 'glyphicon-chevron-right': !isOpened}"></i>
+                </accordion-heading>
+                    <artifact ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()"></artifact>
+            </accordion-group>
         </accordion>
     </div>
 </div>

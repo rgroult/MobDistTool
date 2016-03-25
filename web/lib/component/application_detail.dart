@@ -54,7 +54,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       isHttpLoading = true;
       var app= await mdtQueryService.getApplication(_appId);
       currentApp = app;
-      loadAppVersions();
+      await loadAppVersions();
 
     } on ApplicationError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
