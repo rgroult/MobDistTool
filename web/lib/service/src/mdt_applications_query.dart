@@ -6,6 +6,13 @@ import '../../model/mdt_model.dart';
 import 'mdt_conf_query.dart';
 
 abstract class MDTQueryServiceApplications {
+  Future<HttpResponse> sendRequest(String method, String url,
+      {String query, String body, String contentType}) async {
+    throw 'Not Implemented';
+  }
+  Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
+    throw 'Not Implemented';
+  }
   Future<MDTApplication> createApplication(
       String name, String description, String platform, String icon) async {
     var appData = {
