@@ -54,7 +54,7 @@ class AccountDetailsComponent extends BaseComponent {
   }
 
   void hideUserErrorMessage(){
-    userDetailErrorMessage = nil;
+    userDetailErrorMessage = null;
   }
 
   Future update()async{

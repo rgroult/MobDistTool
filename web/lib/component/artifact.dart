@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'dart:core';
+import 'dart:html' as html;
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 import 'add_artifact.dart';
@@ -20,7 +21,7 @@ class MDTArtifactModule extends Module {
     templateUrl: 'artifact.html',
     useShadowDom: false
 )
-class ArtifactElementComponent extends BaseComponent implements ShadowRootAware  {
+class ArtifactElementComponent extends BaseComponent/* implements ShadowRootAware*/  {
   MDTQueryService mdtQueryService;
   ApplicationDetailComponent _parent;
   @NgOneWay('sortIdentifier')
@@ -30,25 +31,30 @@ class ArtifactElementComponent extends BaseComponent implements ShadowRootAware 
   @NgOneWay('canDelete')
   bool canDelete = false;
   @NgOneWay('artifact')
-  MDTArtifact artifact = null;
+  MDTArtifact artifact = new MDTArtifact({});
   bool isCollapsed = true;
 
-  String artifactName = "";
-  DateTime artifactCreationDate = new DateTime(0);
+  /*String artifactName = "";
+  DateTime artifactCreationDate = new DateTime(0);*/
 
 
-  List<String> get metaDataKeys => artifact.metaDataTags != null ? artifact.metaDataTags.keys.toList() : new List<String>();
+  List<String> get metaDataKeys => (artifact!=null && artifact.metaDataTags != null) ? artifact.metaDataTags.keys.toList() : new List<String>();
   int artifactSize(){
-    return (artifact.size/(1024*1024)).round();
+    if (artifact == null){
+      return 0;
+    }else {
+      return (artifact.size/(1024*1024)).round();
+    }
   }
-
+/*
   @override
-  void onShadowRoot(ShadowRoot shadowRoot) {
+  void onShadowRoot(html.ShadowRoot shadowRoot) {
+    //print("Artifact ${artifact}");
     if (artifact != null){
       artifactName = artifact.name;
       artifactCreationDate = artifact.creationDate;
     }
-  }
+  }*/
 
   bool get canInstall => ((scope.rootScope.context.currentDevice == Platform.IOS) || (scope.rootScope.context.currentDevice == Platform.ANDROID));
 
@@ -76,6 +82,5 @@ class ArtifactElementComponent extends BaseComponent implements ShadowRootAware 
   }
 
   ArtifactElementComponent(this.mdtQueryService,this._parent){
-
   }
 }

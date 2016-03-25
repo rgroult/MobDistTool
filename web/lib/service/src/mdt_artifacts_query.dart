@@ -7,6 +7,16 @@ import '../../model/mdt_model.dart';
 import 'mdt_conf_query.dart';
 
 abstract class MDTQueryServiceArtifacts {
+  Future<HttpResponse> sendRequest(String method, String url,
+      {String query, String body, String contentType}) async {
+    throw 'Not Implemented';
+  }
+  Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
+    throw 'Not Implemented';
+  }
+  void sendRedirect(String url){
+    throw 'Not Implemented';
+  }
 
   Future<List<MDTArtifact>> listLatestArtifacts(String appId) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appId}/versions/last';

@@ -7,6 +7,14 @@ import '../../model/mdt_model.dart';
 
 abstract class MDTQueryServiceUsers{
 
+  Future<HttpResponse> sendRequest(String method, String url,
+      {String query, String body, String contentType}) async {
+    throw 'Not Implemented';
+  }
+  Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
+    throw 'Not Implemented';
+  }
+
   Future<Map> loginUser(String email, String password) async {
     String url = '${mdtServerApiRootUrl}${usersPath}/login';
     var userLogin = {"email": "$email", "password": "$password"};
