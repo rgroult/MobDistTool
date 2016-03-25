@@ -1,6 +1,6 @@
 <div>
     <p><span class="badge label-info ">{{artifact.name}}</span>
-        <span><small> {{artifactSize()}} Mo - Created: {{artifact.creationDate | date:'mediumDate'}}</small></span>
+        <span><small> {{artifactSize}} Mo - Created: {{artifact.creationDate | date:'mediumDate'}}</small></span>
         <br/>
         <a ng-class="canInstall ? 'hidden' : ''" type="button" ng-click="generateQrCode()" class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">crop_free</i> QRCode</a>
         <a ng-class="canInstall ? 'hidden' : ''" type="button" ng-click="downloadArtifact()"  class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">file_download</i> Download</a>

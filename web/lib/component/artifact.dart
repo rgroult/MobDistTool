@@ -21,7 +21,7 @@ class MDTArtifactModule extends Module {
     templateUrl: 'artifact.html',
     useShadowDom: false
 )
-class ArtifactElementComponent extends BaseComponent/* implements ShadowRootAware*/  {
+class ArtifactElementComponent extends BaseComponent  {
   MDTQueryService mdtQueryService;
   ApplicationDetailComponent _parent;
   @NgOneWay('sortIdentifier')
@@ -39,22 +39,8 @@ class ArtifactElementComponent extends BaseComponent/* implements ShadowRootAwar
 
 
   List<String> get metaDataKeys => (artifact!=null && artifact.metaDataTags != null) ? artifact.metaDataTags.keys.toList() : new List<String>();
-  int artifactSize(){
-    if (artifact == null){
-      return 0;
-    }else {
-      return (artifact.size/(1024*1024)).round();
-    }
-  }
-/*
-  @override
-  void onShadowRoot(html.ShadowRoot shadowRoot) {
-    //print("Artifact ${artifact}");
-    if (artifact != null){
-      artifactName = artifact.name;
-      artifactCreationDate = artifact.creationDate;
-    }
-  }*/
+
+  int get artifactSize => artifact==null ? 0 : (artifact.size/(1024*1024)).round();
 
   bool get canInstall => ((scope.rootScope.context.currentDevice == Platform.IOS) || (scope.rootScope.context.currentDevice == Platform.ANDROID));
 
