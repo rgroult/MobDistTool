@@ -24,7 +24,7 @@ dependencies:
         ref: master
   args: '>=0.10.0 <0.14.0'
   shelf: '>=0.6.0 <0.7.0'
-  rpc: "^0.5.5"
+  rpc: "^0.5.6"
   shelf_rpc: "^0.0.3+2"
   shelf_route: ">0.13.0"
   shelf_auth: ">=0.7.0"
