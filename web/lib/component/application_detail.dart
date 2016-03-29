@@ -79,7 +79,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       }
       List<MDTArtifact> latestArtifacts = await mdtQueryService.listLatestArtifacts(currentApp.uuid);
       if (latestArtifacts.isNotEmpty){
-        applicationsLastestVersion.addAll(latestArtifacts);
+        applicationsLastestVersion=latestArtifacts;
       }
     } on ArtifactsError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
