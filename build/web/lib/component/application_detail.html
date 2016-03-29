@@ -27,16 +27,22 @@
 <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
 <hr/>
 <div class="row">
-    <div class="col-md-6 clearfix">
-        <accordion>
-        <accordion-group is-open="isOpened">
-            <accordion-heading>
-                Latest Build <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpened, 'glyphicon-chevron-right': !isOpened}"></i>
-            </accordion-heading>
-              <artifact ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()" displayVersion="true"></artifact>
-        </accordion-group>
-        </accordion>
-    </div>
+    <accordion ng-cloak>
+        <div class="col-md-6">
+            <!--<accordion >
+                  <accordion-group heading="Latest Build ">
+                      <artifact  ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()"></artifact>
+                  </accordion-group>
+            </accordion> -->
+
+            <accordion-group is-open="isOpened">
+                <accordion-heading>
+                    Latest Build <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpened, 'glyphicon-chevron-right': !isOpened}"></i>
+                </accordion-heading>
+                <artifact  ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()"></artifact>
+            </accordion-group>
+        </div>
+    </accordion>
 </div>
 
 <h2>
@@ -54,16 +60,22 @@
     </ul>
 </div>
 
-<div class="row">
+<div class="row" ng-cloak>
     <accordion>
-        <div class="col-md-6 clearfix">
+        <div class="col-sm-12 visible-sm visible-xs">
+            <accordion-group heading="{{versionForSortIdentifier(sortIdentifier)}}" ng-repeat="sortIdentifier in allSortedIdentifier | filter:currentBranchFilter">
+                <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  sortIdentifier="sortIdentifier" artifact="artifact" canDelete="canAdmin()" displayVersion="false"></artifact>
+            </accordion-group>
+        </div>
+
+        <div class="col-md-6 hidden-sm hidden-xs">
             <accordion-group heading="{{versionForSortIdentifier(sortIdentifier)}}" ng-repeat="sortIdentifier in allSortedIdentifier | filter:currentBranchFilter"
                              ng-class="$index % 2 == 0 ? '' : 'hidden'">
                 <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  sortIdentifier="sortIdentifier" artifact="artifact" canDelete="canAdmin()" displayVersion="false"></artifact>
             </accordion-group>
         </div>
 
-        <div class="col-md-6 clearfix">
+        <div class="col-md-6 hidden-sm hidden-xs">
             <accordion-group heading="{{versionForSortIdentifier(sortIdentifier)}}" ng-repeat="sortIdentifier in allSortedIdentifier | filter:currentBranchFilter"
                              ng-class="$index % 2 == 1 ? '' : 'hidden'">
                 <artifact ng-repeat="artifact in groupedArtifacts[sortIdentifier]"  sortIdentifier="sortIdentifier" artifact="artifact" canDelete="canAdmin()" displayVersion="false"></artifact>
