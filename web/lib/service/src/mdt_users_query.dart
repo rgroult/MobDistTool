@@ -19,7 +19,7 @@ abstract class MDTQueryServiceUsers{
     String url = '${mdtServerApiRootUrl}${usersPath}/login';
     var userLogin = {"email": "$email", "password": "$password"};
     var response = await sendRequest('POST', url,
-    body: 'username=${email}&password=${password}',
+    body: 'username=${email}&password=${Uri.encodeComponent(password)}',
     contentType: 'application/x-www-form-urlencoded');
     var responseJson = parseResponse(response,checkAuthorization:false);
 
