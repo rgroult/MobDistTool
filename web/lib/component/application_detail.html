@@ -26,23 +26,22 @@
 </div>
 <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
 <hr/>
-<div class="row">
-    <accordion ng-cloak>
-        <div class="col-md-6">
-            <!--<accordion >
-                  <accordion-group heading="Latest Build ">
-                      <artifact  ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()"></artifact>
-                  </accordion-group>
-            </accordion> -->
-
-            <accordion-group is-open="isOpened">
-                <accordion-heading>
-                    Latest Build <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpened, 'glyphicon-chevron-right': !isOpened}"></i>
-                </accordion-heading>
-                <artifact  ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()"></artifact>
+<div class="row" ng-cloak>
+    <div class="col-md-6">
+        <!--<accordion >
+              <accordion-group heading="Latest Build ">
+                  <artifact  ng-repeat="artifact in applicationsLastestVersion"  artifact="artifact" canDelete="canAdmin()"></artifact>
+              </accordion-group>
+        </accordion> -->
+        <!-- <accordion-heading>
+             Latest Build <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpened, 'glyphicon-chevron-right': !isOpened}"></i>
+         </accordion-heading>-->
+        <accordion>
+            <accordion-group is-open="isOpened" heading="Latest Build">
+                <artifact  ng-repeat="artifact in applicationsLastestVersion" artifact="artifact" canDelete="canAdmin()"></artifact>
             </accordion-group>
-        </div>
-    </accordion>
+        </accordion>
+    </div>
 </div>
 
 <h2>
