@@ -87,9 +87,12 @@ class InService {
 
   @ApiMethod(
       method: 'POST',
-      path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
-  Future<Response> addArtifactByAppKey(String apiKey, String branch,
-      String version, String artifactName, ArtifactMsg artifactsMsg) async {
+      path: 'artifacts/{apiKey}/{_branch}/{_version}/{_artifactName}')
+  Future<Response> addArtifactByAppKey(String apiKey, String _branch,
+      String _version, String _artifactName, ArtifactMsg artifactsMsg) async {
+    var branch = Uri.decodeComponent(_branch);
+    var version = Uri.decodeComponent(_version);
+    var artifactName = Uri.decodeComponent(_artifactName);
     var application = await mgrs.findApplicationByApiKey(apiKey);
     var mediaMsg = artifactsMsg.artifactFile;
     if (application == null) {
@@ -158,9 +161,12 @@ class InService {
 
   @ApiMethod(
       method: 'DELETE',
-      path: 'artifacts/{apiKey}/{branch}/{version}/{artifactName}')
+      path: 'artifacts/{apiKey}/{_branch}/{_version}/{_artifactName}')
   Future<Response> deleteArtifactByAppKey(
-      String apiKey, String branch, String version, String artifactName) async {
+      String apiKey, String _branch, String _version, String _artifactName) async {
+    var branch = Uri.decodeComponent(_branch);
+    var version = Uri.decodeComponent(_version);
+    var artifactName = Uri.decodeComponent(_artifactName);
     var application = await mgrs.findApplicationByApiKey(apiKey);
     if (application == null) {
       throw new NotFoundError('Application not found');
@@ -173,16 +179,18 @@ class InService {
     return new OKResponse();
   }
 
-  @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/last/{artifactName}')
+  @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/last/{_artifactName}')
   Future<Response> addLastArtifactByAppKey(
-      String apiKey, String artifactName, ArtifactMsg artifactsMsg) async {
+      String apiKey, String _artifactName, ArtifactMsg artifactsMsg) async {
+    var artifactName = Uri.decodeComponent(_artifactName);
     return addArtifactByAppKey(apiKey, ArtifactService.lastVersionBranchName,
         ArtifactService.lastVersionName, artifactName, artifactsMsg);
   }
 
-  @ApiMethod(method: 'DELETE', path: 'artifacts/{apiKey}/last/{artifactName}')
+  @ApiMethod(method: 'DELETE', path: 'artifacts/{apiKey}/last/{_artifactName}')
   Future<Response> deleteLastArtifactByAppKey(
-      String apiKey, String artifactName) async {
+      String apiKey, String _artifactName) async {
+    var artifactName = Uri.decodeComponent(_artifactName);
     return deleteArtifactByAppKey(apiKey, ArtifactService.lastVersionBranchName,
         ArtifactService.lastVersionName, artifactName);
   }
