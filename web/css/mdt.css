@@ -118,8 +118,8 @@ body { margin-bottom: 70px; }
     height: 10em;
     overflow: hidden;
     position: absolute;
-    top: 0;
-    right: 0; }
+    top: 130px;
+    right: 10px; }
 
 /* line 13, stdin */
 .github-ribbon {

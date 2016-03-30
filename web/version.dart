@@ -1,1 +1,1 @@
-String MDT_VERSION = "0.9.6";
+String MDT_VERSION = "0.9.7";
