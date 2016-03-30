@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'dart:core';
+import 'dart:html' as html;
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 import 'add_artifact.dart';
@@ -24,19 +25,22 @@ class ArtifactElementComponent extends BaseComponent  {
   MDTQueryService mdtQueryService;
   ApplicationDetailComponent _parent;
   @NgOneWay('sortIdentifier')
-  String sortIdentifier;
-  @NgOneWay('displayVersion')
-  bool displayVersion;
+  String sortIdentifier ="";
+ // @NgOneWay('displayVersion')
+ // bool displayVersion = false;
   @NgOneWay('canDelete')
-  bool canDelete;
+  bool canDelete = false;
   @NgOneWay('artifact')
-  MDTArtifact artifact;
+  MDTArtifact artifact = new MDTArtifact({});
   bool isCollapsed = true;
 
-  List<String> get metaDataKeys => artifact.metaDataTags != null ? artifact.metaDataTags.keys.toList() : new List<String>();
-  int artifactSize(){
-    return (artifact.size/(1024*1024)).round();
-  }
+  /*String artifactName = "";
+  DateTime artifactCreationDate = new DateTime(0);*/
+
+
+  List<String> get metaDataKeys => (artifact!=null && artifact.metaDataTags != null) ? artifact.metaDataTags.keys.toList() : new List<String>();
+
+  int get artifactSize => artifact==null ? 0 : (artifact.size/(1024*1024)).round();
 
   bool get canInstall => ((scope.rootScope.context.currentDevice == Platform.IOS) || (scope.rootScope.context.currentDevice == Platform.ANDROID));
 
@@ -64,6 +68,5 @@ class ArtifactElementComponent extends BaseComponent  {
   }
 
   ArtifactElementComponent(this.mdtQueryService,this._parent){
-
   }
 }

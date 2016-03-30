@@ -7,11 +7,19 @@ import '../../model/mdt_model.dart';
 
 abstract class MDTQueryServiceUsers{
 
+  Future<HttpResponse> sendRequest(String method, String url,
+      {String query, String body, String contentType}) async {
+    throw 'Not Implemented';
+  }
+  Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
+    throw 'Not Implemented';
+  }
+
   Future<Map> loginUser(String email, String password) async {
     String url = '${mdtServerApiRootUrl}${usersPath}/login';
     var userLogin = {"email": "$email", "password": "$password"};
     var response = await sendRequest('POST', url,
-    body: 'username=${email}&password=${password}',
+    body: 'username=${email}&password=${Uri.encodeComponent(password)}',
     contentType: 'application/x-www-form-urlencoded');
     var responseJson = parseResponse(response,checkAuthorization:false);
 

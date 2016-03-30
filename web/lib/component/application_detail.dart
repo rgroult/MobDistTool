@@ -54,7 +54,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       isHttpLoading = true;
       var app= await mdtQueryService.getApplication(_appId);
       currentApp = app;
-      loadAppVersions();
+      await loadAppVersions();
 
     } on ApplicationError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
@@ -79,7 +79,7 @@ class ApplicationDetailComponent extends BaseComponent  {
       }
       List<MDTArtifact> latestArtifacts = await mdtQueryService.listLatestArtifacts(currentApp.uuid);
       if (latestArtifacts.isNotEmpty){
-        applicationsLastestVersion.addAll(latestArtifacts);
+        applicationsLastestVersion=latestArtifacts;
       }
     } on ArtifactsError catch(e) {
       errorMessage = { 'type': 'danger', 'msg': e.toString()};
@@ -170,11 +170,16 @@ class ApplicationDetailComponent extends BaseComponent  {
   Future deleteArtifact(MDTArtifact artifact, String fromSortIdentifier) async{
     var result = await mdtQueryService.deleteArtifact(artifact.uuid);
     if (result == true){
-        if (fromSortIdentifier != null){
+        if (fromSortIdentifier != null && fromSortIdentifier.isNotEmpty){
           var isremoved = groupedArtifacts[fromSortIdentifier].remove(artifact);
-          print("remove status $isremoved");
+          if (isremoved && groupedArtifacts[fromSortIdentifier].isEmpty){
+            allSortedIdentifier.remove(fromSortIdentifier);
+            groupedArtifacts.remove(fromSortIdentifier);
+          }
+          //print("remove status $isremoved");
         }else{
-          applicationsLastestVersion.remove(artifact);
+          var isremoved = applicationsLastestVersion.remove(artifact);
+          //print("latest remove status $isremoved");
         }
     }else {
       errorMessage = {'type': 'danger', 'msg': 'Unable to delete version'};
@@ -203,11 +208,12 @@ class ApplicationDetailComponent extends BaseComponent  {
   }
 
   String versionForSortIdentifier(String sortIdentifier){
-    var artifact = groupedArtifacts[sortIdentifier].first;
-    if (artifact == null) {
+    try {
+      var artifact = groupedArtifacts[sortIdentifier].first;
+      return "${artifact.version} - ${artifact.branch}";
+    }catch(e){
       return "Unknown version - No Branch";
     }
-    return "${artifact.version} - ${artifact.branch}";
   }
 
   void sortArtifacts() {
