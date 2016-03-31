@@ -152,10 +152,6 @@ packages:
     description: googleapis_beta
     source: hosted
     version: "0.22.0"
-  hammock:
-    description: hammock
-    source: hosted
-    version: "0.4.0"
   html:
     description: html
     source: hosted
@@ -290,9 +286,11 @@ packages:
     source: hosted
     version: "0.6.2"
   rpc:
-    description: rpc
+    description:
+      name: rpc
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.5"
+    version: "0.5.6"
   shelf:
     description: shelf
     source: hosted

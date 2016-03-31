@@ -142,6 +142,9 @@ class ApplicationService {
       throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
       //throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
     }
+    if (application.adminUsers.contains(user) == false){
+      throw new RpcError(400, 'APPLICATION_ERROR',  'user with email $adminEmail not a admin user for this application');
+    }
     if (application.adminUsers.length == 1){
       throw new RpcError(500, 'APPLICATION_ERROR',  'Delete of last administrator forbidden');
     }
@@ -190,28 +193,3 @@ class ApplicationService {
     // return new ResponseList(200, listToJson(allVersions));
   }
 }
-
-
-
-/*
- app.get('/admin/applications', applicationController.listAllApplications)
-
-	//applications routes
-    app.post('/applications', passport.authenticate('bearer', { session: false }), applicationController.createApplication)
-    app.get('/applications', passport.authenticate('bearer', { session: false }), applicationController.listAllApplicationsForUser)
-
-    app.put('/applications/:idapp', passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.updateById)
-    app.get('/applications/:idapp', passport.authenticate('bearer', { session: false }), applicationController.canAccessApplication,applicationController.findById)
-    app.delete('/applications/:idapp', passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.deleteById)
-    //members management
-    app.put('/applications/:idapp/adminmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.addAdminMember)
-    app.delete('/applications/:idapp/adminmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.removeAdminMember)
-    app.put('/applications/:idapp/members/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.addMember)
-    app.delete('/applications/:idapp/members/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.removeMember)
-    app.put('/applications/:idapp/extmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.addExtMember)
-    app.delete('/applications/:idapp/extmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.removeExtMember)
-    //versions
-    app.get('/applications/:idapp/versions/:version', passport.authenticate('bearer', { session: false }), applicationController.canAccessApplication, applicationController.versionInformations)
-    app.get('/applications/:idapp/versions', passport.authenticate('bearer', { session: false }), app
-
- */

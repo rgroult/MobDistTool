@@ -133,7 +133,6 @@ void allTests() {
     expect(response.statusCode, equals(200));
   });
 
-  return;
   //createAndLogin();
   test("Upload artifact OK IOS", () async {
     var user = await loginUser(userInfosSample["email"],userInfosSample["password"]) ;
