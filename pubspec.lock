@@ -184,6 +184,12 @@ packages:
     description: jwt
     source: hosted
     version: "0.1.4"
+  log4dart:
+    description:
+      name: log4dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.18"
   logging:
     description: logging
     source: hosted
@@ -347,6 +353,12 @@ packages:
     description: source_span
     source: hosted
     version: "1.2.1"
+  sprintf:
+    description:
+      name: sprintf
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.8"
   stack_trace:
     description: stack_trace
     source: hosted

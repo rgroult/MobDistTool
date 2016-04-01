@@ -17,6 +17,7 @@ import 'model.dart';
 import 'json_convertor.dart';
 import '../analyzers/artifact_analyzer.dart' as analyzer;
 import '../config/config.dart' as config;
+import '../utils/utils.dart';
 
 final String PLIST_CONTENT_TYPE = 'application/plist';
 final String TEMPLATE_IPA_URL_KEY = '@URL_TO_IPA@';
@@ -93,73 +94,77 @@ class InService {
       path: 'artifacts/{apiKey}/{_branch}/{_version}/{_artifactName}')
   Future<Response> addArtifactByAppKey(String apiKey, String _branch,
       String _version, String _artifactName, ArtifactMsg artifactsMsg) async {
-    var branch = Uri.decodeComponent(_branch);
-    var version = Uri.decodeComponent(_version);
-    var artifactName = Uri.decodeComponent(_artifactName);
-    var application = await mgrs.findApplicationByApiKey(apiKey);
-    var mediaMsg = artifactsMsg.artifactFile;
-    if (application == null) {
-      throw new NotFoundError('Application not found');
+    try{
+      var branch = Uri.decodeComponent(_branch);
+      var version = Uri.decodeComponent(_version);
+      var artifactName = Uri.decodeComponent(_artifactName);
+      var application = await mgrs.findApplicationByApiKey(apiKey);
+      var mediaMsg = artifactsMsg.artifactFile;
+      if (application == null) {
+        throw new NotFoundError('Application not found');
+      }
+
+      //find existng artifact
+      var existingArtifact = await mgrs.findArtifactByInfos(
+          application, branch, version, artifactName);
+      if (existingArtifact != null) {
+        throw new RpcError(
+            400, 'ARTIFACT_ERROR', 'artifact exist with provided infos');
+      }
+      var createdArtifact = null;
+      try {
+        //Create temp file
+        var tempDir = Directory.systemTemp.createTempSync("art").path;
+        var filename = mediaMsg.metadata["filename"];
+
+        var tempFile =
+        await new File("$tempDir/${filename}").create(recursive: true);
+        await tempFile.writeAsBytes(mediaMsg.bytes, flush: true);
+
+        //check artifact validity : ipa or apk
+        var tags = await analyzer.analyzeAndExtractArtifactInfos(
+            tempFile, application.platform);
+
+        var parsedTags = null;
+        if (artifactsMsg.jsonTags != null) {
+          parsedTags =  JSON.decode(artifactsMsg.jsonTags);//parseTags(artifactsMsg.jsonTags);
+        }
+        if (parsedTags != null) {
+          //Add to tags provided by analyzer
+          tags.addAll(parsedTags);
+        }
+        //create artifact
+        createdArtifact = await mgrs.createArtifact(
+            application, artifactName, version, branch,
+            sortIdentifier: artifactsMsg.sortIdentifier, tags: JSON.encode(tags));
+        createdArtifact.filename = filename;
+        createdArtifact.size = tempFile.lengthSync();
+
+        //set content type, related to application platfom
+        if (application.platform.toUpperCase() == "IOS"){
+          createdArtifact.contentType = IPA_CONTENT_TYPE;
+        }else if (application.platform.toUpperCase() == "ANDROID"){
+          createdArtifact.contentType = APK_CONTENT_TYPE;
+        }
+
+        await mgrs.addFileToArtifact(
+            tempFile, createdArtifact, mgrs.defaultStorage);
+      } catch (e) {
+        //delete created artifact
+        if (createdArtifact != null){
+          await mgrs.deleteArtifact(createdArtifact, mgrs.defaultStorage);
+        }
+
+        throw new RpcError(
+            500, 'ARTIFACT_ERROR', 'Unable to add artifact: ${e.message}');
+        // ..errors.add(new RpcErrorDetail(reason: e.message));
+      }
+
+      var jsonResponse = toJson(createdArtifact, isAdmin: true);
+      return new Response(200, toJson(createdArtifact, isAdmin: true));
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
-
-    //find existng artifact
-    var existingArtifact = await mgrs.findArtifactByInfos(
-        application, branch, version, artifactName);
-    if (existingArtifact != null) {
-      throw new RpcError(
-          400, 'ARTIFACT_ERROR', 'artifact exist with provided infos');
-    }
-    var createdArtifact = null;
-    try {
-      //Create temp file
-      var tempDir = Directory.systemTemp.createTempSync("art").path;
-      var filename = mediaMsg.metadata["filename"];
-
-      var tempFile =
-      await new File("$tempDir/${filename}").create(recursive: true);
-      await tempFile.writeAsBytes(mediaMsg.bytes, flush: true);
-
-      //check artifact validity : ipa or apk
-      var tags = await analyzer.analyzeAndExtractArtifactInfos(
-          tempFile, application.platform);
-
-      var parsedTags = null;
-      if (artifactsMsg.jsonTags != null) {
-        parsedTags =  JSON.decode(artifactsMsg.jsonTags);//parseTags(artifactsMsg.jsonTags);
-      }
-      if (parsedTags != null) {
-        //Add to tags provided by analyzer
-        tags.addAll(parsedTags);
-      }
-      //create artifact
-      createdArtifact = await mgrs.createArtifact(
-          application, artifactName, version, branch,
-          sortIdentifier: artifactsMsg.sortIdentifier, tags: JSON.encode(tags));
-      createdArtifact.filename = filename;
-      createdArtifact.size = tempFile.lengthSync();
-
-      //set content type, related to application platfom
-      if (application.platform.toUpperCase() == "IOS"){
-        createdArtifact.contentType = IPA_CONTENT_TYPE;
-      }else if (application.platform.toUpperCase() == "ANDROID"){
-        createdArtifact.contentType = APK_CONTENT_TYPE;
-      }
-
-      await mgrs.addFileToArtifact(
-          tempFile, createdArtifact, mgrs.defaultStorage);
-    } catch (e) {
-      //delete created artifact
-      if (createdArtifact != null){
-        await mgrs.deleteArtifact(createdArtifact, mgrs.defaultStorage);
-      }
-
-      throw new RpcError(
-          500, 'ARTIFACT_ERROR', 'Unable to add artifact: ${e.message}');
-      // ..errors.add(new RpcErrorDetail(reason: e.message));
-    }
-
-    var jsonResponse = toJson(createdArtifact, isAdmin: true);
-    return new Response(200, toJson(createdArtifact, isAdmin: true));
   }
 
   @ApiMethod(
@@ -167,66 +172,82 @@ class InService {
       path: 'artifacts/{apiKey}/{_branch}/{_version}/{_artifactName}')
   Future<Response> deleteArtifactByAppKey(
       String apiKey, String _branch, String _version, String _artifactName) async {
-    var branch = Uri.decodeComponent(_branch);
-    var version = Uri.decodeComponent(_version);
-    var artifactName = Uri.decodeComponent(_artifactName);
-    var application = await mgrs.findApplicationByApiKey(apiKey);
-    if (application == null) {
-      throw new NotFoundError('Application not found');
+    try{
+      var branch = Uri.decodeComponent(_branch);
+      var version = Uri.decodeComponent(_version);
+      var artifactName = Uri.decodeComponent(_artifactName);
+      var application = await mgrs.findApplicationByApiKey(apiKey);
+      if (application == null) {
+        throw new NotFoundError('Application not found');
+      }
+      var existingArtifact =
+      await mgrs.findArtifactByInfos(application, branch, version, artifactName);
+      if (existingArtifact != null) {
+        await mgrs.deleteArtifact(existingArtifact, mgrs.defaultStorage);
+      }
+      return new OKResponse();
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
-    var existingArtifact =
-    await mgrs.findArtifactByInfos(application, branch, version, artifactName);
-    if (existingArtifact != null) {
-      await mgrs.deleteArtifact(existingArtifact, mgrs.defaultStorage);
-    }
-    return new OKResponse();
   }
 
   @ApiMethod(method: 'POST', path: 'artifacts/{apiKey}/last/{_artifactName}')
   Future<Response> addLastArtifactByAppKey(
       String apiKey, String _artifactName, ArtifactMsg artifactsMsg) async {
-    var artifactName = Uri.decodeComponent(_artifactName);
-    return addArtifactByAppKey(apiKey, ArtifactService.lastVersionBranchName,
-        ArtifactService.lastVersionName, artifactName, artifactsMsg);
+    try{
+      var artifactName = Uri.decodeComponent(_artifactName);
+      return addArtifactByAppKey(apiKey, ArtifactService.lastVersionBranchName,
+          ArtifactService.lastVersionName, artifactName, artifactsMsg);
+    }catch(e,stack){
+      manageExceptions(e,stack);
+    }
   }
 
   @ApiMethod(method: 'DELETE', path: 'artifacts/{apiKey}/last/{_artifactName}')
   Future<Response> deleteLastArtifactByAppKey(
       String apiKey, String _artifactName) async {
-    var artifactName = Uri.decodeComponent(_artifactName);
-    return deleteArtifactByAppKey(apiKey, ArtifactService.lastVersionBranchName,
-        ArtifactService.lastVersionName, artifactName);
+    try{
+      var artifactName = Uri.decodeComponent(_artifactName);
+      return deleteArtifactByAppKey(apiKey, ArtifactService.lastVersionBranchName,
+          ArtifactService.lastVersionName, artifactName);
+    }catch(e,stack){
+      manageExceptions(e,stack);
+    }
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
   Future<MediaMessage> getApplicationIcon(String appId) async {
-    var application =
-    await appService.ApplicationService.applicationByAppId(appId);
+    try{
+      var application =
+      await appService.ApplicationService.applicationByAppId(appId);
 
-    String base64icon = application.base64IconData;
-    if (base64icon != null) {
-      //print("length ${base64icon.length}");
-      var dataTypeIndex = base64icon.indexOf('data:');
-      var dataBytesIndex = base64icon.indexOf(';base64,');
-      var endDataTypeIndex = dataBytesIndex;
-      if (dataTypeIndex != -1 && dataBytesIndex != -1) {
-        dataTypeIndex += 5;
-        dataBytesIndex += 8;
+      String base64icon = application.base64IconData;
+      if (base64icon != null) {
+        //print("length ${base64icon.length}");
+        var dataTypeIndex = base64icon.indexOf('data:');
+        var dataBytesIndex = base64icon.indexOf(';base64,');
+        var endDataTypeIndex = dataBytesIndex;
+        if (dataTypeIndex != -1 && dataBytesIndex != -1) {
+          dataTypeIndex += 5;
+          dataBytesIndex += 8;
 
-        try {
-          var imageType = base64icon.substring(dataTypeIndex, endDataTypeIndex);
-          var base64 = base64icon.substring(dataBytesIndex);
-          var result = new MediaMessage();
-          result.contentType = imageType;
-          result.bytes = CryptoUtils.base64StringToBytes(base64);
-          result.updated = application.getProperty('modifiedAt');
-          return result;
-        } catch (e) {
-          throw new RpcError(500, "APPLICATION_ERROR", "Invalid icon format");
+          try {
+            var imageType = base64icon.substring(dataTypeIndex, endDataTypeIndex);
+            var base64 = base64icon.substring(dataBytesIndex);
+            var result = new MediaMessage();
+            result.contentType = imageType;
+            result.bytes = CryptoUtils.base64StringToBytes(base64);
+            result.updated = application.getProperty('modifiedAt');
+            return result;
+          } catch (e) {
+            throw new RpcError(500, "APPLICATION_ERROR", "Invalid icon format");
+          }
         }
       }
+      throw new NotFoundError("Icon not found");
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
-    throw new NotFoundError("Icon not found");
   }
 
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/ios_plist')
@@ -254,38 +275,42 @@ class InService {
       }
       result.bytes = UTF8.encode(plistString);
       return result;
-    } catch (e) {
-      throw new RpcError(500, 'ARTIFACT_ERROR', "Error ${e.toString()}");
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
   }
 
   @ApiMethod(method: 'POST', path: 'activation')
   Future<Response> userActivation(ActivationMessage message) async {
-    var activationToken = message.activationToken;
-    print("Activation token $activationToken");
-    if (!jsonWebToken.isValid(activationToken)){
-      throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
-    }
-    Map tokenInfo = jsonWebToken.decode(activationToken);
-    var userEmail= tokenInfo["user"];
-    var token= tokenInfo["token"];
-    //retrieve user
-    var user = await mgrs.findUserByEmail(userEmail);
-    if (user == null){
-      throw new NotFoundError();
-    }
-    if (user.isActivated){
-      throw new RpcError(400, 'ACTIVATION_ERROR', "Bad activation state");
-    }
-    if (user.activationToken == token){
-      //Activate user
-      user.isActivated = true;
-      user.activationToken = null;
-      await user.save();
-    }else {
-      throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
-    }
+    try{
+      var activationToken = message.activationToken;
+      print("Activation token $activationToken");
+      if (!jsonWebToken.isValid(activationToken)){
+        throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
+      }
+      Map tokenInfo = jsonWebToken.decode(activationToken);
+      var userEmail= tokenInfo["user"];
+      var token= tokenInfo["token"];
+      //retrieve user
+      var user = await mgrs.findUserByEmail(userEmail);
+      if (user == null){
+        throw new NotFoundError();
+      }
+      if (user.isActivated){
+        throw new RpcError(400, 'ACTIVATION_ERROR', "Bad activation state");
+      }
+      if (user.activationToken == token){
+        //Activate user
+        user.isActivated = true;
+        user.activationToken = null;
+        await user.save();
+      }else {
+        throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
+      }
 
-    return new OKResponse();
+      return new OKResponse();
+    }catch(e,stack){
+      manageExceptions(e,stack);
+    }
   }
 }

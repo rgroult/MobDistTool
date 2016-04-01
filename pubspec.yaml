@@ -32,7 +32,7 @@ dependencies:
   crypto: "^0.9.1"
   jwt: "^0.1.4"
   validator: ">=0.0.4 <0.1.0"
-  logging_handlers: "^0.8.0"
+  log4dart: any
   shelf_exception_handler: "^0.1.0"
   mailer: any
   archive: "^1.0.20"
