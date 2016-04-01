@@ -106,7 +106,7 @@ void allTests() {
     tags['tag2'] = "test tag2";
     // httprequest.fields['jsonTags'] = ;
 
-    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags),artifactName:"rpc/ApkTest.apk" );
+    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags),artifactName:"../server/managers/src/storage/apk_sample.apk" );
     var responseJson = parseResponse(response);
     currentArtifact = responseJson["data"];
     expect(response.statusCode, equals(200));
@@ -149,14 +149,14 @@ void allTests() {
     tags['tag2'] = "test tag2";
    // httprequest.fields['jsonTags'] = ;
 
-    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags),artifactName:"rpc/test.ipa" );
+    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",jsonField:JSON.encode(tags),artifactName:"../server/managers/src/storage/ipa_sample.ipa" );
     var responseJson = parseResponse(response);
     currentArtifact = responseJson["data"];
     expect(response.statusCode, equals(200));
 
   });
 
-  test("Retrieve download infos IOS", () async {
+  test("Retrieve download infos IOS and download file", () async {
     var uuid =  currentArtifact["uuid"];
     var artifactdownloadInfoUrl = '/api/art/v1/artifacts/$uuid/download';
     var response = await sendRequest('GET', artifactdownloadInfoUrl);
@@ -169,8 +169,12 @@ void allTests() {
     prefix ='itms-services://?action=download-manifest&url=${Uri.encodeComponent(baseUrlHost)}';
     match = prefix.matchAsPrefix(responseJson['installUrl']);
     expect(match,isNotNull);
-  });
 
+    //download file
+    var binaryFile = await http.get(responseJson['directLinkUrl']);
+    expect(binaryFile.statusCode, equals(200));
+    expect(binaryFile.headers["content-type"],equals("application/octet-stream ipa"));
+  });
 
   test("delete  artifact OK", () async {
     String artifactId = currentArtifact["uuid"];
@@ -188,7 +192,7 @@ void allTests() {
     // httprequest.fields['jsonTags'] = ;
     var artifactsCreated = [];
     for (int i = 0; i<30;i++){
-      var response = await uploadArtifact(apiKey,"test","X.Y.${i}_prod","prod",artifactName:"rpc/test.ipa");
+      var response = await uploadArtifact(apiKey,"test","X.Y.${i}_prod","prod",artifactName:"../server/managers/src/storage/ipa_sample.ipa");
       expect(response.statusCode, equals(200));
       var responseJson = parseResponse(response);
       artifactsCreated.add(responseJson["data"]);

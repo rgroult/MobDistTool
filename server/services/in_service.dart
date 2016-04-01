@@ -24,6 +24,9 @@ final String TEMPLATE_BUNDLE_ID_KEY = '@BUNDLE_IDENTIFIER@';
 final String TEMPLATE_BUNDLE_VERSION_KEY = '@BUNDLE_VERSION@';
 final String TEMPLATE_APP_NAME_KEY = '@APPLICATION_NAME@';
 
+final String IPA_CONTENT_TYPE = 'application/octet-stream ipa';
+final String APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
+
 final String plistTemplate = r'''
   <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -137,9 +140,9 @@ class InService {
 
       //set content type, related to application platfom
       if (application.platform.toUpperCase() == "IOS"){
-        createdArtifact.contentType = "application/octet-stream ipa";
+        createdArtifact.contentType = IPA_CONTENT_TYPE;
       }else if (application.platform.toUpperCase() == "ANDROID"){
-        createdArtifact.contentType = "application/vnd.android.package-archive";
+        createdArtifact.contentType = APK_CONTENT_TYPE;
       }
 
       await mgrs.addFileToArtifact(
