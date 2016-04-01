@@ -156,7 +156,7 @@ class InService {
         }
 
         throw new RpcError(
-            500, 'ARTIFACT_ERROR', 'Unable to add artifact: ${e.message}');
+            400, 'ARTIFACT_ERROR', 'Unable to add artifact: ${e.message}');
         // ..errors.add(new RpcErrorDetail(reason: e.message));
       }
 
