@@ -148,10 +148,10 @@ class UserService {
   }
 
   @ApiMethod(method: 'GET', path: 'me')
-  Response userMe() {
+  Response userMe() async {
     var me = currentAuthenticatedUser();
     var response = toJson(me, isAdmin:true);
-    var allAdministratedApps = apps.findAllApplicationsForUser(me);
+    var allAdministratedApps = await apps.findAllApplicationsForUser(me);
     var administratedAppJson = [];
     for (var app in allAdministratedApps){
       administratedAppJson.add(toJsonStringValues(app,['name','platform']));
@@ -188,7 +188,7 @@ class UserService {
     if(pageIndex!=null){
       page = pageIndex;
     }
-    var numberToSkip = (page-1)*maxResult;
+    var numberToSkip = (page-1)*limit;
 
     var usersList = await users.searchUsers(page,numberToSkip,limit);
     bool hasMore = false;
