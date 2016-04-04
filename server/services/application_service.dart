@@ -12,6 +12,7 @@ import 'artifact_service.dart' as artifactMgr;
 import 'model.dart';
 import '../model/model.dart';
 import 'json_convertor.dart';
+import '../utils/utils.dart';
 
 @ApiClass(name: 'applications' , version: 'v1')
 class ApplicationService {
@@ -50,28 +51,39 @@ class ApplicationService {
       var error = e;
       //  throw new BadRequestError( e.message);
       throw new RpcError(400, 'APPLICATION_ERROR',  e.message);
-    //  throw new RpcError(400, 'InvalidRequest', 'Unable to create app')
+      //  throw new RpcError(400, 'InvalidRequest', 'Unable to create app')
       //  ..errors.add(new RpcErrorDetail(reason: e.message));
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
   }
 
   @ApiMethod(method: 'GET', path: 'search')
   Future<ResponseList> allApplications({String platform}) async{
-    var _platform = platform;
-    if (_platform != null){
-      _platform = checkSupportedPlatform(_platform);
+    try {
+      var _platform = platform;
+      if (_platform != null) {
+        _platform = checkSupportedPlatform(_platform);
+      }
+      var allApps = await mgrs.allApplications(platform: _platform);
+      var currentuser = userService.currentAuthenticatedUser();
+      var responseJson = listToJson(
+          allApps, isAdmin: currentuser.isSystemAdmin);
+      return new ResponseList(200, responseJson);
+    }catch(error,stack){
+      manageExceptions(error,stack);
     }
-    var allApps = await mgrs.allApplications(platform:_platform);
-    var currentuser = userService.currentAuthenticatedUser();
-    var responseJson = listToJson(allApps,isAdmin:currentuser.isSystemAdmin);
-    return new ResponseList(200, responseJson);
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}')
   Future<Response> applicationDetail(String appId) async{
-    var application = await findApplicationByAppId(appId);
-    var currentuser = userService.currentAuthenticatedUser();
-    return new Response(200, toJson(application,isAdmin:mgrs.isAdminForApp(application,currentuser)));
+    try{
+      var application = await findApplicationByAppId(appId);
+      var currentuser = userService.currentAuthenticatedUser();
+      return new Response(200, toJson(application,isAdmin:mgrs.isAdminForApp(application,currentuser)));
+    }catch(error,stack){
+      manageExceptions(error,stack);
+    }
   }
 
   @ApiMethod(method: 'PUT', path: 'app/{appId}')
@@ -88,130 +100,133 @@ class ApplicationService {
       var error = e;
       //  throw new BadRequestError( e.message);
       throw new RpcError(500, 'APPLICATION_ERROR',  e.message);
-     /* throw new RpcError(500, 'Update Error', 'Unable to update app')
+      /* throw new RpcError(500, 'Update Error', 'Unable to update app')
         ..errors.add(new RpcErrorDetail(reason: e.message));*/
+    }catch(error,stack){
+      manageExceptions(error,stack);
     }
   }
 
   @ApiMethod(method: 'DELETE', path: 'app/{appId}')
   Future<Response> deleteApplication(String appId) async {
-    var application = await findApplicationByAppId(appId);
-    var currentuser = userService.currentAuthenticatedUser();
-    if (mgrs.isAdminForApp(application,currentuser) == false){
-      throw new NotApplicationAdministrator();
+    try {
+      var application = await findApplicationByAppId(appId);
+      var currentuser = userService.currentAuthenticatedUser();
+      if (mgrs.isAdminForApp(application, currentuser) == false) {
+        throw new NotApplicationAdministrator();
+      }
+      await mgrs.deleteApplicationByObject(application);
+      return new OKResponse();
+    } catch(error,stack){
+      manageExceptions(error,stack);
     }
-    await mgrs.deleteApplicationByObject(application);
-    return new OKResponse();
   }
 
   @ApiMethod(method: 'PUT', path: 'app/{appId}/adminUser')
   Future<Response> addAdminUserApplication(String appId,AddAdminUserMessage msg) async {
-    var adminEmail = msg.email;
-    if (adminEmail == null){
-      throw new RpcError(400, 'InvalidRequest', 'new admin user email not found');
+    try{
+      var adminEmail = msg.email;
+      if (adminEmail == null){
+        throw new RpcError(400, 'InvalidRequest', 'new admin user email not found');
+      }
+      var application = await findApplicationByAppId(appId);
+      var currentuser = userService.currentAuthenticatedUser();
+      if (mgrs.isAdminForApp(application,currentuser) == false){
+        throw new NotApplicationAdministrator();
+      }
+      //find user to add
+      var user = await mgrs.findUserByEmail(adminEmail);
+      if (user == null){
+        throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
+        // throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
+      }
+      await mgrs.addAdminApplication(application,user);
+      return new OKResponse();
+    } catch(error,stack){
+      manageExceptions(error,stack);
     }
-    var application = await findApplicationByAppId(appId);
-    var currentuser = userService.currentAuthenticatedUser();
-    if (mgrs.isAdminForApp(application,currentuser) == false){
-      throw new NotApplicationAdministrator();
-    }
-    //find user to add
-    var user = await mgrs.findUserByEmail(adminEmail);
-    if (user == null){
-      throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
-     // throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
-    }
-    await mgrs.addAdminApplication(application,user);
-    return new OKResponse();
   }
 
   @ApiMethod(method: 'DELETE', path: 'app/{appId}/adminUser')
   Future<Response> deleteAdminUserApplication(String appId,{String adminEmail}) async {
-    if (adminEmail == null){
-      throw new RpcError(400, 'APPLICATION_ERROR',  'admin user email not found');
-      //throw new RpcError(400, 'InvalidRequest', 'admin user email not found');
+    try{
+      if (adminEmail == null){
+        throw new RpcError(400, 'APPLICATION_ERROR',  'admin user email not found');
+        //throw new RpcError(400, 'InvalidRequest', 'admin user email not found');
+      }
+      var application = await findApplicationByAppId(appId);
+      var currentuser = userService.currentAuthenticatedUser();
+      if (mgrs.isAdminForApp(application,currentuser) == false){
+        throw new NotApplicationAdministrator();
+      }
+      //find user to add
+      var user = await mgrs.findUserByEmail(adminEmail);
+      if (user == null){
+        throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
+        //throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
+      }
+      if (application.adminUsers.contains(user) == false){
+        throw new RpcError(400, 'APPLICATION_ERROR',  'user with email $adminEmail not a admin user for this application');
+      }
+      if (application.adminUsers.length == 1){
+        throw new RpcError(500, 'APPLICATION_ERROR',  'Delete of last administrator forbidden');
+      }
+      await mgrs.removeAdminApplication(application,user);
+      return new OKResponse();
+    } catch(error,stack){
+      manageExceptions(error,stack);
     }
-    var application = await findApplicationByAppId(appId);
-    var currentuser = userService.currentAuthenticatedUser();
-    if (mgrs.isAdminForApp(application,currentuser) == false){
-      throw new NotApplicationAdministrator();
-    }
-    //find user to add
-    var user = await mgrs.findUserByEmail(adminEmail);
-    if (user == null){
-      throw new RpcError(400, 'APPLICATION_ERROR',  'user not found for email $adminEmail');
-      //throw new RpcError(400, 'InvalidRequest', 'user not found for email $adminEmail');
-    }
-    if (application.adminUsers.length == 1){
-      throw new RpcError(500, 'APPLICATION_ERROR',  'Delete of last administrator forbidden');
-    }
-    await mgrs.removeAdminApplication(application,user);
-    return new OKResponse();
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions')
   Future<ResponseList> getApplicationVersions(String appId,{int pageIndex, int limitPerPage,String branch}) async {
-    var application = await findApplicationByAppId(appId);
-    var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch,branchToExclude:artifactMgr.ArtifactService.lastVersionBranchName);
-    var responseJson = listToJson(allVersions,isAdmin:true);
-    return new ResponseList(200, responseJson);
-   // return new ResponseList(200, listToJson(allVersions));
+    try{
+      var application = await findApplicationByAppId(appId);
+      var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch,branchToExclude:artifactMgr.ArtifactService.lastVersionBranchName);
+      var responseJson = listToJson(allVersions,isAdmin:true);
+      return new ResponseList(200, responseJson);
+      // return new ResponseList(200, listToJson(allVersions));
+    } catch(error,stack){
+      manageExceptions(error,stack);
+    }
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
   Future<MediaMessage> getApplicationIcon(String appId) async {
-    var application = await findApplicationByAppId(appId);
+    try{
+      var application = await findApplicationByAppId(appId);
 
-    String base64icon = application.base64IconData;
-    if (base64icon != null) {}
-    var dataTypeIndex = base64icon.indexOf('data:');
-    var dataBytesIndex = base64icon.indexOf(';base64,');
-    var endDataTypeIndex= dataBytesIndex;
-    if (dataTypeIndex != -1 && dataBytesIndex != -1) {
-      dataTypeIndex += 5;
-      dataBytesIndex += 8;
+      String base64icon = application.base64IconData;
+      if (base64icon != null) {}
+      var dataTypeIndex = base64icon.indexOf('data:');
+      var dataBytesIndex = base64icon.indexOf(';base64,');
+      var endDataTypeIndex= dataBytesIndex;
+      if (dataTypeIndex != -1 && dataBytesIndex != -1) {
+        dataTypeIndex += 5;
+        dataBytesIndex += 8;
 
-      var imageType = base64icon.substring(dataBytesIndex,endDataTypeIndex);
-      var base64 = base64icon.substring(dataTypeIndex);
-      var result = new MediaMessage();
-      result.contentType = imageType;
-      result.bytes = CryptoUtils.base64StringToBytes(base64);
-      return result;
+        var imageType = base64icon.substring(dataBytesIndex,endDataTypeIndex);
+        var base64 = base64icon.substring(dataTypeIndex);
+        var result = new MediaMessage();
+        result.contentType = imageType;
+        result.bytes = CryptoUtils.base64StringToBytes(base64);
+        return result;
+      }
+      throw new NotFoundError("Icon not found");
+    } catch(error,stack){
+      manageExceptions(error,stack);
     }
-    throw new NotFoundError("Icon not found");
   }
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions/last')
   Future<ResponseList> getApplicationLastVersions(String appId) async {
-    var application = await findApplicationByAppId(appId);
-    var allVersions = await mgrs.searchArtifacts(application, branch:artifactMgr.ArtifactService.lastVersionBranchName);
-    var responseJson = listToJson(allVersions);
-    return new ResponseList(200, responseJson);
-    // return new ResponseList(200, listToJson(allVersions));
+    try{
+      var application = await findApplicationByAppId(appId);
+      var allVersions = await mgrs.searchArtifacts(application, branch:artifactMgr.ArtifactService.lastVersionBranchName);
+      var responseJson = listToJson(allVersions);
+      return new ResponseList(200, responseJson);
+    } catch(error,stack){
+      manageExceptions(error,stack);
+    }
   }
 }
-
-
-
-/*
- app.get('/admin/applications', applicationController.listAllApplications)
-
-	//applications routes
-    app.post('/applications', passport.authenticate('bearer', { session: false }), applicationController.createApplication)
-    app.get('/applications', passport.authenticate('bearer', { session: false }), applicationController.listAllApplicationsForUser)
-
-    app.put('/applications/:idapp', passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.updateById)
-    app.get('/applications/:idapp', passport.authenticate('bearer', { session: false }), applicationController.canAccessApplication,applicationController.findById)
-    app.delete('/applications/:idapp', passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.deleteById)
-    //members management
-    app.put('/applications/:idapp/adminmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.addAdminMember)
-    app.delete('/applications/:idapp/adminmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.removeAdminMember)
-    app.put('/applications/:idapp/members/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.addMember)
-    app.delete('/applications/:idapp/members/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.removeMember)
-    app.put('/applications/:idapp/extmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.addExtMember)
-    app.delete('/applications/:idapp/extmembers/:useremail',passport.authenticate('bearer', { session: false }), applicationController.canUpdateApplication,applicationController.removeExtMember)
-    //versions
-    app.get('/applications/:idapp/versions/:version', passport.authenticate('bearer', { session: false }), applicationController.canAccessApplication, applicationController.versionInformations)
-    app.get('/applications/:idapp/versions', passport.authenticate('bearer', { session: false }), app
-
- */

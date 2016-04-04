@@ -115,6 +115,7 @@ void allTests() {
     expect(responseJson["error"]["code"], equals(400));
   });
 
+
   test("Search app", () async {
     //create another app
     var appInfos = new Map.from(applicationCreationAndroid);
@@ -138,6 +139,16 @@ void allTests() {
     responseJson = parseResponse(allApps);
     expect(responseJson["list"].length, equals(2));
 
+  });
+
+  test("App detail", () async {
+    var allIosApps = await sendRequest('GET', '${baseAppUri}/search?platform=ios');
+    var responseJson = parseResponse(allIosApps);
+    var app = responseJson["list"].first;
+    var appDetail = await sendRequest('GET', '${baseAppUri}/app/${app["uuid"]}');
+    expect(appDetail.statusCode, equals(200));
+    responseJson = parseResponse(appDetail);
+    expect(responseJson["data"]["uuid"], equals(app["uuid"]));
   });
 
   //ar applicationCreation = {"name":"Application test", "description":"Full app description", "platform":"ios"};
@@ -164,5 +175,45 @@ void allTests() {
     expect(response.statusCode, equals(500));
     responseJson = parseResponse(response);
 
+  });
+
+  test("Update admin user", () async {
+    var allIosApps = await sendRequest('GET', '${baseAppUri}/search?platform=ios');
+    var responseJson = parseResponse(allIosApps);
+    var appIOS = responseJson["list"].first;
+    print("App $appIOS");
+
+    //add admin user
+    var updateAdminUserData =  {"email":userRegistration2["email"]};
+    var response = await sendRequest('PUT', '${baseAppUri}/app/${appIOS["uuid"]}/adminUser', body: JSON.encode(updateAdminUserData));
+    expect(response.statusCode, equals(200));
+
+    //reload app
+    var appDetail = await sendRequest('GET', '${baseAppUri}/app/${appIOS["uuid"]}');
+    responseJson = parseResponse(appDetail);
+    appIOS = responseJson["data"];
+    print("updated app $appIOS");
+
+    //delete admin user
+    response = await sendRequest('DELETE', '${baseAppUri}/app/${appIOS["uuid"]}/adminUser?adminEmail=${userRegistration2["email"]}');
+    expect(response.statusCode, equals(200));
+
+    //delete admin user twice
+    response = await sendRequest('DELETE', '${baseAppUri}/app/${appIOS["uuid"]}/adminUser?adminEmail=${userRegistration2["email"]}');
+    expect(response.statusCode, equals(400));
+
+    //add admin user unknown
+    updateAdminUserData =  {"email":"nobody@test.com"};
+    response = await sendRequest('PUT', '${baseAppUri}/app/${appIOS["uuid"]}/adminUser', body: JSON.encode(updateAdminUserData));
+    expect(response.statusCode, equals(400));
+  });
+
+  test("Delete App", () async {
+    var allIosApps = await sendRequest('GET', '${baseAppUri}/search?platform=ios');
+    var responseJson = parseResponse(allIosApps);
+    var app = responseJson["list"].first;
+
+    var deleteReq = await sendRequest('DELETE', '${baseAppUri}/app/${app["uuid"]}');
+    expect(deleteReq.statusCode, equals(200));
   });
 }

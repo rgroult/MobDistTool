@@ -7,16 +7,29 @@ import 'dart:io';
 import '../artifacts_manager.dart';
 import 'base_storage_manager.dart';
 import '../../errors.dart';
+import '../../../services/in_service.dart' as in_srv;
+
+final String ipaSample = 'ipa_sample.ipa';
+final String apkSample = 'apk_sample.apk';
 
 class YesStorageManager extends BaseStorageManager {
   String storageIdentifier = "YesStorage";
 
   Future<String> storeFile(File file, {String appName, String version, String filename, String contentType}) async {
-    return new Future.value(generateStorageInfos("fakeFile"));
+    String storeInfos = "fakeFile";
+    if (contentType == in_srv.APK_CONTENT_TYPE){
+      storeInfos = apkSample;
+    }
+    if (contentType == in_srv.IPA_CONTENT_TYPE){
+      storeInfos = ipaSample;
+    }
+    return new Future.value(generateStorageInfos(storeInfos));
   }
 
   Future<Stream> getStreamFromStoredFile(String storedInfos) async{
-    var file = new File(Directory.current.path+"/server/managers/src/storage" +"/yes_storage_sample.txt");
+    var filename = extractStorageId(storedInfos);
+
+    var file = new File(Directory.current.path+"/server/managers/src/storage/${filename}");
     return file.openRead();
   }
 

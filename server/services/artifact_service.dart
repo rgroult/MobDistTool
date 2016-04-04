@@ -14,7 +14,7 @@ import 'user_service.dart' as userService;
 import 'model.dart';
 import 'json_convertor.dart';
 import '../config/config.dart' as config;
-import '../utils/utils.dart' as utils;
+import '../utils/utils.dart';
 import '../utils/lite_mem_cache.dart' as cache;
 import 'package:logging/logging.dart';
 
@@ -23,7 +23,6 @@ class ArtifactService {
 
   static String lastVersionBranchName = "@@@@LAST####";
   static String lastVersionName = "latest";
-  final Logger log = new Logger('ArtifactService');
 
   ArtifactService(){
 
@@ -80,8 +79,8 @@ Not used yet
     }
     try {
       await mgrs.deleteArtifact(artifact,mgrs.defaultStorage);
-    }catch(e){
-      log.severe("Delete Artifact error: ${e.toString()}");
+    } catch(error,stack){
+      manageExceptions(error,stack);
     }
     return new OKResponse();
   }
@@ -89,42 +88,46 @@ Not used yet
 
   @ApiMethod(method: 'GET', path: 'artifacts/{idArtifact}/download')
   Future<Response> getArtifactDescriptor(String idArtifact) async{
-    var artifact = await  mgrs.findArtifact(idArtifact);
-    if (artifact == null ){
-      throw new NotFoundError("Unable to find artifact");
-    }
-    var tokenValidity = 3; //in minutes
-    var downloadInfo = new DownloadInfo();
-    downloadInfo.validity = tokenValidity*60; //3 minutes
-    var baseArtifactPath = '/api/in/v1/artifacts/$idArtifact';
-    if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
-      baseArtifactPath = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${baseArtifactPath}';
-    }
+    try{
+      var artifact = await  mgrs.findArtifact(idArtifact);
+      if (artifact == null ){
+        throw new NotFoundError("Unable to find artifact");
+      }
+      var tokenValidity = 3; //in minutes
+      var downloadInfo = new DownloadInfo();
+      downloadInfo.validity = tokenValidity*60; //3 minutes
+      var baseArtifactPath = '/api/in/v1/artifacts/$idArtifact';
+      if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
+        baseArtifactPath = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${baseArtifactPath}';
+      }
 
-    downloadInfo.directLinkUrl = '$baseArtifactPath/file';
-    //add security web token
-    DateTime now = new DateTime.now();
-    now = now.add(new Duration(minutes: tokenValidity));
-    final token = {
-      'id':idArtifact,
-      'expireAt': now.millisecondsSinceEpoch
-    };
-    var dwToken = cache.instance.addValue(token);
+      downloadInfo.directLinkUrl = '$baseArtifactPath/file';
+      //add security web token
+      DateTime now = new DateTime.now();
+      now = now.add(new Duration(minutes: tokenValidity));
+      final token = {
+        'id':idArtifact,
+        'expireAt': now.millisecondsSinceEpoch
+      };
+      var dwToken = cache.instance.addValue(token);
 
-    downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$dwToken";
+      downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$dwToken";
 
-    var app = await artifact.application.getMeFromDb();
-    if (app == null){
-      throw new NotFoundError("Unable to find application");
+      var app = await artifact.application.getMeFromDb();
+      if (app == null){
+        throw new NotFoundError("Unable to find application");
+      }
+
+      if (app.platform.toUpperCase() == 'IOS'){
+        downloadInfo.installUrl = '$baseArtifactPath/ios_plist?token=$dwToken';
+        downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${Uri.encodeComponent(downloadInfo.installUrl)}";
+      }else {
+        downloadInfo.installUrl = downloadInfo.directLinkUrl;
+      }
+      return new Response(200, downloadInfo.toJson());
+    } catch(error,stack){
+      manageExceptions(error,stack);
     }
-
-    if (app.platform.toUpperCase() == 'IOS'){
-      downloadInfo.installUrl = '$baseArtifactPath/ios_plist?token=$dwToken';
-      downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${Uri.encodeComponent(downloadInfo.installUrl)}";
-    }else {
-      downloadInfo.installUrl = downloadInfo.directLinkUrl;
-    }
-    return new Response(200, downloadInfo.toJson());
   }
 
   static Future downloadFile(String idArtifact,{String token}) async {
@@ -162,10 +165,8 @@ Not used yet
       var log = new Logger('ArtifactService');
       log.severe("downloadFile error: ${e.toString()}");
       return new shelf.Response.notFound("");
-    }
-    catch(e){
-      print("downloadFile error:${e.toString()}");
-      return new shelf.Response.internalServerError();
+    } catch(error,stack){
+      manageExceptions(error,stack);
     }
   }
 }

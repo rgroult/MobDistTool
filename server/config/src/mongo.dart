@@ -7,6 +7,7 @@ import 'dart:async';
 import '../../../packages/objectory/objectory_console.dart';
 import '../../model/model.dart';
 import '../config.dart' as config;
+import '../../utils/utils.dart';
 
 Db mongoDb = null;
 
@@ -21,7 +22,7 @@ Db mongoDb = null;
 
   //const Uri = "mongodb://localhost:27017/mdt_dev";
   var Uri = config.currentLoadedConfig[config.MDT_DATABASE_URI];
-  print("mongo initializing on  $Uri");
+  printAndLog("mongo initializing on  $Uri");
   objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,false);
   if (dropCollectionOnStartup == true) {
     objectory.dropCollectionsOnStartup = true;
