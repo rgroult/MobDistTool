@@ -8,21 +8,22 @@ import '../../managers/src/storage/google_drive_manager.dart';
 import '../../managers/src/storage/local_storage_manager.dart';
 import '../../managers/src/artifacts_manager.dart' as mgr;
 import '../config.dart' as config;
+import '../../utils/utils.dart';
 
 Future initialize() async{
   var storage = config.currentLoadedConfig[config.MDT_STORAGE_NAME];
   switch (storage){
     case "google_drive_manager":
-      print("Storage initialized to Google Drive Manager");
+      printAndLog("Storage initialized to Google Drive Manager");
       mgr.defaultStorage = new GoogleDriveStorageManager();
       break;
     case "yes_storage_manager":
       mgr.defaultStorage = new YesStorageManager();
-      print("Storage initialized to Yes Storage Manager");
+      printAndLog("Storage initialized to Yes Storage Manager");
       break;
     case "local_storage_manager":
       mgr.defaultStorage = new LocalStorageManager();
-      print("Storage initialized to Local Storage Manager");
+      printAndLog("Storage initialized to Local Storage Manager");
       break;
     default:
       throw new StateError("Invalid storage name $storage");

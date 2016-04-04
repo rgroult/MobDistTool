@@ -5,9 +5,8 @@
 import 'dart:async';
 import 'package:option/option.dart';
 import 'package:rpc/rpc.dart';
-import 'package:rpc/src/context.dart' as context;
 import 'package:shelf_auth/shelf_auth.dart';
-import 'package:shelf_exception_handler/shelf_exception_handler.dart';
+import "package:log4dart/log4dart_vm.dart";
 import 'package:mailer/mailer.dart';
 import 'package:validator/validator.dart';
 import 'package:jwt/json_web_token.dart';
@@ -17,7 +16,11 @@ import '../managers/src/apps_manager.dart' as apps;
 import 'json_convertor.dart';
 import 'model.dart';
 import '../config/config.dart' as config;
+import '../utils/utils.dart';
+import '../managers/errors.dart';
 
+
+final _logger = LoggerFactory.getLogger("UserService");
 
 Future<Option<User>> authenticateUser(String username, String password) async {
   //return new Some(new Principal(("toto")));
@@ -26,7 +29,9 @@ Future<Option<User>> authenticateUser(String username, String password) async {
   if (user != null) {
     if (user.isActivated){
       return new Some(new User(user));
-    }
+    }else { _logger.info("Login Failed: User ${user.email} not activated");}
+  }else {
+    _logger.info("Login Failed: ($username) Bad login or password");
   }
   return new None();
 }
@@ -78,56 +83,67 @@ class UserService {
   }
   @ApiMethod(method: 'POST', path: 'register')
   Future<Response> userRegister(RegisterMessage message) async {
-    var userCreated = null;
-    if (isEmail(message.email) == false){
-      throw new RpcError(400, 'REGISTER_ERROR', "Bad url format");
-    }
-    List<String> whiteEmailsDomain = config.currentLoadedConfig[config.MDT_REGISTRATION_WHITE_DOMAINS];
-    if (whiteEmailsDomain != null && whiteEmailsDomain is List && whiteEmailsDomain.length >0){
-      bool inWhiteDomains = false;
-      for(String domain in whiteEmailsDomain){
-        if (message.email.toLowerCase().endsWith(domain)){
-          inWhiteDomains =true;
-          break;
-        }
-      }
-      if (inWhiteDomains == false){
-        throw new RpcError(401, 'REGISTER_ERROR', "Registration forbidden for this email");
-      }
-    }
     try {
-      userCreated = await users.createUser(message.name, message.email, message.password,isActivated:!needRegistration);
-      var jsonResult = toJson(userCreated);
-      if (needRegistration && confirmationUrl!= null && emailTransport!=null){
-        jsonResult["message"] = "A activation email was sent.";
-        //send confirmation email
-        //activation token
-        final token = {
-          'user': userCreated.email,
-          'token': userCreated.activationToken
-        };
-        var activationToken = jsonWebToken.encode(token);
-        var url = '$confirmationUrl${activationToken}';
-        var envelope = new Envelope()
-          ..recipients.add(userCreated.email)
-          ..subject = 'MDT Account activation'
-          ..html = '<p> Please follow this <a href="$url">link</a> to activate your account</p>';
-        try {
-          await emailTransport.send(envelope);
-        }catch(e){
-          throw new RpcError(500, 'REGISTER_ERROR', "Unable to send confirmation email");
+      var userCreated = null;
+      if (isEmail(message.email) == false) {
+        throw new RpcError(400, 'REGISTER_ERROR', "Bad url format");
+      }
+      List<String> whiteEmailsDomain = config.currentLoadedConfig[config
+          .MDT_REGISTRATION_WHITE_DOMAINS];
+      if (whiteEmailsDomain != null && whiteEmailsDomain is List &&
+          whiteEmailsDomain.length > 0) {
+        bool inWhiteDomains = false;
+        for (String domain in whiteEmailsDomain) {
+          if (message.email.toLowerCase().endsWith(domain)) {
+            inWhiteDomains = true;
+            break;
+          }
+        }
+        if (inWhiteDomains == false) {
+          throw new RpcError(
+              401, 'REGISTER_ERROR', "Registration forbidden for this email");
         }
       }
+      try {
+        userCreated = await users.createUser(
+            message.name, message.email, message.password,
+            isActivated: !needRegistration);
+        var jsonResult = toJson(userCreated);
+        if (needRegistration && confirmationUrl != null &&
+            emailTransport != null) {
+          jsonResult["message"] = "A activation email was sent.";
+          //send confirmation email
+          //activation token
+          final token = {
+            'user': userCreated.email,
+            'token': userCreated.activationToken
+          };
+          var activationToken = jsonWebToken.encode(token);
+          var url = '$confirmationUrl${activationToken}';
+          var envelope = new Envelope()
+            ..recipients.add(userCreated.email)
+            ..subject = 'MDT Account activation'
+            ..html = '<p> Please follow this <a href="$url">link</a> to activate your account</p>';
+          try {
+            await emailTransport.send(envelope);
+          } catch (e) {
+            throw new RpcError(
+                500, 'REGISTER_ERROR', "Unable to send confirmation email");
+          }
+        }
 
-      return new Response(200, jsonResult);
-    }catch (e) {
-      if (userCreated != null){
-        await userCreated.remove();
+        return new Response(200, jsonResult);
+      } catch (e) {
+        if (userCreated != null) {
+          await userCreated.remove();
+        }
+        //var error = e;
+        //  throw new BadRequestError( e.message);
+        throw new RpcError(500, 'REGISTER_ERROR', e.message);
+        // ..errors.add(new RpcErrorDetail(reason: e.message));
       }
-      //var error = e;
-      //  throw new BadRequestError( e.message);
-      throw new RpcError(500, 'REGISTER_ERROR', e.message);
-      // ..errors.add(new RpcErrorDetail(reason: e.message));
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
   }
 
@@ -148,16 +164,20 @@ class UserService {
   }
 
   @ApiMethod(method: 'GET', path: 'me')
-  Response userMe() {
-    var me = currentAuthenticatedUser();
-    var response = toJson(me, isAdmin:true);
-    var allAdministratedApps = apps.findAllApplicationsForUser(me);
-    var administratedAppJson = [];
-    for (var app in allAdministratedApps){
-      administratedAppJson.add(toJsonStringValues(app,['name','platform']));
+  Future<Response> userMe() async {
+    try {
+      var me = currentAuthenticatedUser();
+      var response = toJson(me, isAdmin: true);
+      var allAdministratedApps = await apps.findAllApplicationsForUser(me);
+      var administratedAppJson = [];
+      for (var app in allAdministratedApps) {
+        administratedAppJson.add(toJsonStringValues(app, ['name', 'platform']));
+      }
+      response['administratedApplications'] = administratedAppJson;
+      return new Response(200, response);
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
-    response['administratedApplications'] = administratedAppJson;
-    return new Response(200, response);
   }
 
   ///*{String login , String password,String type token or session}*/
@@ -179,64 +199,72 @@ class UserService {
 
   @ApiMethod(method: 'GET', path: 'all')
   Future<ResponseListPagined> listUsers({int pageIndex,int maxResult}) async{
-    checkSysAdmin();
-    var page = 1;
-    var limit = 25;
-    if(maxResult != null){
-      limit = maxResult+1;
-    }
-    if(pageIndex!=null){
-      page = pageIndex;
-    }
-    var numberToSkip = (page-1)*maxResult;
+    try {
+      checkSysAdmin();
+      var page = 1;
+      var limit = 25;
+      if (maxResult != null) {
+        limit = maxResult + 1;
+      }
+      if (pageIndex != null) {
+        page = pageIndex;
+      }
+      var numberToSkip = (page - 1) * limit;
 
-    var usersList = await users.searchUsers(page,numberToSkip,limit);
-    bool hasMore = false;
-    if (usersList.length == limit){
-      hasMore = true;
-      usersList.removeLast();
+      var usersList = await users.searchUsers(page, numberToSkip, limit);
+      bool hasMore = false;
+      if (usersList.length == limit) {
+        hasMore = true;
+        usersList.removeLast();
+      }
+      var responseJson = listToJson(usersList, isAdmin: true);
+      return new ResponseListPagined(responseJson, hasMore, page);
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
-    var responseJson = listToJson(usersList,isAdmin:true);
-    return new ResponseListPagined(responseJson,hasMore,page);
   }
 
   @ApiMethod(method: 'PUT', path: 'user')
   Future<Response> updateUser(UpdateUserMessage message) async {
-    var me = currentAuthenticatedUser();
-    String email = message.email;
+    try {
+      var me = currentAuthenticatedUser();
+      String email = message.email;
 
-    if (me.email != email && me.isSystemAdmin == false) {
-      throw new RpcError(401, "ACCESS_DENIED", "Admin Access Denied");
-    }
-
-    //find user
-    var user = await users.findUserByEmail(email);
-
-    if (user == null) {
-      throw new NotFoundError("User not found");
-    }
-
-    if (message.password != null) {
-      user.password = users.generateHash(message.password, user.salt);
-    }
-    if (message.name != null) {
-      user.name = message.name;
-    }
-    //only sysadmin can activated/desactivate and enable sysadmin
-    if (me.isSystemAdmin) {
-      if (message.sysadmin != null) {
-        user.isSystemAdmin = message.sysadmin;
+      if (me.email != email && me.isSystemAdmin == false) {
+        throw new RpcError(401, "ACCESS_DENIED", "Admin Access Denied");
       }
-      if (message.activated != null) {
-        user.isActivated = message.activated;
+
+      //find user
+      var user = await users.findUserByEmail(email);
+
+      if (user == null) {
+        throw new NotFoundError("User not found");
       }
+
+      if (message.password != null) {
+        user.password = users.generateHash(message.password, user.salt);
+      }
+      if (message.name != null) {
+        user.name = message.name;
+      }
+      //only sysadmin can activated/desactivate and enable sysadmin
+      if (me.isSystemAdmin) {
+        if (message.sysadmin != null) {
+          user.isSystemAdmin = message.sysadmin;
+        }
+        if (message.activated != null) {
+          user.isActivated = message.activated;
+        }
+      }
+
+      //save user
+      await user.save();
+
+      var jsonResult = toJson(user, isAdmin: true);
+      return new Response(200, jsonResult);
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
-
-    //save user
-    await user.save();
-
-    var jsonResult = toJson(user,isAdmin:true);
-    return new Response(200, jsonResult);
   }
 
   @ApiMethod(method: 'DELETE', path: 'user')
@@ -252,6 +280,8 @@ class UserService {
       return new OKResponse();
     } on UserError catch (e) {
       throw new NotFoundError(e.message);
+    }catch(e,stack){
+      manageExceptions(e,stack);
     }
   }
 }

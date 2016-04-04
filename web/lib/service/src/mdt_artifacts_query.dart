@@ -78,11 +78,11 @@ abstract class MDTQueryServiceArtifacts {
   }
 
   Future<MDTArtifact> addArtifact(String apiKey, File file, String name,
-                                  {bool latest,
-                                  String branch,
-                                  String version,
-                                  String jsonTags,
-                                  String sortIdentifier}) async {
+      {bool latest,
+      String branch,
+      String version,
+      String jsonTags,
+      String sortIdentifier}) async {
     if ((apiKey == null) || (file == null) || (name == null)) {
       throw new ArtifactsError("Bad parameters");
     }
@@ -105,11 +105,18 @@ abstract class MDTQueryServiceArtifacts {
     if (jsonTags != null) {
       formData.append("jsonTags", jsonTags);
     }
-    var response = await HttpRequest.request(url, method: "POST", sendData: formData);
+    var responseJson = {};
+    try {
 
-    var responseJson = JSON.decode(response.response);
-    //parseResponse(response.response,checkAuthorization:false);
+      var response = await HttpRequest.request(
+          url, method: "POST", sendData: formData);
 
+      responseJson = JSON.decode(response.response);
+      //parseResponse(response.response,checkAuthorization:false);
+    }catch(e){
+      var responseText = e.target.responseText;
+      responseJson = JSON.decode(responseText);
+    }
     if (responseJson["error"] != null) {
       throw new ArtifactsError(responseJson["error"]["message"]);
     }
@@ -117,6 +124,7 @@ abstract class MDTQueryServiceArtifacts {
     if (artifact != null) {
       return new MDTArtifact(artifact);
     }
+
 
     throw new ArtifactsError("Unable to parse response ${responseJson}");
   }

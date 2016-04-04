@@ -18,7 +18,8 @@ final Map defaultConfig = {
   MDT_TOKEN_SECRET:"secret token dsfsxfsfsqd%%Qsdqs",
   MDT_LOG_DIR:"",
   MDT_SYSADMIN_INITIAL_PASSWORD:"sysadmin",
-  MDT_SYSADMIN_INITIAL_EMAIL:"admin@localhost.com"
+  MDT_SYSADMIN_INITIAL_EMAIL:"admin@localhost.com",
+  MDT_LOG_TO_CONSOLE:"true"
 };
 
 Map<String, Object> currentLoadedConfig = defaultConfig;
@@ -36,6 +37,7 @@ final String MDT_TOKEN_SECRET = "MDT_TOKEN_SECRET";
 final String MDT_LOG_DIR = "MDT_LOG_DIR";
 final String MDT_SYSADMIN_INITIAL_PASSWORD = "MDT_SYSADMIN_INITIAL_PASSWORD";
 final String MDT_SYSADMIN_INITIAL_EMAIL = "MDT_SYSADMIN_INITIAL_EMAIL";
+final String MDT_LOG_TO_CONSOLE = "MDT_LOG_TO_CONSOLE";
 
 Future loadConfig() async{
   //load 'config.json' file is present
@@ -53,6 +55,10 @@ Future loadConfig() async{
 
   //override by env values if present
   Map<String, String> env = Platform.environment;
+
+  if (env[MDT_LOG_TO_CONSOLE] != null){
+    currentLoadedConfig[MDT_LOG_TO_CONSOLE] = env[MDT_LOG_TO_CONSOLE];
+  }
 
   if (env[MDT_SYSADMIN_INITIAL_PASSWORD] != null){
     currentLoadedConfig[MDT_SYSADMIN_INITIAL_PASSWORD] = env[MDT_SYSADMIN_INITIAL_PASSWORD];
@@ -103,13 +109,4 @@ Future loadConfig() async{
   if (currentLoadedConfig[MDT_STORAGE_NAME] == null){
     throw new StateError("MDT_STORAGE_NAME config not found");
   }
-/*
-  //mongo db
-  var mongoURL = env[MDT_DATABASE_URI];
-  if (mongoURL == null){
-    mongoURL = "mongodb://localhost:27017/mdt_dev";
-  }
-  currentLoadedConfig[MDT_DATABASE_URI] = mongoURL;
-  //artifact storage
-*/
 }

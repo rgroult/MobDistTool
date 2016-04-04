@@ -97,7 +97,7 @@ Future<MDTApplication> findApplication(String name, String platform) async {
   return await appCollection.findOne(where.eq('name', name).eq('platform', platform));
 }
 
-Future<List<MDTApplication>> findAllApplicationsForUser(MDTUser user) {
+Future<List<MDTApplication>> findAllApplicationsForUser(MDTUser user) async {
   return appCollection.find(where.eq('adminUsers',user.dbRef));
 }
 

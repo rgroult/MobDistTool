@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:io';
 //logging
+import "package:log4dart/log4dart_vm.dart";
 import 'package:logging/logging.dart';
 import 'package:logging_handlers/server_logging_handlers.dart';
 //rpc
@@ -14,7 +15,6 @@ import 'package:shelf_static/shelf_static.dart' as shelf_static;
 import 'package:shelf_rpc/shelf_rpc.dart' as shelf_rpc;
 import 'package:shelf_route/shelf_route.dart' as shelf_route;
 //import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
-import 'package:shelf_exception_handler/shelf_exception_handler.dart';
 //authentication / authorisation
 import 'package:shelf_auth/shelf_auth.dart';
 
@@ -34,6 +34,7 @@ import '../server/services/artifact_service.dart';
 import '../server/services/in_service.dart';
 import '../server/utils/utils.dart' as utils;
 import '../web/version.dart' as version;
+import '../server/services/exeption_handler.dart' as exception_handler;
 
 const _API_PREFIX = '/api';
 /*const _SIGNED_PREFIX = _API_PREFIX+'/in';
@@ -45,23 +46,37 @@ final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: 
 
 HttpServer httpServer;
 
+
 Future stopServer({bool force:false}) async {
   await httpServer.close(force:true);
 }
 
 Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
-  print ("MDT starting ...");
   await config.loadConfig();
 
-  // Add a simple log handler to log information to a server side file.
-  Logger.root.level = Level.WARNING;
+  //logging
   DateTime now = new DateTime.now();
   var logFile = "${config.currentLoadedConfig[config.MDT_LOG_DIR]}mdt_logs_${now.year}${now.month.toString().padLeft(2,'0')}${now.day.toString().padLeft(2,'0')}.txt";
-  Logger.root.onRecord.listen(new SyncFileLoggingHandler(logFile));
-  if (stdout.hasTerminal) {
-    Logger.root.onRecord.listen(new LogPrintHandler());
+  LoggerFactory.config[".*"].logFormat = "[%d] %c %n: %m";
+  LoggerFactory.config[".*"].appenders = [new FileAppender(logFile)];
+  var outputToConsole = config.currentLoadedConfig[config.MDT_LOG_TO_CONSOLE] == "true";
+  if (outputToConsole){
+    LoggerFactory.config[".*"].appenders.add(new ConsoleAppender());
   }
-  print("logging file : $logFile");
+
+  LoggerFactory.config["Request"].logFormat = "%m";
+  final _requestLogger = LoggerFactory.getLogger("Request");
+  var requestLogger = (msg, isError) {
+    if (isError) {
+      _requestLogger.error(msg);
+    } else {
+      _requestLogger.info(msg);
+    }
+
+  };
+
+  utils.printAndLog ("MDT starting ...");
+  utils.printAndLog("logging file : $logFile");
 
   await mongo.initialize(dropCollectionOnStartup:resetDatabaseContent);
 
@@ -77,11 +92,11 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   //authentication
   var sessionHandler = new JwtSessionHandler('MobDistTool', '${utils.randomString(15)} secret', usernameLookup);
   var loginMiddleware = authenticate([new UsernamePasswordAuthenticator(authenticateUser)],
-  sessionHandler:sessionHandler , allowHttp: true);
+      sessionHandler:sessionHandler , allowHttp: true);
 
   var defaultAuthMiddleware = authenticate([],
-  sessionHandler: sessionHandler, allowHttp: true,
-  allowAnonymousAccess: false);
+      sessionHandler: sessionHandler, allowHttp: true,
+      allowAnonymousAccess: false);
 
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
@@ -90,40 +105,41 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
       defaultDocument: 'index.html');
 
   var apiRouter = shelf_route.router()
-      //disable authent for register
-      ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
-      ..get('api/in/v1/artifacts/{artifactid}/file{?token}',(request) => ArtifactService.downloadFile(shelf_route.getPathParameter(request, 'artifactid'),token: shelf_route.getPathParameter(request, 'token')))
-      ..add('/api/in/',null,apiHandler,exactMatch: false)
-      ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
-      //..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
-      //disable authent for discovery ?
-      ..add('api/discovery',null,apiHandler,exactMatch: false)
-      //gui
-      ..add('web/',null,staticHandler,exactMatch: false)
-      //authenticate api
-      ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
+  //disable authent for register
+    ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
+    ..get('api/in/v1/artifacts/{artifactid}/file{?token}',(request) => ArtifactService.downloadFile(shelf_route.getPathParameter(request, 'artifactid'),token: shelf_route.getPathParameter(request, 'token')))
+    ..add('/api/in/',null,apiHandler,exactMatch: false)
+    ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
+  //..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
+  //disable authent for discovery ?
+    ..add('api/discovery',null,apiHandler,exactMatch: false)
+  //gui
+    ..add('web/',null,staticHandler,exactMatch: false)
+  //authenticate api
+    ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
-  shelf_route.printRoutes(apiRouter);
+  shelf_route.printRoutes(apiRouter,printer:utils.printAndLog );
 
   var handler = const shelf.Pipeline()
-      //.addMiddleware(shelf_cors.createCorsHeadersMiddleware(corsHeaders:{'Access-Control-Allow-Origin': '*' /*, 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, authorization','Access-Control-Allow-Credentials':'true'*/}))
-      .addMiddleware(exceptionHandler())
-      .addMiddleware(shelf.logRequests())
+  //.addMiddleware(shelf_cors.createCorsHeadersMiddleware(corsHeaders:{'Access-Control-Allow-Origin': '*' /*, 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, authorization','Access-Control-Allow-Credentials':'true'*/}))
+      .addMiddleware(exception_handler.exceptionHandler())
+      .addMiddleware(shelf.logRequests(logger: requestLogger))
       .addHandler(apiRouter.handler);
 
-  print("bind localhost on port ${config.currentLoadedConfig[config.MDT_SERVER_PORT]}");
+  utils.printAndLog("bind localhost on port ${config.currentLoadedConfig[config.MDT_SERVER_PORT]}");
 
   var server =  shelf_io.serve(handler, '0.0.0.0', config.currentLoadedConfig[config.MDT_SERVER_PORT]);
   server.then((server) {
-      print('MDT version(${version.MDT_VERSION}) started on port ${server.port}.');
-      print('You can access server Web UI on http://localhost:${server.port}/web/');
-      httpServer=server;
+    utils.printAndLog('MDT version(${version.MDT_VERSION}) started on port ${server.port}.');
+    utils.printAndLog('You can access server Web UI on http://localhost:${server.port}/web/');
+    httpServer=server;
   });
 
   return new Future.value(server);
 }
 
 Future main() async{
-  await startServer();
-  await userMgr.createSysAdminIfNeeded();
+  await startServer();await userMgr.createSysAdminIfNeeded();
+
 }
+
