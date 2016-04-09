@@ -21,27 +21,14 @@ import '../managers/errors.dart';
 
 
 final _logger = LoggerFactory.getLogger("UserService");
+var userServiceInstance = null;
 
-Future<Option<User>> authenticateUser(String username, String password) async {
-  //return new Some(new Principal(("toto")));
-  //search user
-  var user = await users.findUser(username, password);
-  if (user != null) {
-    if (user.isActivated){
-      return new Some(new User(user));
-    }else { _logger.info("Login Failed: User ${user.email} not activated");}
-  }else {
-    _logger.info("Login Failed: ($username) Bad login or password");
-  }
-  return new None();
+Future<Option<User>> authenticateUser(String username, String password)  {
+  return userServiceInstance.authenticateUser(username,password);
 }
 
-Future<Option<User>> findUser(String username) async {
-  var user = await users.findUserByEmail(username);
-  if (user != null && user.isActivated) {
-    return new Some(new User(user));
-  }
-  return new None();
+Future<Option<User>> findUser(String username) {
+  return userServiceInstance.findUser(username);
 }
 
 usernameLookup(String username) async =>
@@ -63,7 +50,10 @@ class UserService {
   bool needRegistration = true;
   var emailTransport;
   var confirmationUrl;
+  var loginDelay=0;
   UserService(){
+    userServiceInstance = this;
+    loginDelay = config.currentLoadedConfig[config.MDT_LOGIN_DELAY];
     jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
     needRegistration = config.currentLoadedConfig[config.MDT_REGISTRATION_NEED_ACTIVATION] == "true";
     Map smtpConfig = config.currentLoadedConfig[config.MDT_SMTP_CONFIG];
@@ -80,6 +70,26 @@ class UserService {
           confirmationUrl = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${confirmationUrl}';
   }
     }
+  }
+  Future<Option<User>> authenticateUser(String username, String password) async {
+    await new Future.delayed(new Duration(milliseconds: loginDelay));
+    //search user
+    var user = await users.findUser(username, password);
+    if (user != null) {
+      if (user.isActivated){
+        return new Some(new User(user));
+      }else { _logger.info("Login Failed: User ${user.email} not activated");}
+    }else {
+      _logger.info("Login Failed: ($username) Bad login or password");
+    }
+    return new None();
+  }
+  Future<Option<User>> findUser(String username) async {
+    var user = await users.findUserByEmail(username);
+    if (user != null && user.isActivated) {
+      return new Some(new User(user));
+    }
+    return new None();
   }
   @ApiMethod(method: 'POST', path: 'register')
   Future<Response> userRegister(RegisterMessage message) async {
