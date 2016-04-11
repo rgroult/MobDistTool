@@ -9,6 +9,7 @@ import '../model/model.dart';
 
 class User extends Principal {
   MDTUser dbUser;
+  bool passwordStrengthFailed = false;
   User(MDTUser user ):super(user.email){
      this.dbUser = user;
   }

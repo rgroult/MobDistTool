@@ -10,6 +10,7 @@ import "package:log4dart/log4dart_vm.dart";
 import 'package:mailer/mailer.dart';
 import 'package:validator/validator.dart';
 import 'package:jwt/json_web_token.dart';
+import 'package:xcvbnm/xcvbnm.dart';
 import '../model/model.dart';
 import '../managers/src/users_manager.dart' as users;
 import '../managers/src/apps_manager.dart' as apps;
@@ -21,7 +22,7 @@ import '../managers/errors.dart';
 
 
 final _logger = LoggerFactory.getLogger("UserService");
-var userServiceInstance = null;
+UserService userServiceInstance = null;
 
 Future<Option<User>> authenticateUser(String username, String password)  {
   return userServiceInstance.authenticateUser(username,password);
@@ -51,9 +52,12 @@ class UserService {
   var emailTransport;
   var confirmationUrl;
   var loginDelay=0;
+  var passwordStrengthRequired  = 0;
+  var passwordChecker = new Xcvbnm();
   UserService(){
     userServiceInstance = this;
     loginDelay = config.currentLoadedConfig[config.MDT_LOGIN_DELAY];
+    passwordStrengthRequired = config.currentLoadedConfig[config.MDT_PASSWORD_MIN_STRENGTH];
     jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
     needRegistration = config.currentLoadedConfig[config.MDT_REGISTRATION_NEED_ACTIVATION] == "true";
     Map smtpConfig = config.currentLoadedConfig[config.MDT_SMTP_CONFIG];
@@ -77,7 +81,9 @@ class UserService {
     var user = await users.findUser(username, password);
     if (user != null) {
       if (user.isActivated){
-        return new Some(new User(user));
+        var authenticatedUser = new User(user);
+        authenticatedUser.passwordStrengthFailed = !checkPasswordStrength(password);
+        return new Some(authenticatedUser);
       }else { _logger.info("Login Failed: User ${user.email} not activated");}
     }else {
       _logger.info("Login Failed: ($username) Bad login or password");
@@ -91,6 +97,25 @@ class UserService {
     }
     return new None();
   }
+  bool checkPasswordStrength(String password){
+    if (passwordStrengthRequired > 0){
+      var result = passwordChecker.estimate(password);
+      return result.score >= passwordStrengthRequired;
+    }
+    return true;
+  }
+
+  void updatePassword(MDTUser user,String newPassword) {
+    if (checkPasswordStrength(newPassword)){
+      if (user != null) {
+        user.password = users.generateHash(newPassword, user.salt);
+      }
+      return;
+    }
+    throw new RpcError(
+        400, 'USER_ERROR', "Failure: password strength does not meet the minimum requirements.");
+  }
+
   @ApiMethod(method: 'POST', path: 'register')
   Future<Response> userRegister(RegisterMessage message) async {
     try {
@@ -115,6 +140,7 @@ class UserService {
         }
       }
       try {
+        updatePassword(null,message.password);
         userCreated = await users.createUser(
             message.name, message.email, message.password,
             isActivated: !needRegistration);
@@ -252,7 +278,8 @@ class UserService {
       }
 
       if (message.password != null) {
-        user.password = users.generateHash(message.password, user.salt);
+        updatePassword(user,message.password);
+        //user.password = users.generateHash(message.password, user.salt);
       }
       if (message.name != null) {
         user.name = message.name;
