@@ -80,11 +80,13 @@ class AccountDetailsComponent extends BaseComponent {
       var name = currentUser.name != newName? newName : null;
       var newUser = await _mdtQueryService.updateUser(currentUser.email,username:name,password:password);
       currentUser = newUser;
+      Map userInfo =  scope.rootScope.context.currentUser;
       //change name
-      scope.rootScope.context.currentUser["name"] = currentUser.name;
+      userInfo["name"] = currentUser.name;
       //password updated
       if (newPassword.length>0){
         warningMessage = null;
+        userInfo.remove("passwordStrengthFailed");
       }
       userDetailErrorMessage = {'type': 'success', 'msg': 'Updated!'};
       resetUser();
