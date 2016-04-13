@@ -5,6 +5,7 @@ import 'account_activation.dart';
 import 'users_administration.dart';
 import 'user_detail.dart';
 import 'account_details.dart';
+import 'input_password.dart';
 
 class MDTUserModule extends Module {
   MDTUserModule() {
@@ -14,6 +15,7 @@ class MDTUserModule extends Module {
     bind(UsersAdministration);
     bind(UsersDetail);
     bind(AccountDetailsComponent);
+    bind(InputPasswordComponent);
   }
 }
 

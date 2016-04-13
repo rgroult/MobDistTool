@@ -196,7 +196,11 @@ class UserService {
   @ApiMethod(method: 'POST', path: 'login')
   Response userPostLogin(EmptyMessage message) {
     var currentUser = currentAuthenticatedUser();
-    return new Response(200, toJson(currentUser,isAdmin:true));
+    var jsonUser = toJson(currentUser,isAdmin:true);
+    if (authenticatedContext().get().principal.passwordStrengthFailed){
+      jsonUser["passwordStrengthFailed"] = true;
+    }
+    return new Response(200,jsonUser );
   }
 
   @ApiMethod(method: 'GET', path: 'me')

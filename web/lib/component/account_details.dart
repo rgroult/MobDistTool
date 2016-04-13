@@ -18,16 +18,32 @@ class AccountDetailsComponent extends BaseComponent {
   Modal modal;
   String newName ="";
   String newPassword ="";
+  String warningMessage = null;
   MDTQueryService _mdtQueryService;
   MDTUser currentUser;
   var userDetailErrorMessage = null;
   List<MDTApplication> administratedApps = new List<MDTApplication>();
   bool get canUpdate => currentUser!=null && ((currentUser.name != newName) || newPassword.length>0);
-  AccountDetailsComponent(this._mdtQueryService,this.modal){
+  AccountDetailsComponent(RouteProvider routeProvider,this._mdtQueryService,this.modal){
+   /* var warning = routeProvider.parameters['warning'];
+    if (warning != null){
+      manageWarning(warning);
+    }*/
     loadAccountDetail();
   }
+  /*
+  void manageWarning(String warning){
+    var warnings = {
+      "passwordStrengthFailed":"Your password strength does not meet miniumum server requirement. Please update it !"
+    };
+    warningMessage = warnings[warning];
+  }*/
   Future loadAccountDetail () async{
-    currentUser = new MDTUser(scope.rootScope.context.currentUser);
+    var mapUser = scope.rootScope.context.currentUser;
+    currentUser = new MDTUser(mapUser);
+    if (mapUser["passwordStrengthFailed"] == true){
+      warningMessage = "Your password strength does not meet miniumum server requirement.\nPlease update it !";
+    }
     if (currentUser.email == null ){
       userDetailErrorMessage = { 'type': 'danger', 'msg': 'Error loading user account infos'};
       return;
@@ -64,7 +80,12 @@ class AccountDetailsComponent extends BaseComponent {
       var name = currentUser.name != newName? newName : null;
       var newUser = await _mdtQueryService.updateUser(currentUser.email,username:name,password:password);
       currentUser = newUser;
+      //change name
       scope.rootScope.context.currentUser["name"] = currentUser.name;
+      //password updated
+      if (newPassword.length>0){
+        warningMessage = null;
+      }
       userDetailErrorMessage = {'type': 'success', 'msg': 'Updated!'};
       resetUser();
     }catch(e){

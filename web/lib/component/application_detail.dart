@@ -187,7 +187,7 @@ class ApplicationDetailComponent extends BaseComponent  {
   }
 
   ApplicationDetailComponent(RouteProvider routeProvider,this._parent,this.modal,this.mdtQueryService){
-    print("ApplicationDetailComponent created");
+    //print("ApplicationDetailComponent created");
     _appId = routeProvider.parameters['appId'];
     currentApp = _parent.finByUUID(_appId);
     loadApp();

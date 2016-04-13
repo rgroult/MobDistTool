@@ -1,5 +1,6 @@
 <div class="bs-component">
     <div class="jumbotron">
+        <h2 style="color:red" ng-class="warningMessage!=null?'':'hidden'">{{warningMessage}}</h2>
         <h2>Account Settings</h2>
         <div class="row">
             <div class="col-md-6 col-xs-12">
@@ -15,7 +16,8 @@
 
                             <div class="input-group">
                                 <label class="input-group-addon">Password :</label>
-                                <input type="password"  placeholder="new password" class="col-lg-2 form-control" ng-model="newPassword">
+                                <input_password text="newPassword" placeholder="'new password'"></input_password>
+                                <!-- <input type="password"  placeholder="new password" class="col-lg-2 form-control" ng-model="newPassword"> -->
                             </div>
                             <button ng-class="canUpdate ? '' : 'invisible'" type="button" class="btn btn-xs btn-flat btn-success" ng-click="update()"><i class="material-icons">done</i>Apply</button>
                             <button ng-class="canUpdate ? '' : 'invisible'" type="button" class="btn btn-xs btn-flat btn-primary" ng-click="resetUser()"><i class="material-icons">cancel</i>Cancel</button>
