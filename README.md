@@ -8,7 +8,7 @@
 [![Codeship Status](https://codeship.com/projects/dc7cfa30-5957-0133-768c-4255fd5efb39/status?branch=master)](https://codeship.com/projects/109988)
 [![codecov.io](https://codecov.io/github/rgroult/MobDistTool/coverage.svg?branch=master)](https://codecov.io/github/rgroult/MobDistTool?branch=master)
 
-**Note**: The `master` branch may be in an *unstable or even broken state* during development. Please use [releases][github-release] instead of the `master` branch in order to get stable binaries.
+**Note**: The `master` branch may be in an *unstable or even broken state* during development. Please use [releases][https://github.com/rgroult/MobDistTool/releases] instead of the `master` branch in order to get stable binaries.
 ***
 ###Glossary
 *Artifact*: A specific version of an application (etc: My great App V1.2.3) in an installable package (ex: IPA, APK)
