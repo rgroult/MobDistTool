@@ -78,7 +78,7 @@ class UserService {
   Future<Option<User>> authenticateUser(String username, String password) async {
     await new Future.delayed(new Duration(milliseconds: loginDelay));
     //search user
-    var user = await users.findUser(username, password);
+    var user = await users.findUser(username.toLowerCase(), password);
     if (user != null) {
       if (user.isActivated){
         var authenticatedUser = new User(user);
@@ -91,7 +91,7 @@ class UserService {
     return new None();
   }
   Future<Option<User>> findUser(String username) async {
-    var user = await users.findUserByEmail(username);
+    var user = await users.findUserByEmail(username.toLowerCase());
     if (user != null && user.isActivated) {
       return new Some(new User(user));
     }
@@ -142,7 +142,7 @@ class UserService {
       try {
         updatePassword(null,message.password);
         userCreated = await users.createUser(
-            message.name, message.email, message.password,
+            message.name, message.email.toLowerCase(), message.password,
             isActivated: !needRegistration);
         var jsonResult = toJson(userCreated);
         if (needRegistration && confirmationUrl != null &&
