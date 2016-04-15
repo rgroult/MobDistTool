@@ -25,25 +25,21 @@ class AccountDetailsComponent extends BaseComponent {
   List<MDTApplication> administratedApps = new List<MDTApplication>();
   bool get canUpdate => currentUser!=null && ((currentUser.name != newName) || newPassword.length>0);
   AccountDetailsComponent(RouteProvider routeProvider,this._mdtQueryService,this.modal){
-   /* var warning = routeProvider.parameters['warning'];
-    if (warning != null){
-      manageWarning(warning);
-    }*/
     loadAccountDetail();
   }
-  /*
-  void manageWarning(String warning){
+
+  void manageWarning(MDTUser user){
     var warnings = {
-      "passwordStrengthFailed":"Your password strength does not meet miniumum server requirement. Please update it !"
+      "passwordStrengthFailed":"Your password strength does not meet miniumum server requirement.\nPlease update it !"
     };
-    warningMessage = warnings[warning];
-  }*/
+    warningMessage = null;
+    if (user.passwordStrengthFailed == true){
+      warningMessage = warnings["passwordStrengthFailed"];
+    }
+  }
   Future loadAccountDetail () async{
     var mapUser = scope.rootScope.context.currentUser;
-    currentUser = new MDTUser(mapUser);
-    if (mapUser["passwordStrengthFailed"] == true){
-      warningMessage = "Your password strength does not meet miniumum server requirement.\nPlease update it !";
-    }
+    currentUser = scope.rootScope.context.currentUser;
     if (currentUser.email == null ){
       userDetailErrorMessage = { 'type': 'danger', 'msg': 'Error loading user account infos'};
       return;
@@ -52,16 +48,15 @@ class AccountDetailsComponent extends BaseComponent {
     var userEmail = currentUser.email.toLowerCase();
     newName = currentUser.name;
     try {
-      var apps= await _mdtQueryService.getApplications();
-      administratedApps.clear();
-      //filter by apps which contains user as admin
-      var appFiltered = apps.where((tmpApp) => tmpApp.adminUsers.firstWhere((user) => user.email!=null ? (user.email.toLowerCase() == userEmail) : false, orElse: () => null ) != null);
-      administratedApps.addAll(appFiltered);
+      var myprofile = await _mdtQueryService.myProfile();
+      var me = myprofile["user"];
+      administratedApps.addAll(myprofile["apps"]);
     }catch(e){
-      errorMessage = { 'type': 'danger', 'msg': 'Error loading Administrated Apps:${e.toString()}'};
+      errorMessage = { 'type': 'danger', 'msg': 'Error loading profile:${e.toString()}'};
     } finally {
       isHttpLoading = false;
     }
+    manageWarning(currentUser);
   }
 
   void resetUser(){
@@ -79,20 +74,19 @@ class AccountDetailsComponent extends BaseComponent {
       var password = newPassword.length>0 ? newPassword : null;
       var name = currentUser.name != newName? newName : null;
       var newUser = await _mdtQueryService.updateUser(currentUser.email,username:name,password:password);
-      currentUser = newUser;
-      Map userInfo =  scope.rootScope.context.currentUser;
-      //change name
-      userInfo["name"] = currentUser.name;
-      //password updated
-      if (newPassword.length>0){
-        warningMessage = null;
-        userInfo.remove("passwordStrengthFailed");
+      //password update ?
+      if (newPassword.length == 0) {
+        newUser.passwordStrengthFailed = currentUser.passwordStrengthFailed;
       }
+      currentUser = newUser;
+      //update user
+      scope.rootScope.context.currentUser = currentUser;
       userDetailErrorMessage = {'type': 'success', 'msg': 'Updated!'};
       resetUser();
     }catch(e){
       userDetailErrorMessage = {'type': 'danger', 'msg': 'Unable to update user: ${e.toString()}'};
     }
+    manageWarning(currentUser);
   }
 
   Future remove(MDTApplication app){

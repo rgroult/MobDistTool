@@ -10,6 +10,7 @@ import 'lib/component/artifact.dart';
 import 'lib/routing/mdt_router.dart';
 import 'lib/service/mdt_query.dart';
 import 'version.dart' as version;
+import 'lib/model/mdt_model.dart';
 
 class MDTAppModule extends Module {
   MDTAppModule() {
@@ -29,12 +30,12 @@ class MDTRootScope {
   List<Map> get currentRouteHistory => isUserConnected ? routeHistory : routeHistory.sublist(0,min(routeHistory.length,1));
   MainComponent mainComp;
   bool get isUserConnected => (currentUser!=null);
-  bool get isUserAdmin => (currentUser!=null) && (currentUser["isSystemAdmin"] == true);
-  Map currentUser = null;
+  bool get isUserAdmin => (currentUser!=null) && (currentUser.isSystemAdmin == true);
+  MDTUser currentUser = null;
   bool adminOptionsDisplayed = false;
   Platform currentDevice = Platform.OTHER;
 
-  void userLogguedIn(Map user){
+  void userLogguedIn(MDTUser user){
     print("userLogguedIn");
     currentUser = user;
     /*isUserConnected = true;

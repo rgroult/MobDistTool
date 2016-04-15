@@ -211,7 +211,8 @@ class UserService {
       var allAdministratedApps = await apps.findAllApplicationsForUser(me);
       var administratedAppJson = [];
       for (var app in allAdministratedApps) {
-        administratedAppJson.add(toJsonStringValues(app, ['name', 'platform']));
+        administratedAppJson.add(toJson(app,isAdmin:true));
+        //administratedAppJson.add(toJsonStringValues(app, ['name', 'platform']));
       }
       response['administratedApplications'] = administratedAppJson;
       return new Response(200, response);
