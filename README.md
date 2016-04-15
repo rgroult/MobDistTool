@@ -119,7 +119,9 @@ cat ./server/config/config.json
   "MDT_TOKEN_SECRET":"secret token",
   "MDT_LOG_DIR":"",
   "MDT_SYSADMIN_INITIAL_PASSWORD":"sysadmin",
-  "MDT_SYSADMIN_INITIAL_EMAIL":"admin@localhost.com"
+  "MDT_SYSADMIN_INITIAL_EMAIL":"admin@localhost.com",
+  "MDT_LOGIN_DELAY":0,
+  "MDT_PASSWORD_MIN_STRENGTH":0
  }
   
 ```
@@ -133,6 +135,10 @@ cat ./server/config/config.json
 * ***MDT_LOG_DIR***: Log directory.
 * ***MDT_SYSADMIN_INITIAL_PASSWORD***: Initial sysadmin password, created when no sysadmin present.
 * ***MDT_SYSADMIN_INITIAL_EMAIL***: Initial sysadmin email, created when no sysadmin present.
+* ***MDT_LOGIN_DELAY***: Delay before handle each login request. It can be use to limit load of brut force attack.
+* ***MDT_PASSWORD_MIN_STRENGTH***: Minimum strength password required. [0,1,2,3,4] if crack time is less than [10\*\*2, 10\*\*4, 10\*\*6, 10\*\*8, Infinity]. See [xcvbnm] for more details.
+
+[xcvbnm]: https://github.com/exitlive/xcvbnm
 
 ### External Storages 
 

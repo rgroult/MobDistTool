@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'mdt_conf_query.dart';
 import '../../model/errors.dart';
 import '../../model/mdt_model.dart';
+import 'mdt_applications_query.dart' as appsQuery;
 
 abstract class MDTQueryServiceUsers{
 
@@ -24,6 +25,25 @@ abstract class MDTQueryServiceUsers{
     var responseJson = parseResponse(response,checkAuthorization:false);
 
     return responseJson;
+  }
+
+  Future<Map> myProfile() async {
+    String url = '${mdtServerApiRootUrl}${usersPath}/me';
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    var responseData = responseJson["data"];
+    var me = new MDTUser(responseData);
+    var administratedApp = new List();
+
+    if (responseData["administratedApplications"] != null){
+      for (Map app in responseData["administratedApplications"]) {
+        var appCreated = new MDTApplication(app);
+        appCreated.appIcon = appsQuery.MDTQueryServiceApplications.applicationIcon(appCreated.uuid);
+        administratedApp.add(appCreated);
+      }
+    }
+    return {"user":me, "apps":administratedApp};
   }
 
   Future activateUser(String activationToken) async {

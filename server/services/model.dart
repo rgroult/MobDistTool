@@ -1,4 +1,4 @@
-// Copyright (c) 2016, the Dart project authors.
+// Copyright (c) 2016, the Mobile App Distribution Tool project authors.
 // All rights reserved. Use of this source code is governed by a
 // MIT-style license that can be found in the LICENSE file.
 
@@ -9,6 +9,7 @@ import '../model/model.dart';
 
 class User extends Principal {
   MDTUser dbUser;
+  bool passwordStrengthFailed = false;
   User(MDTUser user ):super(user.email){
      this.dbUser = user;
   }

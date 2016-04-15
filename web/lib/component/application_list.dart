@@ -109,7 +109,7 @@ class ApplicationListComponent extends BaseComponent  {
       isHttpLoading = false;
     }
   }
-
+/*
   void loadAppListFake(){
     var app1Data = {
     "uuid" : "dsfsdfsdfsdf",
@@ -138,5 +138,5 @@ class ApplicationListComponent extends BaseComponent  {
     allApps.add(app1);
 
     allApps.add(app2);
-  }
+  }*/
 }

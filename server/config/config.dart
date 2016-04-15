@@ -1,4 +1,4 @@
-// Copyright (c) 2016, the Dart project authors.
+// Copyright (c) 2016, the Mobile App Distribution Tool project authors.
 // All rights reserved. Use of this source code is governed by a
 // MIT-style license that can be found in the LICENSE file.
 
@@ -17,9 +17,15 @@ final Map defaultConfig = {
   MDT_REGISTRATION_NEED_ACTIVATION:"false",
   MDT_TOKEN_SECRET:"secret token dsfsxfsfsqd%%Qsdqs",
   MDT_LOG_DIR:"",
+  MDT_LOG_TO_CONSOLE:"true",
   MDT_SYSADMIN_INITIAL_PASSWORD:"sysadmin",
   MDT_SYSADMIN_INITIAL_EMAIL:"admin@localhost.com",
-  MDT_LOG_TO_CONSOLE:"true"
+  //delay (in ms) before login resquest response (limit brut attack).
+  MDT_LOGIN_DELAY:0,
+  // minimum strength password required
+  //[0,1,2,3,4] if crack time is less than
+  /// [10**2, 10**4, 10**6, 10**8, Infinity]. see https://github.com/exitlive/xcvbnm for more details
+  MDT_PASSWORD_MIN_STRENGTH:0
 };
 
 Map<String, Object> currentLoadedConfig = defaultConfig;
@@ -38,6 +44,8 @@ final String MDT_LOG_DIR = "MDT_LOG_DIR";
 final String MDT_SYSADMIN_INITIAL_PASSWORD = "MDT_SYSADMIN_INITIAL_PASSWORD";
 final String MDT_SYSADMIN_INITIAL_EMAIL = "MDT_SYSADMIN_INITIAL_EMAIL";
 final String MDT_LOG_TO_CONSOLE = "MDT_LOG_TO_CONSOLE";
+final String MDT_LOGIN_DELAY = "MDT_LOGIN_DELAY";
+final String MDT_PASSWORD_MIN_STRENGTH = "MDT_PASSWORD_MIN_STRENGTH";
 
 Future loadConfig() async{
   //load 'config.json' file is present
@@ -59,15 +67,18 @@ Future loadConfig() async{
   if (env[MDT_LOG_TO_CONSOLE] != null){
     currentLoadedConfig[MDT_LOG_TO_CONSOLE] = env[MDT_LOG_TO_CONSOLE];
   }
-
   if (env[MDT_SYSADMIN_INITIAL_PASSWORD] != null){
     currentLoadedConfig[MDT_SYSADMIN_INITIAL_PASSWORD] = env[MDT_SYSADMIN_INITIAL_PASSWORD];
   }
-
+  if (env[MDT_LOGIN_DELAY] != null){
+    currentLoadedConfig[MDT_LOGIN_DELAY] = env[MDT_LOGIN_DELAY];
+  }
   if (env[MDT_SYSADMIN_INITIAL_EMAIL] != null){
     currentLoadedConfig[MDT_SYSADMIN_INITIAL_EMAIL] = env[MDT_SYSADMIN_INITIAL_EMAIL];
   }
-
+  if (env[MDT_PASSWORD_MIN_STRENGTH] != null){
+    currentLoadedConfig[MDT_PASSWORD_MIN_STRENGTH] = env[MDT_PASSWORD_MIN_STRENGTH];
+  }
   if (env[MDT_LOG_DIR] != null){
     currentLoadedConfig[MDT_LOG_DIR] = env[MDT_LOG_DIR];
   }
