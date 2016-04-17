@@ -6,6 +6,7 @@ class MDTUser {
   String name;
   String email;
   bool isActivated;
+  bool passwordStrengthFailed;
   // String externalTokenId;
   bool isSystemAdmin;
   MDTUser(Map map){
@@ -14,6 +15,7 @@ class MDTUser {
     isActivated = map["isActivated"];
     // externalTokenId = map["externalTokenId"];
     isSystemAdmin = map["isSystemAdmin"];
+    passwordStrengthFailed = map["passwordStrengthFailed"];
   }
 }
 

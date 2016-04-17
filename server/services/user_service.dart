@@ -1,4 +1,4 @@
-// Copyright (c) 2016, the Dart project authors.
+// Copyright (c) 2016, the Mobile App Distribution Tool project authors.
 // All rights reserved. Use of this source code is governed by a
 // MIT-style license that can be found in the LICENSE file.
 
@@ -10,6 +10,7 @@ import "package:log4dart/log4dart_vm.dart";
 import 'package:mailer/mailer.dart';
 import 'package:validator/validator.dart';
 import 'package:jwt/json_web_token.dart';
+import 'package:xcvbnm/xcvbnm.dart';
 import '../model/model.dart';
 import '../managers/src/users_manager.dart' as users;
 import '../managers/src/apps_manager.dart' as apps;
@@ -21,27 +22,14 @@ import '../managers/errors.dart';
 
 
 final _logger = LoggerFactory.getLogger("UserService");
+UserService userServiceInstance = null;
 
-Future<Option<User>> authenticateUser(String username, String password) async {
-  //return new Some(new Principal(("toto")));
-  //search user
-  var user = await users.findUser(username, password);
-  if (user != null) {
-    if (user.isActivated){
-      return new Some(new User(user));
-    }else { _logger.info("Login Failed: User ${user.email} not activated");}
-  }else {
-    _logger.info("Login Failed: ($username) Bad login or password");
-  }
-  return new None();
+Future<Option<User>> authenticateUser(String username, String password)  {
+  return userServiceInstance.authenticateUser(username,password);
 }
 
-Future<Option<User>> findUser(String username) async {
-  var user = await users.findUserByEmail(username);
-  if (user != null && user.isActivated) {
-    return new Some(new User(user));
-  }
-  return new None();
+Future<Option<User>> findUser(String username) {
+  return userServiceInstance.findUser(username);
 }
 
 usernameLookup(String username) async =>
@@ -63,7 +51,13 @@ class UserService {
   bool needRegistration = true;
   var emailTransport;
   var confirmationUrl;
+  var loginDelay=0;
+  var passwordStrengthRequired  = 0;
+  var passwordChecker = new Xcvbnm();
   UserService(){
+    userServiceInstance = this;
+    loginDelay = config.currentLoadedConfig[config.MDT_LOGIN_DELAY];
+    passwordStrengthRequired = config.currentLoadedConfig[config.MDT_PASSWORD_MIN_STRENGTH];
     jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
     needRegistration = config.currentLoadedConfig[config.MDT_REGISTRATION_NEED_ACTIVATION] == "true";
     Map smtpConfig = config.currentLoadedConfig[config.MDT_SMTP_CONFIG];
@@ -81,6 +75,47 @@ class UserService {
   }
     }
   }
+  Future<Option<User>> authenticateUser(String username, String password) async {
+    await new Future.delayed(new Duration(milliseconds: loginDelay));
+    //search user
+    var user = await users.findUser(username.toLowerCase(), password);
+    if (user != null) {
+      if (user.isActivated){
+        var authenticatedUser = new User(user);
+        authenticatedUser.passwordStrengthFailed = !checkPasswordStrength(password);
+        return new Some(authenticatedUser);
+      }else { _logger.info("Login Failed: User ${user.email} not activated");}
+    }else {
+      _logger.info("Login Failed: ($username) Bad login or password");
+    }
+    return new None();
+  }
+  Future<Option<User>> findUser(String username) async {
+    var user = await users.findUserByEmail(username.toLowerCase());
+    if (user != null && user.isActivated) {
+      return new Some(new User(user));
+    }
+    return new None();
+  }
+  bool checkPasswordStrength(String password){
+    if (passwordStrengthRequired > 0){
+      var result = passwordChecker.estimate(password);
+      return result.score >= passwordStrengthRequired;
+    }
+    return true;
+  }
+
+  void updatePassword(MDTUser user,String newPassword) {
+    if (checkPasswordStrength(newPassword)){
+      if (user != null) {
+        user.password = users.generateHash(newPassword, user.salt);
+      }
+      return;
+    }
+    throw new RpcError(
+        400, 'USER_ERROR', "Failure: password strength does not meet the minimum requirements.");
+  }
+
   @ApiMethod(method: 'POST', path: 'register')
   Future<Response> userRegister(RegisterMessage message) async {
     try {
@@ -105,8 +140,9 @@ class UserService {
         }
       }
       try {
+        updatePassword(null,message.password);
         userCreated = await users.createUser(
-            message.name, message.email, message.password,
+            message.name, message.email.toLowerCase(), message.password,
             isActivated: !needRegistration);
         var jsonResult = toJson(userCreated);
         if (needRegistration && confirmationUrl != null &&
@@ -160,7 +196,11 @@ class UserService {
   @ApiMethod(method: 'POST', path: 'login')
   Response userPostLogin(EmptyMessage message) {
     var currentUser = currentAuthenticatedUser();
-    return new Response(200, toJson(currentUser,isAdmin:true));
+    var jsonUser = toJson(currentUser,isAdmin:true);
+    if (authenticatedContext().get().principal.passwordStrengthFailed){
+      jsonUser["passwordStrengthFailed"] = true;
+    }
+    return new Response(200,jsonUser );
   }
 
   @ApiMethod(method: 'GET', path: 'me')
@@ -171,7 +211,8 @@ class UserService {
       var allAdministratedApps = await apps.findAllApplicationsForUser(me);
       var administratedAppJson = [];
       for (var app in allAdministratedApps) {
-        administratedAppJson.add(toJsonStringValues(app, ['name', 'platform']));
+        administratedAppJson.add(toJson(app,isAdmin:true));
+        //administratedAppJson.add(toJsonStringValues(app, ['name', 'platform']));
       }
       response['administratedApplications'] = administratedAppJson;
       return new Response(200, response);
@@ -242,7 +283,8 @@ class UserService {
       }
 
       if (message.password != null) {
-        user.password = users.generateHash(message.password, user.salt);
+        updatePassword(user,message.password);
+        //user.password = users.generateHash(message.password, user.salt);
       }
       if (message.name != null) {
         user.name = message.name;

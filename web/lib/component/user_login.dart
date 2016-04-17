@@ -4,7 +4,7 @@ import 'dart:async';
 import 'base_component.dart';
 import '../service/mdt_query.dart';
 import '../model/errors.dart';
-
+import '../model/mdt_model.dart';
 @Component(
     selector: 'login_comp',
     templateUrl: 'user_login.html',
@@ -36,10 +36,18 @@ class LoginComponent extends BaseComponent {
         //hide popup
         // mainComp().isUserConnected= true;
         // mainComp().currentUser = response["data"];
-        scope.rootScope.context.userLogguedIn(response["data"]);
+        var userData = response["data"];
+        scope.rootScope.context.userLogguedIn(new MDTUser(userData));
         modal.close(true);
         //mainComp().hidePopup();
-        locationService.router.go('apps',{});
+        if (userData["passwordStrengthFailed"] == true){
+          //go to settings with warning
+          locationService.router.go('account',{});
+        }else {
+          //go to apps
+          locationService.router.go('apps',{});
+        }
+
       }else {
         errorMessage = { 'type': 'danger', 'msg': 'Error: $response'};
       }

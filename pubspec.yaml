@@ -1,5 +1,5 @@
 name: 'MobDistTool'
-version: 0.9.8
+version: 0.9.9
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
 #author: Your Name <email@example.com>
 #homepage: https://www.example.com
@@ -45,6 +45,7 @@ dependencies:
   googleapis: any
   qr:
      git: git://github.com/rgroult/qr.dart.git
+  xcvbnm: "^0.5.0"
 dependency_overrides:
 transformers:
 - angular:

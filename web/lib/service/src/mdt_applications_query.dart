@@ -74,7 +74,7 @@ abstract class MDTQueryServiceApplications {
     throw new ApplicationError("Unable to parse response ${responseJson}");
   }
 
-  String applicationIcon(String appid){
+  static String applicationIcon(String appid){
     return "${mdtServerApiRootUrl}${inPath}/app/${appid}/icon";
   }
 
