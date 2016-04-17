@@ -56,8 +56,8 @@ class UserService {
   var passwordChecker = new Xcvbnm();
   UserService(){
     userServiceInstance = this;
-    loginDelay = config.currentLoadedConfig[config.MDT_LOGIN_DELAY];
-    passwordStrengthRequired = config.currentLoadedConfig[config.MDT_PASSWORD_MIN_STRENGTH];
+    loginDelay = int.parse(config.currentLoadedConfig[config.MDT_LOGIN_DELAY]);
+    passwordStrengthRequired = int.parse(config.currentLoadedConfig[config.MDT_PASSWORD_MIN_STRENGTH]);
     jsonWebToken = new JsonWebTokenCodec(secret: config.currentLoadedConfig[config.MDT_TOKEN_SECRET]);
     needRegistration = config.currentLoadedConfig[config.MDT_REGISTRATION_NEED_ACTIVATION] == "true";
     Map smtpConfig = config.currentLoadedConfig[config.MDT_SMTP_CONFIG];
