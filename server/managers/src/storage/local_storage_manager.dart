@@ -5,10 +5,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'dart:convert';
 import 'base_storage_manager.dart';
 import '../../errors.dart';
-import '../../../utils/utils.dart' as utils;
 
 class LocalStorageManager extends BaseStorageManager {
   String storageIdentifier = "LocalStorage";

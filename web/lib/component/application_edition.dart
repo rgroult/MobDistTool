@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:html';
 import 'base_component.dart';
 import 'application_list.dart';
-import 'application_detail.dart';
 import '../service/mdt_query.dart';
 import '../model/errors.dart';
 import '../model/mdt_model.dart';
@@ -15,7 +14,6 @@ class FileModel {
   Element inputElement;
   String expression;
   final Scope scope;
-  String _inputType;
   List<File> files;
   var listeners = {};
 

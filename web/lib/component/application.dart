@@ -3,7 +3,6 @@ import 'application_list.dart';
 import 'application_detail.dart';
 import 'application_edition.dart';
 import 'confirmation_popover.dart';
-import 'dart:html' as dom;
 
 class MDTApplicationModule extends Module {
   MDTApplicationModule() {

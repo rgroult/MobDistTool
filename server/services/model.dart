@@ -3,7 +3,6 @@
 // MIT-style license that can be found in the LICENSE file.
 
 import 'package:shelf_auth/shelf_auth.dart';
-import 'dart:io';
 import 'package:rpc/rpc.dart';
 import '../model/model.dart';
 

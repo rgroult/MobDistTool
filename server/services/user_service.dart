@@ -227,7 +227,7 @@ class UserService {
   //only work for session login
   @ApiMethod(method: 'GET', path: 'logout')
   VoidMessage userLogout() {
-
+    return new VoidMessage();
   }
 
   //Sys admin user

@@ -4,9 +4,7 @@
 
 import 'dart:async';
 import 'dart:io';
-import '../artifacts_manager.dart';
 import 'base_storage_manager.dart';
-import '../../errors.dart';
 import '../../../services/in_service.dart' as in_srv;
 
 final String ipaSample = 'ipa_sample.ipa';

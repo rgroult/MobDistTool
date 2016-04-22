@@ -178,7 +178,7 @@ class ApplicationDetailComponent extends BaseComponent  {
           }
           //print("remove status $isremoved");
         }else{
-          var isremoved = applicationsLastestVersion.remove(artifact);
+          /*var isremoved = */applicationsLastestVersion.remove(artifact);
           //print("latest remove status $isremoved");
         }
     }else {

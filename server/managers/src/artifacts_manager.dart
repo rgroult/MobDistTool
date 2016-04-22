@@ -8,7 +8,6 @@ import 'dart:math';
 import 'package:uuid/uuid.dart';
 import '../../../packages/objectory/objectory_console.dart';
 import '../../model/model.dart';
-import 'storage/yes_storage_manager.dart';
 import 'storage/base_storage_manager.dart';
 import '../errors.dart';
 
@@ -154,7 +153,7 @@ Future deleteArtifactFile(MDTArtifact artifact,BaseStorageManager storageMgr) as
     return new Future.value(true);
   }
   try {
-    var result = await storageMgr.deleteStoredFile(artifact.storageInfos);
+    await storageMgr.deleteStoredFile(artifact.storageInfos);
     artifact.storageInfos = null;
     return artifact.save();
   } on ArtifactError catch (e) {

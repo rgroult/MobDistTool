@@ -6,8 +6,6 @@ import 'dart:async';
 import 'dart:io';
 //logging
 import "package:log4dart/log4dart_vm.dart";
-import 'package:logging/logging.dart';
-import 'package:logging_handlers/server_logging_handlers.dart';
 //rpc
 import 'package:rpc/rpc.dart';
 import 'package:shelf/shelf.dart' as shelf;
