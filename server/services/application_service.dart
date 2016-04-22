@@ -79,6 +79,7 @@ class ApplicationService {
   Future<Response> applicationDetail(String appId) async{
     try{
       var application = await findApplicationByAppId(appId);
+      application = await application.fetchLinks();
       var currentuser = userService.currentAuthenticatedUser();
       return new Response(200, toJson(application,isAdmin:mgrs.isAdminForApp(application,currentuser)));
     }catch(error,stack){
