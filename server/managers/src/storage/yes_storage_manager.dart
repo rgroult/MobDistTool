@@ -15,7 +15,7 @@ final String apkSample = 'apk_sample.apk';
 class YesStorageManager extends BaseStorageManager {
   String storageIdentifier = "YesStorage";
 
-  Future<String> storeFile(File file, {String appName, String version, String filename, String contentType}) async {
+  Future<String> storeFile(File file, {String platform,String appName, String version, String filename, String contentType}) async {
     String storeInfos = "fakeFile";
     if (contentType == in_srv.APK_CONTENT_TYPE){
       storeInfos = apkSample;

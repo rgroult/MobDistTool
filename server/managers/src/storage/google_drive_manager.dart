@@ -29,7 +29,7 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     api = new drive.DriveApi(authClient);
   }
 
-  Future<String> storeFile(File file,{String appName, String version, String filename, String contentType}) async {
+  Future<String> storeFile(File file,{String platform,String appName, String version, String filename, String contentType}) async {
     var media = new Media(file.openRead(), file.lengthSync());
     var driveFile = new drive.File();
     if (filename != null){
