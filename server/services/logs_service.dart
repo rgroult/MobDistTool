@@ -31,6 +31,7 @@ class LogsService {
           var logFile = config.currentLoadedConfig["consoleLogFile"];
           return new logResponse(await loadLastLinesOfFile(logFile,numberOfLines));
         case "activity":
+          return new logResponse("Not implemented");
           break;
         default:
           throw new RpcError(400,"LOG_ERROR","Invalid log Name");

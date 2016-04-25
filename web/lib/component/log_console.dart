@@ -14,6 +14,7 @@ class LogComponent extends BaseComponent {
   var logSelected = "Console";
   var logLines = "Select log ...";
   LogComponent(this._mdtQueryService){
+    reloadLogs();
   }
 
   void displayConsoleLogs(){
