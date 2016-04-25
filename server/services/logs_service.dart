@@ -58,6 +58,6 @@ class LogsService {
           onError:(e){print("Error :$e");});*/
 
 
-    return  resultLines.join('<br/>' );
+    return  resultLines.join('\n' );
   }
 }
