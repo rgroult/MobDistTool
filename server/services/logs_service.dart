@@ -20,7 +20,7 @@ class LogsService {
     userService.UserService.checkSysAdmin();
     if (lines != null){
       try{
-        numberOfLines = int.parse(lines);
+        numberOfLines = max(0,int.parse(lines));
       }catch(e){
       }
     }
@@ -58,6 +58,9 @@ class LogsService {
           },
           onError:(e){print("Error :$e");});*/
 
+    //keep last "lines" lines
+    //var length = await resultLines.length;
+    //resultLines = resultLines.sublist(max(length - lines,0));
 
     return  resultLines.join('\n' );
   }

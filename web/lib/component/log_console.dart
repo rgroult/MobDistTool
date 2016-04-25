@@ -13,6 +13,7 @@ class LogComponent extends BaseComponent {
   MDTQueryService _mdtQueryService;
   var logSelected = "Console";
   var logLines = "Select log ...";
+  var maxLines = 150;
   LogComponent(this._mdtQueryService){
     reloadLogs();
   }
@@ -30,7 +31,7 @@ class LogComponent extends BaseComponent {
   Future reloadLogs() async{
     logLines = "Loading ...";
     try{
-      logLines = await  _mdtQueryService.loadLogs(logSelected);
+      logLines = await  _mdtQueryService.loadLogs(logSelected,maxLines: maxLines);
     }catch(e){
       logLines = "Error loading logs : $e";
     }

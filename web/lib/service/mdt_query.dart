@@ -130,8 +130,11 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
  }
 
   //server logs
-  Future<String> loadLogs(String logName) async{
+  Future<String> loadLogs(String logName,{int maxLines}) async{
     String url = "${mdtServerApiRootUrl}/logs/v1/tail/${logName}";
+    if (maxLines != null ){
+      url = "${url}?lines=$maxLines";
+    }
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);
 

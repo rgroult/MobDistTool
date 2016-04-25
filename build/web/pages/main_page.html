@@ -14,6 +14,7 @@
             </div>
             <div class="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
                 <ul ng-if="isUserConnected" class="nav navbar-nav navbar-right">
+                    <li ng-if="isSystemAdmin && adminOption" role="presentation"><a href="#/console">Logs</a></li>
                     <li ng-if="isSystemAdmin && adminOption" role="presentation"><a href="#/users">Users Administration</a></li>
                     <li class="navbar-brand">Welcome {{currentUser.name}}</li>
                     <li class="dropdown">
