@@ -30,6 +30,7 @@ import '../server/services/user_service.dart';
 import '../server/services/application_service.dart';
 import '../server/services/artifact_service.dart';
 import '../server/services/in_service.dart';
+import '../server/services/logs_service.dart';
 import '../server/utils/utils.dart' as utils;
 import '../web/version.dart' as version;
 import '../server/services/exeption_handler.dart' as exception_handler;
@@ -55,6 +56,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   //logging
   DateTime now = new DateTime.now();
   var logFile = "${config.currentLoadedConfig[config.MDT_LOG_DIR]}mdt_logs_${now.year}${now.month.toString().padLeft(2,'0')}${now.day.toString().padLeft(2,'0')}.txt";
+  //add it to current config
+  config.currentLoadedConfig["consoleLogFile"] = logFile;
   LoggerFactory.config[".*"].logFormat = "[%d] %c %n: %m";
   LoggerFactory.config[".*"].appenders = [new FileAppender(logFile)];
   var outputToConsole = config.currentLoadedConfig[config.MDT_LOG_TO_CONSOLE] == "true";
@@ -85,6 +88,7 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   _apiServer.addApi(new ApplicationService());
   _apiServer.addApi(new ArtifactService());
   _apiServer.addApi(new InService());
+  _apiServer.addApi(new LogsService());
   _apiServer.enableDiscoveryApi();
 
   //authentication

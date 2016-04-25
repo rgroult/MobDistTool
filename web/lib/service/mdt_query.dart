@@ -129,4 +129,17 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
      ..click();
  }
 
+  //server logs
+  Future<String> loadLogs(String logName) async{
+    String url = "${mdtServerApiRootUrl}/logs/v1/tail/${logName}";
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new BaseError(responseJson["error"]["message"]);
+    }
+
+    return responseJson["data"];
+  }
+
 }

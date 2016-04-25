@@ -1,0 +1,19 @@
+<div class="bs-component">
+    <div class="jumbotron">
+        <div class="container">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Log: {{logSelected}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href1="#" ng-click="displayConsoleLogs()">Console</a></li>
+                    <li><a href1="#" ng-click="displayActivityLogs()">Activity</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="dropdown" style="overflow:auto">
+            <p>{{logLines}}</p>
+        </div>
+    </div>
+</div>

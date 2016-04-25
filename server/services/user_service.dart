@@ -231,7 +231,7 @@ class UserService {
   }
 
   //Sys admin user
-  void checkSysAdmin(){
+  static void checkSysAdmin(){
     var me = currentAuthenticatedUser();
     if (me.isSystemAdmin == false){
       throw new RpcError(401,"ACCESS_DENIED","Admin Access Denied");

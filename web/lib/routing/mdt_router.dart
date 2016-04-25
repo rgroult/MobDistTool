@@ -39,6 +39,12 @@ void MDTRouteInitializer(Router router, RouteViewFactory views) {
         enter: (RouteEnterEvent e) => _enterRoute(e,"Users Administration",1),
         preLeave: (RoutePreLeaveEvent e) =>  preLeaveRoute(e,"Users Administration")
     ),
+    'console': ngRoute(
+        path: '/console',
+        viewHtml: '<log_console></log_console>',
+        enter: (RouteEnterEvent e) => _enterRoute(e,"Consoles",1),
+        preLeave: (RoutePreLeaveEvent e) =>  preLeaveRoute(e,"Consoles")
+    ),
     'account': ngRoute(
         path: '/account',
         viewHtml: '<account_details></account_details>',

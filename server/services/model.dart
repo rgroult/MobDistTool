@@ -14,6 +14,11 @@ class User extends Principal {
   }
 }
 
+class logResponse {
+  String data;
+  logResponse(this.data);
+}
+
 class Response {
   int status;
   Map<String,String> data;
