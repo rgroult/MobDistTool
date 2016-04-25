@@ -18,18 +18,18 @@ class LogComponent extends BaseComponent {
 
   void displayConsoleLogs(){
     logSelected = "Console";
-    reloadLogs("console");
+    reloadLogs();
   }
 
   void displayActivityLogs(){
     logSelected = "Activity";
-    reloadLogs("activity");
+    reloadLogs();
   }
 
-  Future reloadLogs(String name) async{
+  Future reloadLogs() async{
     logLines = "Loading ...";
     try{
-      logLines = await  _mdtQueryService.loadLogs(name);
+      logLines = await  _mdtQueryService.loadLogs(logSelected);
     }catch(e){
       logLines = "Error loading logs : $e";
     }

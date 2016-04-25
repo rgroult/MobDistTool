@@ -25,7 +25,7 @@ class LogsService {
       }
     }
     try{
-      switch (logName){
+      switch (logName.toLowerCase()){
         case "console":
         //return n last lines of log file
           var logFile = config.currentLoadedConfig["consoleLogFile"];
