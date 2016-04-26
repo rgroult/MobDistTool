@@ -227,11 +227,11 @@ class UserService {
   //only work for session login
   @ApiMethod(method: 'GET', path: 'logout')
   VoidMessage userLogout() {
-
+    return new VoidMessage();
   }
 
   //Sys admin user
-  void checkSysAdmin(){
+  static void checkSysAdmin(){
     var me = currentAuthenticatedUser();
     if (me.isSystemAdmin == false){
       throw new RpcError(401,"ACCESS_DENIED","Admin Access Denied");

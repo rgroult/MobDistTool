@@ -4,8 +4,6 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:convert';
-import 'package:http/http.dart' show Client;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 //import 'package:googleapis/common/common.dart' show Media, DownloadOptions;
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' show Media, DownloadOptions;
@@ -29,7 +27,7 @@ class GoogleDriveStorageManager extends BaseStorageManager {
     api = new drive.DriveApi(authClient);
   }
 
-  Future<String> storeFile(File file,{String appName, String version, String filename, String contentType}) async {
+  Future<String> storeFile(File file,{String platform,String appName, String version, String filename, String contentType}) async {
     var media = new Media(file.openRead(), file.lengthSync());
     var driveFile = new drive.File();
     if (filename != null){

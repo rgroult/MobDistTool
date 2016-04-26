@@ -25,7 +25,7 @@ class ArtifactDownloadQRCode extends ShadowRootAware  {
   var qrCodeEndOfValidity = null;
   Timer _timer = null;
 
-  Future onShadowRoot(ShadowRoot shadowRoot) {
+  void onShadowRoot(ShadowRoot shadowRoot) {
     loadQrCode();
   }
 

@@ -154,7 +154,9 @@ abstract class MDTQueryServiceArtifacts {
     if (downloadInfos != null){
       var url = downloadInfos["directLinkUrl"];
       sendRedirect(url);
+      new Future.value(true);
     }
+    return new Future.value(false);
   }
 
   Future<bool> InstallArtifact(String artifactId) async {
@@ -163,8 +165,8 @@ abstract class MDTQueryServiceArtifacts {
       var url = downloadInfos["installUrl"];
       print('redirect :$url, map ${downloadInfos.toString()}');
       sendRedirect(url);
+      new Future.value(true);
     }
+    return new Future.value(false);
   }
-
-
 }

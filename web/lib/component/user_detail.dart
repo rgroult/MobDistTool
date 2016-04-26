@@ -1,10 +1,7 @@
 import 'package:angular/angular.dart';
-import 'package:angular_ui/angular_ui.dart';
 import 'dart:async';
 import 'dart:html';
-import 'base_component.dart';
 import '../service/mdt_query.dart';
-import '../model/errors.dart';
 import '../model/mdt_model.dart';
 import 'users_administration.dart';
 

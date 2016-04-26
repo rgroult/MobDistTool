@@ -9,8 +9,6 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:jwt/json_web_token.dart';
 import '../managers/managers.dart' as mgrs;
-import '../managers/errors.dart';
-import 'user_service.dart' as userService;
 import 'application_service.dart' as appService;
 import 'artifact_service.dart';
 import 'model.dart';
@@ -160,7 +158,7 @@ class InService {
         // ..errors.add(new RpcErrorDetail(reason: e.message));
       }
 
-      var jsonResponse = toJson(createdArtifact, isAdmin: true);
+      //var jsonResponse = toJson(createdArtifact, isAdmin: true);
       return new Response(200, toJson(createdArtifact, isAdmin: true));
     }catch(e,stack){
       manageExceptions(e,stack);
@@ -266,7 +264,7 @@ class InService {
       }
       plistString = plistString.replaceFirst(new RegExp(TEMPLATE_IPA_URL_KEY, multiLine: true), fileDownloadUrl);
       //    '/api/in/v1/artifacts/$idArtifact/file');
-      var application = await artifact.application.getMeFromDb();
+      await artifact.application.getMeFromDb();
       plistString = plistString.replaceFirst( new RegExp(TEMPLATE_APP_NAME_KEY, multiLine: true), artifact.application.name);
       if (artifact.metaDataTags != null) {
         var tags = JSON.decode(artifact.metaDataTags);

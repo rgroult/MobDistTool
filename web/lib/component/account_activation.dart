@@ -1,10 +1,7 @@
 import 'package:angular/angular.dart';
 import 'dart:core';
 import 'dart:async';
-import 'dart:html';
 import 'base_component.dart';
-import 'application_detail.dart';
-import '../model/mdt_model.dart';
 import '../model/errors.dart';
 import '../service/mdt_query.dart';
 
@@ -18,7 +15,6 @@ class AccountActivationComponent extends BaseComponent {
   AccountActivationComponent(LocationWrapper location,this.mdtQueryService){
     var currentLocation = location.location.href;
     var parameters = Uri.splitQueryString(currentLocation);
-    String errorMessage;
 
     //find token parameters
     var token = null;

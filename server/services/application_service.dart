@@ -2,7 +2,6 @@
 // All rights reserved. Use of this source code is governed by a
 // MIT-style license that can be found in the LICENSE file.
 
-import 'dart:io';
 import 'dart:async';
 import 'package:rpc/rpc.dart';
 import 'package:crypto/crypto.dart';
@@ -48,7 +47,7 @@ class ApplicationService {
       var response = toJson(appCreated, isAdmin:true);
       return new Response(200, response);
     } on StateError catch (e) {
-      var error = e;
+      //var error = e;
       //  throw new BadRequestError( e.message);
       throw new RpcError(400, 'APPLICATION_ERROR',  e.message);
       //  throw new RpcError(400, 'InvalidRequest', 'Unable to create app')
@@ -79,6 +78,7 @@ class ApplicationService {
   Future<Response> applicationDetail(String appId) async{
     try{
       var application = await findApplicationByAppId(appId);
+      application = await application.fetchLinks();
       var currentuser = userService.currentAuthenticatedUser();
       return new Response(200, toJson(application,isAdmin:mgrs.isAdminForApp(application,currentuser)));
     }catch(error,stack){
@@ -97,7 +97,7 @@ class ApplicationService {
       application = await mgrs.updateApplication(application,name:updateMsg.name,platform:updateMsg.platform,description:updateMsg.description,base64Icon:updateMsg.base64IconData);
       return new Response(200, toJson(application,isAdmin:true));
     }on StateError catch (e) {
-      var error = e;
+      //var error = e;
       //  throw new BadRequestError( e.message);
       throw new RpcError(500, 'APPLICATION_ERROR',  e.message);
       /* throw new RpcError(500, 'Update Error', 'Unable to update app')

@@ -4,9 +4,7 @@
 
 import 'dart:async';
 import 'dart:io';
-import '../artifacts_manager.dart';
 import 'base_storage_manager.dart';
-import '../../errors.dart';
 import '../../../services/in_service.dart' as in_srv;
 
 final String ipaSample = 'ipa_sample.ipa';
@@ -15,7 +13,7 @@ final String apkSample = 'apk_sample.apk';
 class YesStorageManager extends BaseStorageManager {
   String storageIdentifier = "YesStorage";
 
-  Future<String> storeFile(File file, {String appName, String version, String filename, String contentType}) async {
+  Future<String> storeFile(File file, {String platform,String appName, String version, String filename, String contentType}) async {
     String storeInfos = "fakeFile";
     if (contentType == in_srv.APK_CONTENT_TYPE){
       storeInfos = apkSample;

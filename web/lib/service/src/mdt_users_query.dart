@@ -18,7 +18,7 @@ abstract class MDTQueryServiceUsers{
 
   Future<Map> loginUser(String email, String password) async {
     String url = '${mdtServerApiRootUrl}${usersPath}/login';
-    var userLogin = {"email": "$email", "password": "$password"};
+    //var userLogin = {"email": "$email", "password": "$password"};
     var response = await sendRequest('POST', url,
     body: 'username=${email}&password=${Uri.encodeComponent(password)}',
     contentType: 'application/x-www-form-urlencoded');
