@@ -3,8 +3,6 @@ import 'dart:async';
 import "dart:html";
 import 'dart:convert';
 import '../model/errors.dart';
-import '../model/mdt_model.dart';
-
 import 'src/mdt_conf_query.dart';
 import 'src/mdt_interceptors_query.dart';
 import 'src/mdt_users_query.dart';
@@ -30,11 +28,9 @@ abstract class MDTQueryServiceAware {
 @Injectable()
 class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServiceUsers,MDTQueryServiceApplications,MDTQueryServiceArtifacts{
  Http _http;
- NgRoutingHelper _locationService;
  MDTQueryServiceAware _mdtQueryServiceAware;
-  void setHttpService(MDTQueryServiceAware mdtQueryServiceAware,Http http,LocationWrapper location,NgRoutingHelper locationService) {
+  void setHttpService(MDTQueryServiceAware mdtQueryServiceAware,Http http,LocationWrapper location) {
     this._http = http;
-    this._locationService = locationService;
     this._mdtQueryServiceAware = mdtQueryServiceAware;
   }
 
@@ -132,5 +128,21 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
    // ..attributes['download'] = filename
      ..click();
  }
+
+  //server logs
+  Future<String> loadLogs(String logName,{int maxLines}) async{
+    String url = "${mdtServerApiRootUrl}/logs/v1/tail/${logName}";
+    if (maxLines != null ){
+      url = "${url}?lines=$maxLines";
+    }
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+
+    if (responseJson["error"] != null) {
+      throw new BaseError(responseJson["error"]["message"]);
+    }
+
+    return responseJson["data"];
+  }
 
 }

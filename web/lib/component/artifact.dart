@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
 import 'dart:core';
-import 'dart:html' as html;
 import 'base_component.dart';
 import '../model/mdt_model.dart';
 import 'add_artifact.dart';

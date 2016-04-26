@@ -5,10 +5,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'dart:convert';
 import 'base_storage_manager.dart';
 import '../../errors.dart';
-import '../../../utils/utils.dart' as utils;
 
 class LocalStorageManager extends BaseStorageManager {
   String storageIdentifier = "LocalStorage";
@@ -21,11 +19,15 @@ class LocalStorageManager extends BaseStorageManager {
   }
 
   Future<String> storeFile(File file,
-      {String appName, String version, String filename, String contentType}) async {
+      {String platform,String appName, String version, String filename, String contentType}) async {
     try{
+      //need all optianals arguments
+      if (platform == null || appName == null || version == null|| filename == null|| contentType == null){
+        throw new ArtifactError("Error on saving file, missing mandatory parameters values.");
+      }
       var rnd = new Random();
       var alea = rnd.nextInt(1234567);
-      var storeRelativeFilename = "/${appName.replaceAll(new RegExp(r' '), '_')}/${version.replaceAll(new RegExp(r' '), '_')}/${filename.replaceAll(new RegExp(r' '), '_')}${alea}";
+      var storeRelativeFilename = "/${platform.replaceAll(new RegExp(r' '), '_')}_${appName.replaceAll(new RegExp(r' '), '_')}/${version.replaceAll(new RegExp(r' '), '_')}/${filename.replaceAll(new RegExp(r' '), '_')}${alea}";
       var storeAbsoluteFilename = "${rootStoragePath}/$storeRelativeFilename";
 
       var storeFile = new File("$storeAbsoluteFilename");

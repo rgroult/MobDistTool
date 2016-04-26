@@ -137,7 +137,7 @@ abstract class MDTQueryServiceApplications {
   Future addAdministrator(MDTApplication app, String email) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser';
     var appData = {"email": email};
-    var response = await sendRequest('PUT', url,body: appData);
+    var response = await sendRequest('PUT', url,body: JSON.encode(appData));
     var responseJson = parseResponse(response);
 
     if (response.status != 200){

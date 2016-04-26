@@ -6,6 +6,7 @@ import 'users_administration.dart';
 import 'user_detail.dart';
 import 'account_details.dart';
 import 'input_password.dart';
+import 'log_console.dart';
 
 class MDTUserModule extends Module {
   MDTUserModule() {
@@ -16,6 +17,7 @@ class MDTUserModule extends Module {
     bind(UsersDetail);
     bind(AccountDetailsComponent);
     bind(InputPasswordComponent);
+    bind(LogComponent);
   }
 }
 

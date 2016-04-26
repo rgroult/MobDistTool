@@ -110,7 +110,7 @@ class MainComponent implements ScopeAware,MDTQueryServiceAware {
   }
   MainComponent(this._http,LocationWrapper location, HttpInterceptors interceptors,this.modal,this.mdtService,this.locationService){
     print("Main component created $this");
-    mdtService.setHttpService(this,_http,location,locationService);
+    mdtService.setHttpService(this,_http,location);
     mdtService.configureInjector(interceptors);
   }
 

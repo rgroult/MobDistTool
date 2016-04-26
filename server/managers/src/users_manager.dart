@@ -3,9 +3,7 @@
 // MIT-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:math';
 import 'package:uuid/uuid.dart';
-import 'package:crypto/crypto.dart' as crypto;
 import 'package:objectory/objectory_console.dart';
 import '../../model/model.dart';
 import 'apps_manager.dart' as app_mgr;
@@ -115,7 +113,7 @@ Future<MDTUser> createUser(String name, String email, String password,
 
 //first page : pageIndex = 1
 Future<List<MDTUser>> searchUsers(int pageIndex,int numberToSkip, int limitPerPage) async{
-  var page = max(1,pageIndex);
+  //var page = max(1,pageIndex);
 
   return userCollection.find(where.sortBy("email",descending:true).skip(numberToSkip).limit(limitPerPage));
 }

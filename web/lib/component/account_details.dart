@@ -2,11 +2,8 @@ import 'package:angular/angular.dart';
 import 'package:angular_ui/angular_ui.dart';
 import 'dart:core';
 import 'dart:async';
-import 'dart:html';
 import 'base_component.dart';
-import 'application_detail.dart';
 import '../model/mdt_model.dart';
-import '../model/errors.dart';
 import '../service/mdt_query.dart';
 import 'confirmation_popover.dart';
 
@@ -38,18 +35,18 @@ class AccountDetailsComponent extends BaseComponent {
     }
   }
   Future loadAccountDetail () async{
-    var mapUser = scope.rootScope.context.currentUser;
+    //var mapUser = scope.rootScope.context.currentUser;
     currentUser = scope.rootScope.context.currentUser;
     if (currentUser.email == null ){
       userDetailErrorMessage = { 'type': 'danger', 'msg': 'Error loading user account infos'};
       return;
     }
     isHttpLoading = true;
-    var userEmail = currentUser.email.toLowerCase();
+    //var userEmail = currentUser.email.toLowerCase();
     newName = currentUser.name;
     try {
       var myprofile = await _mdtQueryService.myProfile();
-      var me = myprofile["user"];
+      //var me = myprofile["user"];
       administratedApps.addAll(myprofile["apps"]);
     }catch(e){
       errorMessage = { 'type': 'danger', 'msg': 'Error loading profile:${e.toString()}'};
@@ -89,7 +86,7 @@ class AccountDetailsComponent extends BaseComponent {
     manageWarning(currentUser);
   }
 
-  Future remove(MDTApplication app){
+  void remove(MDTApplication app){
     errorMessage = null;
     var modalInstance = ConfirmationComponent.createConfirmation(modal,scope,"Are you sure to remove your administration rights from ${app.name} ?","");
     modalInstance.result

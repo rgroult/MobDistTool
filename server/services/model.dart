@@ -3,7 +3,6 @@
 // MIT-style license that can be found in the LICENSE file.
 
 import 'package:shelf_auth/shelf_auth.dart';
-import 'dart:io';
 import 'package:rpc/rpc.dart';
 import '../model/model.dart';
 
@@ -13,6 +12,11 @@ class User extends Principal {
   User(MDTUser user ):super(user.email){
      this.dbUser = user;
   }
+}
+
+class logResponse {
+  String data;
+  logResponse(this.data);
 }
 
 class Response {
