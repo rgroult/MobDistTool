@@ -412,7 +412,7 @@ packages:
       name: xcvbnm
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0"
+    version: "0.5.3"
   xml:
     description: xml
     source: hosted

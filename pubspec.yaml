@@ -45,7 +45,7 @@ dependencies:
   googleapis: any
   qr:
      git: git://github.com/rgroult/qr.dart.git
-  xcvbnm: "^0.5.0"
+  xcvbnm: "^0.5.3"
 dependency_overrides:
 transformers:
 - angular:
