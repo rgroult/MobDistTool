@@ -14,6 +14,7 @@ import '../config/config.dart' as config;
 import '../utils/utils.dart';
 import '../utils/lite_mem_cache.dart' as cache;
 import 'package:logging/logging.dart';
+import '../activity/activity_tracking.dart';
 
 @ApiClass( name:'art' , version: 'v1')
 class ArtifactService {
@@ -75,6 +76,7 @@ Not used yet
       throw new NotApplicationAdministrator();
     }
     try {
+      trackDeleteArtifact(artifact.application,artifact);
       await mgrs.deleteArtifact(artifact,mgrs.defaultStorage);
     } catch(error,stack){
       manageExceptions(error,stack);
@@ -102,9 +104,11 @@ Not used yet
       //add security web token
       DateTime now = new DateTime.now();
       now = now.add(new Duration(minutes: tokenValidity));
+      var currentuser = userService.currentAuthenticatedUser();
       final token = {
         'id':idArtifact,
-        'expireAt': now.millisecondsSinceEpoch
+        'expireAt': now.millisecondsSinceEpoch,
+        'user': currentuser.email
       };
       var dwToken = cache.instance.addValue(token);
 
@@ -151,6 +155,7 @@ Not used yet
         return new NotFoundError();
       }
 
+      trackDownloadArtifact(artifact,tokenInfo["user"]);
       Stream stream = await mgrs.streamFromArtifact(artifact, mgrs.defaultStorage);
       var body = new Body(stream);
       var headers = {"Content-Type":artifact.contentType,"Content-length":"${artifact.size}","Content-Disposition":"attachment; filename=${artifact.filename}"};

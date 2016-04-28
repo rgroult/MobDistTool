@@ -16,6 +16,7 @@ import 'json_convertor.dart';
 import '../analyzers/artifact_analyzer.dart' as analyzer;
 import '../config/config.dart' as config;
 import '../utils/utils.dart';
+import '../activity/activity_tracking.dart';
 
 final String PLIST_CONTENT_TYPE = 'application/plist';
 final String TEMPLATE_IPA_URL_KEY = '@URL_TO_IPA@';
@@ -158,6 +159,7 @@ class InService {
         // ..errors.add(new RpcErrorDetail(reason: e.message));
       }
 
+      trackUploadArtifact(application,createdArtifact);
       //var jsonResponse = toJson(createdArtifact, isAdmin: true);
       return new Response(200, toJson(createdArtifact, isAdmin: true));
     }catch(e,stack){
@@ -180,6 +182,7 @@ class InService {
       }
       var existingArtifact =
       await mgrs.findArtifactByInfos(application, branch, version, artifactName);
+      trackDeleteArtifact(application,existingArtifact);
       if (existingArtifact != null) {
         await mgrs.deleteArtifact(existingArtifact, mgrs.defaultStorage);
       }

@@ -19,6 +19,7 @@ import 'model.dart';
 import '../config/config.dart' as config;
 import '../utils/utils.dart';
 import '../managers/errors.dart';
+import '../activity/activity_tracking.dart';
 
 
 final _logger = LoggerFactory.getLogger("UserService");
@@ -83,11 +84,13 @@ class UserService {
       if (user.isActivated){
         var authenticatedUser = new User(user);
         authenticatedUser.passwordStrengthFailed = !checkPasswordStrength(password);
+        trackUserConnection(username,true);
         return new Some(authenticatedUser);
       }else { _logger.info("Login Failed: User ${user.email} not activated");}
     }else {
       _logger.info("Login Failed: ($username) Bad login or password");
     }
+    trackUserConnection(username,false);
     return new None();
   }
   Future<Option<User>> findUser(String username) async {
@@ -168,8 +171,10 @@ class UserService {
           }
         }
 
+        trackUserRegistered(userCreated.email,true);
         return new Response(200, jsonResult);
       } catch (e) {
+        trackUserRegistered(message.email,false);
         if (userCreated != null) {
           await userCreated.remove();
         }
