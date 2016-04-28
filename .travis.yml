@@ -1,6 +1,6 @@
 language: dart
 dart:
-  - "1.15.0"
+  - "stable/release/1.15.0"
 services:
   - mongodb
 cache:
