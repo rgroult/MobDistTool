@@ -12,6 +12,7 @@ import 'model.dart';
 import '../model/model.dart';
 import 'json_convertor.dart';
 import '../utils/utils.dart';
+import '../activity/activity_tracking.dart';
 
 @ApiClass(name: 'applications' , version: 'v1')
 class ApplicationService {
@@ -45,6 +46,7 @@ class ApplicationService {
     try {
       var appCreated = await mgrs.createApplication(createMsg.name,platform,description:createMsg.description,adminUser:currentuser,base64Icon:createMsg.base64IconData);
       var response = toJson(appCreated, isAdmin:true);
+      trackCreateApp(appCreated,currentuser);
       return new Response(200, response);
     } on StateError catch (e) {
       //var error = e;
@@ -115,6 +117,7 @@ class ApplicationService {
       if (mgrs.isAdminForApp(application, currentuser) == false) {
         throw new NotApplicationAdministrator();
       }
+      trackDeleteApp(application,currentuser);
       await mgrs.deleteApplicationByObject(application);
       return new OKResponse();
     } catch(error,stack){

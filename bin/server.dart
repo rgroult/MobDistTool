@@ -46,6 +46,7 @@ final ApiServer _apiServer = new ApiServer(apiPrefix: _API_PREFIX, prettyPrint: 
 HttpServer httpServer;
 
 
+
 Future stopServer({bool force:false}) async {
   await httpServer.close(force:true);
 }
@@ -65,6 +66,13 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
     LoggerFactory.config[".*"].appenders.add(new ConsoleAppender());
   }
 
+  //override activity logging
+  var activityLogFile = "${config.currentLoadedConfig[config.MDT_LOG_DIR]}mdt_activity_logs_${now.year}${now.month.toString().padLeft(2,'0')}.txt";
+  config.currentLoadedConfig["activityLogFile"] = activityLogFile;
+  LoggerFactory.config["ActivityTracking"].logFormat = "[%d] %m";
+  LoggerFactory.config["ActivityTracking"].appenders = [new FileAppender(activityLogFile)];
+
+  //override request logging
   LoggerFactory.config["Request"].logFormat = "%m";
   final _requestLogger = LoggerFactory.getLogger("Request");
   var requestLogger = (msg, isError) {
