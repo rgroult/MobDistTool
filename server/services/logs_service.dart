@@ -25,17 +25,18 @@ class LogsService {
       }
     }
     try{
+      String logFile = "";
       switch (logName.toLowerCase()){
         case "console":
-        //return n last lines of log file
-          var logFile = config.currentLoadedConfig["consoleLogFile"];
-          return new logResponse(await loadLastLinesOfFile(logFile,numberOfLines));
+          logFile = config.currentLoadedConfig["consoleLogFile"];
+          break;
         case "activity":
-          return new logResponse("Not implemented");
+          logFile = config.currentLoadedConfig["activityLogFile"];
           break;
         default:
           throw new RpcError(400,"LOG_ERROR","Invalid log Name");
       }
+      return new logResponse(await loadLastLinesOfFile(logFile,numberOfLines));
     }catch(error,stack){
       manageExceptions(error,stack);
     }
