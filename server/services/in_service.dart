@@ -182,8 +182,9 @@ class InService {
       }
       var existingArtifact =
       await mgrs.findArtifactByInfos(application, branch, version, artifactName);
-      trackDeleteArtifact(application,existingArtifact);
+
       if (existingArtifact != null) {
+        trackDeleteArtifact(application,existingArtifact);
         await mgrs.deleteArtifact(existingArtifact, mgrs.defaultStorage);
       }
       return new OKResponse();
