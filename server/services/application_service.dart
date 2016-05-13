@@ -194,6 +194,49 @@ class ApplicationService {
     }
   }
 
+  //..add('api/applications/v1/{appId}/maxversion',null,apiHandler,exactMatch: false);
+  @ApiMethod(method: 'GET', path: 'app/{appId}/maxversion')
+  Future<ResponseList> getApplicationMaxVersion(String appId,{String ts,String hash,String branch}) async {
+    try {
+      if (ts == null || hash == null){
+        throw new BadRequestError();
+      }
+      var date = new DateTime.now().microsecondsSinceEpoch;
+      var timestamp = int.parse(ts);
+
+      if ((date-timestamp).abs()> 3000){ //30 secs
+        throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
+      }
+      var application = await findApplicationByAppId(appId);
+      //check hash
+      branch= branch!= null ? branch : "";
+      var stringToHash = "ts=$ts&branch=$branch&hash=${application.maxVersionSecretKey}";
+      var generatedHash = generateHash(stringToHash);
+      if (generatedHash != hash){
+        throw new RpcError(401,"ARTIFACT_ERROR","Invalid signature");
+      }
+
+      String selectedBranch = artifactMgr.ArtifactService.lastVersionBranchName;
+      if(branch.length > 0){
+        selectedBranch = branch;
+      }
+      var artifact = await mgrs.searchMaxArtifactVersion(application,selectedBranch);
+      var jsonResult = {};
+      if (artifact == null) {
+        throw new NotFoundError();
+      }
+      if (branch != null){
+          jsonResult["branch"] = branch;
+      }
+
+
+      return new ResponseList(200, jsonResult);
+
+    } catch(error,stack){
+      manageExceptions(error,stack);
+    }
+  }
+
   @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
   Future<MediaMessage> getApplicationIcon(String appId) async {
     try{

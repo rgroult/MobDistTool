@@ -128,6 +128,12 @@ Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int
   return artifactCollection.find(query);
 }
 
+Future<MDTArtifact> searchMaxArtifactVersion(MDTApplication app, String branch) async{
+  var query = where.eq('application',app.id).eq('branch',branch).sortBy("sortIdentifier",descending:true);
+  return artifactCollection.findOne(query);
+}
+
+
 Future<Stream> streamFromArtifact(MDTArtifact artifact,BaseStorageManager storageMgr) async {
   if (artifact == null || artifact.storageInfos == null) {
     throw new ArtifactError('Unable to find file artifact:'+artifact.name);

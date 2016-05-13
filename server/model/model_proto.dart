@@ -5,15 +5,7 @@
 library MDT_model_proto;
 import '../../packages/objectory/src/domain_model_generator.dart';
 
-//typedef UUID  = String;
-//type UUID = String;
-/*
-class MDTBaseObject {
-  String objectType;
-  String uuid;
-}
-*/
-class MDTUser/* extends MDTBaseObject*/ {
+class MDTUser {
   String name;
   String email;
   String password;
@@ -25,9 +17,10 @@ class MDTUser/* extends MDTBaseObject*/ {
 }
 
 //enum platformType { IOS, ANDROID }
-class MDTApplication /*extends MDTBaseObject */{
+class MDTApplication {
   String uuid;
   String apiKey;
+  String maxVersionSecretKey;
   String base64IconData;
   String name;
   String platform;
@@ -36,7 +29,7 @@ class MDTApplication /*extends MDTBaseObject */{
   //List<MDTArtifact> lastVersion;
 }
 
-class MDTArtifact/* extends MDTBaseObject*/ {
+class MDTArtifact {
   String uuid;
   String branch;
   String name;

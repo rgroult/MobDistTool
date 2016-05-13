@@ -126,7 +126,9 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   //gui
     ..add('web/',null,staticHandler,exactMatch: false)
   //authenticate api
-    ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
+    ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware)
+    //disable authent for this specific route
+  ..add('api/applications/v1/app/{appId}/maxversion',null,apiHandler,exactMatch: false);
 
   shelf_route.printRoutes(apiRouter,printer:utils.printAndLog );
 
