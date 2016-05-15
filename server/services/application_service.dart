@@ -195,8 +195,8 @@ class ApplicationService {
   }
 
   //..add('api/applications/v1/{appId}/maxversion',null,apiHandler,exactMatch: false);
-  @ApiMethod(method: 'GET', path: 'app/{appId}/maxversion')
-  Future<ResponseList> getApplicationMaxVersion(String appId,{String ts,String hash,String branch}) async {
+  @ApiMethod(method: 'GET', path: 'app/{appId}/maxversion/{name}')
+  Future<ResponseList> getApplicationMaxVersion(String appId,String name,{String ts,String hash,String branch}) async {
     try {
       if (ts == null || hash == null){
         throw new BadRequestError();
@@ -208,6 +208,11 @@ class ApplicationService {
         throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
       }
       var application = await findApplicationByAppId(appId);
+
+      if (application.maxVersionSecretKey == null || application.maxVersionSecretKey.isEmpty ){
+        throw new RpcError(401,"ARTIFACT_ERROR","Application disabled");
+      }
+
       //check hash
       branch= branch!= null ? branch : "";
       var stringToHash = "ts=$ts&branch=$branch&hash=${application.maxVersionSecretKey}";
@@ -220,7 +225,7 @@ class ApplicationService {
       if(branch.length > 0){
         selectedBranch = branch;
       }
-      var artifact = await mgrs.searchMaxArtifactVersion(application,selectedBranch);
+      var artifact = await mgrs.searchMaxArtifactVersion(application,selectedBranch,name);
       var jsonResult = {};
       if (artifact == null) {
         throw new NotFoundError();
@@ -229,6 +234,14 @@ class ApplicationService {
           jsonResult["branch"] = branch;
       }
 
+      jsonResult["version"] =  artifact.version;
+      jsonResult["name"] =  artifact.name;
+
+      var downloadInfo =  await artifactMgr.ArtifactService.downloadInfo(artifact,null);
+      if (downloadInfo == null){
+        throw new NotFoundError();
+      }
+      jsonResult["downloadInfo"] =downloadInfo.toJson();
 
       return new ResponseList(200, jsonResult);
 

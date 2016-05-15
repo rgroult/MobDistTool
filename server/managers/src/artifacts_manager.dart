@@ -128,8 +128,8 @@ Future<List<MDTArtifact>> searchArtifacts(MDTApplication app, {int pageIndex,int
   return artifactCollection.find(query);
 }
 
-Future<MDTArtifact> searchMaxArtifactVersion(MDTApplication app, String branch) async{
-  var query = where.eq('application',app.id).eq('branch',branch).sortBy("sortIdentifier",descending:true);
+Future<MDTArtifact> searchMaxArtifactVersion(MDTApplication app, String branch,String name) async{
+  var query = where.eq('application',app.id).eq('branch',branch).eq('name',name).sortBy("sortIdentifier",descending:true);
   return artifactCollection.findOne(query);
 }
 
