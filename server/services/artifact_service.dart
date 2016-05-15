@@ -92,7 +92,7 @@ Not used yet
       var artifact = await  mgrs.findArtifact(idArtifact);
       var currentuser = userService.currentAuthenticatedUser();
 
-      var downloadInfo = await downloadInfo(artifact,currentuser);
+      var downloadInfo = await ArtifactService.downloadInfo(artifact,currentuser);
 
       return new Response(200, downloadInfo.toJson());
     } catch(error,stack){
@@ -107,7 +107,7 @@ Not used yet
     var tokenValidity = 3; //in minutes
     var downloadInfo = new DownloadInfo();
     downloadInfo.validity = tokenValidity*60; //3 minutes
-    var baseArtifactPath = '/api/in/v1/artifacts/${artifact.id}';
+    var baseArtifactPath = '/api/in/v1/artifacts/${artifact.uuid}';
     if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
       baseArtifactPath = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${baseArtifactPath}';
     }
@@ -118,7 +118,7 @@ Not used yet
     now = now.add(new Duration(minutes: tokenValidity));
 
     final token = {
-      'id':artifact.id,
+      'id':artifact.uuid,
       'expireAt': now.millisecondsSinceEpoch,
       'user': currentuser!=null ? currentuser.email : "no user"
     };
@@ -157,7 +157,7 @@ Not used yet
       var tokenArtifactId = tokenInfo["id"];
       //artifactID same as those in token
       if (idArtifact != tokenArtifactId){
-        return new RpcError(401,"ARTIFACT_ERROR","Access denied");
+        throw new RpcError(401,"ARTIFACT_ERROR","Access denied");
       }
 
       var artifact = await mgrs.findArtifact(idArtifact);
