@@ -102,6 +102,8 @@ class UpdateApplication {
   String platform;
   @ApiProperty(required: false)
   String base64IconData;
+  @ApiProperty(required: false)
+  bool enableMaxVersionCheck;
   UpdateApplication();
 }
 class CreateApplication {
@@ -113,6 +115,8 @@ class CreateApplication {
   String platform;
   @ApiProperty(required: false)
   String base64IconData;
+  @ApiProperty(required: false)
+  bool enableMaxVersionCheck;
   CreateApplication();
 }
 

@@ -8,6 +8,7 @@ import '../../../packages/objectory/objectory_console.dart';
 import '../../model/model.dart';
 import '../errors.dart';
 import 'artifacts_manager.dart' as artifact_mgr;
+import '../../utils/utils.dart';
 
 var appCollection = objectory[MDTApplication];
 var UuidGenerator = new Uuid();
@@ -22,7 +23,7 @@ Future<List<MDTApplication>> allApplications({String platform}) async{
 }
 
 Future<MDTApplication> createApplication(String name, String platform,
-    {String description,MDTUser adminUser,String base64Icon}) async {
+    {String description,MDTUser adminUser,String base64Icon,bool maxVersionCheckEnabled}) async {
   if (name == null || name.isEmpty) {
     //return new Future.error(new StateError("bad state"));
     throw new AppError('name must be not null');
@@ -47,6 +48,8 @@ Future<MDTApplication> createApplication(String name, String platform,
     ..uuid = UuidGenerator.v4()
     ..base64IconData = base64Icon;
 
+  setMaxCheckVersion(createdApp,maxVersionCheckEnabled);
+
   if (description != null) createdApp.description = description;
 
   //var adminUsers = createdApp.adminUsers;
@@ -57,7 +60,7 @@ Future<MDTApplication> createApplication(String name, String platform,
   return createdApp;
 }
 
-Future updateApplication(MDTApplication app, {String name, String platform, String description,String base64Icon}) async {
+Future updateApplication(MDTApplication app, {String name, String platform, String description,String base64Icon,bool maxVersionCheckEnabled}) async {
   //find if other app with same name/platform
   var newName = name!=null ? name : app.name;
   var newPlatform = platform!=null? platform : app.platform;
@@ -73,10 +76,24 @@ Future updateApplication(MDTApplication app, {String name, String platform, Stri
     if (base64Icon != null){
       app.base64IconData = base64Icon;
     }
+
+    setMaxCheckVersion(app,maxVersionCheckEnabled);
   }
 
   await app.save();
   return app;
+}
+
+void setMaxCheckVersion(MDTApplication app,bool maxVersionCheckEnabled){
+  if (maxVersionCheckEnabled !=null){
+    if (maxVersionCheckEnabled){
+      if (app.maxVersionSecretKey == null){ //not enabled?
+        app.maxVersionSecretKey = randomString(15);
+      }
+    }else{
+      app.maxVersionSecretKey = null;
+    }
+  }
 }
 
 bool isAdminForApp(MDTApplication app, MDTUser user){

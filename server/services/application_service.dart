@@ -44,7 +44,7 @@ class ApplicationService {
     var platform = checkSupportedPlatform(createMsg.platform);
     var currentuser = userService.currentAuthenticatedUser();
     try {
-      var appCreated = await mgrs.createApplication(createMsg.name,platform,description:createMsg.description,adminUser:currentuser,base64Icon:createMsg.base64IconData);
+      var appCreated = await mgrs.createApplication(createMsg.name,platform,description:createMsg.description,adminUser:currentuser,base64Icon:createMsg.base64IconData,maxVersionCheckEnabled:createMsg.enableMaxVersionCheck);
       var response = toJson(appCreated, isAdmin:true);
       trackCreateApp(appCreated,currentuser);
       return new Response(200, response);
@@ -96,7 +96,7 @@ class ApplicationService {
       throw new NotApplicationAdministrator();
     }
     try {
-      application = await mgrs.updateApplication(application,name:updateMsg.name,platform:updateMsg.platform,description:updateMsg.description,base64Icon:updateMsg.base64IconData);
+      application = await mgrs.updateApplication(application,name:updateMsg.name,platform:updateMsg.platform,description:updateMsg.description,base64Icon:updateMsg.base64IconData,maxVersionCheckEnabled:updateMsg.enableMaxVersionCheck);
       return new Response(200, toJson(application,isAdmin:true));
     }on StateError catch (e) {
       //var error = e;
@@ -194,7 +194,7 @@ class ApplicationService {
     }
   }
 
-  //..add('api/applications/v1/{appId}/maxversion',null,apiHandler,exactMatch: false);
+  //..add('api/applications/v1/app/{appId}/maxversion',null,apiHandler,exactMatch: false);
   @ApiMethod(method: 'GET', path: 'app/{appId}/maxversion/{name}')
   Future<ResponseList> getApplicationMaxVersion(String appId,String name,{String ts,String hash,String branch}) async {
     try {

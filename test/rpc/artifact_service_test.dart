@@ -12,6 +12,7 @@ import '../../bin/server.dart' as server;
 import 'rpc_commons.dart';
 import 'rpc_utilities.dart';
 import '../../server/managers/managers.dart' as mgrs;
+import '../../server/utils/utils.dart' as utils;
 import 'user_service_test.dart';
 
 
@@ -43,7 +44,7 @@ void main() {
 
 var userRegistration1 = {"email":"apptest@test.com", "password":"passwd", "name":"app user 1"};
 var userRegistration2 = {"email":"apptest2@test.com", "password":"passwd", "name":"app user 2"};
-var applicationCreationiOS = {"name":"Application test ios", "description":"Full app description", "platform":"ios"};
+var applicationCreationiOS = {"name":"Application test ios", "description":"Full app description", "platform":"ios","enableMaxVersionCheck":true};
 var applicationCreationAndroid = {"name":"Application test android", "description":"Full app description", "platform":"android"};
 
 void createAndLogin(){
@@ -183,6 +184,31 @@ void allTests() {
     var responseJson = parseResponse(response);
   });
 
+  test("maxVersionCheck enabled KO", () async {
+    var uuid = currentApp["uuid"];
+    var ts = new DateTime.now().microsecondsSinceEpoch;
+    var query = "ts=$ts&branch=toto&hash=toto";
+    var url = '/api/applications/v1/app/${uuid}/maxversion?$query';
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(401));
+  });
+
+  test("maxVersionCheck enabled OK", () async {
+    var secret = currentApp["maxVersionSecretKey"];
+    var uuid = currentApp["uuid"];
+    var branch =  'testMax';
+    var ts = new DateTime.now().microsecondsSinceEpoch;
+    var stringToHash = "ts=$ts&branch=$branch&hash=${secret}";
+    var hash = utils.generateHash(stringToHash);
+    var query = "ts=$ts&branch=$branch&hash=${hash}";
+    var url = '/api/applications/v1/app/${uuid}/maxversion?$query';
+    var response = await sendRequest('GET', url);
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(404));
+
+  });
+/*
   test("Upload list artifacts OK", () async {
     var apiKey = currentApp["apiKey"];
 
@@ -234,6 +260,6 @@ void allTests() {
     allArtifacts.clear();
     allArtifacts.addAll(responseJson['list']);
   });
-
+*/
 
 }
