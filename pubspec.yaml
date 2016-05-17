@@ -1,9 +1,6 @@
 name: 'MobDistTool'
-version: 0.9.11
+version: '1.0.0'
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
-#author: Your Name <email@example.com>
-#homepage: https://www.example.com
-  #objectory: "^0.3.22"
 
 environment:
   sdk: '>=1.0.0 <2.0.0'
