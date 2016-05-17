@@ -101,15 +101,17 @@ class MDTArtifact extends PersistentObject {
 class $MDTApplication {
   static String get uuid => 'uuid';
   static String get apiKey => 'apiKey';
+  static String get maxVersionSecretKey => 'maxVersionSecretKey';
   static String get base64IconData => 'base64IconData';
   static String get name => 'name';
   static String get platform => 'platform';
   static String get description => 'description';
   static String get adminUsers => 'adminUsers';
-  static final List<String> allFields = [uuid, apiKey, base64IconData, name, platform, description, adminUsers];
+  static final List<String> allFields = [uuid, apiKey, maxVersionSecretKey, base64IconData, name, platform, description, adminUsers];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('uuid', PropertyType.String, 'uuid')
     ,const PropertyDescriptor('apiKey', PropertyType.String, 'apiKey')
+    ,const PropertyDescriptor('maxVersionSecretKey', PropertyType.String, 'maxVersionSecretKey')
     ,const PropertyDescriptor('base64IconData', PropertyType.String, 'base64IconData')
     ,const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('platform', PropertyType.String, 'platform')
@@ -124,6 +126,8 @@ class MDTApplication extends PersistentObject {
   set uuid (String value) => setProperty('uuid',value);
   String get apiKey => getProperty('apiKey');
   set apiKey (String value) => setProperty('apiKey',value);
+  String get maxVersionSecretKey => getProperty('maxVersionSecretKey');
+  set maxVersionSecretKey (String value) => setProperty('maxVersionSecretKey',value);
   String get base64IconData => getProperty('base64IconData');
   set base64IconData (String value) => setProperty('base64IconData',value);
   String get name => getProperty('name');

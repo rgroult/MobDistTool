@@ -25,6 +25,8 @@ class ApplicationDetailComponent extends BaseComponent  {
   MDTApplication currentApp;
   bool hadUpdate = false;
   bool isAdminUsersCollapsed = true;
+  bool isMaxVersionEnabledCollapsed = true;
+  bool get maxVersionEnabled => (currentApp != null && currentApp.maxVersionSecretKey != null);
   String administratorToAdd;
   //artifact and sort
   //@NgOneWay('groupedArtifacts')

@@ -10,6 +10,7 @@ import 'package:shelf/src/body.dart';
 import '../managers/managers.dart' as mgrs;
 import 'user_service.dart' as userService;
 import 'model.dart';
+import '../model/model.dart';
 import '../config/config.dart' as config;
 import '../utils/utils.dart';
 import '../utils/lite_mem_cache.dart' as cache;
@@ -89,46 +90,55 @@ Not used yet
   Future<Response> getArtifactDescriptor(String idArtifact) async{
     try{
       var artifact = await  mgrs.findArtifact(idArtifact);
-      if (artifact == null ){
-        throw new NotFoundError("Unable to find artifact");
-      }
-      var tokenValidity = 3; //in minutes
-      var downloadInfo = new DownloadInfo();
-      downloadInfo.validity = tokenValidity*60; //3 minutes
-      var baseArtifactPath = '/api/in/v1/artifacts/$idArtifact';
-      if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
-        baseArtifactPath = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${baseArtifactPath}';
-      }
-
-      downloadInfo.directLinkUrl = '$baseArtifactPath/file';
-      //add security web token
-      DateTime now = new DateTime.now();
-      now = now.add(new Duration(minutes: tokenValidity));
       var currentuser = userService.currentAuthenticatedUser();
-      final token = {
-        'id':idArtifact,
-        'expireAt': now.millisecondsSinceEpoch,
-        'user': currentuser.email
-      };
-      var dwToken = cache.instance.addValue(token);
 
-      downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$dwToken";
+      var downloadInfo = await ArtifactService.downloadInfo(artifact,currentuser);
 
-      var app = await artifact.application.getMeFromDb();
-      if (app == null){
-        throw new NotFoundError("Unable to find application");
-      }
-
-      if (app.platform.toUpperCase() == 'IOS'){
-        downloadInfo.installUrl = '$baseArtifactPath/ios_plist?token=$dwToken';
-        downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${Uri.encodeComponent(downloadInfo.installUrl)}";
-      }else {
-        downloadInfo.installUrl = downloadInfo.directLinkUrl;
-      }
       return new Response(200, downloadInfo.toJson());
     } catch(error,stack){
       manageExceptions(error,stack);
     }
+  }
+
+  static Future<DownloadInfo> downloadInfo(MDTArtifact artifact,MDTUser currentuser) async{
+    if (artifact == null ){
+      throw new NotFoundError("Unable to find artifact");
+    }
+    var tokenValidity = 3; //in minutes
+    var downloadInfo = new DownloadInfo();
+    downloadInfo.validity = tokenValidity*60; //3 minutes
+    var baseArtifactPath = '/api/in/v1/artifacts/${artifact.uuid}';
+    if (config.currentLoadedConfig[config.MDT_SERVER_URL] != null){
+      baseArtifactPath = '${config.currentLoadedConfig[config.MDT_SERVER_URL]}${baseArtifactPath}';
+    }
+
+    downloadInfo.directLinkUrl = '$baseArtifactPath/file';
+    //add security web token
+    DateTime now = new DateTime.now();
+    now = now.add(new Duration(minutes: tokenValidity));
+
+    final token = {
+      'id':artifact.uuid,
+      'expireAt': now.millisecondsSinceEpoch,
+      'user': currentuser!=null ? currentuser.email : "no user"
+    };
+    var dwToken = cache.instance.addValue(token);
+
+    downloadInfo.directLinkUrl = "${downloadInfo.directLinkUrl}?token=$dwToken";
+
+    var app = await artifact.application.getMeFromDb();
+    if (app == null){
+      throw new NotFoundError("Unable to find application");
+    }
+
+    if (app.platform.toUpperCase() == 'IOS'){
+      downloadInfo.installUrl = '$baseArtifactPath/ios_plist?token=$dwToken';
+      downloadInfo.installUrl = "itms-services://?action=download-manifest&url=${Uri.encodeComponent(downloadInfo.installUrl)}";
+    }else {
+      downloadInfo.installUrl = downloadInfo.directLinkUrl;
+    }
+
+    return downloadInfo;
   }
 
   static Future downloadFile(String idArtifact,{String token}) async {
@@ -147,7 +157,7 @@ Not used yet
       var tokenArtifactId = tokenInfo["id"];
       //artifactID same as those in token
       if (idArtifact != tokenArtifactId){
-        return new RpcError(401,"ARTIFACT_ERROR","Access denied");
+        throw new RpcError(401,"ARTIFACT_ERROR","Access denied");
       }
 
       var artifact = await mgrs.findArtifact(idArtifact);

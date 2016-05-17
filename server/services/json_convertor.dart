@@ -9,7 +9,7 @@ Map propertiePerClass = {
   "MDTUser" :  ['name','email','isActivated'],
   "admin_MDTUser" :  ['isSystemAdmin'],
   'MDTApplication' :  ['name','platform','lastVersion','adminUsers','uuid','description'],
-  'admin_MDTApplication' :  ['apiKey'],
+  'admin_MDTApplication' :  ['apiKey','maxVersionSecretKey'],
   //'MDTArtifact' : ['uuid','branch','name','creationDate','version','sortIdentifier','metaDataTags'],
   'MDTArtifact' : ['uuid','name','sortIdentifier','metaDataTags','size','creationDate'],
   'admin_MDTArtifact' :  ['branch','version']

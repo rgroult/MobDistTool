@@ -1,9 +1,6 @@
 name: 'MobDistTool'
-version: 0.9.11
+version: '1.0.0'
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
-#author: Your Name <email@example.com>
-#homepage: https://www.example.com
-  #objectory: "^0.3.22"
 
 environment:
   sdk: '>=1.0.0 <2.0.0'
@@ -15,14 +12,13 @@ dependencies:
         url: git://github.com/codecov/dart.git
         ref: master
   apk_parser: "^0.0.2+2"
-  angular: any
+  angular : any
   angular_ui: any
   browser: any
   objectory:
       git:
         url: git://github.com/vadimtsushko/objectory.git
         ref: master
-  args: '>=0.10.0 <0.14.0'
   shelf: '>=0.6.0 <0.7.0'
   rpc: "^0.5.6"
   shelf_rpc: "^0.0.3+2"
@@ -38,7 +34,6 @@ dependencies:
   archive: "^1.0.20"
   plist: "^1.0.1"
   option: "^1.1.0"
-  test: "^0.12.5+1"
   uuid: "0.5.0"
   #hammock: "^0.4.0"
   googleapis_auth: any
@@ -46,7 +41,11 @@ dependencies:
   qr:
      git: git://github.com/rgroult/qr.dart.git
   xcvbnm: "^0.5.0"
+dev_dependencies:
+  args: '>=0.10.0 <0.14.0'
+  test: "^0.12.5+1"
 dependency_overrides:
+  args: '^0.13.2'
 transformers:
 - angular:
     html_files:

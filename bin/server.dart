@@ -118,6 +118,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   //disable authent for register
     ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
     ..get('api/in/v1/artifacts/{artifactid}/file{?token}',(request) => ArtifactService.downloadFile(shelf_route.getPathParameter(request, 'artifactid'),token: shelf_route.getPathParameter(request, 'token')))
+   //disable authent for this specific route
+    ..add('api/applications/v1/app/{appId}/maxversion/{name}',null,apiHandler,exactMatch: false)
     ..add('/api/in/',null,apiHandler,exactMatch: false)
     ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
   //..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
