@@ -196,15 +196,15 @@ class ApplicationService {
 
   //..add('api/applications/v1/app/{appId}/maxversion',null,apiHandler,exactMatch: false);
   @ApiMethod(method: 'GET', path: 'app/{appId}/maxversion/{name}')
-  Future<ResponseList> getApplicationMaxVersion(String appId,String name,{String ts,String hash,String branch}) async {
+  Future<Response> getApplicationMaxVersion(String appId,String name,{String ts,String hash,String branch}) async {
     try {
       if (ts == null || hash == null){
         throw new BadRequestError();
       }
-      var date = new DateTime.now().microsecondsSinceEpoch;
+      var date = new DateTime.now().millisecondsSinceEpoch;
       var timestamp = int.parse(ts);
 
-      if ((date-timestamp).abs()> 3000){ //30 secs
+      if ((date-timestamp).abs()> 30000){ //30 secs
         throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
       }
       var application = await findApplicationByAppId(appId);
@@ -212,7 +212,6 @@ class ApplicationService {
       if (application.maxVersionSecretKey == null || application.maxVersionSecretKey.isEmpty ){
         throw new RpcError(401,"ARTIFACT_ERROR","Application disabled");
       }
-
       //check hash
       branch= branch!= null ? branch : "";
       var stringToHash = "ts=$ts&branch=$branch&hash=${application.maxVersionSecretKey}";
@@ -241,11 +240,14 @@ class ApplicationService {
       if (downloadInfo == null){
         throw new NotFoundError();
       }
+
       jsonResult["downloadInfo"] =downloadInfo.toJson();
 
-      return new ResponseList(200, jsonResult);
+
+      return new Response(200, jsonResult);
 
     } catch(error,stack){
+      print("$error");
       manageExceptions(error,stack);
     }
   }

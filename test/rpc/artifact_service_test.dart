@@ -15,9 +15,7 @@ import '../../server/managers/managers.dart' as mgrs;
 import '../../server/utils/utils.dart' as utils;
 import 'user_service_test.dart';
 
-
 var baseArtUri = "/api/applications/v1";
-
 
 void main() {
   //start server
@@ -32,7 +30,7 @@ void main() {
     print('baseUrlHost : $serverBaseUrlHost');
   });
 
-  baseUrlHost = "http://localhost:8080";
+  baseUrlHost = "http://localhost:8090";
   allTests();
 
   test("stop server", () async  {
@@ -177,18 +175,12 @@ void allTests() {
     expect(binaryFile.headers["content-type"],equals("application/octet-stream ipa"));
   });
 
-  test("delete  artifact OK", () async {
-    String artifactId = currentArtifact["uuid"];
-    var deleteArtifactUrl = '/api/art/v1/artifacts/${artifactId}';
-    var response = await sendRequest('DELETE', deleteArtifactUrl);
-    var responseJson = parseResponse(response);
-  });
 
   test("maxVersionCheck enabled KO", () async {
     var uuid = currentApp["uuid"];
-    var ts = new DateTime.now().microsecondsSinceEpoch;
+    var ts = new DateTime.now().millisecondsSinceEpoch;
     var query = "ts=$ts&branch=toto&hash=toto";
-    var url = '/api/applications/v1/app/${uuid}/maxversion?$query';
+    var url = '/api/applications/v1/app/${uuid}/maxversion/prod?$query';
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);
     expect(response.statusCode, equals(401));
@@ -197,18 +189,60 @@ void allTests() {
   test("maxVersionCheck enabled OK", () async {
     var secret = currentApp["maxVersionSecretKey"];
     var uuid = currentApp["uuid"];
-    var branch =  'testMax';
-    var ts = new DateTime.now().microsecondsSinceEpoch;
+    var branch =  'master';
+    var name = 'prod';
+    var ts = new DateTime.now().millisecondsSinceEpoch;
     var stringToHash = "ts=$ts&branch=$branch&hash=${secret}";
     var hash = utils.generateHash(stringToHash);
     var query = "ts=$ts&branch=$branch&hash=${hash}";
-    var url = '/api/applications/v1/app/${uuid}/maxversion?$query';
+    var url = '/api/applications/v1/app/${uuid}/maxversion/$name?$query';
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);
-    expect(response.statusCode, equals(404));
-
+    expect(response.statusCode, equals(200));
+    responseJson = responseJson["data"];
+    expect(responseJson["branch"], equals(branch));
+    expect(responseJson["name"], equals(name));
+    expect(responseJson["version"], equals(currentArtifact["version"]));
   });
-/*
+
+  test ("maxVersionCheck enabled after new version OK",() async {
+    //await createAndLoginUser();
+    var application = currentApp;
+    var apiKey = application["apiKey"];
+    var newVersion = 'Y.Y.Z_prod';
+    var response = await uploadArtifact(apiKey,"master",newVersion,"prod",artifactName:"../server/managers/src/storage/ipa_sample.ipa" );
+    var responseJson = parseResponse(response);
+    currentArtifact = responseJson["data"];
+    expect(response.statusCode, equals(200));
+
+    var secret = currentApp["maxVersionSecretKey"];
+    var uuid = currentApp["uuid"];
+    var branch =  'master';
+    var name = 'prod';
+    var ts = new DateTime.now().millisecondsSinceEpoch;
+    var stringToHash = "ts=$ts&branch=$branch&hash=${secret}";
+    var hash = utils.generateHash(stringToHash);
+    var query = "ts=$ts&branch=$branch&hash=${hash}";
+    var url = '/api/applications/v1/app/${uuid}/maxversion/$name?$query';
+    response = await sendRequest('GET', url);
+    responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+    responseJson = responseJson["data"];
+    expect(responseJson["branch"], equals(branch));
+    expect(responseJson["name"], equals(name));
+    expect(responseJson["version"], equals(newVersion));
+  });
+
+  test("delete  artifact OK", () async {
+    await loginUser(userInfosSample["email"],userInfosSample["password"]) ;
+    String artifactId = currentArtifact["uuid"];
+    var deleteArtifactUrl = '/api/art/v1/artifacts/${artifactId}';
+    var response = await sendRequest('DELETE', deleteArtifactUrl);
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+  });
+
+
   test("Upload list artifacts OK", () async {
     var apiKey = currentApp["apiKey"];
 
@@ -256,10 +290,10 @@ void allTests() {
     var response = await sendRequest('GET', artifactUrl);
     var responseJson = parseResponse(response);
     expect(response.statusCode, equals(200));
-    expect(responseJson['list'].length, equals(10));
+    expect(responseJson['list'].length, equals(11));
     allArtifacts.clear();
     allArtifacts.addAll(responseJson['list']);
   });
-*/
+
 
 }
