@@ -280,7 +280,92 @@ curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - ADD|DE
 
 ```
 
-#Why use MDT ?
+# Additional functionality
+
+## Retrieve Max Version for specific branch
+
+
+In order to allows application to check if a newer version is available, MDT provides a anonymous check to retrieve the max version on a application (regarding a provided branch and a version name).
+
+The mechanism use here is a share secret between application and MDT server (each MDT application has his own secret) and a timestamped request.** The validity of a signed request is yet 30 secs (regarding the server date of course)**. 
+
+To enable this functionality you have to **selected it through UI in the create/update application panel ("Enable max version check (share secret will be generated)" checkbox)**. 
+next, AppId and AppSecret will be displayed in the application versions details view (**'MAX VERSION' link**, don't forget to enable admin options to see it). 
+
+
+
+MDT server Url :
+    
+    https://<myserver\>/api/applications/v1/app/<appId\>/maxversion/\<version name\>?\<signed query\>
+    
+ Signed query format :
+ 
+    "ts=" + currentMillisecondTimestampSince1970 +"&branch=" + branch + "&hash=" + hash
+  
+  Hash computation:
+  
+```   
+  hash = md5("ts=" + currentMillisecondTimestampSince1970 +"&branch=" + branch + "&hash=" + appSecret) 
+```
+
+The result of the request as a format :
+
+```
+ {
+    data = {
+        branch = master;  // requested branch
+        downloadInfo =  {
+            directLinkUrl = "<download link>"; // direct link for max version artifact 
+            installUrl = "<install link>"; // install link for max version artifact 
+            validity = 180; //links validity
+        };
+        name = prod; // requested version name
+        version = "X.Y.8"; //  max version found
+        };
+    status = 200; // not used yet
+ }
+```
+
+Example:
+
+```
+ appId = 33-343-4343
+ appSecret = sqd*$/ùmzefmùqs
+ branch = master
+ name = prod
+ 
+ currentMillisecondTimestampSince1970 = 122402423042342
+ 
+ queryToSign format: "ts=" + currentMillisecondTimestampSince1970 +"&branch=" + branch + "&hash=" + appSecret
+ 
+ md5("ts=122402423042342&branch=master&hash=sqd*$/ùmzefmùqs") =  "ed15111cfd7ec0674dc34a3ea8425907"
+ 
+ finalQuery Format : "ts=" + currentMillisecondTimestampSince1970 +"&branch=" + branch + "&hash=" + md5
+ query = "ts=122402423042342&branch=master&hash=ed15111cfd7ec0674dc34a3ea8425907"
+ 
+ curl "https://<myserver>/api/applications/v1/app/33-343-4343/maxversion/prod?ts=122402423042342&branch=master&hash=ed15111cfd7ec0674dc34a3ea8425907"
+ 
+ >>> 
+ 
+  {
+     data = {
+         branch = master;
+         downloadInfo =  {
+             directLinkUrl = "https://<myserver>/api/.../file";
+             installUrl = "itms-services://?action=download-manifest&url=https...";
+             validity = 180;
+         };
+         name = prod;
+         version = "<MyVersion>";
+         };
+     status = 200;
+  }
+
+
+ 
+```
+
+# Why use MDT ?
 
 * Unlike other solutions ([Fabrics], [TestFlight],...), you have no need to add all your users emails or manage groups to distribute your apps. Users can register themself (with white domains email configuration if needed) and access all your distributes apps. This is very usefull for example on IOS with 'InHouse' certificates in company where anybody can test beta versions of applications.
 
