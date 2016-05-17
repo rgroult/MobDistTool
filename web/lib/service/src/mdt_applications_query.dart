@@ -14,13 +14,15 @@ abstract class MDTQueryServiceApplications {
     throw 'Not Implemented';
   }
   Future<MDTApplication> createApplication(
-      String name, String description, String platform, String icon) async {
+      String name, String description, String platform, String icon,bool maxVersionCheck) async {
     var appData = {
       "name": name,
       "description": description,
       "platform": platform,
-      "base64IconData":icon
+      "base64IconData":icon,
+      "enableMaxVersionCheck":maxVersionCheck
     };
+
     var response = await sendRequest(
         'POST', '${mdtServerApiRootUrl}${appPath}/create',
         body: JSON.encode(appData));
@@ -36,11 +38,12 @@ abstract class MDTQueryServiceApplications {
   }
 
   Future<MDTApplication> updateApplication(
-      String appId, String name, String description, String icon) async {
-    var appData = {"name": name, "description": description};
+      String appId, String name, String description, String icon,bool maxVersionCheck) async {
+    var appData = {"name": name, "description": description,"enableMaxVersionCheck":maxVersionCheck};
     if (icon !=null && icon.length>0){
       appData["base64IconData"] = icon;
     }
+
     var response = await sendRequest(
         'PUT', '${mdtServerApiRootUrl}${appPath}/app/$appId',
         body: JSON.encode(appData));

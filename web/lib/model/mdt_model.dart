@@ -31,6 +31,7 @@ class MDTApplication {
   String platform;
   String description;
   String appIcon;
+  String maxVersionSecretKey;
   List<MDTUser> adminUsers;
   List<MDTArtifact> lastVersion;
   MDTApplication(Map map){
@@ -40,6 +41,7 @@ class MDTApplication {
     platform = map["platform"];
     description = map["description"];
     appIcon = map["appIcon"];
+    maxVersionSecretKey = map["maxVersionSecretKey"];
    // appIcon = "http://www.winmacsofts.com/wp-content/uploads/2014/10/Clash-of-Clans-pour-PC-et-Mac-550x412.jpg";
     //admin user
     adminUsers = new List<MDTUser>();

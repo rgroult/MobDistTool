@@ -52,6 +52,7 @@ class ApplicationEditionComponent extends BaseComponent {
     appDescription = app.description;
     appUUID = app.uuid;
     appIcon = app.appIcon;
+    maxVersionCheckEnabled = (app.maxVersionSecretKey!=null);
   }
   String appName;
   String appPlatform;
@@ -59,6 +60,7 @@ class ApplicationEditionComponent extends BaseComponent {
   String appUUID;
   String appIcon ="images/placeholder.jpg";
   File appIconFile;
+  bool maxVersionCheckEnabled = false;
 
   void hideMessage(){
     errorMessage = null;
@@ -113,7 +115,7 @@ class ApplicationEditionComponent extends BaseComponent {
     }
     try {
       isHttpLoading = true;
-      MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,appIconFile != null ? appIcon : null);
+      MDTApplication appUpdated = await mdtQueryService.updateApplication(appUUID, appName,appDescription,appIconFile != null ? appIcon : null,maxVersionCheckEnabled);
       if (appUpdated !=null){
         caller.applicationEditionSucceed(appUpdated);
        // caller.applicationListNeedBeReloaded();
@@ -142,7 +144,7 @@ class ApplicationEditionComponent extends BaseComponent {
     }
     try {
       isHttpLoading = true;
-      MDTApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,appIcon);
+      MDTApplication appCreated = await mdtQueryService.createApplication(appName,appDescription,appPlatform,appIcon,maxVersionCheckEnabled);
       if (appCreated !=null){
           caller.applicationEditionSucceed(appCreated);
         errorMessage = { 'type': 'success', 'msg': ' Application ${appCreated.name} created successfully!'};
