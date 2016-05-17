@@ -203,9 +203,9 @@ class ApplicationService {
       }
       var date = new DateTime.now().millisecondsSinceEpoch;
       var timestamp = int.parse(ts);
-
-      if ((date-timestamp).abs()> 30000){ //30 secs
-        throw new RpcError(401,"ARTIFACT_ERROR","Access expired");
+      var delay = (date-timestamp).abs();
+      if (delay > 30000){ //30 secs
+        throw new RpcError(401,"ARTIFACT_ERROR","Access expired, delay:$delay, server:$date");
       }
       var application = await findApplicationByAppId(appId);
 
