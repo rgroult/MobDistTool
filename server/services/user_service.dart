@@ -255,7 +255,7 @@ class UserService {
       if (pageIndex != null) {
         page = pageIndex;
       }
-      var numberToSkip = (page - 1) * limit;
+      var numberToSkip = (page - 1) * (limit-1);
 
       var usersList = await users.searchUsers(page, numberToSkip, limit);
       bool hasMore = false;
