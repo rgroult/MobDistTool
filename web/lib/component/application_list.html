@@ -48,7 +48,7 @@
                 {{errorMessage['msg']}}
             </alert>
             <div ng-if="isViewAsList == false" class="row">
-                <div class="col-xs-6 col-md-3" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter}">
+                <div class="col-xs-6 col-md-3" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter} | orderBy:'+'">
                     <div class="thumbnail">
                         <a class="" href="javascript:void(0)" ng-click="appSelected(app.uuid)">
                             <img alt="" onError="this.onError=null;this.src='images/placeholder.jpg'" src="{{app.appIcon}}" class="img-rounded media-icon" style="height:180px;">
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div ng-if="isViewAsList == true" class="row">
-                <div class="col-md-6" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter}">
+                <div class="col-md-6" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter} | orderBy:'+'">
                     <div class="panel panel-default">
                         <a href="javascript:void(0)" ng-click="appSelected(app.uuid)">
                             <div class="panel-body">
