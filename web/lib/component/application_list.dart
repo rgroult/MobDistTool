@@ -17,6 +17,7 @@ class ApplicationListComponent extends BaseComponent  {
   final allPlatforms = ['iOS','Android'];
   var currentPlatformFilter = '';
   var currentSelectedPlatform = 'All';
+  List<String> applicationFavorites = new List<String>();
   NgRoutingHelper locationService;
   MDTQueryService mdtQueryService;
   Modal modal;
@@ -24,18 +25,48 @@ class ApplicationListComponent extends BaseComponent  {
   void setListMode(bool viewAsList){
     isViewAsList = viewAsList;
   }
+  var isFavoritesOpened = true;
+  var isAllAppsOpened = false;
+
+  void set scope(Scope scope){
+    super.scope = scope;
+    MDTUser currentUser = scope.rootScope.context.currentUser;
+    if (currentUser.favoritesApplicationsUUID != null){
+      applicationFavorites.addAll(currentUser.favoritesApplicationsUUID);
+    }
+  }
+
   //strange :unable to rename it to another name :S
   ApplicationListComponent get app => this;
-/*
-  void set scope(Scope _scope){
-    super.scope= _scope;
-    scope.rootScope.context.enterRoute("Applications","/apps",1);
-  }
-*/
+
   ApplicationListComponent(this.locationService,/*RouteProvider routeProvider,*/this.modal,this.mdtQueryService){
     print ("ApplicationsComponent created");
     loadApps();
-    //loadAppListFake();
+  }
+
+  bool isFavorite(MDTApplication app){
+    return applicationFavorites.contains(app.uuid);
+  }
+
+  void addToFavorite(MDTApplication app){
+    if (!isFavorite(app)){
+      applicationFavorites.add(app.uuid);
+      updateUsersAppFavorites();
+    }
+  }
+
+  void removeToFavorite(MDTApplication app){
+    if (isFavorite(app)){
+      applicationFavorites.remove(app.uuid);
+      updateUsersAppFavorites();
+    }
+  }
+
+  void updateUsersAppFavorites(){
+    MDTUser currentUser = scope.rootScope.context.currentUser;
+    currentUser.favoritesApplicationsUUID.clear();
+    currentUser.favoritesApplicationsUUID.addAll(applicationFavorites);
+    mdtQueryService.updateUser(currentUser.email,favoritesApps: applicationFavorites);
   }
 
   String iconForApp(MDTApplication app){
@@ -98,6 +129,13 @@ class ApplicationListComponent extends BaseComponent  {
       var apps= await mdtQueryService.getApplications();
       if (apps.isNotEmpty){
         allApps.addAll(apps);
+        if (applicationFavorites.length > 0){
+          isFavoritesOpened = true;
+          isAllAppsOpened = false;
+        }else{
+          isFavoritesOpened = false;
+          isAllAppsOpened = true;
+        }
       }else {
         errorMessage = { 'type': 'warning', 'msg': 'No Application found'};
       }
@@ -109,34 +147,4 @@ class ApplicationListComponent extends BaseComponent  {
       isHttpLoading = false;
     }
   }
-/*
-  void loadAppListFake(){
-    var app1Data = {
-    "uuid" : "dsfsdfsdfsdf",
-    "apiKey" : "aîkey12345",
-    "description" : "test App1",
-    "name" : "long long long appName1 very long long",
-    "platform" : "IOS"
-    };
-    var app2Data = {
-      "uuid" : "234232",
-      "apiKey" : "aîkeyapp2",
-      "description" : "test App2 with long description and very long description",
-      "name" : "appName2",
-      "platform" : "Android"
-    };
-
-
-    var app1 = new MDTApplication(app1Data);
-    allApps.add(app1);
-
-    var app2 = new MDTApplication(app2Data);
-    allApps.add(app2);
-
-    allApps.add(app1);
-    allApps.add(app2);
-    allApps.add(app1);
-
-    allApps.add(app2);
-  }*/
 }

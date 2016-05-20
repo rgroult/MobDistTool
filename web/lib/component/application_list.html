@@ -14,12 +14,7 @@
                 <div class="col-md-2 col-xs-1">
 
                 </div>
-                <div class="col-md-3 col-xs-12">
 
-                        <button ng-click="setListMode(false)" ng-class="isViewAsList == false ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_module</i></button>
-                        <button ng-click="setListMode(true)" ng-class="isViewAsList == true ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_list</i></button>
-
-                </div>
             </div>
             <div class="dropdown">
 
@@ -36,54 +31,90 @@
                 </ul>
             </div>
 
-
-            <div class="row">
-                <div class="col-md-6">
-
-
-                </div>
-            </div>
-
             <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">
                 {{errorMessage['msg']}}
             </alert>
-            <div ng-if="isViewAsList == false" class="row">
-                <div class="col-xs-6 col-md-3" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter} | orderBy:'+'">
-                    <div class="thumbnail">
-                        <a class="" href="javascript:void(0)" ng-click="appSelected(app.uuid)">
-                            <img alt="" onError="this.onError=null;this.src='images/placeholder.jpg'" src="{{app.appIcon}}" class="img-rounded media-icon" style="height:180px;">
-                            <span class="platform{{app.platform}}"></span>
-                            </img>
-                            <div class="caption">
-                                <h3 class="truncated_text">{{app.name}}</h3>
-                                <h6 class="truncated_text">{{app.description}}</h6>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button type="button" ng-click="isFavoritesOpened = !isFavoritesOpened" class="btn btn-lg btn-flat btn-default">Favorites&nbsp;&nbsp;  <span  class= "glyphicon" ng-class="{'glyphicon-chevron-down': isFavoritesOpened, 'glyphicon-chevron-right': !isFavoritesOpened}"></span> </button>
+                </div>
+                <div class="panel-body" >
+                    <div class="row" collapse="!isFavoritesOpened">
+                        <div class="col-xs-6 col-md-2" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter} | filter:isFavorite | orderBy:'name'">
+                            <div class="thumbnail">
+                                <a class="" href="javascript:void(0)" ng-click="appSelected(app.uuid)">
+                                    <img alt="" onError="this.onError=null;this.src='images/placeholder.jpg'" src="{{app.appIcon}}" class="img-rounded media-icon" style="height:180px;">
+                                    <span class="platform{{app.platform}}"></span>
+                                    </img>
+                                    <h3 class=" lead truncated_text text-center">{{app.name}}</h3>
+                                    <!--   <div class="caption">
+
+                                       </div>-->
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div ng-if="isViewAsList == true" class="row">
-                <div class="col-md-6" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter} | orderBy:'+'">
-                    <div class="panel panel-default">
-                        <a href="javascript:void(0)" ng-click="appSelected(app.uuid)">
-                            <div class="panel-body">
-                                <div class="media">
 
-                                    <div class="media-left">
-                                            <img onError="this.onError=null;this.src='images/placeholder.jpg'" class="media-icon media-object" src="{{app.appIcon}}" alt="...">
-                                    </div>
-                                    <div class="media-body">
-                                        <h3 class="media-heading truncated_text"><span class="platform{{app.platform}}"></span>{{app.name}}</h3>
-                                        <div class="app-list-info">
-                                            <h4 class="line-clamp app-description">{{app.description}}</h4>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-12">
+                            <button type="button" ng-click="isAllAppsOpened = !isAllAppsOpened" class="btn btn-lg btn-flat btn-default">All&nbsp;&nbsp;  <span  class= "glyphicon" ng-class="{'glyphicon-chevron-down': isAllAppsOpened, 'glyphicon-chevron-right': !isAllAppsOpened}"></span> </button>
+                        </div>
+                    <div class="col-md-3 col-xs-12">
+                        <button ng-click="setListMode(false)" ng-class="isViewAsList == false ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_module</i></button>
+                        <button ng-click="setListMode(true)" ng-class="isViewAsList == true ? 'active' : ''" type="button" class="btn btn-default"><i class="material-icons">view_list</i></button>
+                    </div>
+                    </div>
+                </div>
+                <div class="panel-body" >
+                    <div collapse="!isAllAppsOpened">
+                        <div ng-if="isViewAsList == false"  class="row">
+                            <div class="col-xs-6 col-md-3" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter} | orderBy:'name'">
+                                <div class="thumbnail">
+                                    <a class="" href="javascript:void(0)" ng-click="appSelected(app.uuid)">
+                                        <img alt="" onError="this.onError=null;this.src='images/placeholder.jpg'" src="{{app.appIcon}}" class="img-rounded media-icon" style="height:180px;">
+                                        <span class="platform{{app.platform}}"></span>
+                                        </img>
+                                        <div class="caption">
+                                            <h3 class="truncated_text">{{app.name}}</h3>
+                                            <h6 class="truncated_text">{{app.description}}</h6>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
-                        </a>
+                        </div>
+                        <div ng-if="isViewAsList == true"  class="row">
+                            <div class="col-md-6" ng-repeat="app in allApps | filter:{platform:currentPlatformFilter} | orderBy:'name'">
+                                <div class="panel panel-default">
+                                    <a href="javascript:void(0)" ng-click="appSelected(app.uuid)">
+                                        <div class="panel-body">
+                                            <div class="media">
+
+                                                <div class="media-left">
+                                                    <img onError="this.onError=null;this.src='images/placeholder.jpg'" class="media-icon media-object" src="{{app.appIcon}}" alt="...">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h3 class="media-heading truncated_text"><span class="platform{{app.platform}}"></span>{{app.name}}</h3>
+                                                    <div class="app-list-info">
+                                                        <h4 class="line-clamp app-description">{{app.description}}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>

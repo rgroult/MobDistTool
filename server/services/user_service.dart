@@ -294,6 +294,7 @@ class UserService {
       if (message.name != null) {
         user.name = message.name;
       }
+
       //only sysadmin can activated/desactivate and enable sysadmin
       if (me.isSystemAdmin) {
         if (message.sysadmin != null) {
@@ -302,6 +303,10 @@ class UserService {
         if (message.activated != null) {
           user.isActivated = message.activated;
         }
+      }
+
+      if (message.favoritesApplicationUUID != null){
+        await users.updateFavoritesApp(me, message.favoritesApplicationUUID);
       }
 
       //save user
@@ -355,6 +360,8 @@ class UpdateUserMessage {
   bool sysadmin;
   @ApiProperty(required: false)
   bool activated;
+  @ApiProperty(required: false)
+  List<String> favoritesApplicationUUID;
 
   UpdateUserMessage();
 }

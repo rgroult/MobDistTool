@@ -8,6 +8,7 @@ class MDTUser {
   bool passwordStrengthFailed;
   // String externalTokenId;
   bool isSystemAdmin;
+  List<String> favoritesApplicationsUUID;
   MDTUser(Map map){
     name = map["name"];
     email = map["email"];
@@ -15,6 +16,15 @@ class MDTUser {
     // externalTokenId = map["externalTokenId"];
     isSystemAdmin = map["isSystemAdmin"];
     passwordStrengthFailed = map["passwordStrengthFailed"];
+    if (map["favoritesApplicationsUUID"] != null){
+      try{
+        favoritesApplicationsUUID = JSON.decode(map["favoritesApplicationsUUID"] );
+      }catch(e){
+        favoritesApplicationsUUID = new List<String>();
+      }
+    }else {
+      favoritesApplicationsUUID = new List<String>();
+    }
   }
 }
 
