@@ -105,7 +105,7 @@ abstract class MDTQueryServiceUsers{
     return result;
   }
 
-  Future<MDTUser> updateUser(String email, {String username, String password, bool isAdmin, bool isActivated}) async {
+  Future<MDTUser> updateUser(String email, {String username, String password, bool isAdmin, bool isActivated,List<String> favoritesApps}) async {
     String url = "${mdtServerApiRootUrl}${usersPath}/user";
     var requestData ={"email":email};
     if (password != null){
@@ -120,6 +120,10 @@ abstract class MDTQueryServiceUsers{
     }
     if (isActivated != null){
       requestData["activated"] = isActivated;
+    }
+
+    if(favoritesApps != null){
+      requestData["favoritesApplicationUUID"] = favoritesApps;
     }
 
     var response = await sendRequest(

@@ -39,6 +39,14 @@ class ApplicationDetailComponent extends BaseComponent  {
   String currentBranchFilter = "";
   String currentSelectedBranch = "All";
   bool isOpened = false;
+  bool get isFavorite => (_parent != null && _parent.isFavorite(currentApp));
+  void toggleFavorite(){
+    if(isFavorite){
+      _parent.removeToFavorite(currentApp);
+    }else{
+      _parent.addToFavorite(currentApp);
+    }
+  }
 
   void selectFilter(String branch){
     if (branch == ""){
