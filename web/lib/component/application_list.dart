@@ -25,14 +25,21 @@ class ApplicationListComponent extends BaseComponent  {
   void setListMode(bool viewAsList){
     isViewAsList = viewAsList;
   }
-  var isFavoritesOpened = true;
-  var isAllAppsOpened = false;
+  bool isFavoritesOpened = true;
+  bool isAllAppsOpened = false;
 
   void set scope(Scope scope){
     super.scope = scope;
     MDTUser currentUser = scope.rootScope.context.currentUser;
     if (currentUser.favoritesApplicationsUUID != null){
       applicationFavorites.addAll(currentUser.favoritesApplicationsUUID);
+      if (applicationFavorites.length > 0){
+        isFavoritesOpened = true;
+        isAllAppsOpened = false;
+      }else{
+        isFavoritesOpened = false;
+        isAllAppsOpened = true;
+      }
     }
   }
 
@@ -129,13 +136,6 @@ class ApplicationListComponent extends BaseComponent  {
       var apps= await mdtQueryService.getApplications();
       if (apps.isNotEmpty){
         allApps.addAll(apps);
-        if (applicationFavorites.length > 0){
-          isFavoritesOpened = true;
-          isAllAppsOpened = false;
-        }else{
-          isFavoritesOpened = false;
-          isAllAppsOpened = true;
-        }
       }else {
         errorMessage = { 'type': 'warning', 'msg': 'No Application found'};
       }
