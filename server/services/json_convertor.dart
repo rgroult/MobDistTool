@@ -6,7 +6,7 @@ import 'package:bson/bson.dart';
 import '../../packages/objectory/objectory.dart';
 
 Map propertiePerClass = {
-  "MDTUser" :  ['name','email','isActivated'],
+  "MDTUser" :  ['name','email','isActivated','favoritesApplicationsUUID'],
   "admin_MDTUser" :  ['isSystemAdmin'],
   'MDTApplication' :  ['name','platform','lastVersion','adminUsers','uuid','description'],
   'admin_MDTApplication' :  ['apiKey','maxVersionSecretKey'],
@@ -44,14 +44,14 @@ Map toJson(PersistentObject object, {bool isAdmin:false}){
     for (var property in listProperties) {
       var value = object.getProperty(property);
       if (value is List) {
-        //list of object
-        json[property] = listToJson(value);
-        /*
-        if (value.length > 0) {
-          var first = value.first;
-          var test = new Symbol(value.first.collection);
-          json[property] = listToJson(object.getPersistentList(reflect(value.first.collection), property), isAdmin:isAdmin);
-        }*/
+        //test first elt
+        var firstElt = value.first;
+        if ((firstElt is DbRef) || (firstElt is PersistentObject)){
+          //list of object
+          json[property] = listToJson(value);
+        }else{
+          json[property] = value;
+        }
       } else if (value is PersistentObject) {
         //mongodb object
         json[property] = toJson(value, isAdmin:isAdmin);
@@ -62,7 +62,6 @@ Map toJson(PersistentObject object, {bool isAdmin:false}){
         }else {
           json[property] = value;
         }
-
       }
     }
   }

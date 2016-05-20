@@ -3,6 +3,7 @@
 // MIT-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:uuid/uuid.dart';
 import 'package:objectory/objectory_console.dart';
 import '../../model/model.dart';
@@ -109,6 +110,25 @@ Future<MDTUser> createUser(String name, String email, String password,
   await createdUser.save();
 
   return createdUser;
+}
+
+Future updateFavoritesApp(MDTUser user, List<String> appUID) async{
+  List<String> favorites = null;
+  if (appUID != null){
+    favorites = new List<String>();
+    for(String uuid in appUID){
+        var appExist = await app_mgr.findApplicationByUuid(uuid);
+        if (appExist != null){
+          favorites.add(uuid);
+        }
+    }
+  }
+  try{
+    user.favoritesApplicationsUUID = JSON.encode(favorites);
+  }catch(e){
+    user.favoritesApplicationsUUID = null;
+  }
+  return user.save();
 }
 
 //first page : pageIndex = 1
