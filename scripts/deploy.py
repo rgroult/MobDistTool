@@ -26,6 +26,7 @@ def urlForParameters(isLatest,branch,version,name):
 
 def postArtifact(isLatest,branch,version,name,filename):
     url = urlForParameters(isLatest,branch,version,name)
+    print 'Artifact filename: ' + filename
     try:
         file = {'artifactFile': (os.path.basename(filename), open(filename, 'rb'), 'application/octet-stream')}
         print 'send artifact '+os.path.basename(filename)+ ' to /'+branch+'/'+version+'/'+name
@@ -84,7 +85,12 @@ if __name__ == '__main__':
             jsonData = [jsonData]
         for data in jsonData:
             if args.action == 'ADD':
-                postArtifact(args.latest,data['branch'],data['version'],data['name'],data['file'])
+                filePath = data['file']
+                if os.path.isabs(filePath) == False: # relative path
+                    # concat file path to json file path
+                    filePath = os.path.join(os.path.dirname(args.filename),filePath)
+                
+                postArtifact(args.latest,data['branch'],data['version'],data['name'],filePath)
             else:
                 deleteArtifact(args.latest,data['branch'],data['version'],data['name'])
     else :
