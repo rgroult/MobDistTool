@@ -268,7 +268,7 @@ cat sample.json
      "file":"myGreatestApp.ipa"
 },...]
 Note : For latest deploy/delete somes unused values will be ignore.
-
+Note: "file" path is relative from deployement file (sample.json in example)
 
 From parameters:
 	- version:
@@ -279,6 +279,13 @@ curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - ADD|DE
 
 
 ```
+## Jenkins MDT deployment Plugin
+
+
+**MDT provides a [Jenkins Plugin]** to make deployment easier and avoids use of python deploy script in Jenkins job configuration.
+
+[Jenkins Plugin]:https://wiki.jenkins-ci.org/display/JENKINS/Mobile+App+Distribution+(MDT)++Plugin
+
 
 # Additional functionality
 
