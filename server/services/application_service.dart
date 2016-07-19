@@ -45,7 +45,7 @@ class ApplicationService {
     var currentuser = userService.currentAuthenticatedUser();
     try {
       var appCreated = await mgrs.createApplication(createMsg.name,platform,description:createMsg.description,adminUser:currentuser,base64Icon:createMsg.base64IconData,maxVersionCheckEnabled:createMsg.enableMaxVersionCheck);
-      var response = toJson(appCreated, isAdmin:true);
+      var response = await toJson(appCreated, isAdmin:true);
       trackCreateApp(appCreated,currentuser);
       return new Response(200, response);
     } on StateError catch (e) {
@@ -68,7 +68,7 @@ class ApplicationService {
       }
       var allApps = await mgrs.allApplications(platform: _platform);
       var currentuser = userService.currentAuthenticatedUser();
-      var responseJson = listToJson(
+      var responseJson = await listToJson(
           allApps, isAdmin: currentuser.isSystemAdmin);
       return new ResponseList(200, responseJson);
     }catch(error,stack){
@@ -82,7 +82,7 @@ class ApplicationService {
       var application = await findApplicationByAppId(appId);
       application = await application.fetchLinks();
       var currentuser = userService.currentAuthenticatedUser();
-      return new Response(200, toJson(application,isAdmin:mgrs.isAdminForApp(application,currentuser)));
+      return new Response(200, await toJson(application,isAdmin:mgrs.isAdminForApp(application,currentuser)));
     }catch(error,stack){
       manageExceptions(error,stack);
     }
@@ -97,7 +97,7 @@ class ApplicationService {
     }
     try {
       application = await mgrs.updateApplication(application,name:updateMsg.name,platform:updateMsg.platform,description:updateMsg.description,base64Icon:updateMsg.base64IconData,maxVersionCheckEnabled:updateMsg.enableMaxVersionCheck);
-      return new Response(200, toJson(application,isAdmin:true));
+      return new Response(200, await toJson(application,isAdmin:true));
     }on StateError catch (e) {
       //var error = e;
       //  throw new BadRequestError( e.message);
@@ -186,7 +186,7 @@ class ApplicationService {
     try{
       var application = await findApplicationByAppId(appId);
       var allVersions = await mgrs.searchArtifacts(application,pageIndex:pageIndex, limitPerPage:limitPerPage,branch:branch,branchToExclude:artifactMgr.ArtifactService.lastVersionBranchName);
-      var responseJson = listToJson(allVersions,isAdmin:true);
+      var responseJson = await listToJson(allVersions,isAdmin:true);
       return new ResponseList(200, responseJson);
       // return new ResponseList(200, listToJson(allVersions));
     } catch(error,stack){
@@ -284,7 +284,7 @@ class ApplicationService {
     try{
       var application = await findApplicationByAppId(appId);
       var allVersions = await mgrs.searchArtifacts(application, branch:artifactMgr.ArtifactService.lastVersionBranchName);
-      var responseJson = listToJson(allVersions);
+      var responseJson = await listToJson(allVersions);
       return new ResponseList(200, responseJson);
     } catch(error,stack){
       manageExceptions(error,stack);
