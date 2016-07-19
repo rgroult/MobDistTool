@@ -161,7 +161,7 @@ class InService {
 
       trackUploadArtifact(application,createdArtifact);
       //var jsonResponse = toJson(createdArtifact, isAdmin: true);
-      return new Response(200, toJson(createdArtifact, isAdmin: true));
+      return new Response(200, await toJson(createdArtifact, isAdmin: true));
     }catch(e,stack){
       manageExceptions(e,stack);
     }

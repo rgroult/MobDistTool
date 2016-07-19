@@ -2,6 +2,7 @@
 // All rights reserved. Use of this source code is governed by a
 // MIT-style license that can be found in the LICENSE file.
 import 'dart:convert';
+import 'dart:async';
 import 'package:bson/bson.dart';
 import '../../packages/objectory/objectory.dart';
 
@@ -32,8 +33,9 @@ Map toJsonStringValues(PersistentObject object, List<String> properties){
   return json;
 }
 
-Map toJson(PersistentObject object, {bool isAdmin:false}){
+Future<Map> toJson(PersistentObject object, {bool isAdmin:false}) async{
   var json = {};
+  await fetchObjectFromDB(object);
   if (object != null) {
     var listProperties =  [];
     var classProperties = propertiePerClass[object.runtimeType.toString()];
@@ -48,13 +50,13 @@ Map toJson(PersistentObject object, {bool isAdmin:false}){
         var firstElt = value.first;
         if ((firstElt is DbRef) || (firstElt is PersistentObject)){
           //list of object
-          json[property] = listToJson(value);
+          json[property] = await listToJson(value);
         }else{
           json[property] = value;
         }
       } else if (value is PersistentObject) {
         //mongodb object
-        json[property] = toJson(value, isAdmin:isAdmin);
+        json[property] = await toJson(value, isAdmin:isAdmin);
       } else  if (value != null) {
         //value
         if (value is DateTime){
@@ -68,7 +70,7 @@ Map toJson(PersistentObject object, {bool isAdmin:false}){
   return json;
 }
 
-List listToJson(List<PersistentObject> objects, {bool isAdmin:false}){
+Future<List> listToJson(List<PersistentObject> objects, {bool isAdmin:false})async{
   /*if (value is DbRef) {
       return objectory.dbRef2Object(value);
     }*/
@@ -79,7 +81,7 @@ List listToJson(List<PersistentObject> objects, {bool isAdmin:false}){
       if (object is DbRef) {
         elt = objectory.dbRef2Object(object);
       }
-      result.add(toJson(elt, isAdmin:isAdmin));
+      result.add(await toJson(elt, isAdmin:isAdmin));
     }
   }
   return result;
@@ -98,6 +100,11 @@ String parseTags(String tags){
   catch(e){
   }
   return null;
+}
+
+Future fetchObjectFromDB(PersistentObject obj) async{
+  await obj.fetchLinks();
+  await obj.fetch();
 }
 
 //PersistentObject objectById
