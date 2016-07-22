@@ -106,6 +106,8 @@ Sample:
 cat ./server/config/config.json
 
 {
+  "MDT_SERVER_PORT":8080,
+  "MDT_SERVER_URL":"http://localhost:8080",
   "MDT_DATABASE_URI":"mongodb://localhost:27017/mdt_dev",
   "MDT_STORAGE_NAME":"yes_storage_manager",
   "MDT_STORAGE_CONFIG":{},
@@ -125,6 +127,8 @@ cat ./server/config/config.json
  }
   
 ```
+* ***MDT_SERVER_PORT***:  Server Http port.
+* ***MDT_SERVER_URL***:  Server URL, used for installation links, upload python scripts and registration confirmation link.
 * ***MDT_DATABASE_URI***:  MongoDB database location.
 * ***MDT_STORAGE_NAME***:  External storage used for artifact file.
 * ***MDT_STORAGE_CONFIG***:  External storage configuration, see External Storage configuration for info.
