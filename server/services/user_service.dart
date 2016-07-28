@@ -147,7 +147,7 @@ class UserService {
         userCreated = await users.createUser(
             message.name, message.email.toLowerCase(), message.password,
             isActivated: !needRegistration);
-        var jsonResult = toJson(userCreated);
+        var jsonResult = await toJson(userCreated);
         if (needRegistration && confirmationUrl != null &&
             emailTransport != null) {
           jsonResult["message"] = "A activation email was sent.";
@@ -199,9 +199,9 @@ class UserService {
 
 
   @ApiMethod(method: 'POST', path: 'login')
-  Response userPostLogin(EmptyMessage message) {
+  Future<Response> userPostLogin(EmptyMessage message) async {
     var currentUser = currentAuthenticatedUser();
-    var jsonUser = toJson(currentUser,isAdmin:true);
+    var jsonUser = await toJson(currentUser,isAdmin:true);
     if (authenticatedContext().get().principal.passwordStrengthFailed){
       jsonUser["passwordStrengthFailed"] = true;
     }
@@ -212,11 +212,12 @@ class UserService {
   Future<Response> userMe() async {
     try {
       var me = currentAuthenticatedUser();
-      var response = toJson(me, isAdmin: true);
+      await me.reRead();
+      var response = await toJson(me, isAdmin: true);
       var allAdministratedApps = await apps.findAllApplicationsForUser(me);
       var administratedAppJson = [];
       for (var app in allAdministratedApps) {
-        administratedAppJson.add(toJson(app,isAdmin:true));
+        administratedAppJson.add(await toJson(app,isAdmin:true));
         //administratedAppJson.add(toJsonStringValues(app, ['name', 'platform']));
       }
       response['administratedApplications'] = administratedAppJson;
@@ -263,7 +264,7 @@ class UserService {
         hasMore = true;
         usersList.removeLast();
       }
-      var responseJson = listToJson(usersList, isAdmin: true);
+      var responseJson = await listToJson(usersList, isAdmin: true);
       return new ResponseListPagined(responseJson, hasMore, page);
     }catch(e,stack){
       manageExceptions(e,stack);
@@ -312,7 +313,7 @@ class UserService {
       //save user
       await user.save();
 
-      var jsonResult = toJson(user, isAdmin: true);
+      var jsonResult = await toJson(user, isAdmin: true);
       return new Response(200, jsonResult);
     }catch(e,stack){
       manageExceptions(e,stack);
