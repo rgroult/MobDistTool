@@ -33,10 +33,10 @@ Map toJsonStringValues(PersistentObject object, List<String> properties){
   return json;
 }
 
-Future<Map> toJson(PersistentObject object, {bool isAdmin:false}) async{
+Future<Map> toJson(PersistentObject obj, {bool isAdmin:false}) async{
   var json = {};
-  await fetchObjectFromDB(object);
-  if (object != null) {
+  if (obj != null) {
+    var object = await fetchObjectFromDB(obj);
     var listProperties =  [];
     var classProperties = propertiePerClass[object.runtimeType.toString()];
     listProperties.addAll(classProperties);
@@ -102,9 +102,7 @@ String parseTags(String tags){
   return null;
 }
 
-Future fetchObjectFromDB(PersistentObject obj) async{
-  await obj.fetchLinks();
-  await obj.fetch();
+Future<PersistentObject> fetchObjectFromDB(PersistentObject obj) async{
+  var result = await obj.fetchLinks();
+  return await result.fetch();
 }
-
-//PersistentObject objectById

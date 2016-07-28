@@ -106,6 +106,8 @@ Sample:
 cat ./server/config/config.json
 
 {
+  "MDT_SERVER_PORT":8080,
+  "MDT_SERVER_URL":"http://localhost:8080",
   "MDT_DATABASE_URI":"mongodb://localhost:27017/mdt_dev",
   "MDT_STORAGE_NAME":"yes_storage_manager",
   "MDT_STORAGE_CONFIG":{},
@@ -125,6 +127,8 @@ cat ./server/config/config.json
  }
   
 ```
+* ***MDT_SERVER_PORT***:  Server Http port.
+* ***MDT_SERVER_URL***:  Server URL, used for installation links, upload python scripts and registration confirmation link.
 * ***MDT_DATABASE_URI***:  MongoDB database location.
 * ***MDT_STORAGE_NAME***:  External storage used for artifact file.
 * ***MDT_STORAGE_CONFIG***:  External storage configuration, see External Storage configuration for info.
@@ -268,7 +272,7 @@ cat sample.json
      "file":"myGreatestApp.ipa"
 },...]
 Note : For latest deploy/delete somes unused values will be ignore.
-
+Note: "file" path is relative from deployement file (sample.json in example)
 
 From parameters:
 	- version:
@@ -279,6 +283,13 @@ curl -Ls http://<myserver>/api/in/v1/artifacts/{apiKey}/deploy | python - ADD|DE
 
 
 ```
+## Jenkins MDT deployment Plugin
+
+
+**MDT provides a [Jenkins Plugin]** to make deployment easier and avoids use of python deploy script in Jenkins job configuration.
+
+[Jenkins Plugin]:https://wiki.jenkins-ci.org/display/JENKINS/Mobile+App+Distribution+(MDT)++Plugin
+
 
 # Additional functionality
 
