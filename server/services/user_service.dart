@@ -212,7 +212,7 @@ class UserService {
   Future<Response> userMe() async {
     try {
       var me = currentAuthenticatedUser();
-      await me.getMeFromDb();
+      await me.reRead();
       var response = await toJson(me, isAdmin: true);
       var allAdministratedApps = await apps.findAllApplicationsForUser(me);
       var administratedAppJson = [];
