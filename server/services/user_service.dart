@@ -307,7 +307,7 @@ class UserService {
       }
 
       if (message.favoritesApplicationUUID != null){
-        await users.updateFavoritesApp(me, message.favoritesApplicationUUID);
+        await users.updateFavoritesApp(user, message.favoritesApplicationUUID);
       }
 
       //save user
