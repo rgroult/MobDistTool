@@ -2,19 +2,32 @@
 // All rights reserved. Use of this source code is governed by a
 // MIT-style license that can be found in the LICENSE file.
 
-import '../../../packages/mongo_dart/mongo_dart.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'dart:async';
-import '../../../packages/objectory/objectory_console.dart';
-import '../../model/model.dart';
+import 'package:redstone_mapper_mongo/manager.dart';
+
+//import '../../../packages/objectory/objectory_console.dart';
+//import '../../model/model.dart';
 import '../config.dart' as config;
 import '../../utils/utils.dart';
 
-Db mongoDb = null;
+export 'package:redstone_mapper_mongo/manager.dart' show MongoDb;
+export 'package:mongo_dart_query/mongo_dart_query.dart';
+//Db mongoDb = null;
 
 //Objectory globalObjectory = nil;
 
- Future initialize({bool dropCollectionOnStartup:false}) async {
+MongoDbManager _mongoDbManager = null;
+final int poolSize = 3;
 
+ Future initialize({bool dropCollectionOnStartup:false}) async {
+  var Uri = config.currentLoadedConfig[config.MDT_DATABASE_URI];
+  printAndLog("mongo initializing on  $Uri");
+  _mongoDbManager = new MongoDbManager(Uri, poolSize: poolSize);
+  if (dropCollectionOnStartup == true) {
+    dropCollections();
+  }
+/*
   if (objectory != null) {
    return objectory.ensureInitialized();
   }
@@ -29,14 +42,31 @@ Db mongoDb = null;
   }
   //globalObjectory = objectory;
   return objectory.initDomainModel();
- // return await mongoDb.open();
+ // return await mongoDb.open();*/
 }
-
+/*
 Future dropCollections() async {
  return objectory.dropCollections();
 }
+*/
+Future close() async {
+  for (int i=0; i < poolSize; i++){
+    var conn = await _mongoDbManager.getConnection();
+    Db dbconn = conn.innerConn;
+    await _mongoDbManager.closeConnection(conn);
+    await dbconn.close();
+    //printAndLog("mongo connection release:  $dbconn");
+  }
 
-void close() {
- objectory.close();
- objectory=null;
+/* objectory.close();
+ objectory=null;*/
+}
+
+Future dropCollections() async {
+  var conn = await getConnection();
+  return conn.innerConn.drop();
+}
+
+Future<MongoDb> getConnection() async{
+  return _mongoDbManager.getConnection();
 }

@@ -4,21 +4,26 @@
 
 import 'dart:async';
 import 'package:uuid/uuid.dart';
-import '../../../packages/objectory/objectory_console.dart';
-import '../../model/model.dart';
+import '../../config/src/mongo.dart' as mongo;
+import '../../model/redstone_model.dart';
 import '../errors.dart';
-import 'artifacts_manager.dart' as artifact_mgr;
+//import 'artifacts_manager.dart' as artifact_mgr;
 import '../../utils/utils.dart';
 
-var appCollection = objectory[MDTApplication];
 var UuidGenerator = new Uuid();
+
+var _appCollectionName = "MDTApplication";
+
+Future<mongo.MongoDb> connection() async {
+  return mongo.getConnection();
+}
 
 Future<List<MDTApplication>> allApplications({String platform}) async{
   if (platform == null) {
     //var all =  appCollection.find();
-    return appCollection.find();
+    return (await connection()).find(_appCollectionName,MDTApplication);
   }else {
-    return  appCollection.find(where.eq("platform", platform));
+    return  (await connection()).find(_appCollectionName,MDTApplication,mongo.where.eq("platform", platform));
   }
 }
 
@@ -52,11 +57,12 @@ Future<MDTApplication> createApplication(String name, String platform,
 
   if (description != null) createdApp.description = description;
 
-  //var adminUsers = createdApp.adminUsers;
+  createdApp.adminUsers = createdApp.adminUsers != null ? createdApp.adminUsers : [];
 
-  if (adminUser != null) createdApp.adminUsers.add(adminUser);
+  //if (adminUser != null) createdApp.adminUsers.add(adminUser.id);
 
-  await createdApp.save();
+  await saveOrUpdateApp(createdApp);
+  print("Crated ${createdApp.adminUsers}");
   return createdApp;
 }
 
@@ -80,7 +86,7 @@ Future updateApplication(MDTApplication app, {String name, String platform, Stri
     setMaxCheckVersion(app,maxVersionCheckEnabled);
   }
 
-  await app.save();
+  await saveOrUpdateApp(app);
   return app;
 }
 
@@ -102,20 +108,34 @@ bool isAdminForApp(MDTApplication app, MDTUser user){
   return app.adminUsers.contains(user);
 }
 
+Future saveOrUpdateApp(MDTApplication app) async{
+  if (app.id != null) {
+    return (await connection()).update(_appCollectionName,mongo.where.eq("uuid", app.uuid),app);
+  }else {
+    return (await connection()).save(_appCollectionName,app);
+}
+
+}
+
+Future<MDTApplication> _findApplication(conn, selector) => conn.findOne(_appCollectionName,MDTApplication,selector);
+
 Future<MDTApplication> findApplicationByApiKey(String apiKey) async {
-  return await appCollection.findOne(where.eq("apiKey", apiKey));
+  return await _findApplication(await connection(),mongo.where.eq("apiKey", apiKey));
 }
 
 Future<MDTApplication> findApplicationByUuid(String uuid) async {
-  return await appCollection.findOne(where.eq("uuid", uuid));
+  return await _findApplication(await connection(),mongo.where.eq("uuid", uuid));
 }
 
 Future<MDTApplication> findApplication(String name, String platform) async {
-  return await appCollection.findOne(where.eq('name', name).eq('platform', platform));
+  return await _findApplication(await connection(),mongo.where.eq('name', name).eq('platform', platform));
 }
 
-Future<List<MDTApplication>> findAllApplicationsForUser(MDTUser user) async {
-  return appCollection.find(where.eq('adminUsers',user.dbRef));
+Future<List<MDTApplication>> findAllApplicationsForUser(MDTUser user,{Future<mongo.MongoDb> providedConn}) async {
+  var conn = providedConn != null ? providedConn : connection();
+  await conn;
+  return conn.findOne(_appCollectionName,MDTApplication,mongo.where.eq('adminUsers',user));
+  //return appCollection.find(where.eq('adminUsers',user.dbRef));
 }
 
 Future deleteApplication(String name, String platform) async {
@@ -125,21 +145,26 @@ Future deleteApplication(String name, String platform) async {
 
 Future deleteApplicationByObject(MDTApplication app) async {
   if (app != null) {
+    var conn = connection();
     //delete artifacts
-    await artifact_mgr.deleteAllArtifacts(app,artifact_mgr.defaultStorage);
-    return  app.remove();
+    //await artifact_mgr.deleteAllArtifacts(app,artifact_mgr.defaultStorage,providedConn:conn);
+    return conn.remove(_appCollectionName,mongo.where.eq("uuid", app.uuid));
+
   }
   return new Future.value(null);
 }
 
-Future deleteUserFromAdminUsers(MDTUser user) async {
+Future deleteUserFromAdminUsers(MDTUser user, {Future<mongo.MongoDb> providedConn }) async {
+  var conn = providedConn != null ? providedConn : connection();
+
   //Good way
   /*var apps = await appCollection.find(where.eq('adminUsers.email',user.email));
   for (app in apps) {
     removeAdminApplication(app,user);
   }*/
   //bad way
-  var allApps = await findAllApplicationsForUser(user);
+  var allApps = await findAllApplicationsForUser(user,providedConn:conn);
+  await conn;
   var toWait = [];
   for (var app in allApps){
     await removeAdminApplication(app,user);
@@ -157,7 +182,7 @@ Future<MDTApplication> addAdminApplication(MDTApplication app, MDTUser user) asy
   }
  // app.adminUsers.add(app.adminUsers.internValue(user));
   app.adminUsers.add(user);
-  return app.save();
+  return saveOrUpdateApp(app);
 }
 
 Future<MDTApplication> removeAdminApplication(MDTApplication app, MDTUser user) async {
@@ -166,7 +191,7 @@ Future<MDTApplication> removeAdminApplication(MDTApplication app, MDTUser user) 
     return new Future.value(app);
   }
   app.adminUsers.remove(user);
-  app.setDirty("adminUsers");
-  return app.save();
+  return saveOrUpdateApp(app);
+  //return app.save();
 }
 

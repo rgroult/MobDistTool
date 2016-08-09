@@ -9,7 +9,7 @@ import 'dart:convert';
 final Map defaultConfig = {
   MDT_SERVER_PORT:8080,
   MDT_SERVER_URL:"http://localhost:8080",
-  MDT_DATABASE_URI:"mongodb://localhost:27017/mdt_dev",
+  MDT_DATABASE_URI:"mongodb://localhost:27017/mdt_rewrite_dev",
   MDT_STORAGE_NAME:"yes_storage_manager",
   MDT_STORAGE_CONFIG:{},
   MDT_SMTP_CONFIG:{},

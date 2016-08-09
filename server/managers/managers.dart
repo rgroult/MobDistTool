@@ -4,9 +4,10 @@
 
 export 'src/users_manager.dart' hide UuidGenerator;
 export 'src/apps_manager.dart' hide UuidGenerator;
-export 'src/artifacts_manager.dart';
+//export 'src/artifacts_manager.dart';
 export 'errors.dart';
-export '../model/model.dart';
+//export '../model/model.dart';
+export '../model/redstone_model.dart';
 
 
 //import 'src/artifacts_manager.dart' as artifacts;

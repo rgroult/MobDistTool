@@ -4,11 +4,15 @@
 
 import 'package:test/test.dart';
 import 'dart:async';
-import 'package:objectory/objectory_console.dart';
+//import 'package:objectory/objectory_console.dart';
+import '../../server/config/config.dart' as config;
 import '../../server/managers/managers.dart' as mdt_mgr;
 import '../../server/config/src/mongo.dart' as mongo;
+import 'package:redstone_mapper/mapper_factory.dart';
 
-void main() {
+void main() async{
+  bootstrapMapper();
+  await config.loadConfig();
   test("init database", () async {
     var value = await mongo.initialize();
   });
@@ -16,7 +20,8 @@ void main() {
   allTests();
 
   test("close database", () async {
-    var value = await objectory.close();
+    mongo.close();
+  //  var value = await objectory.close();
   });
 }
 
@@ -77,7 +82,7 @@ void allTests()  {
       var newname = "newName";
       user.name = newname;
       user.isSystemAdmin = true;
-      await user.save();
+      await mdt_mgr.updateUser(user);
 
       user = await mdt_mgr.findUserByEmail(email);
       expect(user.name, equals(newname));

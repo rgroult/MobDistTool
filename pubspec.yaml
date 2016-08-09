@@ -12,13 +12,13 @@ dependencies:
         url: git://github.com/codecov/dart.git
         ref: master
   apk_parser: "^0.0.2+2"
-  angular : any
-  angular_ui: any
+ # angular : any
+ # angular_ui: any
   browser: any
-  objectory:
-      git:
-        url: git://github.com/vadimtsushko/objectory.git
-        ref: master
+  #objectory:
+  #    git:
+  #      url: git://github.com/vadimtsushko/objectory.git
+  #      ref: master
   shelf: '>=0.6.0 <0.7.0'
   rpc: "^0.5.6"
   shelf_rpc: "^0.0.3+2"
@@ -41,6 +41,8 @@ dependencies:
   qr:
      git: git://github.com/rgroult/qr.dart.git
   xcvbnm: "^0.5.0"
+  #redstone: "0.6.4"
+  redstone_mapper_mongo:
 dev_dependencies:
   args: '>=0.10.0 <0.14.0'
   test: "^0.12.5+1"
