@@ -13,7 +13,8 @@ dependencies:
         ref: master
   apk_parser: "^0.0.2+2"
   browser: any
- # angular_ui: any  # conflict on newer SDK
+
+  angular_ui: any  # conflict on newer SDK
   objectory:
       git:
         url: git://github.com/vadimtsushko/objectory.git
@@ -47,6 +48,8 @@ dependency_overrides:
   args: '^0.13.2'
   mongo_dart: "0.2.9"
   uri: "^0.11.0" # conflict between rpc and shelf_route
+  angular:
+      path: ../angular.dart-master
   #angular: "^1.1.2+2" # old Version incompatible with newer SDK ...
 transformers:
 - angular:
