@@ -3,7 +3,7 @@ version: '1.1.1'
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
 
 environment:
-  sdk: '>=1.0.0 <1.16.0'
+  sdk: '>=1.0.0 <2.0.0'
 
 dependencies:
   coverage: "^0.7.0"
@@ -12,9 +12,8 @@ dependencies:
         url: git://github.com/codecov/dart.git
         ref: master
   apk_parser: "^0.0.2+2"
-  angular : any
-  angular_ui: any
   browser: any
+ # angular_ui: any  # conflict on newer SDK
   objectory:
       git:
         url: git://github.com/vadimtsushko/objectory.git
@@ -22,9 +21,9 @@ dependencies:
   shelf: '>=0.6.0 <0.7.0'
   rpc: "^0.5.6"
   shelf_rpc: "^0.0.3+2"
-  shelf_route: ">0.13.1"
+  shelf_route: ">=0.13.1"
   shelf_auth: ">=0.7.0"
-  shelf_cors: ">=0.2.1"
+ # shelf_cors: ">=0.2.1"
   crypto: "^0.9.1"
   jwt: "^0.1.4"
   validator: ">=0.0.4 <0.1.0"
@@ -33,7 +32,7 @@ dependencies:
   mailer: any
   archive: "^1.0.20"
   plist: "^1.0.1"
-  option: "^1.1.0"
+#  option: "^1.1.0"
   uuid: "0.5.0"
   #hammock: "^0.4.0"
   googleapis_auth: any
@@ -46,6 +45,9 @@ dev_dependencies:
   test: "^0.12.5+1"
 dependency_overrides:
   args: '^0.13.2'
+  mongo_dart: "0.2.9"
+  uri: "^0.11.0" # conflict between rpc and shelf_route
+  #angular: "^1.1.2+2" # old Version incompatible with newer SDK ...
 transformers:
 - angular:
     html_files:
