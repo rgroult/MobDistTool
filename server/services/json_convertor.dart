@@ -103,6 +103,8 @@ String parseTags(String tags){
 }
 
 Future<PersistentObject> fetchObjectFromDB(PersistentObject obj) async{
-  var result = await obj.fetchLinks();
-  return await result.fetch();
+  await obj.reRead();
+  return obj;
+ // var result = await obj.fetchLinks();
+ // return await result.fetch();
 }
