@@ -16,6 +16,8 @@ Map propertiePerClass = {
   'admin_MDTArtifact' :  ['branch','version']
 };
 
+/*
+Not used Yet
 Map toJsonStringValues(PersistentObject object, List<String> properties){
   var json = {};
   for (var property in properties) {
@@ -31,7 +33,7 @@ Map toJsonStringValues(PersistentObject object, List<String> properties){
     }
   }
   return json;
-}
+}*/
 
 Future<Map> toJson(PersistentObject obj, {bool isAdmin:false}) async{
   var json = {};

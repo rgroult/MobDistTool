@@ -52,7 +52,12 @@ void main() {
   });*/
 }
 
-
+Future<Map> getAppIOS() async{
+  //first app
+  var allIosApps = await sendRequest('GET', '${baseAppUri}/search?platform=ios');
+  var responseJson = parseResponse(allIosApps);
+  return responseJson["list"].first;
+}
 
 void createAndLogin(){
   //register
@@ -171,6 +176,39 @@ void allTests() {
     var response = await sendRequest('PUT', '${baseAppUri}/app/${app["uuid"]}', body: JSON.encode(appInfos));
     expect(response.statusCode, equals(200));
     responseJson = parseResponse(response);
+  });
+
+  test("Get app Icon KO", () async {
+    var app = await getAppIOS();
+    var response = await sendRequest('GET', '/api/in/v1/app/${app["uuid"]}/icon');
+    expect(response.statusCode, equals(404));
+  });
+
+  var iconFileName = "web/images/placeholder.jpg";
+  test("Update app Icon OK", () async {
+    var app = await getAppIOS();
+    var icon = new File(iconFileName);
+    var base64 = BASE64.encode(await icon.readAsBytes());
+    var iconBase64Data = "data:image/jpg;base64,$base64";
+    print("$iconBase64Data");
+    var updateInfo = {"base64IconData":iconBase64Data};
+    var response = await sendRequest('PUT', '${baseAppUri}/app/${app["uuid"]}', body: JSON.encode(updateInfo));
+
+    expect(response.statusCode, equals(200));
+    var responseJson = parseResponse(response);
+    print("$responseJson");
+  });
+
+  test("Get app Icon OK", () async {
+    var app = await getAppIOS();
+    var response = await sendRequest('GET', '/api/in/v1/app/${app["uuid"]}/icon');
+    expect(response.statusCode, equals(200));
+    //verify bytes
+    var icon = new File(iconFileName);
+    var initialBytes = await icon.readAsBytes();
+    var receivedBytes = response.bodyBytes;
+
+    expect(initialBytes, equals(receivedBytes));
   });
 
   test("Update app KO", () async {
