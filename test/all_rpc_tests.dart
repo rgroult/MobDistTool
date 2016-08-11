@@ -8,8 +8,10 @@ import 'package:test/test.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'rpc/user_service_test.dart' as users;
+import 'rpc/user_service_extended.dart' as usersExt;
 import 'rpc/app_service_test.dart' as apps;
 import 'rpc/artifact_service_test.dart' as artifacts;
+import 'rpc/logs_service_test.dart' as logs;
 import 'rpc/rpc_commons.dart';
 import '../bin/server.dart' as server;
 import '../server/config/src/mongo.dart' as mongo;
@@ -46,6 +48,13 @@ void allTests() {
   });
 
   artifacts.allTests();
+
+  test("reset database before users extended tests", ()  async {
+    await mongo.dropCollections();
+  });
+  usersExt.allTests();
+
+  logs.allTests();
 
   test("stop server", () async  {
     // HttpApiResponse response = await _sendRequest('GET', 'get/simple');

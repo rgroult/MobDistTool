@@ -15,6 +15,11 @@ var baseAppUri = "/api/applications/v1";
 
 var userInfosSample = {"email":"test@test.com", "password":"passwd", "name":"toto"};
 var applicationCreationiOS = {"name":"Application test ios", "description":"Full app description", "platform":"ios"};
+
+var userRegistration1 = {"email":"apptest@test.com", "password":"passwd", "name":"app user 1"};
+var userRegistration2 = {"email":"apptest2@test.com", "password":"passwd", "name":"app user 2"};
+var applicationCreationAndroid = {"name":"Application test android", "description":"Full app description", "platform":"android"};
+
 /*
 Future<Map> registerUser(Map userInfos,{bool mustSuccessful:true}) async{
   var response = await sendRequest('POST', '/api/users/v1/register', body: JSON.encode(userInfos));
@@ -70,3 +75,13 @@ Future<Map> createApplication({Map infos}) async {
 
   return responseJson;
 }
+/*
+Future<Map> createApplication(Map appInfo) async{
+  var response = await sendRequest('POST', '${baseAppUri}/create', body: JSON.encode(appInfo));
+  var responseJson = parseResponse(response);
+  if (responseJson["error"] != null){
+    throw new AppCreationError(response.statusCode,responseJson["error"]);
+  }
+
+  return responseJson;
+}*/
