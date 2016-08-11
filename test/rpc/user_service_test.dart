@@ -13,6 +13,7 @@ import 'rpc_utilities.dart';
 import '../../server/managers/managers.dart' as mgrs;
 import '../../server/config/config.dart' as config;
 void main() {
+  //config.loadConfig();
   //start server
   HttpServer httpServer = null;
 
@@ -73,7 +74,7 @@ Future registerUser(Map userInfos,{bool mustSuccessful:true}) async{
 
 void allTests() {
 
-  config.loadConfig();
+
 
   test("Create sysadmin", () async {
     await mgrs.createSysAdminIfNeeded();
@@ -137,6 +138,8 @@ void allTests() {
     var responseJson = parseResponse(response);
     expect(responseJson["data"]["email"], equals(userRegistration["email"]));
     expect(responseJson["data"]["name"], equals(userRegistration["name"]));
+    expect(responseJson["data"]["favoritesApplicationsUUID"], isNull);
+    expect(responseJson["data"]["administratedApplications"], isEmpty);
   });
 
   test("Authent Admin OK", () async {

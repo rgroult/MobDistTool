@@ -15,6 +15,15 @@ import 'rpc_utilities.dart';
 
 var baseAppUri = "/api/applications/v1";
 
+
+class AppCreationError implements Exception {
+  int statusCode;
+  Map detailError;
+  AppCreationError(this.statusCode,this.detailError){
+
+  }
+}
+
 void main() {
   //start server
   HttpServer httpServer = null;
@@ -43,10 +52,7 @@ void main() {
   });*/
 }
 
-var userRegistration1 = {"email":"apptest@test.com", "password":"passwd", "name":"app user 1"};
-var userRegistration2 = {"email":"apptest2@test.com", "password":"passwd", "name":"app user 2"};
-var applicationCreationiOS = {"name":"Application test ios", "description":"Full app description", "platform":"ios"};
-var applicationCreationAndroid = {"name":"Application test android", "description":"Full app description", "platform":"android"};
+
 
 void createAndLogin(){
   //register
@@ -60,6 +66,7 @@ void createAndLogin(){
     await loginTest(userRegistration1["email"], userRegistration1["password"], mustSuccessful:true,name:userRegistration1["name"]);
   });
 }
+
 
 void allTests() {
   createAndLogin();
