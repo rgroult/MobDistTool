@@ -13,7 +13,7 @@ dependencies:
         ref: master
   apk_parser: "^0.0.2+2"
   browser: any
-  angular: any
+  #angular: any
   angular_ui: any
   objectory:
       git:
@@ -45,13 +45,14 @@ dev_dependencies:
   args: '>=0.10.0 <0.14.0'
   test: "^0.12.5+1"
 dependency_overrides:
-  analyzer: '>=0.27.0 <=0.27.3' # Forced for angular dependancies
+  analyzer: '>=0.27.0 <=0.27.1' # Forced for angular dependancies
   collection: '^1.9.0' # Forced for angular dependancies
   args: '^0.13.2'
   mongo_dart: "0.2.9"
   uri: "^0.11.0" # conflict between rpc and shelf_route
-  #angular:
- #     path: ../angular.dart-master
+  #code_transformers: '^0.2.11'   # Forced for angular dependencies otherwise  0.3.1 selected
+  angular:
+      path: ../angular.dart-master
   #angular: "^1.1.2+2" # old Version incompatible with newer SDK ...
 transformers:
 - angular:
