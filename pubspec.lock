@@ -15,9 +15,10 @@ packages:
     version: "0.27.1"
   angular:
     description:
-      name: angular
-      url: "https://pub.dartlang.org"
-    source: hosted
+      ref: master
+      resolved-ref: f8985aaacc0a11da94625af50e662e29b5ea031c
+      url: "git://github.com/rgroult/angular.dart.git"
+    source: git
     version: "1.1.2+2"
   angular_ui:
     description:
