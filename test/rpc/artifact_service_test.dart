@@ -21,16 +21,15 @@ void main() {
   //start server
   HttpServer httpServer = null;
 
-  test("test start server", () async {
-    httpServer = await server.startServer(resetDatabaseContent:true);
+  test("start server", () async {
+    httpServer = await server.startServer(resetDatabaseContent: true);
   });
 
-  test("test configure values", () async {
-    var serverBaseUrlHost = "http://${httpServer.address.host}:${httpServer.port}";
-    print('baseUrlHost : $serverBaseUrlHost');
+  test("configure values", () async {
+    baseUrlHost = "http://localhost:${httpServer.port}";
+    print('baseUrlHost : $baseUrlHost');
   });
 
-  baseUrlHost = "http://localhost:8090";
   allTests();
 
   test("stop server", () async  {
@@ -58,13 +57,20 @@ void createAndLogin(){
   });
 }
 
-Future<http.Response>  deleteArtifact(String apiKey,String branch,String version, String name) async{
+Future<http.Response>  deleteArtifact(String apiKey,String branch,String version, String name, {bool isLatest}) async{
   var artifactUrl = "/api/in/v1/artifacts/${apiKey}/master/$version/$name";
+  if (isLatest == true) {
+    artifactUrl =  "/api/in/v1/artifacts/${apiKey}/last/$name";
+  }
   return await sendRequest('DELETE', artifactUrl);
 }
 
-Future<http.Response>  uploadArtifact(String apiKey,String branch,String version, String name,{String jsonField,String artifactName}) async{
-  var httprequest = new http.MultipartRequest('POST',Uri.parse("${baseUrlHost}/api/in/v1/artifacts/${apiKey}/master/$version/$name"));
+Future<http.Response>  uploadArtifact(String apiKey,String branch,String version, String name,{bool isLatest, String jsonField,String artifactName}) async{
+  var uri = Uri.parse("${baseUrlHost}/api/in/v1/artifacts/${apiKey}/master/$version/$name");
+  if (isLatest == true) {
+    uri = Uri.parse("${baseUrlHost}/api/in/v1/artifacts/${apiKey}/last/$name");
+  }
+  var httprequest = new http.MultipartRequest('POST',uri);
   var artifactFilename = 'core/artifact_sample.txt';
   if (artifactName != null){
     artifactFilename = artifactName;
@@ -119,6 +125,8 @@ void allTests() {
     expect(response.statusCode, equals(200));
     var responseJson = parseResponse(response);
     responseJson = responseJson["data"];
+    print("$responseJson");
+    print("Host : $baseUrlHost");
     var prefix = baseUrlHost;
     var match = prefix.matchAsPrefix(responseJson['directLinkUrl']);
     expect(match,isNotNull);
@@ -155,6 +163,22 @@ void allTests() {
 
   });
 
+  test("Upload artifact OK Latest IOS", () async {
+    var apiKey = currentApp["apiKey"];
+    var response = await uploadArtifact(apiKey,"master","X.Y.Z_prod","prod",isLatest: true, artifactName:"../server/managers/src/storage/ipa_sample.ipa" );
+    var responseJson = parseResponse(response);
+    print("response: $responseJson");
+    expect(response.statusCode, equals(200));
+
+  });
+
+  test("Delete artifact OK Latest IOS", () async {
+    var apiKey = currentApp["apiKey"];
+    var response = await deleteArtifact(apiKey,"master","X.Y.Z_prod","prod",isLatest: true);
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+  });
+
   test("Retrieve download infos IOS and download file", () async {
     var uuid =  currentArtifact["uuid"];
     var artifactdownloadInfoUrl = '/api/art/v1/artifacts/$uuid/download';
@@ -168,6 +192,14 @@ void allTests() {
     prefix ='itms-services://?action=download-manifest&url=${Uri.encodeComponent(baseUrlHost)}';
     match = prefix.matchAsPrefix(responseJson['installUrl']);
     expect(match,isNotNull);
+
+    //manifest
+    //extract manifest Url
+    var manifestFileUrl = responseJson['installUrl'].replaceFirst("itms-services://?action=download-manifest&url=","");
+    manifestFileUrl = Uri.decodeFull(manifestFileUrl);
+    var manifestfile =  await http.get(manifestFileUrl);
+    expect(manifestfile.statusCode, equals(200));
+    expect(manifestfile.headers["content-type"],equals("application/plist"));
 
     //download file
     var binaryFile = await http.get(responseJson['directLinkUrl']);
