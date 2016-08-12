@@ -24,6 +24,7 @@ dependencies:
   shelf_rpc: "^0.0.3+2"
   shelf_route: ">=0.13.1"
   shelf_auth: ">=0.7.0"
+  shelf_proxy:
  # shelf_cors: ">=0.2.1"
   crypto: "^0.9.1"
   jwt: "^0.1.4"

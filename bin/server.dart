@@ -12,6 +12,7 @@ import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_static/shelf_static.dart' as shelf_static;
 import 'package:shelf_rpc/shelf_rpc.dart' as shelf_rpc;
 import 'package:shelf_route/shelf_route.dart' as shelf_route;
+import 'package:shelf_proxy/shelf_proxy.dart' as shelf_proxy;
 //import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
 //authentication / authorisation
 import 'package:shelf_auth/shelf_auth.dart';
@@ -114,8 +115,12 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   var staticHandler =  shelf_static.createStaticHandler('build/web',
       defaultDocument: 'index.html');
 
+  var observatoryHandler = shelf_proxy.proxyHandler("http://localhost:8181");
+
+
   var apiRouter = shelf_route.router()
   //disable authent for register
+    ..add('/test',null,observatoryHandler,exactMatch: false)
     ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
     ..get('api/in/v1/artifacts/{artifactid}/file{?token}',(request) => ArtifactService.downloadFile(shelf_route.getPathParameter(request, 'artifactid'),token: shelf_route.getPathParameter(request, 'token')))
    //disable authent for this specific route

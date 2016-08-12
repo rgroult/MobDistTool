@@ -473,6 +473,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.8"
+  shelf_proxy:
+    description:
+      name: shelf_proxy
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+4"
   shelf_response_formatter:
     description:
       name: shelf_response_formatter
