@@ -172,6 +172,16 @@ void allTests() {
 
   });
 
+  test("GET artifact OK Latest IOS", () async {
+    var appId = currentApp["uuid"];
+    var artifactUrl = '/api/applications/v1/app/${appId}/last';
+    var response = await sendRequest('GET', artifactUrl);
+    var responseJson = parseResponse(response);
+    expect(response.statusCode, equals(200));
+    expect(responseJson['list'].length, equals(1));
+  });
+
+
   test("Delete artifact OK Latest IOS", () async {
     var apiKey = currentApp["apiKey"];
     var response = await deleteArtifact(apiKey,"master","X.Y.Z_prod","prod",isLatest: true);
@@ -289,7 +299,6 @@ void allTests() {
       var responseJson = parseResponse(response);
       artifactsCreated.add(responseJson["data"]);
     }
-
     expect(artifactsCreated, isNotEmpty);
   });
 
