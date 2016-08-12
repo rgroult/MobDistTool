@@ -251,7 +251,8 @@ class ApplicationService {
       manageExceptions(error,stack);
     }
   }
-
+/*
+Not used Yet
   @ApiMethod(method: 'GET', path: 'app/{appId}/icon')
   Future<MediaMessage> getApplicationIcon(String appId) async {
     try{
@@ -277,7 +278,7 @@ class ApplicationService {
     } catch(error,stack){
       manageExceptions(error,stack);
     }
-  }
+  }*/
 
   @ApiMethod(method: 'GET', path: 'app/{appId}/versions/last')
   Future<ResponseList> getApplicationLastVersions(String appId) async {
