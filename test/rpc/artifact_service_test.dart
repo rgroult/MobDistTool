@@ -174,7 +174,7 @@ void allTests() {
 
   test("GET artifact OK Latest IOS", () async {
     var appId = currentApp["uuid"];
-    var artifactUrl = '/api/applications/v1/app/${appId}/last';
+    var artifactUrl = '/api/applications/v1/app/${appId}/versions/last';
     var response = await sendRequest('GET', artifactUrl);
     var responseJson = parseResponse(response);
     expect(response.statusCode, equals(200));
