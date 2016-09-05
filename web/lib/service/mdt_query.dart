@@ -123,10 +123,17 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
   }
 
  void sendRedirect(String url){
-   AnchorElement tl = document.createElement('a');
-   tl..attributes['href'] = url
+   // Fix for firefox
+   window.location.assign(url);
+   // Old Way
+  /* AnchorElement anchorElt = new AnchorElement(href:url);//  document.createElement('a');
+   document.body.children.add(anchorElt);
+   //document.append(tl);
+
+  // tl..attributes['href'] = url
    // ..attributes['download'] = filename
-     ..click();
+   anchorElt.click();
+  */
  }
 
   //server logs
