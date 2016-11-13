@@ -1,0 +1,12 @@
+<!-- Modal Core -->
+<div $ngIf="isDisplayed" class="modal fade" id="allModals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <login_comp *ngIf="isLoginModal"></login_comp>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info btn-simple">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
