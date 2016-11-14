@@ -3,6 +3,8 @@
 
 import 'package:angular2/platform/browser.dart';
 import 'lib/components/app_component.dart';
+import 'lib/components/modals_components.dart';
+import 'lib/services/modal_service.dart';
 
 main() {
   bootstrap(AppComponent);
