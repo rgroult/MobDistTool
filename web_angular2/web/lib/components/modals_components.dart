@@ -1,11 +1,24 @@
 import 'package:angular2/core.dart';
+import '../services/modal_service.dart';
+import 'user_login_component.dart';
 
 enum ModalRequired { NONE, LOGIN , REGISTER }
 
 @Component(
     selector: 'modal_comp',
+    directives: const [UserLoginComponent],
     templateUrl: 'modals_components.html')
-class ModalsComponent {
+class ModalsComponent implements OnInit {
+  final ModalService _modalService;
+  ModalsComponent(this._modalService);
+
+  void ngOnInit() {
+    _modalService.registerComponent(this);
+  }
+
+  void displayModal(ModalRequired mode){
+    _currentModal = mode;
+  }
   var _currentModal = ModalRequired.NONE;
 
   bool get isLoginModal =>  _currentModal == ModalRequired.LOGIN;

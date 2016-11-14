@@ -8,7 +8,8 @@ import 'modals_components.dart';
 
 @Component(
     selector: 'mdt_comp',
-    directives: const [BottomBarComponentComponent,RouteBarComponentComponent,TopBarComponent,ModalsComponent,UserLoginComponent],
+    directives: const [BottomBarComponentComponent,RouteBarComponentComponent,TopBarComponent,ModalsComponent],
+    providers: const [ModalService],
     templateUrl: 'app_component.html')
 class AppComponent {
 

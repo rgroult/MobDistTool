@@ -1,12 +1,28 @@
 import 'package:angular2/core.dart';
 import 'dart:html';
-import '../components/user_login_component.dart';
+import  '../components/modals_components.dart';
 
 @Injectable()
 class ModalService {
-  Injector _injector;
+  ModalsComponent _modalComponent;
 
-  ModalService(this._injector);
+  void registerComponent(ModalsComponent comp){
+    _modalComponent = comp;
+  }
+
+  void displayLogin(){
+    _modalComponent.displayModal(ModalRequired.LOGIN);
+  }
+
+  void displayRegister(){
+    _modalComponent.displayModal(ModalRequired.REGISTER);
+  }
+
+  void hideModal(){
+    _modalComponent.displayModal(ModalRequired.NONE);
+  }
+
+  ModalService();
 
   //retrieve modal contentNode
   HtmlElement get modalComponent => document.body.querySelector("ModalContent");
