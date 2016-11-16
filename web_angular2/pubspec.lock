@@ -13,6 +13,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  angular2_components:
+    description:
+      name: angular2_components
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   args:
     description:
       name: args
@@ -115,6 +121,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.0"
+  http:
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.3+9"
   http_parser:
     description:
       name: http_parser
@@ -145,6 +157,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.3+1"
+  matcher:
+    description:
+      name: matcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.12.0+2"
   meta:
     description:
       name: meta
@@ -175,6 +193,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  perf_api:
+    description:
+      name: perf_api
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   plugin:
     description:
       name: plugin
@@ -193,6 +217,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.3"
+  quiver:
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.23.0"
   shelf:
     description:
       name: shelf
@@ -229,6 +259,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.0"
+  stream_transformers:
+    description:
+      name: stream_transformers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0+3"
   string_scanner:
     description:
       name: string_scanner
@@ -247,6 +283,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0+3"
+  uuid:
+    description:
+      name: uuid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.3"
   watcher:
     description:
       name: watcher
@@ -272,4 +314,4 @@ packages:
     source: hosted
     version: "2.1.12"
 sdks:
-  dart: ">=1.19.0 <2.0.0"
+  dart: ">=1.20.0 <2.0.0"

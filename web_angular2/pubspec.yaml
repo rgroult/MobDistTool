@@ -6,6 +6,9 @@ environment:
   sdk: '>=1.19.0 <2.0.0'
 dependencies:
   angular2: ^2.0.0
+  angular2_components:
+  http: ^0.11.0
+  stream_transformers: ^0.3.0
  # bootjack: any
  # modal_dialog:
 dev_dependencies:
@@ -18,5 +21,8 @@ transformers:
     platform_pipes:
     - 'package:angular2/common.dart#COMMON_PIPES'
     entry_points: web/main.dart
+    resolved_identifiers:
+            BrowserClient: 'package:http/browser_client.dart'
+            Client: 'package:http/http.dart'
 - dart_to_js_script_rewriter
 

@@ -1,0 +1,37 @@
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend>Register</legend>
+                    <div class="form-group">
+                        <label for="inputUsername" class="col-lg-2 control-label">User Name</label>
+
+                        <div class="col-lg-10">
+                            <input type="email" class="form-control" id="inputUsername" placeholder="Username" ng-model="username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+
+                        <div class="col-lg-10">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email"  ng-model="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+
+                        <div class="col-lg-10">
+                            <!--  <input type="password" class="form-control" id="inputPassword"
+                                     placeholder="Password"  ng-model="password"> -->
+                            <input_password text="password" placeholder="'Password'"></input_password>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="registerUser(username,email,password)">Register  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
+        </div>
+

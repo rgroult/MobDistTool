@@ -1,6 +1,5 @@
 import 'package:angular2/core.dart';
 import '../services/modal_service.dart';
-import 'user_login_component.dart';
 
 @Component(
     selector: 'top_bar',
@@ -15,7 +14,12 @@ class TopBarComponent {
     _modalService.displayLogin();
   }
 
-  TopBarComponent(this._modalService){
-
+  void displayRegisterPopup(){
+    _modalService.displayRegister();
   }
+
+  TopBarComponent(this._modalService);
+
+  bool get isLoginModal =>  _modalService.isLoginModal;
+  bool get isRegisterModal =>  _modalService.isRegisterModal;
 }
