@@ -108,9 +108,9 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
           return await http.get(url,
               headers: allHeaders(contentType: contentType));
         case 'POST':
-          return await http.post(url, httpBody, headers: headers);
+          return await http.post(url, body:httpBody, headers: headers);
         case 'PUT':
-          return await http.put(url, httpBody, headers: headers);
+          return await http.put(url, body:httpBody, headers: headers);
         case 'DELETE':
           return await http.delete(url, headers: headers);
       }
