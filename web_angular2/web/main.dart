@@ -10,7 +10,5 @@ import 'lib/components/modals_components.dart';
 import 'lib/services/modal_service.dart';
 
 main() {
-  bootstrap(AppComponent, [
-    provide(BrowserClient, useFactory: () => new BrowserClient(), deps: [])
-  ]);
+  bootstrap(AppComponent, [provide(Client, useFactory: () => new BrowserClient(), deps: [])]);
 }
