@@ -55,8 +55,8 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
     return initialHeaders;
   }
 
-  Future checkAuthorizationHeader(HttpResponse response) async {
-    if (response.status == 401) {
+  Future checkAuthorizationHeader(Response response) async {
+    if (response.statusCode == 401) {
       //return to home / login
       if (_mdtQueryServiceAware != null){
 
@@ -76,22 +76,22 @@ class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServi
     }*/
   }
 
-  Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
+  Map parseResponse(Response response,{checkAuthorization:true}) {
     if (checkAuthorization) {
       checkAuthorizationHeader(response);
     }
 
-    var responseData = response.data;
-    if (response.data is Map) {
+    var responseData = response.body;
+    if (responseData is Map) {
       return responseData;
     }
-    return JSON.decode(response.data);
+    return JSON.decode(responseData);
   }
 
-  Future<HttpResponse> sendRequest(String method, String url,
+  Future<Response> sendRequest(String method, String url,
       {String query, String body, String contentType}) async {
     //var url = '$baseUrlHost$path';
-    Http http = this._http;
+    var http = this._http;
     if (query != null) {
       url = '$url$query';
     }

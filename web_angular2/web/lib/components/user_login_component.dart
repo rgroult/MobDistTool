@@ -1,17 +1,20 @@
 import 'package:angular2/core.dart';
+import 'dart:async';
 import '../services/mdt_query.dart';
 import '../services/modal_service.dart';
+import '../model/errors.dart';
+import 'base_component.dart';
+import 'error_component.dart';
 
 @Component(
     selector: 'login_comp',
+    directives: const [ErrorComponent],
     templateUrl: 'user_login_component.html')
-class UserLoginComponent {
+class UserLoginComponent extends BaseComponent{
   MDTQueryService _mdtQueryService;
   ModalService _modalService;
   String email="";
   String password="";
-  var isHttpLoading = false;
-  var errorMessage = null;
 
   UserLoginComponent(this._mdtQueryService,this._modalService);
 
@@ -21,16 +24,17 @@ class UserLoginComponent {
   }
 
   Future loginUser(String email, String password) async {
-    var response = null;
+    var connectedUser = null;
+    error = null;
     try {
       isHttpLoading = true;
-      response = await _mdtQueryService.loginUser(email, password);
-
+      connectedUser = await _mdtQueryService.loginUser(email, password);
+/*
       if (response["status"] == 200){
         //hide popup
         // mainComp().isUserConnected= true;
         // mainComp().currentUser = response["data"];
-     /*   var userData = response["data"];
+       var userData = response["data"];
         scope.rootScope.context.userLogguedIn(new MDTUser(userData));
         modal.close(true);
         //mainComp().hidePopup();
@@ -40,19 +44,25 @@ class UserLoginComponent {
         }else {
           //go to apps
           locationService.router.go('apps',{});
-        }*/
+        }
 
       }else {
         errorMessage = { 'type': 'danger', 'msg': 'Error: $response'};
-      }
+      }*/
     } on LoginError catch(e) {
-      errorMessage = { 'type': 'danger', 'msg': e.message};
+      error = new UIError(LoginError.errorCode,e.message,ErrorType.ERROR);
+      //errorMessage = { 'type': 'danger', 'msg': e.message};
     } on ConnectionError catch(e) {
-      errorMessage = { 'type': 'danger', 'msg': e.message};
+      error = new UIError(ConnectionError.errorCode,e.message,ErrorType.ERROR);
+      //errorMessage = { 'type': 'danger', 'msg': e.message};
     } catch(e) {
-      errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
+      error = new UIError("UNKNOWN ERROR","Unknown error $e",ErrorType.ERROR);
+      //errorMessage = { 'type': 'danger', 'msg': 'Unknown error $e'};
     } finally {
       isHttpLoading = false;
     }
+
+
+
   }
 }

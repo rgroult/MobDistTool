@@ -1,6 +1,6 @@
 import 'dart:core';
 
-String mdtServerApiRootUrl = const String.fromEnvironment('mode') == 'javascript' ? "/api" : "http://localhost:8080/api";
+String mdtServerApiRootUrl = "https://nectarine.orange-labs.fr/api";//  const String.fromEnvironment('mode') == 'javascript' ? "/api" : "http://localhost:8080/api";
 final String appVersion = "v1";
 final String appPath = "/applications/${appVersion}";
 final String artifactsPath = "/art/${appVersion}";

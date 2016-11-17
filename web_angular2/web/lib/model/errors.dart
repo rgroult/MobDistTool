@@ -31,7 +31,7 @@ class ConnectionError extends BaseError {
 
 class LoginError extends BaseError {
   static String errorCode = "LOGIN_ERROR";
-  LoginError():super(errorCode){}
+  LoginError(String reason):super(errorCode,reason:reason){}
 }
 
 class RegisterError extends BaseError {
@@ -63,4 +63,24 @@ class ApplicationError extends BaseError {
 class ArtifactsError extends BaseError {
   static String errorCode = "ARTIFACT_ERROR";
   ArtifactsError(String reason):super(errorCode,reason:reason){}
+}
+
+enum ErrorType{ ERROR , WARNING  , INFO ,SUCCESS}
+class UIError {
+  String code;
+  String reason;
+  ErrorType type;
+  UIError(this.code,this.reason,this.type);
+  String typeAsString(){
+    switch (type){
+      case ErrorType.ERROR:
+        return "danger";
+      case ErrorType.WARNING:
+        return "warning";
+      case ErrorType.INFO:
+        return "info";
+      case ErrorType.SUCCESS:
+        return "sucess";
+    }
+  }
 }

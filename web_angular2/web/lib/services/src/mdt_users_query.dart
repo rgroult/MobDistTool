@@ -16,7 +16,7 @@ abstract class MDTQueryServiceUsers{
     throw 'Not Implemented';
   }
 
-  Future<Map> loginUser(String email, String password) async {
+  Future<MDTUser> loginUser(String email, String password) async {
     String url = '${mdtServerApiRootUrl}${usersPath}/login';
     //var userLogin = {"email": "$email", "password": "$password"};
     var response = await sendRequest('POST', url,
@@ -24,7 +24,13 @@ abstract class MDTQueryServiceUsers{
     contentType: 'application/x-www-form-urlencoded');
     var responseJson = parseResponse(response,checkAuthorization:false);
 
-    return responseJson;
+    if (response.statusCode == 401){
+      throw new LoginError(null);
+    }
+    /*if (responseJson["error"] != null) {
+      throw new LoginError(responseJson["error"]["message"]);
+    }*/
+    return new MDTUser(responseJson["data"]);
   }
 
   Future<Map> myProfile() async {
