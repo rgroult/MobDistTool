@@ -1,6 +1,6 @@
 import 'package:angular2/core.dart';
 import 'dart:async';
-//import "dart:html";
+import "dart:html" show window;
 import 'dart:convert';
 import 'package:http/http.dart';
 import '../model/errors.dart';
@@ -10,7 +10,7 @@ import 'src/mdt_users_query.dart';
 import 'src/mdt_applications_query.dart';
 import 'src/mdt_artifacts_query.dart';
 
-enum Platform { ANDROID, IOS, OTHER }
+//num Platform { ANDROID, IOS, OTHER }
 
 //final String mdtServerApiRootUrl = "http://localhost:8080/api";
 

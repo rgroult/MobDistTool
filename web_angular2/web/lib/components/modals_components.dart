@@ -2,6 +2,7 @@ import 'package:angular2/core.dart';
 import '../services/modal_service.dart';
 import 'user_login_component.dart';
 import 'user_register_component.dart';
+import 'dart:html';
 
 enum ModalRequired { NONE, LOGIN , REGISTER }
 
@@ -19,6 +20,10 @@ class ModalsComponent implements OnInit {
 
   void displayModal(ModalRequired mode){
     _currentModal = mode;
+    if (_currentModal == ModalRequired.NONE){
+      //call hide button
+      querySelector("#allModalsCloseButton").click();
+    }
   }
   var _currentModal = ModalRequired.NONE;
 

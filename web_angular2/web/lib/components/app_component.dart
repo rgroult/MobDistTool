@@ -10,15 +10,17 @@ import 'user_login_component.dart';
 import 'modals_components.dart';
 import '../services/mdt_query.dart';
 import '../pages/home_component.dart';
+import '../pages/application_list_component.dart';
 
 @Component(
     selector: 'mdt_comp',
     directives: const [ROUTER_DIRECTIVES,materialDirectives,BottomBarComponentComponent,RouteBarComponentComponent,TopBarComponent,ModalsComponent,
-    HomeComponent],
+    HomeComponent,ApplicationListComponent],
     providers: const [materialProviders,ModalService,GlobalService,MDTQueryService,ROUTER_PROVIDERS],
     templateUrl: 'app_component.html')
 @RouteConfig(const [
-  const Route(path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true)
+  const Route(path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true),
+  const Route(path: '/apps', name: 'Apps', component: ApplicationListComponent)
 ])
 class AppComponent {
 

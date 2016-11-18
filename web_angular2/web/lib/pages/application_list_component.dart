@@ -16,9 +16,10 @@ class ApplicationListComponent extends BaseComponent  {
   var currentPlatformFilter = '';
   var currentSelectedPlatform = 'All';
   List<String> applicationFavorites = new List<String>();
-  NgRoutingHelper locationService;
+  //NgRoutingHelper locationService;
   MDTQueryService mdtQueryService;
-  Modal modal;
+  var errorMessage;
+  //Modal modal;
   var isViewAsList = false;
   void setListMode(bool viewAsList){
     isViewAsList = viewAsList;
@@ -26,6 +27,7 @@ class ApplicationListComponent extends BaseComponent  {
   bool isFavoritesOpened = true;
   bool isAllAppsOpened = false;
 
+  /*
   void set scope(Scope scope){
     super.scope = scope;
     MDTUser currentUser = scope.rootScope.context.currentUser;
@@ -39,12 +41,12 @@ class ApplicationListComponent extends BaseComponent  {
         isAllAppsOpened = true;
       }
     }
-  }
+  }*/
 
   //strange :unable to rename it to another name :S
   ApplicationListComponent get app => this;
 
-  ApplicationListComponent(this.locationService,/*RouteProvider routeProvider,*/this.modal,this.mdtQueryService){
+  ApplicationListComponent(/*this.locationService,/*RouteProvider routeProvider,*/this.modal,*/this.mdtQueryService){
     print ("ApplicationsComponent created");
     loadApps();
   }
@@ -68,10 +70,10 @@ class ApplicationListComponent extends BaseComponent  {
   }
 
   void updateUsersAppFavorites(){
-    MDTUser currentUser = scope.rootScope.context.currentUser;
+  /*  MDTUser currentUser = scope.rootScope.context.currentUser;
     currentUser.favoritesApplicationsUUID.clear();
     currentUser.favoritesApplicationsUUID.addAll(applicationFavorites);
-    mdtQueryService.updateUser(currentUser.email,favoritesApps: applicationFavorites);
+    mdtQueryService.updateUser(currentUser.email,favoritesApps: applicationFavorites);*/
   }
 
   String iconForApp(MDTApplication app){
@@ -94,7 +96,7 @@ class ApplicationListComponent extends BaseComponent  {
   void applicationEditionSucceed(MDTApplication appCreated){
     applicationListNeedBeReloaded();
   }
-
+/*
   void displayApplicationCreationPopup(){
      modal.open(new ModalOptions(template:"<application_edition modeEdition='false' caller='app' ></application_edition>", backdrop: 'true'),scope);
   }
@@ -106,7 +108,7 @@ class ApplicationListComponent extends BaseComponent  {
   void showApplications(RouteEvent e) {
     isApplicationSelected = false;
   }
-
+*/
   MDTApplication finByUUID(String appUUID){
     var app =  allApps.firstWhere((MDTApplication a) => a.uuid == appUUID);
     return app;
@@ -116,12 +118,12 @@ class ApplicationListComponent extends BaseComponent  {
   bool canAdminApp(MDTApplication app){
     return (app == allApps[0]);
   }
-
+/*
   void appSelected(String appUUID){
     locationService.router.go('apps.artifacts', {'appId': appUUID});
     isApplicationSelected = true;
   }
-
+*/
   void applicationListNeedBeReloaded(){
     loadApps();
   }

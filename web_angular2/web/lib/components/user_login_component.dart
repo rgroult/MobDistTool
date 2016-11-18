@@ -1,10 +1,6 @@
 import 'package:angular2/core.dart';
+import '../commons.dart';
 import 'dart:async';
-import '../services/mdt_query.dart';
-import '../services/modal_service.dart';
-import '../model/errors.dart';
-import 'base_component.dart';
-import 'error_component.dart';
 
 @Component(
     selector: 'login_comp',
@@ -16,7 +12,7 @@ class UserLoginComponent extends BaseComponent{
   String email="";
   String password="";
 
-  UserLoginComponent(this._mdtQueryService,this._modalService);
+  UserLoginComponent(this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
 
   void login(){
     print("Login");
@@ -29,6 +25,8 @@ class UserLoginComponent extends BaseComponent{
     try {
       isHttpLoading = true;
       connectedUser = await _mdtQueryService.loginUser(email, password);
+      global_service.updateCurrentUser(connectedUser);
+      _modalService.hideModal();
 /*
       if (response["status"] == 200){
         //hide popup
