@@ -1,15 +1,30 @@
 import 'dart:async';
 import 'package:angular2/core.dart';
-import '../components/base_component.dart';
-import '../model/mdt_model.dart';
-import '../services/mdt_query.dart';
-import '../model/errors.dart';
+import '../commons.dart';
 
 @Component(
     selector: 'application_list',
     templateUrl: 'application_list_component.html',
 )
-class ApplicationListComponent extends BaseComponent  {
+class ApplicationListComponent extends BaseComponent implements OnInit{
+    GlobalService _globalService;
+    ApplicationListComponent(this._globalService);
+    List<MDTApplication> get allApplications => _globalService.allApps();
+
+    Future ngOnInit() async{
+      var errorOccured = await _globalService.loadAppsIfNeeded();
+      manageLoadAppResult(errorOccured);
+    }
+
+    void manageLoadAppResult(dynamic errorOccured){
+      if (errorOccured == null){
+        return;
+      }
+    }
+}
+
+
+class ApplicationListComponent1 extends BaseComponent  {
   var allApps = new List<MDTApplication>();
   var isApplicationSelected = false;
   final allPlatforms = ['iOS','Android'];
@@ -44,9 +59,9 @@ class ApplicationListComponent extends BaseComponent  {
   }*/
 
   //strange :unable to rename it to another name :S
-  ApplicationListComponent get app => this;
+  ApplicationListComponent1 get app => this;
 
-  ApplicationListComponent(/*this.locationService,/*RouteProvider routeProvider,*/this.modal,*/this.mdtQueryService){
+  ApplicationListComponent1(/*this.locationService,/*RouteProvider routeProvider,*/this.modal,*/this.mdtQueryService){
     print ("ApplicationsComponent created");
     loadApps();
   }

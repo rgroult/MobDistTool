@@ -27,6 +27,7 @@ class UserLoginComponent extends BaseComponent{
       connectedUser = await _mdtQueryService.loginUser(email, password);
       global_service.updateCurrentUser(connectedUser);
       _modalService.hideModal();
+      global_service.goToApps();
 /*
       if (response["status"] == 200){
         //hide popup

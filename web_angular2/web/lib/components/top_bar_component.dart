@@ -8,6 +8,7 @@ class TopBarComponent {
   bool get isSystemAdmin => _globalService.isConnectedUserAdmin;
   bool get adminOption => _globalService.adminOptionsDisplayed;
   bool get isUserConnected => _globalService.hasConnectedUser;
+  String get currentUsername => _globalService.connectedUser.name;
   final ModalService _modalService;
   final GlobalService _globalService;
 
