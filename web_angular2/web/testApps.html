@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mobile App Distribution Tool</title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="assets/css/material-kit.css" rel="stylesheet">
+
+    <!--  Material Dashboard CSS    -->
+    <link href="assets/css/dashboard.css" rel="stylesheet"/>
+
+    <!--  MDT CSS    -->
+    <link href="assets/css/mdt-specific.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="active">
+                            <a href="#profile" data-toggle="tab" aria-expanded="true">
+                                <i class="material-icons">face</i>
+                                Profile
+                                <div class="ripple-container"></div></a>
+                        </li>
+                        <li class="">
+                            <a href="#messages" data-toggle="tab" aria-expanded="false">
+                                <i class="material-icons">chat</i>
+                                Messages
+                                <div class="ripple-container"></div></a>
+                        </li>
+                        <li class="">
+                            <a href="#settings" data-toggle="tab" aria-expanded="false">
+                                <i class="material-icons">build</i>
+                                Settings
+                                <div class="ripple-container"></div></a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <material-radio-group>
+                <material-radio [checked]="true">All
+                </material-radio>
+                <material-radio>Android
+                </material-radio>
+                <material-radio>iOS
+                </material-radio>
+            </material-radio-group>
+
+            <material-tab-panel>
+                <material-tab label="tab 1">
+                    <div>
+                        These are the contents of Tab 1.
+                    </div>
+                </material-tab>
+                <material-tab label="tab 2">
+                    <div>
+                        Tab 2 contents, on the other hand, look thusly.
+                    </div>
+                </material-tab>
+                <material-tab label="tab 3">
+                    <div>
+                        <h3>Tab 3 is serious about its contents</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore magni necessitatibus quam qui quis rerum sit, sunt voluptatum. Commodi, corporis minus nemo officiis quisquam rem. Magni odit quo temporibus veritatis!
+                        </p>
+                    </div>
+                </material-tab>
+            </material-tab-panel>
+
+            <div class="radio col-sm-2 col-lg-2 col-md-3">
+                <label>
+                    <input type="radio" name="optionsRadios">
+                    All
+                </label>
+            </div>
+            <div class="radio col-sm-2 col-lg-2 col-md-3">
+                <label>
+                    <input type="radio" name="optionsRadios" checked="true">
+                    iOS
+                </label>
+            </div>
+            <div class="radio col-sm-2 col-lg-2 col-md-3">
+                <label>
+                    <input type="radio" name="optionsRadios">
+                    Android
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div  class="col-lg-3 col-md-6 col-sm-6">
+                <div class="mdt-card mdt-card-stats">
+                    <div class="mdt-card-header" data-background-color="purple">
+                        <img class="card-image card-app-image" src="https://lh3.googleusercontent.com/K-MNjDiO2WwRNwJqPZu8Wd5eOmFEjLYkEEgjZlv35hTiua_VylRPb04Lig3YZXLERvI=w300"/>
+                    </div>
+                    <div class="mdt-card-content">
+                        <p class="category">Android</p>
+                        <h3 class="title">My Office Phone V2</h3>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <p>Small app</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="col-lg-3 col-md-6 col-sm-6">
+                <div class="mdt-card mdt-card-stats">
+                    <div class="mdt-card-header" data-background-color="orange">
+                        <img class="card-image-headline" src="https://lh3.googleusercontent.com/K-MNjDiO2WwRNwJqPZu8Wd5eOmFEjLYkEEgjZlv35hTiua_VylRPb04Lig3YZXLERvI=w300"/>
+
+                    </div>
+                    <div class="mdt-card-content">
+                        <p class="category">Android</p>
+                        <h3 class="title">Lambert <-> WGS84</h3>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="col-lg-3 col-md-6 col-sm-6">
+                <div class="mdt-card mdt-card-stats">
+                    <div class="mdt-card-header" data-background-color="orange">
+                        <i class="material-icons">content_copy</i>
+                    </div>
+                    <div class="mdt-card-content">
+                        <p class="category">iOS</p>
+                        <h3 class="title">Very Long App Name </h3>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <p>Small app descriptio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="col-lg-3 col-md-6 col-sm-6">
+                <div class="mdt-card mdt-card-stats">
+                    <div class="mdt-card-header" data-background-color="orange">
+                        <i class="material-icons">content_copy</i>
+                    </div>
+                    <div class="mdt-card-content">
+                        <p class="category">Android</p>
+                        <h3 class="title">App Name 2</h3>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div *ngFor="let app of allApplications" class="col-md-4">
+                <div class="mdt-card">
+                    <div class="mdt-card-header mdt-card-chart" data-background-color="green">
+                        <div class="ct-chart" id="dailySalesChart"></div>
+                    </div>
+                    <div class="mdt-card-content">
+                        <h4 class="title">{{app.name}}</h4>
+                        <p class="category">{{app.description}}</p>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <!-- https://lh3.googleusercontent.com/K-MNjDiO2WwRNwJqPZu8Wd5eOmFEjLYkEEgjZlv35hTiua_VylRPb04Lig3YZXLERvI=w300 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mdt-card-group">
+            <div *ngFor="let app of allApplications" class="col-lg-3 col-md-6 col-sm-6">
+                <div class="mdt-card mdt-card-nav-tabs">
+                    <div class="header header-success">
+                        <img class="mdt-card-image-headline" src="https://lh3.googleusercontent.com/K-MNjDiO2WwRNwJqPZu8Wd5eOmFEjLYkEEgjZlv35hTiua_VylRPb04Lig3YZXLERvI=w300"></img>
+                        <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+
+                    </div>
+                    <div class="content">
+                        <div class="tab-content text-center">
+                            <div class="tab-pane active" id="profile">
+                                <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
+                            </div>
+                            <div class="tab-pane" id="messages">
+                                <p> I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.</p>
+                            </div>
+                            <div class="tab-pane" id="settings">
+                                <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mdt-card">
+                    <div class="mdt-card-header mdt-card-chart" data-background-color="green">
+                        <div class="ct-chart" id="dailySalesChart"><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;"><g class="ct-grids"><line x1="40" x2="40" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="76.57142857142857" x2="76.57142857142857" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="113.14285714285714" x2="113.14285714285714" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="149.71428571428572" x2="149.71428571428572" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="186.28571428571428" x2="186.28571428571428" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="222.85714285714283" x2="222.85714285714283" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="259.42857142857144" x2="259.42857142857144" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line y1="120" y2="120" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="96" y2="96" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="72" y2="72" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="48" y2="48" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="24" y2="24" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="0" y2="0" x1="40" x2="296" class="ct-grid ct-vertical"></line></g><g><g class="ct-series ct-series-a"><path d="M 40 91.2 C 76.571 79.2 76.571 79.2 76.571 79.2 C 113.143 103.2 113.143 103.2 113.143 103.2 C 149.714 79.2 149.714 79.2 149.714 79.2 C 186.286 64.8 186.286 64.8 186.286 64.8 C 222.857 76.8 222.857 76.8 222.857 76.8 C 259.429 28.8 259.429 28.8 259.429 28.8" class="ct-line"></path><line x1="40" y1="91.2" x2="40.01" y2="91.2" class="ct-point" value="12" opacity="1"></line><line x1="76.57142857142857" y1="79.2" x2="76.58142857142857" y2="79.2" class="ct-point" value="17" opacity="1"></line><line x1="113.14285714285714" y1="103.2" x2="113.15285714285714" y2="103.2" class="ct-point" value="7" opacity="1"></line><line x1="149.71428571428572" y1="79.2" x2="149.7242857142857" y2="79.2" class="ct-point" value="17" opacity="1"></line><line x1="186.28571428571428" y1="64.8" x2="186.29571428571427" y2="64.8" class="ct-point" value="23" opacity="1"></line><line x1="222.85714285714283" y1="76.8" x2="222.86714285714282" y2="76.8" class="ct-point" value="18" opacity="1"></line><line x1="259.42857142857144" y1="28.799999999999997" x2="259.43857142857144" y2="28.799999999999997" class="ct-point" value="38" opacity="1"></line></g></g><g class="ct-labels"><foreignObject style="overflow: visible;" x="40" y="125" width="36.57142857142857" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 37px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">M</span></foreignObject><foreignObject style="overflow: visible;" x="76.57142857142857" y="125" width="36.57142857142857" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 37px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">T</span></foreignObject><foreignObject style="overflow: visible;" x="113.14285714285714" y="125" width="36.57142857142857" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 37px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">W</span></foreignObject><foreignObject style="overflow: visible;" x="149.71428571428572" y="125" width="36.57142857142857" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 37px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">T</span></foreignObject><foreignObject style="overflow: visible;" x="186.28571428571428" y="125" width="36.571428571428555" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 37px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">F</span></foreignObject><foreignObject style="overflow: visible;" x="222.85714285714283" y="125" width="36.571428571428584" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 37px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">S</span></foreignObject><foreignObject style="overflow: visible;" x="259.42857142857144" y="125" width="36.571428571428584" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 37px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">S</span></foreignObject><foreignObject style="overflow: visible;" y="96" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">0</span></foreignObject><foreignObject style="overflow: visible;" y="72" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">10</span></foreignObject><foreignObject style="overflow: visible;" y="48" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">20</span></foreignObject><foreignObject style="overflow: visible;" y="24" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">30</span></foreignObject><foreignObject style="overflow: visible;" y="0" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">40</span></foreignObject><foreignObject style="overflow: visible;" y="-30" x="0" height="30" width="30"><span class="ct-label ct-vertical ct-start" style="height: 30px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">50</span></foreignObject></g></svg></div>
+                    </div>
+                    <div class="mdt-card-content">
+                        <h4 class="title">Daily Sales</h4>
+                        <p class="category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="mdt-card">
+                    <div class="mdt-card-header mdt-card-chart" data-background-color="orange">
+                        <div class="ct-chart" id="emailsSubscriptionChart"><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-bar" style="width: 100%; height: 100%;"><g class="ct-grids"><line y1="120" y2="120" x1="40" x2="291" class="ct-grid ct-vertical"></line><line y1="96" y2="96" x1="40" x2="291" class="ct-grid ct-vertical"></line><line y1="72" y2="72" x1="40" x2="291" class="ct-grid ct-vertical"></line><line y1="48" y2="48" x1="40" x2="291" class="ct-grid ct-vertical"></line><line y1="24" y2="24" x1="40" x2="291" class="ct-grid ct-vertical"></line><line y1="0" y2="0" x1="40" x2="291" class="ct-grid ct-vertical"></line></g><g><g class="ct-series ct-series-a"><line x1="50.458333333333336" x2="50.458333333333336" y1="120" y2="54.959999999999994" class="ct-bar" value="542" opacity="1"></line><line x1="71.375" x2="71.375" y1="120" y2="66.84" class="ct-bar" value="443" opacity="1"></line><line x1="92.29166666666667" x2="92.29166666666667" y1="120" y2="81.6" class="ct-bar" value="320" opacity="1"></line><line x1="113.20833333333333" x2="113.20833333333333" y1="120" y2="26.400000000000006" class="ct-bar" value="780" opacity="1"></line><line x1="134.125" x2="134.125" y1="120" y2="53.64" class="ct-bar" value="553" opacity="1"></line><line x1="155.04166666666669" x2="155.04166666666669" y1="120" y2="65.64" class="ct-bar" value="453" opacity="1"></line><line x1="175.95833333333334" x2="175.95833333333334" y1="120" y2="80.88" class="ct-bar" value="326" opacity="1"></line><line x1="196.87500000000003" x2="196.87500000000003" y1="120" y2="67.92" class="ct-bar" value="434" opacity="1"></line><line x1="217.79166666666669" x2="217.79166666666669" y1="120" y2="51.84" class="ct-bar" value="568" opacity="1"></line><line x1="238.70833333333334" x2="238.70833333333334" y1="120" y2="46.8" class="ct-bar" value="610" opacity="1"></line><line x1="259.625" x2="259.625" y1="120" y2="29.28" class="ct-bar" value="756" opacity="1"></line><line x1="280.5416666666667" x2="280.5416666666667" y1="120" y2="12.599999999999994" class="ct-bar" value="895" opacity="1"></line></g></g><g class="ct-labels"><foreignObject style="overflow: visible;" x="40" y="125" width="20.916666666666668" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Jan</span></foreignObject><foreignObject style="overflow: visible;" x="60.91666666666667" y="125" width="20.916666666666668" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Feb</span></foreignObject><foreignObject style="overflow: visible;" x="81.83333333333334" y="125" width="20.916666666666664" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Mar</span></foreignObject><foreignObject style="overflow: visible;" x="102.75" y="125" width="20.91666666666667" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Apr</span></foreignObject><foreignObject style="overflow: visible;" x="123.66666666666667" y="125" width="20.91666666666667" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Mai</span></foreignObject><foreignObject style="overflow: visible;" x="144.58333333333334" y="125" width="20.916666666666657" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Jun</span></foreignObject><foreignObject style="overflow: visible;" x="165.5" y="125" width="20.916666666666686" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Jul</span></foreignObject><foreignObject style="overflow: visible;" x="186.41666666666669" y="125" width="20.916666666666657" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Aug</span></foreignObject><foreignObject style="overflow: visible;" x="207.33333333333334" y="125" width="20.916666666666657" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Sep</span></foreignObject><foreignObject style="overflow: visible;" x="228.25" y="125" width="20.916666666666686" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Oct</span></foreignObject><foreignObject style="overflow: visible;" x="249.16666666666669" y="125" width="20.916666666666657" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 21px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Nov</span></foreignObject><foreignObject style="overflow: visible;" x="270.08333333333337" y="125" width="30" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 30px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">Dec</span></foreignObject><foreignObject style="overflow: visible;" y="96" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">0</span></foreignObject><foreignObject style="overflow: visible;" y="72" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">200</span></foreignObject><foreignObject style="overflow: visible;" y="48" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">400</span></foreignObject><foreignObject style="overflow: visible;" y="24" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">600</span></foreignObject><foreignObject style="overflow: visible;" y="0" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">800</span></foreignObject><foreignObject style="overflow: visible;" y="-30" x="0" height="30" width="30"><span class="ct-label ct-vertical ct-start" style="height: 30px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">1000</span></foreignObject></g></svg></div>
+                    </div>
+                    <div class="mdt-card-content">
+                        <h4 class="title">Email Subscriptions</h4>
+                        <p class="category">Last Campaign Performance</p>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="mdt-card">
+                    <div class="mdt-card-header mdt-card-chart" data-background-color="red">
+                        <div class="ct-chart" id="completedTasksChart"><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;"><g class="ct-grids"><line x1="40" x2="40" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="72" x2="72" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="104" x2="104" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="136" x2="136" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="168" x2="168" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="200" x2="200" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="232" x2="232" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line x1="264" x2="264" y1="0" y2="120" class="ct-grid ct-horizontal"></line><line y1="120" y2="120" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="96" y2="96" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="72" y2="72" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="48" y2="48" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="24" y2="24" x1="40" x2="296" class="ct-grid ct-vertical"></line><line y1="0" y2="0" x1="40" x2="296" class="ct-grid ct-vertical"></line></g><g><g class="ct-series ct-series-a"><path d="M 40 92.4 C 72 30 72 30 72 30 C 104 66 104 66 104 66 C 136 84 136 84 136 84 C 168 86.4 168 86.4 168 86.4 C 200 91.2 200 91.2 200 91.2 C 232 96 232 96 232 96 C 264 97.2 264 97.2 264 97.2" class="ct-line"></path><line x1="40" y1="92.4" x2="40.01" y2="92.4" class="ct-point" value="230" opacity="1"></line><line x1="72" y1="30" x2="72.01" y2="30" class="ct-point" value="750" opacity="1"></line><line x1="104" y1="66" x2="104.01" y2="66" class="ct-point" value="450" opacity="1"></line><line x1="136" y1="84" x2="136.01" y2="84" class="ct-point" value="300" opacity="1"></line><line x1="168" y1="86.4" x2="168.01" y2="86.4" class="ct-point" value="280" opacity="1"></line><line x1="200" y1="91.2" x2="200.01" y2="91.2" class="ct-point" value="240" opacity="1"></line><line x1="232" y1="96" x2="232.01" y2="96" class="ct-point" value="200" opacity="1"></line><line x1="264" y1="97.2" x2="264.01" y2="97.2" class="ct-point" value="190" opacity="1"></line></g></g><g class="ct-labels"><foreignObject style="overflow: visible;" x="40" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">12am</span></foreignObject><foreignObject style="overflow: visible;" x="72" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">3pm</span></foreignObject><foreignObject style="overflow: visible;" x="104" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">6pm</span></foreignObject><foreignObject style="overflow: visible;" x="136" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">9pm</span></foreignObject><foreignObject style="overflow: visible;" x="168" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">12pm</span></foreignObject><foreignObject style="overflow: visible;" x="200" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">3am</span></foreignObject><foreignObject style="overflow: visible;" x="232" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">6am</span></foreignObject><foreignObject style="overflow: visible;" x="264" y="125" width="32" height="20"><span class="ct-label ct-horizontal ct-end" style="width: 32px; height: 20px" xmlns="http://www.w3.org/1999/xhtml">9am</span></foreignObject><foreignObject style="overflow: visible;" y="96" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">0</span></foreignObject><foreignObject style="overflow: visible;" y="72" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">200</span></foreignObject><foreignObject style="overflow: visible;" y="48" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">400</span></foreignObject><foreignObject style="overflow: visible;" y="24" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">600</span></foreignObject><foreignObject style="overflow: visible;" y="0" x="0" height="24" width="30"><span class="ct-label ct-vertical ct-start" style="height: 24px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">800</span></foreignObject><foreignObject style="overflow: visible;" y="-30" x="0" height="30" width="30"><span class="ct-label ct-vertical ct-start" style="height: 30px; width: 30px" xmlns="http://www.w3.org/1999/xhtml">1000</span></foreignObject></g></svg></div>
+                    </div>
+                    <div class="mdt-card-content">
+                        <h4 class="title">Completed Tasks</h4>
+                        <p class="category">Last Campaign Performance</p>
+                    </div>
+                    <div class="mdt-card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--   Core JS Files   -->
+<script src="assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/material.min.js"></script>
+<script src="assets/js/material-kit.js" type="text/javascript"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="assets/js/material-dashboard1.js"></script>
+</body>
+</html>

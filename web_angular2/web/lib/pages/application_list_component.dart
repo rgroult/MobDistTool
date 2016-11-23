@@ -1,19 +1,22 @@
 import 'dart:async';
 import 'package:angular2/core.dart';
+import 'package:angular2_components/angular2_components.dart';
 import '../commons.dart';
 
 @Component(
     selector: 'application_list',
     templateUrl: 'application_list_component.html',
+    directives: const [materialDirectives],
+    providers: materialProviders,
 )
 class ApplicationListComponent extends BaseComponent implements OnInit{
-    GlobalService _globalService;
-    ApplicationListComponent(this._globalService);
-    List<MDTApplication> get allApplications => _globalService.allApps();
+    ApplicationListComponent(GlobalService globalService) : super.withGlobal(globalService);
+    List<MDTApplication> allApplications = [];
 
     Future ngOnInit() async{
-      var errorOccured = await _globalService.loadAppsIfNeeded();
+      var errorOccured = await global_service.loadAppsIfNeeded();
       manageLoadAppResult(errorOccured);
+      allApplications = global_service.allApps;
     }
 
     void manageLoadAppResult(dynamic errorOccured){

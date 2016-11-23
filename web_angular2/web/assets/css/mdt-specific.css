@@ -1,0 +1,21 @@
+.card-app-image {
+    max-width: 100px;
+    max-height: 100px;
+    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
+}
+
+.mdt-card .mdt-card-header {
+    padding: 10px;
+}
+
+.mdt-cardTEST [data-background-color="clear"] {
+    background: rgba(255, 255, 255, 0);
+    box-shadow: none;
+}
+
+.mdt-card .mdt-card-footer .stats{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

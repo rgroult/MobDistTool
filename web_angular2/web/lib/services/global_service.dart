@@ -10,8 +10,8 @@ enum Platform { ANDROID, IOS, OTHER }
 
 @Injectable()
 class GlobalService implements OnInit  {
-  final Location _location;
-  GlobalService(this._location,this._mdtQueryService);
+  final Router _router;
+  GlobalService(this._router,this._mdtQueryService);
   MDTUser _currentUser = null;
   DateTime _lastAppsRefresh = null;
   MDTQueryService _mdtQueryService;
@@ -43,8 +43,10 @@ class GlobalService implements OnInit  {
   }
 
   Future loadAppsIfNeeded({bool forceRefresh: false}) async {
-    if (forceRefresh == false &&_lastAppsRefresh != null &&
-        _lastAppsRefresh.add(new Duration(minutes: 5)) < new DateTime.now()) {
+   // loadMockApps();
+    //return new Future.value(null);
+
+    if (forceRefresh == false &&_lastAppsRefresh != null && _lastAppsRefresh.add(new Duration(minutes: 5)).isBefore(new DateTime.now())) {
       return new Future.value(null);
     }
     //update apps
@@ -62,16 +64,92 @@ class GlobalService implements OnInit  {
   }
 
   void goToApps(){
-    _location.go("Apps");
+    _router.navigate(["Apps"]);
+   // _location.go("/apps");
   }
   void goToHome(){
-    _location.go("Home");
+   // _location.go("Home");
   }
 
   void goToApplication(String appIdentifier){
-    _location.go("Home");
+   // _location.go("Home");
   }
 
-
+  void loadMockApps(){
+    var allMocksApps = [{
+      "name": "ApplicationDev",
+      "platform": "android",
+      "adminUsers": [
+        {
+          "name": "toto",
+          "email": "toto@totoC.om"
+        }
+      ],
+      "uuid": "dsdsqd-52fb-44a2-aeee-9aa015ce66b7",
+      "description": "test de nectarine"
+    },
+    {
+      "name": "TOD",
+      "platform": "android",
+      "adminUsers": [
+        {
+          "name": "frde",
+          "email": "fred@toto.com"
+        }
+      ],
+      "uuid": "qsdqsd-110c-450c-be02-ae1d335c3208",
+      "description": "long long description for app"
+    },
+    {
+      "name": "InterneDemo",
+      "platform": "android",
+      "adminUsers": [
+        {
+          "name": "oula",
+          "email": "oula@yop.com"
+        },
+        {
+          "name": "fxf",
+          "email": "fx@yop.com"
+        }
+      ],
+      "uuid": "xc-fa18-47ac-b402-23b6662a2b6c",
+      "description": "Application for a bib client"
+    }];
+    allApps.clear();
+    for (Map map in allMocksApps ){
+      allApps.add(new MDTApplication(map));
+    }
+    /*,
+    {
+    "name": "NED",
+    "platform": "android",
+    "adminUsers": [
+    {
+    "name": "wilfrid",
+    "email": "wilfrid.rabot@orange.com"
+    }
+    ],
+    "uuid": "71864e35-110c-450c-be02-ae1d335c3208",
+    "description": "Capture, visualisation, édition et partage de videos 360"
+    },
+    {
+    "name": "SSOInterneDemo",
+    "platform": "android",
+    "adminUsers": [
+    {
+    "name": "yunus",
+    "email": "yunus.arslan@orange.com"
+    },
+    {
+    "name": "xylome",
+    "email": "xavier.heroult@orange.com"
+    }
+    ],
+    "uuid": "68718993-fa18-47ac-b402-23b6662a2b6c",
+    "description": "Application démo d'un client SSO interne"
+    }
+    */
+  }
 }
 
