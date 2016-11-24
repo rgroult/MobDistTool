@@ -8,7 +8,8 @@ import 'package:http/http.dart';
 import 'lib/components/app_component.dart';
 import 'lib/components/modals_components.dart';
 import 'lib/services/modal_service.dart';
+import 'lib/services/src/mdt_http_client.dart';
 
 main() {
-  bootstrap(AppComponent, [provide(Client, useFactory: () => new BrowserClient(), deps: [])]);
+  bootstrap(AppComponent, [provide(Client, useFactory: () => new  MDTHttpClient()/* BrowserClient()*/, deps: [])]);
 }
