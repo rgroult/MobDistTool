@@ -10,19 +10,59 @@ import '../commons.dart';
     providers: materialProviders,
 )
 class ApplicationListComponent extends BaseComponent implements OnInit{
-    ApplicationListComponent(GlobalService globalService) : super.withGlobal(globalService);
-    List<MDTApplication> allApplications = [];
+    final allPlatforms = ['iOS','Android'];
+    var currentPlatformFilter = '';
+    var currentSelectedPlatform = 'All';
+    List<String> applicationFavorites = new List<String>();
 
-    Future ngOnInit() async{
-      var errorOccured = await global_service.loadAppsIfNeeded();
-      manageLoadAppResult(errorOccured);
-      allApplications = global_service.allApps;
+    ApplicationListComponent(GlobalService globalService) : super.withGlobal(globalService);
+    List<MDTApplication> allFilteredApplications = [];
+    List<MDTApplication> favoritesFilteredApplications = [];
+
+    Future ngOnInit() {
+      refreshApplications();
     }
 
     void manageLoadAppResult(dynamic errorOccured){
       if (errorOccured == null){
         return;
       }
+    }
+
+    Future refreshApplications({bool forceRefresh: false}) async{
+      var errorOccured = await global_service.loadAppsIfNeeded(forceRefresh:forceRefresh);
+      manageLoadAppResult(errorOccured);
+      filterApplications(global_service.allApps);
+    }
+
+    void filterApplications(List<MDTApplication>apps){
+        allFilteredApplications.clear();
+        favoritesFilteredApplications.clear();
+        String currentFilter = currentPlatformFilter.toLowerCase();
+        for (MDTApplication app in apps){
+            if (currentPlatformFilter.length>0 && app.platform.matchAsPrefix(currentFilter) == null){
+                continue;
+            }
+            allFilteredApplications.add(app);
+            favoritesFilteredApplications.add(app);
+            if (isFavorite(app)){
+                favoritesFilteredApplications.add(app);
+            }
+        }
+    }
+
+    void selectFilter(String platform){
+      if (platform == ""){
+        currentPlatformFilter = "";
+        currentSelectedPlatform = "All";
+      }else {
+        currentPlatformFilter = platform;
+        currentSelectedPlatform = platform;
+      }
+    }
+
+    bool isFavorite(MDTApplication app){
+      return applicationFavorites.contains(app.uuid);
     }
 }
 

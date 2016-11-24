@@ -1,4 +1,5 @@
 import 'package:angular2/core.dart';
+import 'package:http/http.dart';
 import 'dart:convert';
 import "dart:html";
 import 'dart:async';
@@ -7,11 +8,11 @@ import '../../model/mdt_model.dart';
 import 'mdt_conf_query.dart';
 
 abstract class MDTQueryServiceArtifacts {
-  Future<HttpResponse> sendRequest(String method, String url,
+  Future<Response> sendRequest(String method, String url,
       {String query, String body, String contentType}) async {
     throw 'Not Implemented';
   }
-  Map parseResponse(HttpResponse response,{checkAuthorization:true}) {
+  Map parseResponse(Response response,{checkAuthorization:true}) {
     throw 'Not Implemented';
   }
   void sendRedirect(String url){

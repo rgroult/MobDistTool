@@ -1,11 +1,20 @@
 .card-app-image {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 80px;
+    min-width: 80px;
     box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
 }
 
+.mdt-card h3 {
+    font-size: 1.525em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .mdt-card .mdt-card-header {
-    padding: 10px;
+    padding: 0px;
+    background: rgba(255, 255, 255, 0);
+    box-shadow: none;
 }
 
 .mdt-cardTEST [data-background-color="clear"] {
@@ -18,4 +27,31 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.mdt-card-stats .mdt-card-content {
+    text-align: left;
+}
+
+.mdt-card .mdt-card-footer .stats p{
+    margin: 0 0 0px;
+}
+
+.platformandroid {
+   // float: left;
+    //vertical-align:middle;
+    width:32px;
+    height:32px;
+    background-image: url(../../images/android_64.png);
+    background-size: 100%;
+   // margin-right: 10px;
+}
+.platformios {
+    float: left;
+    vertical-align:middle;
+    width:32px;
+    height:32px;
+    background-image: url(../../images/apple_64.png);
+    background-size: 100%;
+    margin-right: 10px;
 }

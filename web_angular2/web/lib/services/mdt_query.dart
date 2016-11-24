@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import '../model/errors.dart';
 import 'src/mdt_conf_query.dart';
-import 'src/mdt_interceptors_query.dart';
 import 'src/mdt_users_query.dart';
 import 'src/mdt_applications_query.dart';
 import 'src/mdt_artifacts_query.dart';
@@ -26,8 +25,12 @@ abstract class MDTQueryServiceAware {
   void loginExceptionOccured();
 }
 
+abstract class fakeClass {
+
+}
+
 @Injectable()
-class MDTQueryService extends MDTQueryServiceHttpInterceptors with MDTQueryServiceUsers,MDTQueryServiceApplications,MDTQueryServiceArtifacts{
+class MDTQueryService extends fakeClass with MDTQueryServiceUsers,MDTQueryServiceApplications,MDTQueryServiceArtifacts{
  Client _http;
  MDTQueryServiceAware _mdtQueryServiceAware;
   /*

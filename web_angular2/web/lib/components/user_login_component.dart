@@ -11,6 +11,7 @@ class UserLoginComponent extends BaseComponent{
   ModalService _modalService;
   String email="";
   String password="";
+  var loginForm;
 
   UserLoginComponent(this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
 
