@@ -1,3 +1,7 @@
     <ol class="breadcrumb">
-        <li *ngFor="let route of routeHistory"><a href="#{{route['path']}}">{{route['name']}}</a></li>
+        <li *ngFor="let route of routeHistory"> <a routerLink="route['path']" routerLinkActive="route['status']">{{route['name']}}</a></li>
     </ol>
+
+
+
+    <!-- <a href="#{{route['path']}}">{{route['name']}}</a> -->

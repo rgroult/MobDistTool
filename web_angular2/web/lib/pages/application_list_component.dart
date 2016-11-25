@@ -10,7 +10,7 @@ import '../commons.dart';
     providers: materialProviders,
 )
 class ApplicationListComponent extends BaseComponent implements OnInit{
-    final allPlatforms = ['iOS','Android'];
+    final allPlatformsFilters = ['All','iOS','Android'];
     var currentPlatformFilter = '';
     var currentSelectedPlatform = 'All';
     List<String> applicationFavorites = new List<String>();
@@ -32,10 +32,11 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
     Future refreshApplications({bool forceRefresh: false}) async{
       var errorOccured = await global_service.loadAppsIfNeeded(forceRefresh:forceRefresh);
       manageLoadAppResult(errorOccured);
-      filterApplications(global_service.allApps);
+      filterApplications();
     }
 
-    void filterApplications(List<MDTApplication>apps){
+    void filterApplications(){
+       var apps = global_service.allApps;
         allFilteredApplications.clear();
         favoritesFilteredApplications.clear();
         String currentFilter = currentPlatformFilter.toLowerCase();
@@ -44,7 +45,7 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
                 continue;
             }
             allFilteredApplications.add(app);
-            favoritesFilteredApplications.add(app);
+            //favoritesFilteredApplications.add(app);
             if (isFavorite(app)){
                 favoritesFilteredApplications.add(app);
             }
@@ -52,13 +53,13 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
     }
 
     void selectFilter(String platform){
-      if (platform == ""){
+      if (platform == "All"){
         currentPlatformFilter = "";
-        currentSelectedPlatform = "All";
       }else {
         currentPlatformFilter = platform;
-        currentSelectedPlatform = platform;
       }
+      currentSelectedPlatform = platform;
+      filterApplications();
     }
 
     bool isFavorite(MDTApplication app){

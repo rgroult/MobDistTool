@@ -16,7 +16,7 @@ export 'components/top_bar_component.dart';
 export 'components/bottom_bar_component.dart';
 export 'components/route_bar_component.dart';
 export 'components/user_login_component.dart';
-export 'components/modals_components.dart';
+export 'components/modals_components.dart' hide ModalRequired;
 
 export 'services/modal_service.dart';
 export 'services/global_service.dart';
