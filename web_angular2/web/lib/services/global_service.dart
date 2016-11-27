@@ -65,14 +65,13 @@ class GlobalService implements OnInit  {
 
   void goToApps(){
     _router.navigate(["Apps"]);
-   // _location.go("/apps");
   }
   void goToHome(){
-   // _location.go("Home");
+    _router.navigate(["Home"]);
   }
 
   void goToApplication(String appIdentifier){
-   // _location.go("Home");
+    _router.navigate(['Versions', {'appid': appIdentifier}]);
   }
 
   void loadMockApps(){
@@ -97,7 +96,7 @@ class GlobalService implements OnInit  {
           "email": "fred@toto.com"
         }
       ],
-      "uuid": "qsdqsd-110c-450c-be02-ae1d335c3208",
+      "uuid": "qsdqsd-110c-450c-be02-acsdz3208",
       "description": "long long description for app"
     },
     {
@@ -120,36 +119,6 @@ class GlobalService implements OnInit  {
     for (Map map in allMocksApps ){
       allApps.add(new MDTApplication(map));
     }
-    /*,
-    {
-    "name": "NED",
-    "platform": "android",
-    "adminUsers": [
-    {
-    "name": "wilfrid",
-    "email": "wilfrid.rabot@orange.com"
-    }
-    ],
-    "uuid": "71864e35-110c-450c-be02-ae1d335c3208",
-    "description": "Capture, visualisation, édition et partage de videos 360"
-    },
-    {
-    "name": "SSOInterneDemo",
-    "platform": "android",
-    "adminUsers": [
-    {
-    "name": "yunus",
-    "email": "yunus.arslan@orange.com"
-    },
-    {
-    "name": "xylome",
-    "email": "xavier.heroult@orange.com"
-    }
-    ],
-    "uuid": "68718993-fa18-47ac-b402-23b6662a2b6c",
-    "description": "Application démo d'un client SSO interne"
-    }
-    */
   }
 }
 

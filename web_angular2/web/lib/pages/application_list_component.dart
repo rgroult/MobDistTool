@@ -23,6 +23,10 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
       refreshApplications();
     }
 
+    void selectApplication(String appUUID){
+      global_service.goToApplication(appUUID);
+    }
+
     void manageLoadAppResult(dynamic errorOccured){
       if (errorOccured == null){
         return;
