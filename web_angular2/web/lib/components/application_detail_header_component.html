@@ -1,0 +1,40 @@
+<div class="media">
+    <div class="media-left">
+        <img class="media-object appDetailIcon" src="{{application.appIcon}}" alt="appIcon" onError="this.onError=null;this.src='images/placeholder.jpg'">
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading"><span class="platform{{application.platform}}"></span>{{application.name}}</h4>
+        {{application.description}}
+        <br/>
+        <div *ngIf="canAdmin()">
+            apiKey : {{application.apiKey}}
+            <div *ngIf="maxVersionEnabled">
+                <button type="button" (click)="isMaxVersionEnabledCollapsed = !isMaxVersionEnabledCollapsed" class="glyphicon btn btn-xs btn-flat btn-default">Max Version  <span [ngClass]="{'glyphicon-chevron-down': !isMaxVersionEnabledCollapsed, 'glyphicon-chevron-right': isMaxVersionEnabledCollapsed}"></span></button>
+                <div *ngIf="isMaxVersionEnabledCollapsed">
+                    appId : <b>{{application.uuid}}</b> <br/>
+                    share Secret : <b>{{application.maxVersionSecretKey}}</b>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="addVersion()"><i class="material-icons">add</i> Add Version</button>
+        </div>
+    </div>
+</div>
+<button (click)="toggleFavorite()" type="button" class="btn btn-sm" [ngClass]="isFavorite ? 'active  btn-success' : ' btn-default'">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favorite
+</button>
+<button type="button" (click)="toggleAdministrators()" class="glyphicon btn btn-xs btn-flat btn-default">Administrators  <span [ngClass]="{'glyphicon-chevron-down': !isAdminUsersCollapsed, 'glyphicon-chevron-right': isAdminUsersCollapsed}"></span></button>
+<div *ngIf="isAdminUsersCollapsed">
+    <div  *ngIf="canAdmin()" class="input-append">
+        <input class1="form-control"  placeholder="administrator email" [(ngModel)]="administratorToAdd" />
+        <button class="btn btn-xs btn-flat btn-danger" (click)="addAdministrator(administratorToAdd)">add</button>
+    </div>
+    <dl class="dl-horizontal" *ngFor="let admin of application.adminUsers">
+        <dt>{{admin.name}} :</dt>
+        <dd>{{admin.email}} <button type="button" *ngIf="canAdmin()" class="btn btn-xs btn-flat btn-danger" (click)="deleteAdministrator(admin.email)">remove</button></dd>
+    </dl>
+</div>
+<error_comp [error]="error"></error_comp>

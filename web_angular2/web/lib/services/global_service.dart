@@ -63,6 +63,10 @@ class GlobalService implements OnInit  {
     return new Future.value(null);
   }
 
+  bool isAppFavorite(String uuid){
+      return false;
+  }
+
   void goToApps(){
     _router.navigate(["Apps"]);
   }

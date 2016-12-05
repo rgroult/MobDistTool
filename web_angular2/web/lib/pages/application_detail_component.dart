@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:angular2/core.dart';
 import 'package:angular2_components/angular2_components.dart';
 import 'package:angular2/router.dart';
+import '../components/application_detail_header_component.dart';
 import '../commons.dart';
+import '../components/artifact_component.dart';
 
 @Component(
     selector: 'application_detail',
     templateUrl: 'application_detail_component.html',
-    directives: const [materialDirectives],
+    directives: const [materialDirectives,ApplicationDetailHeaderComponent,ErrorComponent,ArtifactComponent],
     providers: materialProviders,
     )
 class ApplicationDetailComponent extends BaseComponent implements OnInit{
@@ -21,8 +23,10 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
   List<MDTArtifact>  applicationsArtifacts = new List<MDTArtifact>();
   List<MDTArtifact>  applicationsLastestVersion = new List<MDTArtifact>();
 
-  //branhes
+  //branches
   List<String> allAvailableBranches = new List<String>();
+  String currentBranchFilter = "";
+  String currentSelectedBranch = "All";
 
   //edition
   bool isAdminUsersCollapsed = true;
@@ -37,11 +41,21 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
     currentApp = global_service.allApps.firstWhere((app) => app.uuid == _uuid);
     print("Selected App $currentApp");
     if (currentApp!=null){
-      loadApp();
+      loadAppVersions();
     }
     //refreshApplications();
   }
 
+  void selectFilter(String branch){
+    if (branch == ""){
+      currentBranchFilter = "";
+      currentSelectedBranch = "All";
+    }else {
+      currentBranchFilter = branch;
+      currentSelectedBranch = branch;
+    }
+  }
+/*
   Future loadApp() async{
     error = null;
     try {
@@ -57,7 +71,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
     } finally {
       isHttpLoading = false;
     }
-  }
+  }*/
 
   Future loadAppVersions() async{
     error = null;
@@ -101,6 +115,33 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
     }
     allAvailableBranches = allAvailableBranches.toSet().toList()..sort();
     // allAvailableBranches.insert(0, "_All");
+  }
+/*
+  String versionForSortIdentifier(String sortIdentifier){
+    try {
+      var artifact = groupedArtifacts[sortIdentifier].first;
+      return "${artifact.version} - ${artifact.branch}";
+    }catch(e){
+      return "Unknown version - No Branch";
+    }
+  }*/
+
+  String versionForSortIdentifier(String sortIdentifier){
+    try {
+      var artifact = groupedArtifacts[sortIdentifier].first;
+      return artifact.version;
+    }catch(e){
+      return "Unknown version";
+    }
+  }
+
+  String branchForSortIdentifier(String sortIdentifier){
+    try {
+      var artifact = groupedArtifacts[sortIdentifier].first;
+      return artifact.branch;
+    }catch(e){
+      return "No Branch";
+    }
   }
 
   //admin
