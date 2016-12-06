@@ -20,6 +20,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
   //versions sorted
   Map<String,List<MDTArtifact>> groupedArtifacts = new Map<String,List<MDTArtifact>>();
   List<String> allSortedIdentifier = new List<String>();
+  List<String> filteredSortedIdentifier = new List<String>();
   List<MDTArtifact>  applicationsArtifacts = new List<MDTArtifact>();
   List<MDTArtifact>  applicationsLastestVersion = new List<MDTArtifact>();
 
@@ -54,24 +55,14 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
       currentBranchFilter = branch;
       currentSelectedBranch = branch;
     }
+    filterIdentifier();
   }
-/*
-  Future loadApp() async{
-    error = null;
-    try {
-      isHttpLoading = true;
-      var app= await _mdtQueryService.getApplication(currentApp.uuid);
-      currentApp = app;
-      await loadAppVersions();
 
-    } on ApplicationError catch(e) {
-      error = new UIError(LoginError.errorCode,e.message,ErrorType.ERROR);
-    } catch(e) {
-      error = new UIError("UNKNOWN ERROR","Unknown error $e",ErrorType.ERROR);
-    } finally {
-      isHttpLoading = false;
-    }
-  }*/
+  void filterIdentifier(){
+    filteredSortedIdentifier.clear();
+    filteredSortedIdentifier.addAll(allSortedIdentifier.where((identifier) => identifier.endsWith(currentBranchFilter)).toList()
+        ..sort((a, b) => b.compareTo(a)));
+  }
 
   Future loadAppVersions() async{
     error = null;
@@ -114,6 +105,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
       groupedArtifacts[key].add(artifact);
     }
     allAvailableBranches = allAvailableBranches.toSet().toList()..sort();
+    filterIdentifier();
     // allAvailableBranches.insert(0, "_All");
   }
 /*

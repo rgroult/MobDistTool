@@ -87,7 +87,13 @@ class MDTArtifact{
     uuid = map["uuid"];
     branch = map["branch"];
     name = map["name"];
-    //creationDate = DateTime.parse(map["creationDate"]);
+    //creationDate = map["creationDate"];
+    try {
+      creationDate = DateTime.parse(map["creationDate"]);
+    }
+    catch(e) {
+     // print('Error $error');
+    }
     version = map["version"];
     sortIdentifier = map["sortIdentifier"];
     size = map['size']!=null ? map['size']:0;

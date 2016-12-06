@@ -68,3 +68,20 @@
     text-align: left;
     border:thin solid black;
 }
+
+.no_margin_bottom {
+    margin-bottom: 0px;
+}
+
+.admin_button {
+    color: red;
+}
+
+.appDetailIcon {
+    max-width: 128px;
+    max-height: 128px;
+    min-width: 64px;
+    min-height: 64px;
+    width: auto;
+    height: auto;
+}

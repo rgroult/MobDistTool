@@ -16,9 +16,7 @@ class ArtifactComponent extends BaseComponent {
   @Input()
   bool canDelete = false;
   @Input()
-  MDTArtifact artifact = new MDTArtifact({});
-  @Input()
-  bool isLast  = true;
+  MDTArtifact artifact;
 
   bool isCollapsed = true;
 
@@ -29,11 +27,19 @@ class ArtifactComponent extends BaseComponent {
   bool get canInstall => ((global_service.currentDevice == Platform.IOS) || (global_service.currentDevice == Platform.ANDROID));
 
   void downloadArtifact(){
-   // mdtQueryService.downloadArtifact(artifact.uuid);
+    _mdtQueryService.downloadArtifact(artifact.uuid);
+  }
+
+  void downloadOrInstall(){
+    if (canInstall){
+      installArtifact();
+    }else {
+      downloadArtifact();
+    }
   }
 
   void installArtifact(){
-  //  mdtQueryService.InstallArtifact(artifact.uuid);
+    _mdtQueryService.InstallArtifact(artifact.uuid);
   }
 
   void deleteArtifact(){
