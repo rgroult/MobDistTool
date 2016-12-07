@@ -4,6 +4,7 @@ import 'dart:async';
 
 @Component(
     selector: 'route_bar',
+    directives: const [ROUTER_DIRECTIVES],
     templateUrl: 'route_bar_component.html')
 class RouteBarComponent implements OnInit{
   final Router _router;
@@ -16,22 +17,31 @@ class RouteBarComponent implements OnInit{
       this.handleUrlChange(change);
     });
   }
+
+  List<String> routerLink(String routeName, Map<String,String> params){
+    if ( params != null ){
+      return [routeName,params];
+    }
+    return [routeName];
+  }
   Future handleUrlChange(String url) async {
     var instruction = await _router.recognize(url);
     print ("router instrction $instruction");
     var routeName = instruction.component.routeName;
     routeHistory.clear();
-    routeHistory.add({"path": "/home", "name":"Home","status":"active"});
+    routeHistory.add({"name": "Home", "displayname":"Home"});
     //ugly swith , should found a better way
     switch (routeName){
       case "Home":
+        //add applications
+        routeHistory.add({"name": "Apps", "displayname":"Applications"});
         break;
       case "Apps":
-        routeHistory.add({"path": "/apps", "name":"Applications","status":"active"});
+        routeHistory.add({"name": "Apps", "displayname":"Applications"});
         break;
       case "Versions":
-        routeHistory.add({"path": "/apps", "name":"Applications","status":"active"});
-        routeHistory.add({"path": "/versions", "name":"Versions","status":"active"});
+        routeHistory.add({"name": "Apps", "displayname":"Applications"});
+        routeHistory.add({"name": "Versions", "displayname":"Versions","params":instruction.component.params});
         break;
       case "Account":
         break;
