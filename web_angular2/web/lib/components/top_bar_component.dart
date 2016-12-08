@@ -1,12 +1,16 @@
 import 'package:angular2/core.dart';
+import 'dart:async';
 import '../commons.dart';
 
 @Component(
     selector: 'top_bar',
     templateUrl: 'top_bar_component.html')
-class TopBarComponent {
+class TopBarComponent implements OnInit{
   bool get isSystemAdmin => _globalService.isConnectedUserAdmin;
   bool get adminOption => _globalService.adminOptionsDisplayed;
+  void set adminOption(bool adminOptionsDisplayed) {
+    _globalService.adminOptionsDisplayed = adminOptionsDisplayed;
+  }
   bool get isUserConnected => _globalService.hasConnectedUser;
   String get currentUsername => _globalService.connectedUser.name;
   final ModalService _modalService;
@@ -18,6 +22,11 @@ class TopBarComponent {
 
   void displayRegisterPopup(){
     _modalService.displayRegister();
+  }
+
+
+  void logout(){
+
   }
 
   TopBarComponent(this._modalService,this._globalService);

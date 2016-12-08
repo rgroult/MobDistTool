@@ -24,6 +24,7 @@ class ModalsComponent implements OnInit {
       //call hide button
       querySelector("#allModalsCloseButton").click();
     }
+    print("change modal mode to $_currentModal");
   }
   var _currentModal = ModalRequired.NONE;
 

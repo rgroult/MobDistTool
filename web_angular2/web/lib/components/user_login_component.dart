@@ -20,6 +20,10 @@ class UserLoginComponent extends BaseComponent{
     loginUser(email,password);
   }
 
+  void displayRegister(){
+    _modalService.displayRegister();
+  }
+
   Future loginUser(String email, String password) async {
     var connectedUser = null;
     error = null;
@@ -29,26 +33,6 @@ class UserLoginComponent extends BaseComponent{
       global_service.updateCurrentUser(connectedUser);
       _modalService.hideModal();
       global_service.goToApps();
-/*
-      if (response["status"] == 200){
-        //hide popup
-        // mainComp().isUserConnected= true;
-        // mainComp().currentUser = response["data"];
-       var userData = response["data"];
-        scope.rootScope.context.userLogguedIn(new MDTUser(userData));
-        modal.close(true);
-        //mainComp().hidePopup();
-        if (userData["passwordStrengthFailed"] == true){
-          //go to settings with warning
-          locationService.router.go('account',{});
-        }else {
-          //go to apps
-          locationService.router.go('apps',{});
-        }
-
-      }else {
-        errorMessage = { 'type': 'danger', 'msg': 'Error: $response'};
-      }*/
     } on LoginError catch(e) {
       error = new UIError(LoginError.errorCode,e.message,ErrorType.ERROR);
       //errorMessage = { 'type': 'danger', 'msg': e.message};

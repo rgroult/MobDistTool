@@ -1,37 +1,56 @@
-        <div class="modal-body">
-            <form class="form-horizontal">
-                <fieldset>
-                    <legend>Register</legend>
-                    <div class="form-group">
-                        <label for="inputUsername" class="col-lg-2 control-label">User Name</label>
+<form  (ngSubmit)="register()" #registerorm="ngForm">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Register</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
 
-                        <div class="col-lg-10">
-                            <input type="email" class="form-control" id="inputUsername" placeholder="Username" ng-model="username">
-                        </div>
+                <div class="input-group">
+		                    <span class="input-group-addon">
+                                <i class="material-icons">account_circle</i>
+                            </span>
+                    <div class="form-group label-floating">
+                        <label class="control-label">User Name</label>
+                        <input type="text" class="form-control"  [(ngModel)]="username" autofocus>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                </div>
 
-                        <div class="col-lg-10">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email"  ng-model="email">
-                        </div>
+            </div>
+            <div class="col-lg-12">
+
+                <div class="input-group">
+		                    <span class="input-group-addon">
+                                <i class="material-icons">email</i>
+                            </span>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Email</label>
+                        <input type="email" class="form-control"  [(ngModel)]="email" autofocus>
                     </div>
-                    <div class="form-group">
+                </div>
 
-                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-
-                        <div class="col-lg-10">
-                            <!--  <input type="password" class="form-control" id="inputPassword"
-                                     placeholder="Password"  ng-model="password"> -->
-                            <input_password text="password" placeholder="'Password'"></input_password>
-                        </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="input-group">
+		<span class="input-group-addon">
+            <i class="material-icons">lock_outline</i>
+		</span>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Password</label>
+                        <input type="password" class="form-control" [(ngModel)]="password">
                     </div>
-                </fieldset>
-            </form>
-            <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" ng-click="registerUser(username,email,password)">Register  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
+        <div>
+            Already a account ?<button type="button" (click)="displayLogin()" class="btn btn-primary btn-simple btn-sm">Login</button>
         </div>
-
+        <error_comp [error]="error"></error_comp>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancel</button>
+        <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit" click="register()"> Login </button>
+        <material-spinner *ngIf="isHttpLoading" ></material-spinner>
+    </div>
+</form>

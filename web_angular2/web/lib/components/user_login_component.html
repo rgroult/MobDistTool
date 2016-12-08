@@ -34,7 +34,7 @@
         Lost my password ?<button type="button" class="btn btn-default btn-simple btn-sm">Recover</button>
     </div>
     <div>
-        Not already a account ?<button type="button" class="btn btn-primary btn-simple btn-sm">Register</button>
+        Not already a account ?<button type="button" (click)="displayRegister()" class="btn btn-primary btn-simple btn-sm">Register</button>
     </div>
     <error_comp [error]="error"></error_comp>
 </div>
@@ -44,39 +44,3 @@
     <material-spinner *ngIf="isHttpLoading" ></material-spinner>
 </div>
 </form>
-<!--
-            <div class="modal-body">
-                <form class="form-horizontal" ng-submit="login()">
-                    <fieldset>
-                        <legend>Login</legend>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-
-                            <div class="col-lg-10">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email"
-                                       ng-model="email" autofocus>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="inputPassword"
-                                       placeholder="Password" ng-model="password">
-                            </div>
-                        </div>
-                    </fieldset>
-                    <alert *ngIf="errorMessage != null" type="errorMessage['type']" close="hideMessage()">
-                        {{errorMessage['msg']}}
-                    </alert>
-                    <div class="modal-footer">
-                        <button type="button" *ngClass="isHttpLoading ? 'disabled' : ''" class="btn btn-default"
-                                data-dismiss="modal">Close
-                        </button>
-                        <button type="submit" class="btn btn-primary">Login <span
-                                ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span>
-                        </button>
-                    </div>
-                </form>
-            </div>
--->
