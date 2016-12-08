@@ -4,7 +4,7 @@
 
 import 'dart:async';
 import 'package:uuid/uuid.dart';
-import '../../../packages/objectory/objectory_console.dart';
+import 'package:objectory/objectory_console.dart';
 import '../../model/model.dart';
 import '../errors.dart';
 import 'artifacts_manager.dart' as artifact_mgr;

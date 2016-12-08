@@ -3,5 +3,5 @@
 // MIT-style license that can be found in the LICENSE file.
 
 library domain_model;
-import '../../packages/objectory/objectory.dart';
+import 'package:objectory/objectory.dart';
 part 'model_generated.dart';
