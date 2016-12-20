@@ -1,10 +1,12 @@
 import 'package:angular2/core.dart';
-import '../commons.dart';
+import 'package:angular2_components/angular2_components.dart';
 import 'dart:async';
+import '../commons.dart';
 
 @Component(
     selector: 'login_comp',
-    directives: const [ErrorComponent],
+    directives: const [ErrorComponent,materialDirectives],
+    providers: materialProviders,
     templateUrl: 'user_login_component.html')
 class UserLoginComponent extends BaseComponent{
   MDTQueryService _mdtQueryService;

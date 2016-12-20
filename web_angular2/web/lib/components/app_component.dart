@@ -11,6 +11,8 @@ import '../all_angular_components.dart';
 @RouteConfig(const [
   const Route(path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true),
   const Route(path: '/apps', name: 'Apps', component: ApplicationListComponent),
+  const Route(path: '/account', name: 'Account', component: AccountComponent),
+  const Route(path: '/administration', name: 'Administration', component: AdministrationComponent),
   const Route(path: '/versions/:appid', name: 'Versions', component: ApplicationDetailComponent)
 ])
 class AppComponent {

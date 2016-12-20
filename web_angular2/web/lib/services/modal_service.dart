@@ -1,6 +1,7 @@
 import 'package:angular2/core.dart';
 import 'dart:html';
 import  '../components/modals_components.dart';
+import '../model/mdt_model.dart';
 
 @Injectable()
 class ModalService {
@@ -12,6 +13,14 @@ class ModalService {
 
   void displayLogin(){
     _modalComponent.displayModal(ModalRequired.LOGIN);
+  }
+
+  void displayCreateApplication(){
+    _modalComponent.displayApplicationEdition(false);
+  }
+
+  void displayEditApplication(MDTApplication app){
+    _modalComponent.displayApplicationEdition(true,app: app);
   }
 
   void displayRegister(){

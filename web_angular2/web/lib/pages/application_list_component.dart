@@ -10,17 +10,22 @@ import '../commons.dart';
     providers: materialProviders,
 )
 class ApplicationListComponent extends BaseComponent implements OnInit{
+    ModalService _modalService;
     final allPlatformsFilters = ['All','iOS','Android'];
     var currentPlatformFilter = '';
     var currentSelectedPlatform = 'All';
     List<String> applicationFavorites = new List<String>();
+    var isFavoritesExpanded = false;
+    var isOthersAppExpanded = false;
 
-    ApplicationListComponent(GlobalService globalService) : super.withGlobal(globalService);
+    ApplicationListComponent(GlobalService globalService,this._modalService) : super.withGlobal(globalService);
     List<MDTApplication> allFilteredApplications = [];
     List<MDTApplication> favoritesFilteredApplications = [];
 
-    Future ngOnInit() {
-      refreshApplications();
+    Future ngOnInit() async {
+      await refreshApplications();
+      isFavoritesExpanded = favoritesFilteredApplications.isNotEmpty;
+      isOthersAppExpanded = !isFavoritesExpanded;
     }
 
     void selectApplication(String appUUID){
@@ -33,6 +38,10 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
       }
     }
 
+    void forceRefresh(){
+      refreshApplications(forceRefresh: true);
+    }
+
     Future refreshApplications({bool forceRefresh: false}) async{
       var errorOccured = await global_service.loadAppsIfNeeded(forceRefresh:forceRefresh);
       manageLoadAppResult(errorOccured);
@@ -41,6 +50,7 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
 
     void filterApplications(){
        var apps = global_service.allApps;
+       applicationFavorites = global_service.connectedUser.favoritesApplicationsUUID;
         allFilteredApplications.clear();
         favoritesFilteredApplications.clear();
         String currentFilter = currentPlatformFilter.toLowerCase();
@@ -68,6 +78,10 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
 
     bool isFavorite(MDTApplication app){
       return applicationFavorites.contains(app.uuid);
+    }
+
+    void createApplication(){
+      _modalService.displayCreateApplication();
     }
 }
 

@@ -7,8 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/home">
-                <img alt="MDT" class="brandIcon" src="images/logo_32.png">
+            <a class="navbar-brand" [routerLink]="['Home']"><img alt="MDT" class="brandIcon" src="images/logo_32.png">
             </a>
         </div>
 
@@ -30,8 +29,10 @@
                 </li>
             </ul> -->
             <ul *ngIf="isUserConnected" class="nav navbar-nav navbar-right">
-                <li ng-if="isSystemAdmin && adminOption" role="presentation"><a href="#/console">Logs</a></li>
-                <li ng-if="isSystemAdmin && adminOption" role="presentation"><a href="#/users">Users Administration</a></li>
+
+                <li ng-if="isSystemAdmin && adminOption" role="presentation">
+                    <a [routerLink]="['Administration']">Administration</a>
+                </li>
                 <li class="navbar-brand">Welcome {{currentUsername}}</li>
                 <li class="dropdown">
                     <a href="javascript:void(0)" data-target="#" class="dropdown-toggle"
@@ -41,7 +42,8 @@
                         <div class="ripple-wrapper"></div>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/account">Settings</a></li>
+                        <li><a [routerLink]="['Account']">Settings</a></li>
+                     <!--   <li><material-checkbox [(ngModel)]="adminOption" [checked]="false" label="Display Admin Options"></material-checkbox></li> -->
                         <li><a><label class="checkbox-inline"><input [(ngModel)]="adminOption" type="checkbox" value="">Display Admin Options</label></a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0)" (click)="logout()">Logout</a></li>

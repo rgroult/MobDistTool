@@ -1,9 +1,13 @@
 import 'package:angular2/core.dart';
 import 'dart:async';
+import 'package:angular2/router.dart';
+import 'package:angular2_components/angular2_components.dart';
 import '../commons.dart';
 
 @Component(
     selector: 'top_bar',
+    directives: const [ROUTER_DIRECTIVES,materialDirectives],
+    providers: materialProviders,
     templateUrl: 'top_bar_component.html')
 class TopBarComponent implements OnInit{
   bool get isSystemAdmin => _globalService.isConnectedUserAdmin;

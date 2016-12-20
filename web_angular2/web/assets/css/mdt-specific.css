@@ -37,6 +37,21 @@
     margin: 0 0 0px;
 }
 
+material-input .label{
+    text-align: left;
+}
+
+material-input {
+    width: 100%;
+}
+
+.uppercase-label {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    color: rgba(0,0,0,0.54);
+}
+
 .platformandroid {
    // float: left;
     //vertical-align:middle;
