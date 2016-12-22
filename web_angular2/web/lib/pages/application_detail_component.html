@@ -21,6 +21,12 @@
 
     <div class="row">
         <material-expansionpanel-set>
+            <div class="col-sm-12 visible-sm visible-xs">
+                <material-expansionpanel wide *ngFor="let sortIdentifier of filteredSortedIdentifier"  [showSaveCancel]=false secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
+                    <artifact *ngFor="let artifact of groupedArtifacts[sortIdentifier]"  [sortIdentifier]="sortIdentifier" [artifact]="artifact" [canDelete]="canAdmin()" ></artifact>
+                </material-expansionpanel>
+            </div>
+
             <div class="col-md-6 hidden-sm hidden-xs">
                 <material-expansionpanel wide *ngFor="let sortIdentifier of filteredSortedIdentifier; let even = even"  [ngClass]="even ? '':'hidden'" [showSaveCancel]=false secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
                     <artifact *ngFor="let artifact of groupedArtifacts[sortIdentifier]"  [sortIdentifier]="sortIdentifier" [artifact]="artifact" [canDelete]="canAdmin()" ></artifact>

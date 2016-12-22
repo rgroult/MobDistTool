@@ -10,16 +10,16 @@
             apiKey : {{application.apiKey}}
             <div *ngIf="maxVersionEnabled">
                 <button type="button" (click)="isMaxVersionEnabledCollapsed = !isMaxVersionEnabledCollapsed" class="glyphicon btn btn-xs btn-flat btn-default">Max Version  <span [ngClass]="{'glyphicon-chevron-down': !isMaxVersionEnabledCollapsed, 'glyphicon-chevron-right': isMaxVersionEnabledCollapsed}"></span></button>
-                <div *ngIf="isMaxVersionEnabledCollapsed">
+                <div *ngIf="!isMaxVersionEnabledCollapsed">
                     appId : <b>{{application.uuid}}</b> <br/>
                     share Secret : <b>{{application.maxVersionSecretKey}}</b>
                 </div>
             </div>
             <br/>
             <br/>
-            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
-            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
-            <button type="button" class="btn btn-xs btn-flat btn-danger" ng-click="addVersion()"><i class="material-icons">add</i> Add Version</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
+            <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="addVersion()"><i class="material-icons">add</i> Add Version</button>
         </div>
     </div>
 </div>
@@ -27,7 +27,7 @@
     <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favorite
 </button>
 <button type="button" (click)="toggleAdministrators()" class="glyphicon btn btn-xs btn-flat btn-default">Administrators  <span [ngClass]="{'glyphicon-chevron-down': !isAdminUsersCollapsed, 'glyphicon-chevron-right': isAdminUsersCollapsed}"></span></button>
-<div *ngIf="isAdminUsersCollapsed">
+<div *ngIf="!isAdminUsersCollapsed">
     <div  *ngIf="canAdmin()" class="input-append">
         <input class1="form-control"  placeholder="administrator email" [(ngModel)]="administratorToAdd" />
         <button class="btn btn-xs btn-flat btn-danger" (click)="addAdministrator(administratorToAdd)">add</button>

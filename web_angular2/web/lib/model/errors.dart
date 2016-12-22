@@ -80,7 +80,7 @@ class UIError {
       case ErrorType.INFO:
         return "info";
       case ErrorType.SUCCESS:
-        return "sucess";
+        return "success";
     }
   }
 }

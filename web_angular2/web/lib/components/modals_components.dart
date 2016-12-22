@@ -1,4 +1,5 @@
 import 'package:angular2/core.dart';
+import 'dart:async';
 import '../services/modal_service.dart';
 import 'user_login_component.dart';
 import 'user_register_component.dart';
@@ -21,6 +22,8 @@ class ModalsComponent implements OnInit {
 
   void ngOnInit() {
     _modalService.registerComponent(this);
+
+    print("self ${querySelector("#allModals")}");
   }
 
   void displayModal(ModalRequired mode){
@@ -31,13 +34,17 @@ class ModalsComponent implements OnInit {
       //call hide button
       querySelector("#allModalsCloseButton").click();
     }
-    print("change modal mode to $_currentModal");
+    //print("change modal mode to $_currentModal");
   }
 
-  void displayApplicationEdition(bool isCreation, {MDTApplication app}){
+  void displayApplicationEdition(bool isCreation, {MDTApplication app}) {
     displayModal(ModalRequired.EDIT_APP);
+    new Future.delayed(new Duration(milliseconds: 100)).then( (content) {
+      parameterObject = app;
+    });
     parameterValue = isCreation;
-    parameterObject = app;
+    //await new Future.delayed(new Duration(milliseconds: 100));
+
   }
 
   var _currentModal = ModalRequired.NONE;

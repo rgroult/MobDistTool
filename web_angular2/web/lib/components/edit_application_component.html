@@ -1,4 +1,4 @@
-<form  (ngSubmit)="createOrEdit()" #loginForm="ngForm">
+<form  (ngSubmit)="createOrUpdateApp()" #loginForm="ngForm">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 *ngIf="!isModeEdition" class="modal-title">Create Application</h4>
@@ -10,11 +10,11 @@
         </div>
 
         <div class="input-group">
-            <div class="form-group label-floating">
-                <label class=" uppercase-label">Icon</label>
+            <div class="form-group">
+                <label class="col-lg-2 uppercase-label ">Icon</label>
                 <div class="col-lg-10">
                     <div class="media-left">
-                        <img class="media-object appDetailIcon" src="{{appIcon}}" alt="Application Icon">
+                        <img class="media-object appDetailIcon" src="{{appIcon}}" onError="this.src='images/placeholder.jpg'" alt="Application Icon">
                     </div>
                     <div class="media-body">
                         <input type="file" (change)="onInputChange($event)" placeholder="Browse (max 200k)..." />
@@ -22,28 +22,27 @@
                 </div>
             </div>
         </div>
+
         <div style="display:flex; flex-direction:row;">
             <material-input style="flex:1" floatingLabel label="Description"  [(ngModel)]="appDescription" ></material-input>
         </div>
         <div class="tim-row">
-            <material-toggle class="uppercase-label" label="Max version"></material-toggle><br/>
+            <material-toggle color='deep-purple' class="uppercase-label" label="Max version" [(checked)]="maxVersionCheckEnabled" (ngModel)="maxVersionCheckEnabled"></material-toggle><br/>
              Enable max version check (share secret will be generated)
         </div>
 
         <div class="tim-row">
             <label class="uppercase-label">Platform</label>
-            <material-radio-group [selectionModel]="appPlatform">
-                <material-radio [checked]="false" [value]="'Android'">Android</material-radio>
-                <material-radio [checked]="false" [value]="'iOS'">iOS</material-radio>
+            <material-radio-group [(selected)]="appPlatform">
+                <material-radio [checked]="appPlatform == 'android'" [value]="'android'">Android</material-radio>
+                <material-radio [checked]="appPlatform == 'ios'" [value]="'ios'">iOS</material-radio>
              </material-radio-group>
         </div>
-
         <error_comp [error]="error"></error_comp>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancel</button>
-        <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit"> Login </button>
-        <material-spinner *ngIf="isHttpLoading" ></material-spinner>
+        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+        <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit" (click)="createOrUpdateApp()" > <span *ngIf="isModeEdition">Update</span> <span *ngIf="!isModeEdition">Create</span> <material-spinner *ngIf="isHttpLoading" ></material-spinner> </button>
     </div>
 </form>
 

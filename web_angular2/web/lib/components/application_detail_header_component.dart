@@ -1,24 +1,31 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 import 'dart:async';
+import '../services/modal_service.dart';
 import '../commons.dart';
 
 @Component(
     selector: 'application_detail_header',
     directives: const [ErrorComponent],
     templateUrl: 'application_detail_header_component.html')
-class ApplicationDetailHeaderComponent extends BaseComponent {
+class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit {
   @Input()
   MDTApplication application;
 
   MDTQueryService _mdtQueryService;
+  ModalService _modalService;
   bool get maxVersionEnabled => (application != null && application.maxVersionSecretKey != null);
   bool isMaxVersionEnabledCollapsed = true;
   bool isAdminUsersCollapsed = true;
+  String administratorToAdd;
 
   bool get isFavorite => global_service.isAppFavorite(application.uuid);
 
-  ApplicationDetailHeaderComponent(this._mdtQueryService, GlobalService globalService) : super.withGlobal(globalService);
+  ApplicationDetailHeaderComponent(this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
+
+  Future ngOnInit() async {
+    loadApp();
+  }
 
   bool canAdmin(){
     bool displayAdminOption  = global_service.adminOptionsDisplayed;
@@ -82,5 +89,9 @@ class ApplicationDetailHeaderComponent extends BaseComponent {
     } finally {
       isHttpLoading = false;
     }
+  }
+
+  void editApplication(){
+    _modalService.displayEditApplication(application);
   }
 }
