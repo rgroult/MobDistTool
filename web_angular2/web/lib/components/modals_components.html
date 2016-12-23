@@ -4,7 +4,7 @@
             <button type="button" id="allModalsCloseButton" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <login_comp *ngIf="isLoginModal"></login_comp>
             <register_comp *ngIf="isRegisterModal"></register_comp>
-            <edit_app_comp *ngIf="isEditAppModal" [isModeEdition]="parameterValue" [application]="parameterObject"></edit_app_comp>
+            <edit_app_comp *ngIf="isEditAppModal" [parameters]="parameters"></edit_app_comp>
         </div>
     </div>
 </div>

@@ -4,6 +4,10 @@ import 'package:angular2/core.dart';
 import 'package:angular2_components/angular2_components.dart';
 import '../commons.dart';
 
+abstract class EditAppComponentAware {
+  void updateNeeded();
+}
+
 @Component(
     selector: 'edit_app_comp',
     templateUrl: 'edit_application_component.html',
@@ -15,9 +19,8 @@ class EditAppComponent extends BaseComponent{
   EditAppComponent(this._mdtQueryService, GlobalService globalService) : super.withGlobal(globalService);
 
   MDTApplication _application;
-
-  @Input()
   var isModeEdition = false;
+  EditAppComponentAware delegate;
 
   var appName = '';
   var appDescription = '';
@@ -27,6 +30,12 @@ class EditAppComponent extends BaseComponent{
   bool maxVersionCheckEnabled = false;
 
   @Input()
+  void set parameters(Map<String,dynamic> params) {
+      isModeEdition = params["isModeEdition"];
+      application = params["application"];
+      delegate = params["delegate"];
+  }
+
   void set application(MDTApplication app){
     error = null;
     _application = app;
@@ -82,6 +91,8 @@ class EditAppComponent extends BaseComponent{
       isHttpLoading = true;
       MDTApplication appUpdated = await _mdtQueryService.updateApplication(application.uuid, appName,appDescription,appIconFile != null ? appIcon : null,maxVersionCheckEnabled);
       if (appUpdated !=null){
+        delegate?.updateNeeded();
+        //global_service.loadAppsIfNeeded(forceRefresh:true);
         //caller.applicationEditionSucceed(appUpdated);
         // caller.applicationListNeedBeReloaded();
         error = new UIError(' Application ${appUpdated.name} updated successfully!',"",ErrorType.SUCCESS);
@@ -111,8 +122,9 @@ class EditAppComponent extends BaseComponent{
       isHttpLoading = true;
       MDTApplication appCreated = await _mdtQueryService.createApplication(appName,appDescription,appPlatform,appIcon,maxVersionCheckEnabled);
       if (appCreated !=null){
+        delegate?.updateNeeded();
         //caller.applicationEditionSucceed(appCreated);
-        global_service.loadAppsIfNeeded(forceRefresh:true);
+       // global_service.loadAppsIfNeeded(forceRefresh:true);
         error = new UIError('Application ${appCreated.name} created successfully!',"",ErrorType.SUCCESS);
       }else {
         error = new UIError('/!\ Unknown error',"",ErrorType.ERROR);

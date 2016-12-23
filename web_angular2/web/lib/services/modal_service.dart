@@ -2,6 +2,7 @@ import 'package:angular2/core.dart';
 import 'dart:html';
 import  '../components/modals_components.dart';
 import '../model/mdt_model.dart';
+import '../components/edit_application_component.dart';
 
 @Injectable()
 class ModalService {
@@ -15,12 +16,14 @@ class ModalService {
     _modalComponent.displayModal(ModalRequired.LOGIN);
   }
 
-  void displayCreateApplication(){
-    _modalComponent.displayApplicationEdition(false);
+  void displayCreateApplication(EditAppComponentAware caller){
+   // ar isModeEdition = false
+    //application
+    _modalComponent.displayApplicationEdition({'isModeEdition':false,'delegate':caller});
   }
 
-  void displayEditApplication(MDTApplication app){
-    _modalComponent.displayApplicationEdition(true,app: app);
+  void displayEditApplication(MDTApplication app,EditAppComponentAware caller){
+    _modalComponent.displayApplicationEdition({'isModeEdition':true,'application':app,'delegate':caller});
   }
 
   void displayRegister(){

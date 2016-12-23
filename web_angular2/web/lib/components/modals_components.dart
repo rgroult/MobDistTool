@@ -17,8 +17,7 @@ enum ModalRequired { NONE, LOGIN , REGISTER,EDIT_APP }
 class ModalsComponent implements OnInit {
   final ModalService _modalService;
   ModalsComponent(this._modalService);
-  dynamic parameterValue;
-  dynamic parameterObject;
+  Map<String,dynamic> parameters;
 
   void ngOnInit() {
     _modalService.registerComponent(this);
@@ -27,8 +26,7 @@ class ModalsComponent implements OnInit {
   }
 
   void displayModal(ModalRequired mode){
-    parameterObject = null;
-    parameterValue = null;
+    parameters = null;
     _currentModal = mode;
     if (_currentModal == ModalRequired.NONE){
       //call hide button
@@ -37,12 +35,14 @@ class ModalsComponent implements OnInit {
     //print("change modal mode to $_currentModal");
   }
 
-  void displayApplicationEdition(bool isCreation, {MDTApplication app}) {
+  void displayApplicationEdition(Map<String,dynamic>  params /*bool isCreation, {MDTApplication app}*/) {
     displayModal(ModalRequired.EDIT_APP);
+    parameters = params;
     new Future.delayed(new Duration(milliseconds: 100)).then( (content) {
-      parameterObject = app;
+
     });
-    parameterValue = isCreation;
+   // parameterValue = isCreation;
+
     //await new Future.delayed(new Duration(milliseconds: 100));
 
   }

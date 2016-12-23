@@ -3,12 +3,13 @@ import 'package:angular2/router.dart';
 import 'dart:async';
 import '../services/modal_service.dart';
 import '../commons.dart';
+import '../components/edit_application_component.dart';
 
 @Component(
     selector: 'application_detail_header',
     directives: const [ErrorComponent],
     templateUrl: 'application_detail_header_component.html')
-class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit {
+class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,EditAppComponentAware {
   @Input()
   MDTApplication application;
 
@@ -92,6 +93,10 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit {
   }
 
   void editApplication(){
-    _modalService.displayEditApplication(application);
+    _modalService.displayEditApplication(application,this);
+  }
+
+  void updateNeeded(){
+    loadApp();
   }
 }

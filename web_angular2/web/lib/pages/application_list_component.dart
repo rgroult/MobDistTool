@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:angular2/core.dart';
 import 'package:angular2_components/angular2_components.dart';
 import '../commons.dart';
+import '../components/edit_application_component.dart';
 
 @Component(
     selector: 'application_list',
@@ -9,7 +10,7 @@ import '../commons.dart';
     directives: const [materialDirectives],
     providers: materialProviders,
 )
-class ApplicationListComponent extends BaseComponent implements OnInit{
+class ApplicationListComponent extends BaseComponent implements OnInit,EditAppComponentAware{
     ModalService _modalService;
     final allPlatformsFilters = ['All','iOS','Android'];
     var currentPlatformFilter = '';
@@ -36,6 +37,10 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
       if (errorOccured == null){
         return;
       }
+    }
+
+    void updateNeeded(){
+      refreshApplications(forceRefresh:true);
     }
 
     void forceRefresh(){
@@ -81,7 +86,7 @@ class ApplicationListComponent extends BaseComponent implements OnInit{
     }
 
     void createApplication(){
-      _modalService.displayCreateApplication();
+      _modalService.displayCreateApplication(this);
     }
 }
 
