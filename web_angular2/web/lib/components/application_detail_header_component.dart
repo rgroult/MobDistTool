@@ -1,5 +1,6 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
+import 'package:angular2_components/angular2_components.dart';
 import 'dart:async';
 import '../services/modal_service.dart';
 import '../commons.dart';
@@ -7,7 +8,8 @@ import '../components/edit_application_component.dart';
 
 @Component(
     selector: 'application_detail_header',
-    directives: const [ErrorComponent],
+    directives: const [ErrorComponent,materialDirectives],
+    providers: materialProviders,
     templateUrl: 'application_detail_header_component.html')
 class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,EditAppComponentAware {
   @Input()
@@ -21,13 +23,14 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
   String administratorToAdd;
 
   bool get isFavorite => global_service.isAppFavorite(application.uuid);
+  bool get canAdmin => canAdministrate(application);
 
   ApplicationDetailHeaderComponent(this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
 
   Future ngOnInit() async {
     loadApp();
   }
-
+/*
   bool canAdmin(){
     bool displayAdminOption  = global_service.adminOptionsDisplayed;
     if (global_service.connectedUser.isSystemAdmin && displayAdminOption){
@@ -41,11 +44,15 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
     }
     return false;
   }
-
+*/
   void toggleAdministrators(){
     isAdminUsersCollapsed = !isAdminUsersCollapsed;
   }
   void toggleFavorite(){
+
+  }
+
+  void deleteApplication(){
 
   }
 
@@ -56,7 +63,7 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
       await _mdtQueryService.addAdministrator(application,email);
       loadApp();
     }catch(e) {
-      error = new UIError(ConnectionError.errorCode,e.message,ErrorType.ERROR);
+      error = new UIError("ERROR","$e",ErrorType.ERROR);
     } finally {
       isHttpLoading = false;
     }
@@ -69,7 +76,7 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
       await _mdtQueryService.deleteAdministrator(application,email);
       loadApp();
     }catch(e) {
-      error = new UIError(ConnectionError.errorCode,e.message,ErrorType.ERROR);
+      error = new UIError("ERROR","$e",ErrorType.ERROR);
     } finally {
       isHttpLoading = false;
     }

@@ -142,10 +142,12 @@ abstract class MDTQueryServiceApplications {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${app.uuid}/adminUser';
     var appData = {"email": email};
     var response = await sendRequest('PUT', url,body: JSON.encode(appData));
+
     var responseJson = parseResponse(response);
 
-    if (response.status != 200){
-      throw new ApplicationError("Add administrator failed");
+    if (response.statusCode != 200){
+      var error = responseJson['error'] ?? {};
+      throw new ApplicationError("Add administrator failed: ${error['message'] ?? 'Unknown error'}");
     }
 
     if(responseJson["error"] != null) {
@@ -162,7 +164,7 @@ abstract class MDTQueryServiceApplications {
       throw new ApplicationError(responseJson["error"]["message"]);
     }
 
-    if (response.status != 200){
+    if (response.statusCode != 200){
       throw new ApplicationError("delete administrator failed");
     }
 

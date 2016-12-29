@@ -92,9 +92,6 @@ class EditAppComponent extends BaseComponent{
       MDTApplication appUpdated = await _mdtQueryService.updateApplication(application.uuid, appName,appDescription,appIconFile != null ? appIcon : null,maxVersionCheckEnabled);
       if (appUpdated !=null){
         delegate?.updateNeeded();
-        //global_service.loadAppsIfNeeded(forceRefresh:true);
-        //caller.applicationEditionSucceed(appUpdated);
-        // caller.applicationListNeedBeReloaded();
         error = new UIError(' Application ${appUpdated.name} updated successfully!',"",ErrorType.SUCCESS);
       }else {
         error = new UIError('/!\ Unknown error',"",ErrorType.ERROR);

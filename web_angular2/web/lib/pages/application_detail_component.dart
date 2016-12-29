@@ -34,6 +34,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
   bool isMaxVersionEnabledCollapsed = true;
   bool get maxVersionEnabled => (currentApp != null && currentApp.maxVersionSecretKey != null);
   String administratorToAdd;
+  bool get canAdmin => canAdministrate(currentApp);
 
   ApplicationDetailComponent(this._routeParams,this._mdtQueryService, GlobalService globalService) : super.withGlobal(globalService);
 
@@ -81,7 +82,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
         applicationsLastestVersion=latestArtifacts;
       }
     } on ArtifactsError catch(e) {
-      error = new UIError(LoginError.errorCode,e.message,ErrorType.ERROR);
+      error = new UIError(ArtifactsError.errorCode,e.message,ErrorType.ERROR);
     } catch(e) {
       error = new UIError("UNKNOWN ERROR","Unknown error $e",ErrorType.ERROR);
     } finally {
@@ -135,7 +136,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
       return "No Branch";
     }
   }
-
+/*
   //admin
   bool canAdmin(){
     bool displayAdminOption  =  global_service.adminOptionsDisplayed;
@@ -149,5 +150,5 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
       return true;
     }
     return false;
-  }
+  }*/
 }

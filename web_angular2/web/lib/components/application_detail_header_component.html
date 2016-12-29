@@ -3,38 +3,110 @@
         <img class="media-object appDetailIcon" src="{{application.appIcon}}" alt="appIcon" onError="this.onError=null;this.src='images/placeholder.jpg'">
     </div>
     <div class="media-body">
-        <h4 class="media-heading"><span class="platform{{application.platform}}"></span>{{application.name}}</h4>
+        <h4 class="media-heading">
+            <span class="platform{{application.platform}}"></span>{{application.name}}
+        </h4>
         {{application.description}}
         <br/>
-        <div *ngIf="canAdmin()">
+        <div *ngIf="canAdmin">
             apiKey : {{application.apiKey}}
             <div *ngIf="maxVersionEnabled">
-                <button type="button" (click)="isMaxVersionEnabledCollapsed = !isMaxVersionEnabledCollapsed" class="glyphicon btn btn-xs btn-flat btn-default">Max Version  <span [ngClass]="{'glyphicon-chevron-down': !isMaxVersionEnabledCollapsed, 'glyphicon-chevron-right': isMaxVersionEnabledCollapsed}"></span></button>
+                <button type="button" (click)="isMaxVersionEnabledCollapsed = !isMaxVersionEnabledCollapsed" class="glyphicon btn btn-xs btn-flat btn-default">Max Version
+                    <i *ngIf="!isMaxVersionEnabledCollapsed" class="material-icons">keyboard_arrow_up</i>
+                    <i *ngIf="isMaxVersionEnabledCollapsed" class="material-icons">keyboard_arrow_down</i>
+                </button>
                 <div *ngIf="!isMaxVersionEnabledCollapsed">
                     appId : <b>{{application.uuid}}</b> <br/>
                     share Secret : <b>{{application.maxVersionSecretKey}}</b>
                 </div>
             </div>
-            <br/>
-            <br/>
-            <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
-            <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
-            <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="addVersion()"><i class="material-icons">add</i> Add Version</button>
+            <!--      <br/>
+                  <br/>
+                  <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
+                  <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
+                  <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="addVersion()"><i class="material-icons">add</i> Add Version</button>
+                  -->
         </div>
     </div>
 </div>
-<button (click)="toggleFavorite()" type="button" class="btn btn-sm" [ngClass]="isFavorite ? 'active  btn-success' : ' btn-default'">
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favorite
-</button>
-<button type="button" (click)="toggleAdministrators()" class="glyphicon btn btn-xs btn-flat btn-default">Administrators  <span [ngClass]="{'glyphicon-chevron-down': !isAdminUsersCollapsed, 'glyphicon-chevron-right': isAdminUsersCollapsed}"></span></button>
-<div *ngIf="!isAdminUsersCollapsed">
-    <div  *ngIf="canAdmin()" class="input-append">
-        <input class1="form-control"  placeholder="administrator email" [(ngModel)]="administratorToAdd" />
-        <button class="btn btn-xs btn-flat btn-danger" (click)="addAdministrator(administratorToAdd)">add</button>
+<div class="tim row">
+    <br/>
+    <button (click)="toggleFavorite()" class="btn btn-white btn-fab btn-fab-mini btn-round">
+        <i *ngIf="isFavorite" class="material-icons">favorite</i>
+        <i *ngIf="!isFavorite" class="material-icons">favorite_border</i>
+    </button> &nbsp; &nbsp;
+    <!--
+    <button (click)="toggleFavorite()" type="button" class="btn btn-sm" [ngClass]="isFavorite ? 'active  btn-success' : ' btn-default'">
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favorite
+    </button>
+    <button type="button" (click)="toggleAdministrators()" class="glyphicon btn btn-xs btn-flat btn-default">Administrators  <span [ngClass]="{'glyphicon-chevron-down': !isAdminUsersCollapsed, 'glyphicon-chevron-right': isAdminUsersCollapsed}"></span></button>
+    <div *ngIf="!isAdminUsersCollapsed">
+        <div  *ngIf="canAdmin" class="input-append">
+            <input class1="form-control"  placeholder="administrator email" [(ngModel)]="administratorToAdd" />
+            <button class="btn btn-xs btn-flat btn-danger" (click)="addAdministrator(administratorToAdd)">add</button>
+        </div>
+        <dl class="dl-horizontal" *ngFor="let admin of application.adminUsers">
+            <dt>{{admin.name}} :</dt>
+            <dd>{{admin.email}} <button type="button" *ngIf="canAdmin" class="btn btn-xs btn-flat btn-danger" (click)="deleteAdministrator(admin.email)">remove</button></dd>
+        </dl>
     </div>
-    <dl class="dl-horizontal" *ngFor="let admin of application.adminUsers">
-        <dt>{{admin.name}} :</dt>
-        <dd>{{admin.email}} <button type="button" *ngIf="canAdmin()" class="btn btn-xs btn-flat btn-danger" (click)="deleteAdministrator(admin.email)">remove</button></dd>
-    </dl>
+    <br/>
+    <button class="btn btn-white btn-sm btn-round">
+        <i class="material-icons">supervisor_account</i>Administrators
+    </button>
+    -->
+    <button *ngIf="canAdmin" (click)="editApplication()" data-toggle="modal" data-target="#allModals" class="btn btn-danger btn-fab btn-fab-mini btn-round">
+        <i  class="material-icons">mode_edit</i>
+    </button>
+    <button *ngIf="canAdmin" (click)="deleteApplication()" class="btn btn-danger btn-fab btn-fab-mini btn-round">
+        <i  class="material-icons">delete</i>
+    </button>
 </div>
+<br/>
+<div class="tim row">
+    <div class="col-sm-8 col-md-4">
+        <material-expansionpanel-set>
+            <material-expansionpanel  [showSaveCancel]=false name="Application Administrators">
+                <table class="table table-striped table-condensed">
+                    <tbody>
+                    <tr *ngFor="let admin of application.adminUsers">
+                        <td class="text-primary">{{admin.name}}  </td> <td>{{admin.email}} </td><td><material-button *ngIf="canAdmin" (click)="deleteAdministrator(admin.email)" icon><glyph icon="remove"></glyph></material-button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="input-group" *ngIf="canAdmin">
+		            <span class="input-group-addon">
+                        <i class="material-icons">supervisor_account</i>
+		            </span>
+                    <div class="form-group label-floating">
+                        <label class="control-label">new administrator Email</label>
+                        <input type="email" class="form-control"  [(ngModel)]="administratorToAdd" autofocus>
+                    </div>
+                    <span class="input-group-addon">
+                        <button *ngIf="canAdmin" (click)="addAdministrator(administratorToAdd)" class="btn btn-danger btn-fab btn-fab-mini btn-round">
+                            <i  class="material-icons">add</i>
+                        </button>
+                    </span>
+                </div>
+            </material-expansionpanel>
+        </material-expansionpanel-set>
+    </div>
+
+</div>
+<!--
+<div class="tim row">
+    <div *ngIf="!isAdminUsersCollapsed" class="col-sm-10 col-md-5" >
+        <div class="form-group">
+            <input type="text" value="" placeholder="Regular" class="form-control" />
+        </div>
+        <table class="table">
+            <tbody>
+            <tr *ngFor="let admin of application.adminUsers">
+                <td class="text-primary">{{admin.name}}  </td> <td>{{admin.email}} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> -->
+
 <error_comp [error]="error"></error_comp>

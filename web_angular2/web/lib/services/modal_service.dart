@@ -30,6 +30,10 @@ class ModalService {
     _modalComponent.displayModal(ModalRequired.REGISTER);
   }
 
+  void displayQrCode(MDTArtifact artifact){
+
+  }
+
   void hideModal(){
     _modalComponent.displayModal(ModalRequired.NONE);
   }
