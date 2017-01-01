@@ -63,9 +63,23 @@ class GlobalService implements OnInit  {
     return new Future.value(null);
   }
 
+  bool isFavorite(String uuid){
+    return _currentUser?.favoritesApplicationsUUID?.contains(uuid) ?? false;
+  }
+
+  void toggleFavorite(String uuid){
+    if (isFavorite(uuid)){
+      _currentUser?.favoritesApplicationsUUID?.remove(uuid);
+    }else {
+      _currentUser?.favoritesApplicationsUUID?.add(uuid);
+    }
+    _mdtQueryService.updateUser(_currentUser.email,favoritesApps:_currentUser?.favoritesApplicationsUUID);
+    //mdtQueryService.updateUser(currentUser.email,favoritesApps: applicationFavorites);
+  }
+  /*
   bool isAppFavorite(String uuid){
       return false;
-  }
+  }*/
 
   void goToApps(){
     _router.navigate(["Apps"]);

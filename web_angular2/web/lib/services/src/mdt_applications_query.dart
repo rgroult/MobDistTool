@@ -110,7 +110,7 @@ abstract class MDTQueryServiceApplications {
   Future<bool> deleteApplication(MDTApplication appToDelete) async {
     var url = '${mdtServerApiRootUrl}${appPath}/app/${appToDelete.uuid}';
     var response = await sendRequest('DELETE', url);
-    if (response.status == 200){
+    if (response.statusCode == 200){
       return new Future.value(true);
     }
     return new Future.value(false);

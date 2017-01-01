@@ -39,8 +39,8 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
   ApplicationDetailComponent(this._routeParams,this._mdtQueryService, GlobalService globalService) : super.withGlobal(globalService);
 
   Future<Null> ngOnInit() async {
-    var _uuid = _routeParams.get('appid');
-    currentApp = global_service.allApps.firstWhere((app) => app.uuid == _uuid);
+    var _uuid = _routeParams.get('appid') ?? "";
+    currentApp = global_service.allApps?.firstWhere((app) => app.uuid == _uuid);
     print("Selected App $currentApp");
     if (currentApp!=null){
       loadAppVersions();

@@ -134,35 +134,7 @@ class ApplicationListComponent1 extends BaseComponent  {
   }
 
   bool isFavorite(MDTApplication app){
-    return applicationFavorites.contains(app.uuid);
-  }
-
-  void addToFavorite(MDTApplication app){
-    if (!isFavorite(app)){
-      applicationFavorites.add(app.uuid);
-      updateUsersAppFavorites();
-    }
-  }
-
-  void removeToFavorite(MDTApplication app){
-    if (isFavorite(app)){
-      applicationFavorites.remove(app.uuid);
-      updateUsersAppFavorites();
-    }
-  }
-
-  void updateUsersAppFavorites(){
-  /*  MDTUser currentUser = scope.rootScope.context.currentUser;
-    currentUser.favoritesApplicationsUUID.clear();
-    currentUser.favoritesApplicationsUUID.addAll(applicationFavorites);
-    mdtQueryService.updateUser(currentUser.email,favoritesApps: applicationFavorites);*/
-  }
-
-  String iconForApp(MDTApplication app){
-    /*if (app.appIcon.length>0){
-      return app.appIcon;
-    }*/
-    return "js/holder.min.js?theme=gray";
+    return global_service.isFavorite(app.uuid);
   }
 
   void selectFilter(String platform){

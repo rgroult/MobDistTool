@@ -19,7 +19,6 @@ class RouteBarComponent implements OnInit{
       this.handleUrlChange(change);
     });
   }
-
   List<String> routerLink(String routeName, Map<String,String> params){
     if ( params != null ){
       return [routeName,params];

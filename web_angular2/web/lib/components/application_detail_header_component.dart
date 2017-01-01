@@ -15,17 +15,19 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
   @Input()
   MDTApplication application;
 
+  final Router _router;
   MDTQueryService _mdtQueryService;
   ModalService _modalService;
   bool get maxVersionEnabled => (application != null && application.maxVersionSecretKey != null);
   bool isMaxVersionEnabledCollapsed = true;
   bool isAdminUsersCollapsed = true;
-  String administratorToAdd;
+  String administratorToAdd ="";
+  bool showDeleteDialog = false;
 
-  bool get isFavorite => global_service.isAppFavorite(application.uuid);
+  bool get isFavorite => global_service.isFavorite(application.uuid);
   bool get canAdmin => canAdministrate(application);
 
-  ApplicationDetailHeaderComponent(this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
+  ApplicationDetailHeaderComponent(this._router,this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
 
   Future ngOnInit() async {
     loadApp();
@@ -49,14 +51,33 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
     isAdminUsersCollapsed = !isAdminUsersCollapsed;
   }
   void toggleFavorite(){
-
+    global_service.toggleFavorite(application.uuid);
   }
 
-  void deleteApplication(){
-
+  Future deleteApplication() async {
+    bool applicationisDeleted = await _mdtQueryService.deleteApplication(application);
+    if(applicationisDeleted){
+        global_service.loadAppsIfNeeded(forceRefresh: true);
+        _router.navigate(['Apps']);
+    }else {
+      error = new UIError("Error",'Unable to delete application',ErrorType.ERROR);
+    }
   }
+/*
+  mdtQueryService.deleteApplication(currentApp).then((result){
+  if (result){
+  //return to app
+  _parent.applicationListNeedBeReloaded();
+  _parent.locationService.router.go('apps',{});
+  }else{
+  errorMessage = {'type': 'danger', 'msg': 'Unable to delete application'};
+  }
+  });*/
 
   Future addAdministrator(String email) async{
+    if (email.length == 0 ){
+      return;
+    }
     error = null;
     try {
       isHttpLoading = true;
