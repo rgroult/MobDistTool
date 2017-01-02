@@ -3,6 +3,7 @@ import 'package:angular2/router.dart';
 import 'dart:async';
 import 'package:angular2_components/angular2_components.dart';
 import '../commons.dart';
+import '../services/modal_service.dart';
 
 @Component(
     selector: 'artifact',
@@ -10,7 +11,8 @@ import '../commons.dart';
     templateUrl: 'artifact_component.html')
 class ArtifactComponent extends BaseComponent {
   MDTQueryService _mdtQueryService;
-  ArtifactComponent(this._mdtQueryService, GlobalService globalService) : super.withGlobal(globalService);
+  ModalService _modalService;
+  ArtifactComponent(this._mdtQueryService, this._modalService, GlobalService globalService) : super.withGlobal(globalService);
   @Input()
   String sortIdentifier ="";
   @Input()
@@ -54,6 +56,7 @@ class ArtifactComponent extends BaseComponent {
     }else {
       qrCodeTitle = "$qrCodeTitle - ${artifact.version} - ${artifact.branch}";
     }
+    _modalService.displayQrCode(artifact,qrCodeTitle);
    // ArtifactDownloadQRCode.createQRCode(this._parent.modal,scope,qrCodeTitle,artifact.uuid);
   }
 }

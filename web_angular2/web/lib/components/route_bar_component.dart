@@ -27,7 +27,7 @@ class RouteBarComponent implements OnInit{
   }
   Future handleUrlChange(String url) async {
     var instruction = await _router.recognize(url);
-    print ("router instrction $instruction");
+    //print ("router instrction $instruction");
     var routeName = instruction.component.routeName;
     routeHistory.clear();
     routeHistory.add({"name": "Home", "displayname":"Home"});

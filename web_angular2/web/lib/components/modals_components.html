@@ -5,6 +5,7 @@
             <login_comp *ngIf="isLoginModal"></login_comp>
             <register_comp *ngIf="isRegisterModal"></register_comp>
             <edit_app_comp *ngIf="isEditAppModal" [parameters]="parameters"></edit_app_comp>
+            <qr_code_component *ngIf="isQrCodeModal" [parameters]="parameters"></qr_code_component>
         </div>
     </div>
 </div>

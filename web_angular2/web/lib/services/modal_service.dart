@@ -30,8 +30,8 @@ class ModalService {
     _modalComponent.displayModal(ModalRequired.REGISTER);
   }
 
-  void displayQrCode(MDTArtifact artifact){
-
+  void displayQrCode(MDTArtifact artifact,String title){
+    _modalComponent.displayModal(ModalRequired.QR_CODE,additionalsParameters:{'artifact':artifact,'title':title});
   }
 
   void hideModal(){
@@ -42,4 +42,5 @@ class ModalService {
 
   bool get isLoginModal =>  _modalComponent.isLoginModal;
   bool get isRegisterModal =>  _modalComponent.isRegisterModal;
+
 }

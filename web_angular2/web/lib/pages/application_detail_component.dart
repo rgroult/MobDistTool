@@ -5,11 +5,12 @@ import 'package:angular2/router.dart';
 import '../components/application_detail_header_component.dart';
 import '../commons.dart';
 import '../components/artifact_component.dart';
+import '../components/artifact_download_qrcode_component.dart';
 
 @Component(
     selector: 'application_detail',
     templateUrl: 'application_detail_component.html',
-    directives: const [materialDirectives,ApplicationDetailHeaderComponent,ErrorComponent,ArtifactComponent],
+    directives: const [materialDirectives,ApplicationDetailHeaderComponent,ErrorComponent,ArtifactComponent,ArtifactDownloadQRCodeComponent],
     providers: materialProviders,
     )
 class ApplicationDetailComponent extends BaseComponent implements OnInit{
