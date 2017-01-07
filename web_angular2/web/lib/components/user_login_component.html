@@ -1,46 +1,49 @@
-<form  (ngSubmit)="login()" #loginForm="ngForm">
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Login</h4>
-</div>
-<div class="modal-body">
-    <div class="row">
-        <div class="col-lg-12">
-
-            <div class="input-group">
-		<span class="input-group-addon">
-            <i class="material-icons">email</i>
-		</span>
-                <div class="form-group label-floating">
-                    <label class="control-label">Email</label>
-                    <input type="email" class="form-control"  [(ngModel)]="email" autofocus>
+<form (ngSubmit)="login()" #loginForm="ngForm">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Login</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="input-group">
+		            <span class="input-group-addon">
+                        <i class="material-icons">email</i>
+		            </span>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Email</label>
+                        <input type="email" class="form-control" [(ngModel)]="email" autofocus>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        <div class="col-lg-12">
-            <div class="input-group">
+            </div>
+            <div class="col-lg-12">
+                <div class="input-group">
 		<span class="input-group-addon">
             <i class="material-icons">lock_outline</i>
 		</span>
-                <div class="form-group label-floating">
-                    <label class="control-label">Password</label>
-                    <input type="password" class="form-control" [(ngModel)]="password">
+                    <div class="form-group label-floating">
+                        <label class="control-label">Password</label>
+                        <input type="password" class="form-control" [(ngModel)]="password">
+                    </div>
                 </div>
             </div>
         </div>
+        <div>
+            Lost my password ?
+            <button type="button" class="btn btn-default btn-simple btn-sm">Recover</button>
+        </div>
+        <div>
+            Not already a account ?
+            <button type="button" (click)="displayRegister()" class="btn btn-primary btn-simple btn-sm">Register
+            </button>
+        </div>
+        <error_comp [error]="error"></error_comp>
     </div>
-    <div>
-        Lost my password ?<button type="button" class="btn btn-default btn-simple btn-sm">Recover</button>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancel</button>
+        <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit" click="login()"> Login
+        </button>
+        <material-spinner *ngIf="isHttpLoading"></material-spinner>
     </div>
-    <div>
-        Not already a account ?<button type="button" (click)="displayRegister()" class="btn btn-primary btn-simple btn-sm">Register</button>
-    </div>
-    <error_comp [error]="error"></error_comp>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancel</button>
-    <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit" click="login()"> Login </button>
-    <material-spinner *ngIf="isHttpLoading" ></material-spinner>
-</div>
 </form>

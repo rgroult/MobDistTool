@@ -5,6 +5,12 @@ import 'package:angular2_components/angular2_components.dart';
 import '../commons.dart';
 import '../services/modal_service.dart';
 
+class ArtifactDeletedEvent{
+  MDTArtifact artifact;
+  String sortIdentifier;
+  ArtifactDeletedEvent(this.artifact,this.sortIdentifier);
+}
+
 @Component(
     selector: 'artifact',
     directives: const [materialDirectives],
@@ -19,6 +25,8 @@ class ArtifactComponent extends BaseComponent {
   bool canDelete = false;
   @Input()
   MDTArtifact artifact;
+  @Output()
+  var artifactDeleted = new EventEmitter();
 
   bool isCollapsed = true;
 
@@ -45,6 +53,9 @@ class ArtifactComponent extends BaseComponent {
   }
 
   void deleteArtifact(){
+    artifactDeleted.emit(new ArtifactDeletedEvent(artifact,sortIdentifier));
+   // artifactDeleted.emit
+   // _mdt
    // _parent.deleteArtifact(artifact,sortIdentifier);
   }
 

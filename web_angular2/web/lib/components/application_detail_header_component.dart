@@ -14,6 +14,8 @@ import '../components/edit_application_component.dart';
 class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,EditAppComponentAware {
   @Input()
   MDTApplication application;
+  @Output()
+  var appUpdated = new EventEmitter();
 
   final Router _router;
   MDTQueryService _mdtQueryService;
@@ -23,6 +25,7 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
   bool isAdminUsersCollapsed = true;
   String administratorToAdd ="";
   bool showDeleteDialog = false;
+
 
   bool get isFavorite => global_service.isFavorite(application.uuid);
   bool get canAdmin => canAdministrate(application);
@@ -109,7 +112,7 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
       isHttpLoading = true;
       var app= await _mdtQueryService.getApplication(application.uuid);
       application = app;
-      //await loadAppVersions();
+      appUpdated.emit(app);
 
     } on ApplicationError catch(e) {
       error = new UIError(ConnectionError.errorCode,e.message,ErrorType.ERROR);

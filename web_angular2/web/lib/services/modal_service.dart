@@ -3,6 +3,7 @@ import 'dart:html';
 import  '../components/modals_components.dart';
 import '../model/mdt_model.dart';
 import '../components/edit_application_component.dart';
+import '../components/add_artifact_component.dart';
 
 @Injectable()
 class ModalService {
@@ -24,6 +25,10 @@ class ModalService {
 
   void displayEditApplication(MDTApplication app,EditAppComponentAware caller){
     _modalComponent.displayApplicationEdition({'isModeEdition':true,'application':app,'delegate':caller});
+  }
+
+  void displayAddArtifact(MDTApplication app,AddArtifactComponentAware caller){
+    _modalComponent.displayModal(ModalRequired.ADD_ARTIFACT,additionalsParameters:{'application':app,'delegate':caller});
   }
 
   void displayRegister(){

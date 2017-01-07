@@ -5,15 +5,16 @@ import 'user_login_component.dart';
 import 'user_register_component.dart';
 import 'edit_application_component.dart';
 import 'artifact_download_qrcode_component.dart';
+import 'add_artifact_component.dart';
 import 'dart:html';
 import '../model/mdt_model.dart';
 
 
-enum ModalRequired { NONE, LOGIN , REGISTER,EDIT_APP,QR_CODE }
+enum ModalRequired { NONE, LOGIN , REGISTER,EDIT_APP,QR_CODE,ADD_ARTIFACT }
 
 @Component(
     selector: 'modal_comp',
-    directives: const [UserLoginComponent,UserRegisterComponent,EditAppComponent,ArtifactDownloadQRCodeComponent],
+    directives: const [UserLoginComponent,UserRegisterComponent,EditAppComponent,ArtifactDownloadQRCodeComponent,AddArtifactComponent],
     templateUrl: 'modals_components.html')
 class ModalsComponent implements OnInit {
   final ModalService _modalService;
@@ -54,6 +55,7 @@ class ModalsComponent implements OnInit {
   bool get isDisplayed => !(_currentModal == ModalRequired.NONE);
   bool get isEditAppModal => _currentModal == ModalRequired.EDIT_APP;
   bool get isQrCodeModal => _currentModal == ModalRequired.QR_CODE;
+  bool get isAddArtifactModal => _currentModal == ModalRequired.ADD_ARTIFACT;
 
   var isHttpLoading = false;
   var errorMessage = null;

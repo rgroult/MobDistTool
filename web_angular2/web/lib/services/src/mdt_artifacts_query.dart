@@ -144,7 +144,7 @@ abstract class MDTQueryServiceArtifacts {
   Future<bool> deleteArtifact(String artifactId) async {
     var url = '${mdtServerApiRootUrl}${artifactsPath}/artifacts/${artifactId}';
     var response = await sendRequest('DELETE', url);
-    if (response.status == 200){
+    if (response.statusCode == 200){
       return new Future.value(true);
     }
     return new Future.value(false);

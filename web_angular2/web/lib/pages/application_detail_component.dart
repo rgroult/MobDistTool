@@ -6,6 +6,8 @@ import '../components/application_detail_header_component.dart';
 import '../commons.dart';
 import '../components/artifact_component.dart';
 import '../components/artifact_download_qrcode_component.dart';
+import '../components/add_artifact_component.dart';
+import '../services/modal_service.dart';
 
 @Component(
     selector: 'application_detail',
@@ -13,9 +15,10 @@ import '../components/artifact_download_qrcode_component.dart';
     directives: const [materialDirectives,ApplicationDetailHeaderComponent,ErrorComponent,ArtifactComponent,ArtifactDownloadQRCodeComponent],
     providers: materialProviders,
     )
-class ApplicationDetailComponent extends BaseComponent implements OnInit{
+class ApplicationDetailComponent extends BaseComponent implements OnInit,AddArtifactComponentAware{
   final RouteParams _routeParams;
   MDTQueryService _mdtQueryService;
+  ModalService _modalService;
   MDTApplication currentApp;
 
   //versions sorted
@@ -37,7 +40,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
   String administratorToAdd;
   bool get canAdmin => canAdministrate(currentApp);
 
-  ApplicationDetailComponent(this._routeParams,this._mdtQueryService, GlobalService globalService) : super.withGlobal(globalService);
+  ApplicationDetailComponent(this._routeParams,this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
 
   Future<Null> ngOnInit() async {
     var _uuid = _routeParams.get('appid') ?? "";
@@ -47,6 +50,14 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
       loadAppVersions();
     }
     //refreshApplications();
+  }
+
+  void updateNeeded(){
+    loadAppVersions();
+  }
+
+  void appUpdated(MDTApplication app){
+    currentApp = app;
   }
 
   void selectFilter(String branch){
@@ -137,19 +148,30 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit{
       return "No Branch";
     }
   }
-/*
-  //admin
-  bool canAdmin(){
-    bool displayAdminOption  =  global_service.adminOptionsDisplayed;
-    if (global_service.connectedUser.isSystemAdmin && displayAdminOption){
-      return true;
-    }
-    var email = global_service.connectedUser.email.toLowerCase();
-    var adminFound =  currentApp.adminUsers.firstWhere((o) => o.email!=null ? (o.email.toLowerCase() == email) : false, orElse: () => null);
 
-    if (adminFound != null && displayAdminOption){
-      return true;
+  void displayAddArtifactModal(){
+    _modalService.displayAddArtifact(currentApp,this);
+  }
+
+  void artifactDeleted(ArtifactDeletedEvent deletedEvent){
+    deleteArtifact(deletedEvent.artifact,deletedEvent.sortIdentifier);
+
+  }
+
+  Future deleteArtifact(MDTArtifact artifact, String fromSortIdentifier) async{
+    var result = await _mdtQueryService.deleteArtifact(artifact.uuid);
+    if (result == true){
+      if (fromSortIdentifier != null && fromSortIdentifier.isNotEmpty){
+        var isremoved = groupedArtifacts[fromSortIdentifier].remove(artifact);
+        if (isremoved && groupedArtifacts[fromSortIdentifier].isEmpty){
+          allSortedIdentifier.remove(fromSortIdentifier);
+          groupedArtifacts.remove(fromSortIdentifier);
+        }
+      }else{
+        applicationsLastestVersion.remove(artifact);
+      }
+    }else {
+      error = new UIError('Unable to delete version',"",ErrorType.ERROR);
     }
-    return false;
-  }*/
+  }
 }
