@@ -53,8 +53,8 @@ material-input {
 }
 
 .platformandroid {
-   // float: left;
-    //vertical-align:middle;
+    float: left;
+    vertical-align:middle;
     width:32px;
     height:32px;
     background-image: url(../../images/android_64.png);
@@ -97,6 +97,13 @@ material-input {
     max-height: 128px;
     min-width: 64px;
     min-height: 64px;
+    width: auto;
+    height: auto;
+}
+
+.small-media-icon{
+    height: 40px;
+    max-width: 80px;
     width: auto;
     height: auto;
 }
