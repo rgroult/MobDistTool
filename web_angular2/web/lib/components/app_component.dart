@@ -6,7 +6,7 @@ import '../all_angular_components.dart';
 @Component(
     selector: 'mdt_comp',
     directives: const [ROUTER_DIRECTIVES,materialDirectives,MDT_DIRECTIVES],
-    providers: const [materialProviders,ROUTER_PROVIDERS,MDT_PROVIDERS],
+    providers: const [materialProviders,MDT_PROVIDERS],
     templateUrl: 'app_component.html')
 @RouteConfig(const [
   const Route(path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true),

@@ -6,6 +6,7 @@ import 'package:http/src/exception.dart';
 import 'package:http/src/streamed_response.dart';
 import 'dart:async';
 import 'mdt_conf_query.dart';
+import '../global_service.dart';
 
 class MDTHttpClient extends BrowserClient {
   var _lastAuthorizationHeader = '';

@@ -1,6 +1,6 @@
 <form  (ngSubmit)="createOrUpdateApp()" #loginForm="ngForm">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
         <h4 *ngIf="!isModeEdition" class="modal-title">Create Application</h4>
         <h4 *ngIf="isModeEdition" class="modal-title">Edit Application</h4>
     </div>
@@ -31,7 +31,7 @@
              Enable max version check (share secret will be generated)
         </div>
 
-        <div class="tim-row">
+        <div class="tim-row" *ngIf="!isModeEdition">
             <label class="uppercase-label">Platform</label>
             <material-radio-group [(selected)]="appPlatform">
                 <material-radio [checked]="appPlatform == 'android'" [value]="'android'">Android</material-radio>
@@ -45,72 +45,3 @@
         <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit" (click)="createOrUpdateApp()" > <span *ngIf="isModeEdition">Update</span> <span *ngIf="!isModeEdition">Create</span> <material-spinner *ngIf="isHttpLoading" ></material-spinner> </button>
     </div>
 </form>
-
-<!--
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-body">
-            <form class="form-horizontal">
-                <fieldset>
-                    <legend ng-if="modeEdition">Edit Application</legend>
-                    <legend ng-unless="modeEdition">Create Application</legend>
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Name</label>
-
-                        <div class="col-lg-10">
-                            <input class="form-control"  placeholder="application name" ng-model="appName">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputFile" class="col-lg-2 control-label">Icon</label>
-                        <div class="media">
-                            <div class="col-lg-10">
-                                <div class="media-left">
-                                    <img class="media-object appDetailIcon" src="{{appIcon}}" alt="Application Icon">
-                                </div>
-                                <div class="media-body">
-
-                                    <input type="file" id="inputFile" class="form-control" placeholder="Browse (max 200k)..." file-model="upfilesSelected(files)">
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Description</label>
-
-                        <div class="col-lg-10">
-                            <input class="form-control"  placeholder="description" ng-model="appDescription">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Max version</label>
-                        <div class="col-lg-10">
-                            <label class="checkbox-inline"><input ng-model="maxVersionCheckEnabled" type="checkbox" value="">Enable max version check (share secret will be generated)</label>
-                        </div>
-                    </div>
-
-                    <div ng-unless="modeEdition" class="form-group">
-                        <label  class="col-lg-2 control-label">Platform</label>
-                        <div class="col-lg-10">
-                            <select class="form-control" placeholder="select application platform" name="select" ng-model="appPlatform">>
-                                <option value="Android">Android</option>
-                                <option value="iOS">iOS</option>
-                            </select>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-            <alert ng-if="errorMessage != null" type="errorMessage['type']" close="hideMessage()">{{errorMessage['msg']}}</alert>
-        </div>
-        <div class="modal-footer">
-            <button type="button" ng-class="isHttpLoading ? 'disabled' : ''" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button ng-if="modeEdition" type="button" class="btn btn-primary" ng-click="updateApp()">Update  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
-            <button ng-unless="modeEdition" type="button" class="btn btn-primary" ng-click="createApp()">Create  <span ng-class="isHttpLoading ? 'disabled glyphicon glyphicon-refresh glyphicon-refresh-animate' : ''"></span></button>
-        </div>
-    </div>
-</div>
-
--->

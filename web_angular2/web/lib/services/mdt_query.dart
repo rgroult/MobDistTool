@@ -32,7 +32,7 @@ abstract class fakeClass {
 @Injectable()
 class MDTQueryService extends fakeClass with MDTQueryServiceUsers,MDTQueryServiceApplications,MDTQueryServiceArtifacts{
  Client _http;
- MDTQueryServiceAware _mdtQueryServiceAware;
+ MDTQueryServiceAware mdtQueryServiceAware;
   /*
   void setHttpService(MDTQueryServiceAware mdtQueryServiceAware,Http http,LocationWrapper location) {
     this._http = http;
@@ -61,10 +61,11 @@ class MDTQueryService extends fakeClass with MDTQueryServiceUsers,MDTQueryServic
   Future checkAuthorizationHeader(Response response) async {
     if (response.statusCode == 401) {
       //return to home / login
-      if (_mdtQueryServiceAware != null){
+      mdtQueryServiceAware?.loginExceptionOccured();
+      /*if (_mdtQueryServiceAware != null){
 
         _mdtQueryServiceAware.loginExceptionOccured();
-      }
+      }*/
     }
     return;
     /*if (response.status == 401) {

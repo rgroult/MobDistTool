@@ -24,7 +24,7 @@ class ModalsComponent implements OnInit {
   void ngOnInit() {
     _modalService.registerComponent(this);
 
-    print("self ${querySelector("#allModals")}");
+   // print("self ${querySelector("#allModals")}");
   }
 
   void displayModal(ModalRequired mode,{Map<String,dynamic>  additionalsParameters}){
@@ -34,7 +34,6 @@ class ModalsComponent implements OnInit {
       //call hide button
       querySelector("#allModalsCloseButton").click();
     }
-    //print("change modal mode to $_currentModal");
   }
 
   void displayApplicationEdition(Map<String,dynamic>  params /*bool isCreation, {MDTApplication app}*/) {

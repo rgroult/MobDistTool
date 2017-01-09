@@ -5,16 +5,23 @@ import '../commons.dart';
 import 'dart:async';
 import 'dart:html' show window;
 import '../model/mdt_model.dart';
+import 'mdt_query.dart';
+import 'modal_service.dart';
 
 enum Platform { ANDROID, IOS, OTHER }
 
 @Injectable()
-class GlobalService implements OnInit  {
+class GlobalService  {
   final Router _router;
-  GlobalService(this._router,this._mdtQueryService);
+  final MDTQueryService _mdtQueryService;
+  final ModalService _modalService;
+
+  GlobalService(this._router,this._mdtQueryService,this._modalService){
+    ngOnInit();
+  }
   MDTUser _currentUser = null;
   DateTime _lastAppsRefresh = null;
-  MDTQueryService _mdtQueryService;
+
 
   MDTUser get connectedUser => _currentUser;
   bool get hasConnectedUser => _currentUser != null;
@@ -30,6 +37,7 @@ class GlobalService implements OnInit  {
   void ngOnInit() {
     _detectBrowser();
   }
+
 
   void _detectBrowser(){
     //Detect browser
@@ -74,12 +82,7 @@ class GlobalService implements OnInit  {
       _currentUser?.favoritesApplicationsUUID?.add(uuid);
     }
     _mdtQueryService.updateUser(_currentUser.email,favoritesApps:_currentUser?.favoritesApplicationsUUID);
-    //mdtQueryService.updateUser(currentUser.email,favoritesApps: applicationFavorites);
   }
-  /*
-  bool isAppFavorite(String uuid){
-      return false;
-  }*/
 
   void goToApps(){
     _router.navigate(["Apps"]);
@@ -90,6 +93,13 @@ class GlobalService implements OnInit  {
 
   void goToApplication(String appIdentifier){
     _router.navigate(['Versions', {'appid': appIdentifier}]);
+  }
+
+  void disconnect(){
+    _currentUser = null;
+    allApps.clear();
+    _lastAppsRefresh = null;
+    goToHome();
   }
 
   void loadMockApps(){

@@ -11,7 +11,7 @@
         <div *ngIf="canAdmin">
             apiKey : {{application.apiKey}}
             <div *ngIf="maxVersionEnabled">
-                <button type="button" (click)="isMaxVersionEnabledCollapsed = !isMaxVersionEnabledCollapsed" class="glyphicon btn btn-xs btn-flat btn-primary">Max Version
+                <button type="button" (click)="isMaxVersionEnabledCollapsed = !isMaxVersionEnabledCollapsed" class="btn btn-xs btn-primary btn-simple">Max Version
                     <i *ngIf="!isMaxVersionEnabledCollapsed" class="material-icons">keyboard_arrow_up</i>
                     <i *ngIf="isMaxVersionEnabledCollapsed" class="material-icons">keyboard_arrow_down</i>
                 </button>
@@ -20,12 +20,6 @@
                     share Secret : <b>{{application.maxVersionSecretKey}}</b>
                 </div>
             </div>
-            <!--      <br/>
-                  <br/>
-                  <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="editApplication()"><i class="material-icons">mode_edit</i> Edit</button>
-                  <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="deleteApplication()"><i class="material-icons">delete</i> Delete</button>
-                  <button type="button" class="btn btn-xs btn-flat btn-danger" data-toggle="modal" data-target="#allModals" (click)="addVersion()"><i class="material-icons">add</i> Add Version</button>
-                  -->
         </div>
     </div>
 </div>

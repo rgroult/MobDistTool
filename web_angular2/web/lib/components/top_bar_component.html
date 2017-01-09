@@ -51,8 +51,8 @@
                 </li>
             </ul>
 
-            <ul *ngIf="!isUserConnected" class="nav navbar-nav navbar-right">
-                <li ><a href="javascript:void(0)"  data-toggle="modal" data-target="#allModals" (click)="displayLoginPopup()">Login</a></li>
+            <ul  [style.display]="isUserConnected?'none':'block'"  class="nav navbar-nav navbar-right">
+                <li ><a href="javascript:void(0)"  id="TopBarLoginButtton" data-toggle="modal" data-target="#allModals" (click)="displayLoginPopup()">Login</a></li>
                 <li ><a href="javascript:void(0)"  data-toggle="modal" data-target="#allModals" (click)="displayRegisterPopup()">Register</a></li>
             </ul>
         </div>
