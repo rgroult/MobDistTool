@@ -59,7 +59,7 @@ material-input {
     height:32px;
     background-image: url(../../images/android_64.png);
     background-size: 100%;
-   // margin-right: 10px;
+    margin-right: 10px;
 }
 .platformios {
     float: left;
@@ -106,4 +106,5 @@ material-input {
     max-width: 80px;
     width: auto;
     height: auto;
+    margin-right: 10px;
 }

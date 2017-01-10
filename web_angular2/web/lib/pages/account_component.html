@@ -7,16 +7,36 @@
             <div class="row">
                 <div class="col-md-10">
                     <div class="input-group">
+		            <span class="input-group-addon">
+                        <i class="material-icons">email</i>
+		            </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">User Name</label>
+                            <input type="email" class="form-control" [(ngModel)]="newName">
+                        </div>
+                    </div>
+<!--
+                    <div class="input-group">
                         <label class="input-group-addon">User Name :</label>
                         <input type="text"  class="col-lg-2 form-control" [ngModel]="newName">
-                    </div>
+                    </div>-->
                     <br/>
 
                     <div class="input-group">
+		<span class="input-group-addon">
+            <i class="material-icons">lock_outline</i>
+		</span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Password</label>
+                            <input type="password" class="form-control" [(ngModel)]="newPassword">
+                        </div>
+                    </div>
+
+                <!--    <div class="input-group">
                         <label class="input-group-addon">Password :</label>
                         <input_password text="newPassword" placeholder="'new password'"></input_password>
-                        <!-- <input type="password"  placeholder="new password" class="col-lg-2 form-control" ng-model="newPassword"> -->
-                    </div>
+
+                    </div> -->
                     <button [ngClass]="canUpdate ? '' : 'invisible'" type="button" class="btn btn-xs btn-flat btn-success" (click)="update()"><i class="material-icons">done</i>Apply</button>
                     <button [ngClass]="canUpdate ? '' : 'invisible'" type="button" class="btn btn-xs btn-flat btn-primary" (click)="resetUser()"><i class="material-icons">cancel</i>Cancel</button>
                 </div>
@@ -48,3 +68,12 @@
         </div>
     </div>
 </div>
+<modal [(visible)]="showDeleteDialog">
+    <material-dialog class="no-header-footer-dialog" hideHeader="true" hideFooter="true">
+        <h3>"Are you sure to remove your administration rights from {{applicationToRemove?.name}} ?"</h3>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-simple" (click)="showDeleteDialog = false">Cancel</button>
+            <button type="button" class="btn btn-primary"  (click)="removeAppConfirmed()">Confirm</button>
+        </div>
+    </material-dialog>
+</modal>

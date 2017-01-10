@@ -16,7 +16,7 @@
             <div *ngIf="isFavoritesExpanded" class="row">
                 <!-- [routerLink]="['Versions', {appid: app.uuid}]" -->
                 <div  *ngFor="let app of favoritesFilteredApplications"  class="col-lg-4 col-md-6 col-sm-6">
-                    <a (click)="selectApplication(app.uuid)"><div class="mdt-card mdt-card-stats">
+                    <a  href="javascript:void(0)" (click)="selectApplication(app.uuid)"><div class="mdt-card mdt-card-stats">
                         <div class="mdt-card-header" data-background-color="purple">
                             <img class="card-image card-app-image" onError="this.onError=null;this.src='images/placeholder.jpg'" src="{{app.appIcon}}"/>
                         </div>
