@@ -8,6 +8,7 @@ import 'src/mdt_conf_query.dart';
 import 'src/mdt_users_query.dart';
 import 'src/mdt_applications_query.dart';
 import 'src/mdt_artifacts_query.dart';
+import 'src/mdt_http_client.dart';
 
 //num Platform { ANDROID, IOS, OTHER }
 
@@ -31,7 +32,7 @@ abstract class fakeClass {
 
 @Injectable()
 class MDTQueryService extends fakeClass with MDTQueryServiceUsers,MDTQueryServiceApplications,MDTQueryServiceArtifacts{
- Client _http;
+  Client _http;
  MDTQueryServiceAware mdtQueryServiceAware;
   /*
   void setHttpService(MDTQueryServiceAware mdtQueryServiceAware,Http http,LocationWrapper location) {
@@ -41,6 +42,11 @@ class MDTQueryService extends fakeClass with MDTQueryServiceUsers,MDTQueryServic
 
   MDTQueryService(this._http) {
     print("MDTQueryService constructor, mode ${const String.fromEnvironment('mode')} base URL $mdtServerApiRootUrl");
+  }
+
+  void logout(){
+    MDTHttpClient client =  this._http;
+    client.reset();
   }
 
   Map allHeaders({String contentType}) {

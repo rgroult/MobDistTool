@@ -11,6 +11,10 @@ import '../global_service.dart';
 class MDTHttpClient extends BrowserClient {
   var _lastAuthorizationHeader = '';
 
+  void reset(){
+    _lastAuthorizationHeader = '';
+  }
+
   Future<StreamedResponse> send(BaseRequest request) async {
     //Add authorization header if needed
     var mustManageAuthorization = mdtServerApiRootUrl.matchAsPrefix(request.url.toString()) != null;

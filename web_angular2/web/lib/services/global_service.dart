@@ -26,7 +26,7 @@ class GlobalService  {
   MDTUser get connectedUser => _currentUser;
   bool get hasConnectedUser => _currentUser != null;
   bool get isConnectedUserAdmin => _currentUser?.isSystemAdmin ?? false;
-  bool adminOptionsDisplayed = false;
+  bool adminOptionsDisplayed = true;
   Platform currentDevice = Platform.OTHER;
   var allApps = new List<MDTApplication>();
 
@@ -96,6 +96,7 @@ class GlobalService  {
   }
 
   void disconnect(){
+    _mdtQueryService.logout();
     _currentUser = null;
     allApps.clear();
     _lastAppsRefresh = null;

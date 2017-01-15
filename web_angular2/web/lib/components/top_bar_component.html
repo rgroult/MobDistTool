@@ -30,7 +30,7 @@
             </ul> -->
             <ul *ngIf="isUserConnected" class="nav navbar-nav navbar-right">
 
-                <li ng-if="isSystemAdmin && adminOption" role="presentation">
+                <li *ngIf="isSystemAdmin && adminOption" role="presentation">
                     <a [routerLink]="['Administration']">Administration</a>
                 </li>
                 <li class="navbar-brand">Welcome {{currentUsername}}</li>
@@ -44,7 +44,10 @@
                     <ul class="dropdown-menu">
                         <li><a [routerLink]="['Account']">Settings</a></li>
                      <!--   <li><material-checkbox [(ngModel)]="adminOption" [checked]="false" label="Display Admin Options"></material-checkbox></li> -->
-                        <li><a><label class="checkbox-inline"><input [(ngModel)]="adminOption" type="checkbox" value="">Display Admin Options</label></a></li>
+                        <li><a><material-checkbox
+                                [(checked)]="adminOption"
+                                label="Display Admin Options">
+                        </material-checkbox></a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
                     </ul>
