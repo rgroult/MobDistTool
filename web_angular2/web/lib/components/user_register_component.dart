@@ -2,6 +2,7 @@ import 'package:angular2/core.dart';
 import 'dart:async';
 import 'package:validator/validator.dart';
 import '../commons.dart';
+import 'dart:convert';
 
 @Component(
     selector: 'register_comp',
@@ -51,7 +52,8 @@ class UserRegisterComponent extends BaseComponent{
       isHttpLoading = true;
       response = await _mdtQueryService.registerUser(username,email,password);
       if (response["status"] == 200){
-        error = new UIError('Registration completed',"",ErrorType.SUCCESS);
+        var responseData = response["data"] ?? {};
+        error = new UIError('Registration completed',"${responseData['email']}. ${responseData['message'] ?? ''}",ErrorType.SUCCESS);
       }else {
         error = new UIError(RegisterError.errorCode,'Unknown error: $response',ErrorType.ERROR);
       }
