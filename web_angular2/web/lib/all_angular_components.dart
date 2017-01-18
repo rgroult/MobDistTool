@@ -15,6 +15,7 @@ import 'pages/application_list_component.dart';
 import 'pages/application_detail_component.dart';
 import 'pages/administration_component.dart';
 import 'pages/account_component.dart';
+import 'pages/activation_component.dart';
 
 export 'components/top_bar_component.dart';
 export 'components/bottom_bar_component.dart';
@@ -33,7 +34,8 @@ export 'pages/application_list_component.dart';
 export 'pages/application_detail_component.dart';
 export 'pages/administration_component.dart';
 export 'pages/account_component.dart';
+export 'pages/activation_component.dart';
 
 const List<Type> MDT_DIRECTIVES = const [BottomBarComponent,RouteBarComponent,TopBarComponent,ModalsComponent,
-HomeComponent,ApplicationListComponent,ApplicationDetailComponent,AdministrationComponent,AccountComponent,EditAppComponent];
+HomeComponent,ApplicationListComponent,ApplicationDetailComponent,AdministrationComponent,AccountComponent,EditAppComponent,ActivationComponent];
 const List<Type> MDT_PROVIDERS = const [ModalService,GlobalService,MDTQueryService];

@@ -10,6 +10,7 @@ import '../all_angular_components.dart';
     templateUrl: 'app_component.html')
 @RouteConfig(const [
   const Route(path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true),
+  const Route(path: 'activation', name: 'Activation', component: ActivationComponent),
   const Route(path: '/apps', name: 'Apps', component: ApplicationListComponent),
   const Route(path: '/account', name: 'Account', component: AccountComponent),
   const Route(path: '/administration', name: 'Administration', component: AdministrationComponent),
@@ -18,3 +19,4 @@ import '../all_angular_components.dart';
 class AppComponent {
 
 }
+// /web/index.html#/activation?token='

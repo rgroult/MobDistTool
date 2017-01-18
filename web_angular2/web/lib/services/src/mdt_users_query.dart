@@ -58,7 +58,7 @@ abstract class MDTQueryServiceUsers{
     var data = {"activationToken" : activationToken};
     var response = await sendRequest('POST', url, body: JSON.encode(data));
 
-    if (response.status == 200){
+    if (response.statusCode == 200){
       return;
     }
 
@@ -67,7 +67,7 @@ abstract class MDTQueryServiceUsers{
       throw new ActivationError(responseJson["error"]["message"]);
     }
 
-    if (response.status != 200){
+    if (response.statusCode != 200){
       throw new ActivationError("Registration error, please try later or contact an administrator.");
     }
   }

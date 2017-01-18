@@ -4,11 +4,12 @@ import 'package:angular2_components/angular2_components.dart';
 import '../commons.dart';
 import '../components/log_console_component.dart';
 import '../components/users_administration_component.dart';
+import '../components/administration_overview.dart';
 
 @Component(
     selector: 'administration_comp',
     templateUrl: 'administration_component.html',
-    directives: const [materialDirectives,ErrorComponent,LogConsoleComponent,UsersAdministrationComponent],
+    directives: const [materialDirectives,ErrorComponent,LogConsoleComponent,UsersAdministrationComponent,AdministrationOverviewComponent],
     providers: materialProviders,
     )
 class AdministrationComponent {

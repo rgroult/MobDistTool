@@ -1,16 +1,12 @@
 
 <material-tab-panel>
     <material-tab label="Overview">
-        <h1 class="text-center"> Server Management</h1>
+        <administration_overview></administration_overview>
     </material-tab>
     <material-tab label="Users Administration">
-        <div>
-            <users_administration ></users_administration>
-        </div>
+        <users_administration *deferredContent></users_administration>
     </material-tab>
     <material-tab label="Logs Console">
-        <div class="container">
-            <log_console class="tim-row"></log_console>
-        </div>
+        <log_console></log_console>
     </material-tab>
 </material-tab-panel>
