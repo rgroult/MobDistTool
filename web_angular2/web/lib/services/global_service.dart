@@ -26,7 +26,7 @@ class GlobalService  {
   MDTUser get connectedUser => _currentUser;
   bool get hasConnectedUser => _currentUser != null;
   bool get isConnectedUserAdmin => _currentUser?.isSystemAdmin ?? false;
-  bool adminOptionsDisplayed = true;
+  bool adminOptionsDisplayed = false;
   Platform currentDevice = Platform.OTHER;
   var allApps = new List<MDTApplication>();
 
