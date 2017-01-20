@@ -59,7 +59,7 @@
     </tr>
     </thead>
     <tbody >
-    <tr *ngFor='let user of allUsers' user_detail [user]="user">/tr>
+    <tr *ngFor='let user of allUsers' user_detail [user]="user" (userDeleted)="deleteUser($event)">/tr>
     </tbody>
 </table>
 </div>

@@ -108,3 +108,11 @@ material-input {
     height: auto;
     margin-right: 10px;
 }
+
+.form-compact {
+    margin: 0px;
+}
+
+.text-vertical-align {
+    vertical-align: middle !important;
+}

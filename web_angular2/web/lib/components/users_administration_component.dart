@@ -67,4 +67,15 @@ class UsersAdministrationComponent  extends BaseComponent implements OnInit {
       isHttpLoading = false;
     }
   }
+
+  Future deleteUser(MDTUser user) async{
+    try{
+      await _mdtQueryService.deleteUser(user.email);
+      userDeleted(user);
+    }catch(e){
+      error = new UIError("Unable to delete user ${user.email}",e.toString(),ErrorType.ERROR);
+      //_parent.errorMessage = {'type': 'danger', 'msg': 'Unable to delete user: ${e.toString()}'};
+    }
+
+  }
 }

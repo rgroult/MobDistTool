@@ -6,11 +6,16 @@ import '../services/mdt_query.dart';
 
 @Component(
     selector: '[user_detail]',
+    directives: const [materialDirectives],
+    providers: materialProviders,
     templateUrl: 'user_detail_component.html'
 )
 class UsersDetailComponent implements OnInit {
  @Input()
   MDTUser user;
+ @Output()
+ var userDeleted = new EventEmitter();
+
   //UsersAdministration _parent;
   MDTQueryService _mdtQueryService;
 
@@ -41,7 +46,8 @@ class UsersDetailComponent implements OnInit {
 
   Future delete() async{
     try{
-      await _mdtQueryService.deleteUser(user.email);
+      //await _mdtQueryService.deleteUser(user.email);
+      userDeleted.emit(user);
       //_parent.userDeleted(user);
     }catch(e){
       //_parent.errorMessage = {'type': 'danger', 'msg': 'Unable to delete user: ${e.toString()}'};
