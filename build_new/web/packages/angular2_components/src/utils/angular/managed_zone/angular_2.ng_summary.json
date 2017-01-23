@@ -1,0 +1,75 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.utils.angular.managed_zone.angular_2",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "5": false
+      },
+      {
+        "1": "src/managed_zone.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "src/managed_zone.dart"
+      }
+    ],
+    "5": [
+      {
+        "1": "Angular2ManagedZone",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "NgZone",
+            "4": "_ngZone"
+          }
+        ]
+      }
+    ],
+    "6": "angular_2.dart"
+  },
+  "type": {
+    "Angular2ManagedZone": {
+      "class": "Type",
+      "name": "Angular2ManagedZone",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/angular_2.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NgZone",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

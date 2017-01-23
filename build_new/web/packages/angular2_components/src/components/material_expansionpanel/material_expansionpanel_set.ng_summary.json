@@ -1,0 +1,85 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../model/action/async_action.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      },
+      {
+        "1": "material_expansionpanel.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "MaterialExpansionPanelSet",
+        "6": [
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "material_expansionpanel_set.dart"
+  },
+  "type": {
+    "MaterialExpansionPanelSet": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "material-expansionpanel-set",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialExpansionPanelSet",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_expansionpanel/material_expansionpanel_set.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "MaterialExpansionPanel",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": false,
+          "first": false,
+          "propertyName": "panels",
+          "read": null
+        }
+      ],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

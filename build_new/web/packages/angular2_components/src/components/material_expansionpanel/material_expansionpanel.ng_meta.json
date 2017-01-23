@@ -1,0 +1,378 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:intl/intl.dart",
+        "5": false
+      },
+      {
+        "1": "../button_decorator/button_decorator.dart",
+        "5": false
+      },
+      {
+        "1": "../content/deferred_content_aware.dart",
+        "5": false
+      },
+      {
+        "1": "../glyph/glyph.dart",
+        "5": false
+      },
+      {
+        "1": "../material_yes_no_buttons/material_yes_no_buttons.dart",
+        "5": false
+      },
+      {
+        "1": "../../model/action/async_action.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/managed_zone/angular_2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/async/async.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "MaterialExpansionPanel",
+        "5": [
+          {
+            "1": "ManagedZone",
+            "4": "_managedZone"
+          },
+          {
+            "1": "ChangeDetectorRef",
+            "4": "_changeDetector"
+          }
+        ],
+        "6": [
+          "DeferredContentAware",
+          "OnInit",
+          "OnDestroy"
+        ],
+        "7": [
+          {
+            "2": "ButtonDirective"
+          },
+          {
+            "2": "GlyphComponent"
+          },
+          {
+            "2": "MaterialSaveCancelButtonsDirective"
+          },
+          {
+            "2": "MaterialYesNoButtonsComponent"
+          },
+          {
+            "2": "NgIf"
+          }
+        ]
+      }
+    ],
+    "6": "material_expansionpanel.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../button_decorator/button_decorator.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../content/deferred_content_aware.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../glyph/glyph.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "../material_yes_no_buttons/material_yes_no_buttons.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "../../model/action/async_action.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "../../utils/angular/managed_zone/angular_2.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "../../utils/angular/properties/properties.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "../../utils/async/async.template.dart",
+        "4": "i8"
+      },
+      {
+        "1": "../../utils/disposer/disposer.template.dart",
+        "4": "i9"
+      }
+    ]
+  },
+  "type": {
+    "MaterialExpansionPanel": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "material-expansionpanel",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialExpansionPanel",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_expansionpanel/material_expansionpanel.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ManagedZone",
+                "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ChangeDetectorRef",
+                "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 4,
+      "inputs": {
+        "closeOnSave": "closeOnSave",
+        "isExpanded": "expanded",
+        "disabled": "disabled",
+        "saveDisabled": "saveDisabled",
+        "hideExpandedHeader": "hideExpandedHeader",
+        "disableHeaderExpansion": "disableHeaderExpansion",
+        "name": "name",
+        "secondaryText": "secondaryText",
+        "expandIcon": "expandIcon",
+        "showSaveCancel": "showSaveCancel",
+        "saveText": "saveText",
+        "cancelText": "cancelText"
+      },
+      "inputTypes": {
+        "closeOnSave": " bool",
+        "isExpanded": " bool",
+        "saveDisabled": " bool",
+        "hideExpandedHeader": " bool",
+        "disableHeaderExpansion": " bool",
+        "name": " String",
+        "secondaryText": " String",
+        "expandIcon": " String",
+        "showSaveCancel": " bool",
+        "saveText": " String",
+        "cancelText": " String"
+      },
+      "outputs": {
+        "isExpandedChange": "expandedChange",
+        "isExpandedChangeByUserAction": "expandedChangeByUser",
+        "close": "close",
+        "open": "open",
+        "save": "save",
+        "cancel": "cancel"
+      },
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        0,
+        1
+      ],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<div class=\"panel themeable\"\n     role=\"group\"\n     [attr.aria-label]=\"name\"\n     [attr.aria-expanded]=\"isExpanded\"\n     [class.open]=\"isExpanded\"\n     [class.background]=\"anotherExpanded\">\n\n  <!-- Title section -->\n  <header buttonDecorator\n          #expandCollapseButton\n          *ngIf=\"!isExpanded || !hideExpandedHeader\"\n          [disabled]=\"disabled\"\n          [class.closed] = \"!isExpanded\"\n          [class.disable-header-expansion]=\"disableHeaderExpansion\"\n          [attr.aria-label]=\"headerMsg\"\n          (trigger)=\"handleHeaderClick()\">\n    <div class=\"panel-name\">\n      <p class=\"primary-text\">{{name}}</p>\n      <p class=\"secondary-text\" *ngIf=\"secondaryText != null\">{{secondaryText}}</p>\n      <ng-content select=\"[name]\"></ng-content>\n    </div>\n\n    <div class=\"panel-description\">\n      <ng-content select=\"[value]\"></ng-content>\n    </div>\n\n    <glyph buttonDecorator\n           *ngIf=\"shouldShowExpandIcon\"\n           class=\"expand-button\"\n           [icon]=\"expandIcon\"\n           [class.expand-more]=\"shouldFlipExpandIcon\"\n           (trigger)=\"handleExpandIconClick()\">\n    </glyph>\n  </header>\n\n  <!-- Expanded section -->\n  <main [class.hidden]=\"!isExpanded\">\n    <div class=\"content-wrapper\" [class.hidden-header]=\"hideExpandedHeader\">\n      <div class=\"content\">\n        <ng-content></ng-content>\n      </div>\n      <glyph *ngIf=\"shouldShowHiddenHeaderExpandIcon\"\n             #expandCollapseButton\n             [icon]=\"expandIcon\"\n             class=\"expand-button\"\n             buttonDecorator\n             (trigger)=\"collapse()\"\n             [attr.aria-label]=\"closePanelMsg\">\n      </glyph>\n    </div>\n\n    <div *ngIf=\"!showSaveCancel\" class=\"toolbelt\">\n      <ng-content select=\"[toolbelt]\"></ng-content>\n    </div>\n\n    <material-yes-no-buttons\n        *ngIf=\"showSaveCancel\"\n        [pending]=\"activeSaveCancelAction\"\n        [yesText]=\"saveText\"\n        [noText]=\"cancelText\"\n        [yesDisabled]=\"saveDisabled\"\n        (yes)=\"doSave()\"\n        (no)=\"doCancel()\">\n    </material-yes-no-buttons>\n  </main>\n\n</div>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/material_expansionpanel/material_expansionpanel.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/material_expansionpanel/material_expansionpanel.scss.css"
+        ],
+        "ngContentSelectors": [
+          "[name]",
+          "[value]",
+          "*",
+          "[toolbelt]"
+        ]
+      },
+      "providers": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DeferredContentAware",
+              "moduleUrl": "asset:angular2_components/lib/src/components/content/deferred_content_aware.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "MaterialExpansionPanel",
+              "moduleUrl": "asset:angular2_components/lib/src/components/material_expansionpanel/material_expansionpanel.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ManagedZone",
+                      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ChangeDetectorRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": [
+        {
+          "selectors": [
+            {
+              "value": "expandCollapseButton",
+              "identifier": null,
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": true,
+          "first": true,
+          "propertyName": "expandCollapse",
+          "read": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "ButtonDirective",
+              "moduleUrl": "asset:angular2_components/lib/src/components/button_decorator/button_decorator.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ElementRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          }
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

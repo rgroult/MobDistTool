@@ -1,0 +1,38 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.utils.angular.managed_zone.interface",
+    "4": [
+      {
+        "1": "src/managed_zone.dart",
+        "2": [
+          "ManagedZone",
+          "ManagedZoneBase"
+        ]
+      }
+    ],
+    "6": "interface.dart",
+    "7": [
+      {
+        "1": "src/managed_zone.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "ManagedZone": {
+      "class": "Identifier",
+      "name": "ManagedZone",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ManagedZoneBase": {
+      "class": "Identifier",
+      "name": "ManagedZoneBase",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,9 @@
+<h1>Activation</h1>
+<material-spinner *ngIf="isHttpLoading" >Activation ...</material-spinner>
+<error_comp [error]="error"></error_comp>
+
+<h2  *ngIf="activationSucessfull">
+    Activation successful ! You can now login
+</h2>
+
+

@@ -1,0 +1,61 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "AdministrationOverviewComponent"
+      }
+    ],
+    "6": "administration_overview.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "AdministrationOverviewComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "administration_overview",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "AdministrationOverviewComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/administration_overview.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<h1 class=\"text-center\"> Server Management</h1>",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/administration_overview.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

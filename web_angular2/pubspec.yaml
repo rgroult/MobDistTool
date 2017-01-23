@@ -33,5 +33,7 @@ transformers:
             BrowserClient: 'package:http/browser_client.dart'
             Client: 'package:http/http.dart'
             ModalService: 'lib/services/modal_service.dart'
-- dart_to_js_script_rewriter
+- dart_to_js_script_rewriter:
+    environment:
+      mode: javascript
 

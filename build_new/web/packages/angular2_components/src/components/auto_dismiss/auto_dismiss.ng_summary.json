@@ -1,0 +1,115 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/browser/events/events.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "AutoDismissDirective",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "element"
+          },
+          {
+            "1": "NgZone",
+            "4": "_zone"
+          }
+        ]
+      }
+    ],
+    "6": "auto_dismiss.dart"
+  },
+  "type": {
+    "AutoDismissDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[autoDismissable]:not(material-expansionpanel)",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "AutoDismissDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/components/auto_dismiss/auto_dismiss.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NgZone",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "autoDismissable": "autoDismissable"
+      },
+      "inputTypes": {},
+      "outputs": {
+        "dismiss": "dismiss"
+      },
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

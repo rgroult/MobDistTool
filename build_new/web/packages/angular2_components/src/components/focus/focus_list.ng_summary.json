@@ -1,0 +1,120 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "./focus.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/managed_zone/angular_2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "FocusListDirective",
+        "5": [
+          {
+            "1": "ManagedZone",
+            "4": "_managedZone"
+          }
+        ],
+        "6": [
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "focus_list.dart"
+  },
+  "type": {
+    "FocusListDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[focusList]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "FocusListDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/components/focus/focus_list.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ManagedZone",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "loop": "loop"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {
+        "role": "list"
+      },
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "FocusableItem",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": false,
+          "first": false,
+          "propertyName": "listItems",
+          "read": null
+        }
+      ],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

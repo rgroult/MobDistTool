@@ -1,0 +1,27 @@
+{
+  "ngDeps": null,
+  "type": {
+    "HasIcon": {
+      "class": "Identifier",
+      "name": "HasIcon",
+      "moduleUrl": "asset:angular2_components/lib/src/model/ui/icon.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HasHoverIcon": {
+      "class": "Identifier",
+      "name": "HasHoverIcon",
+      "moduleUrl": "asset:angular2_components/lib/src/model/ui/icon.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Icon": {
+      "class": "Identifier",
+      "name": "Icon",
+      "moduleUrl": "asset:angular2_components/lib/src/model/ui/icon.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}
