@@ -97,6 +97,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.2+2"
+  dart_sass_transformer:
+    description:
+      name: dart_sass_transformer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0+1"
   dart_style:
     description:
       name: dart_style

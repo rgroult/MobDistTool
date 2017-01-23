@@ -75,7 +75,8 @@ material-input {
 }
 
 .qr-code-button {
-    background-image:url(../../images/qrcode_black.png);
+    -webkit-mask-image:url(../../images/qrcode_black.png);
+    width: 24px; height: 24px;
 }
 
 .action_button {
@@ -129,3 +130,14 @@ material-input {
     background-color: white;
     width:50%; height:300px;
 }
+
+/* Theme color
+:root {
+    --primary-color: orange;
+}
+
+.navbar.navbar-primary {
+    background-color: var(--primary-color);
+}*/
+
+
