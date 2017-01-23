@@ -31,7 +31,7 @@
                 <table class="table table-striped table-condensed">
                     <tbody>
                     <tr *ngFor="let admin of application.adminUsers">
-                        <td class="text-primary">{{admin.name}}  </td> <td>{{admin.email}} </td><td><material-button *ngIf="canAdmin" (click)="deleteAdministrator(admin.email)" icon><glyph icon="remove"></glyph></material-button></td>
+                        <td>{{admin.name}}  </td> <td><b>{{admin.email}}</b> </td><td><material-button *ngIf="canAdmin" (click)="deleteAdministrator(admin.email)" icon><glyph icon="remove"></glyph></material-button></td>
                     </tr>
                     </tbody>
                 </table>
@@ -54,8 +54,8 @@
     </div>
     <div class="col-sm-1 col-md-1 col-xs-2">
         <button (click)="toggleFavorite()" class="btn btn-white btn-fab btn-fab-mini btn-round">
-            <i *ngIf="isFavorite" class="material-icons">favorite</i>
-            <i *ngIf="!isFavorite" class="material-icons">favorite_border</i>
+            <i *ngIf="isFavorite" class="material-icons primary">favorite</i>
+            <i *ngIf="!isFavorite" class="material-icons primary">favorite_border</i>
         </button>
     </div>
 </div>

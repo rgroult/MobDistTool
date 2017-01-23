@@ -89,10 +89,6 @@ material-input {
     margin-bottom: 0px;
 }
 
-.admin_button {
-    color: red;
-}
-
 .appDetailIcon {
     max-width: 128px;
     max-height: 128px;
@@ -130,6 +126,11 @@ material-input {
     background-color: white;
     width:50%; height:300px;
 }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
 
 /* Theme color
 :root {

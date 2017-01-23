@@ -30,6 +30,8 @@ class TopBarComponent implements OnInit, MDTQueryServiceAware {
     _modalService.displayRegister();
   }
 
+  void ngOnInit(){
+  }
 
   void logout(){
     _globalService.disconnect();

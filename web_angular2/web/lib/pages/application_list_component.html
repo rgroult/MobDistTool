@@ -11,8 +11,8 @@
             </material-radio-group>
         </div>
         <div class="tim row">
-            <material-button (click)="isFavoritesExpanded=!isFavoritesExpanded"><h2>Favorites <i *ngIf="isFavoritesExpanded" class="material-icons">keyboard_arrow_up</i>
-                <i *ngIf="!isFavoritesExpanded" class="material-icons">keyboard_arrow_down</i></h2></material-button>
+            <material-button (click)="isFavoritesExpanded=!isFavoritesExpanded"><h2>Favorites <i *ngIf="isFavoritesExpanded" class="material-icons md-48">keyboard_arrow_up</i>
+                <i *ngIf="!isFavoritesExpanded" class="material-icons md-48">keyboard_arrow_down</i></h2></material-button>
             <div *ngIf="isFavoritesExpanded" class="row">
                 <!-- [routerLink]="['Versions', {appid: app.uuid}]" -->
                 <div  *ngFor="let app of favoritesFilteredApplications"  class="col-lg-4 col-md-6 col-sm-6">
@@ -35,8 +35,8 @@
         </div>
         <div class="tim row">
             <material-button (click)="isOthersAppExpanded=!isOthersAppExpanded"><h2>Other
-                <i *ngIf="isOthersAppExpanded" class="material-icons">keyboard_arrow_up</i>
-                <i *ngIf="!isOthersAppExpanded" class="material-icons">keyboard_arrow_down</i></h2></material-button>
+                <i *ngIf="isOthersAppExpanded" class="material-icons md-48">keyboard_arrow_up</i>
+                <i *ngIf="!isOthersAppExpanded" class="material-icons md-48">keyboard_arrow_down</i></h2></material-button>
             <div *ngIf="isOthersAppExpanded" class="row">
                 <div  *ngFor="let app of allFilteredApplications" class="col-lg-4 col-md-6 col-sm-6">
                     <a href="javascript:void(0)" (click)="selectApplication(app.uuid)"><div class="mdt-card mdt-card-stats">

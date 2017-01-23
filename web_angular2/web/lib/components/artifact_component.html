@@ -21,13 +21,13 @@
     </div>
     <div *ngIf="!isCollapsed" class="card-content table-responsive">
             <table class="table">
-                <thead class="text-primary">
+                <thead>
                 <tr><th>Key</th>
                     <th>Value</th>
                 </tr></thead>
                 <tbody>
                 <tr *ngFor="let key of metaDataKeys">
-                    <td class="text-primary">{{key}} </td> <td>{{artifact.metaDataTags[key]}} </td>
+                    <td><b>{{key}}</b> </td> <td>{{artifact.metaDataTags[key]}} </td>
                 </tr>
                 </tbody>
             </table>
