@@ -203,7 +203,28 @@
               "prefix": null,
               "isHost": false,
               "value": null,
-              "diDeps": []
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "VersionService",
+                      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/version_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
             },
             "identifierIsInstance": false
           },
@@ -214,7 +235,28 @@
             "prefix": null,
             "isHost": false,
             "value": null,
-            "diDeps": []
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "VersionService",
+                    "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/version_service.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
           },
           "useExisting": null,
           "useValue": null,
@@ -3105,7 +3147,28 @@
         "prefix": null,
         "isHost": false,
         "value": null,
-        "diDeps": []
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "VersionService",
+                "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/version_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
       },
       "changeDetection": 6,
       "inputs": {},
@@ -3117,7 +3180,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<footer class=\"footer footer-transparent\">\n    <div class=\"container\">\n        <nav class=\"pull-right\">\n            <div class=\"copyright\">\n                &copy; 2016 Mobile App Distribution Tool - version ({{mdt_version}})\n            </div>\n        </nav>\n\n    </div>\n</footer>",
+        "template": "<footer class=\"footer footer-transparent\">\n    <div class=\"container\">\n        <nav class=\"pull-right\">\n            <div class=\"copyright\">\n                &copy; 2016 Mobile App Distribution Tool - version ({{currentVersion}})\n            </div>\n        </nav>\n\n    </div>\n</footer>",
         "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/bottom_bar_component.html",
         "styles": [],
         "styleUrls": [],

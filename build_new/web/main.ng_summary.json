@@ -44,6 +44,15 @@
       {
         "1": "lib/services/src/mdt_http_client.dart",
         "5": false
+      },
+      {
+        "1": "lib/services/version_service.dart",
+        "5": false
+      },
+      {
+        "1": "version.dart",
+        "4": "version",
+        "5": false
       }
     ],
     "6": "main.dart"

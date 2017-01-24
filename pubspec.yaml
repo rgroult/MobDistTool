@@ -1,5 +1,5 @@
 name: 'MobDistTool'
-version: '1.1.2'
+version: '1.2.0'
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
 
 environment:
@@ -12,9 +12,9 @@ dependencies:
         url: git://github.com/codecov/dart.git
         ref: master
   apk_parser: "^0.0.2+2"
-  browser: any
-  angular: any
-  angular_ui: any
+#  browser: any
+#  angular: any
+ # angular_ui: any
   objectory:
       git:
         url: git://github.com/vadimtsushko/objectory.git
@@ -38,46 +38,23 @@ dependencies:
   #hammock: "^0.4.0"
   googleapis_auth: any
   googleapis: any
-  qr:
-     git: git://github.com/rgroult/qr.dart.git
+ # qr:
+ #    git: git://github.com/rgroult/qr.dart.git
   xcvbnm: "^0.5.0"
 dev_dependencies:
   args: '>=0.10.0 <0.14.0'
   test: "^0.12.5+1"
 dependency_overrides:
-  analyzer: '>=0.27.0 <=0.27.1'  # Forced for angular dependancies
-  collection: '^1.9.0' # Forced for angular dependancies
+  #analyzer: '>=0.27.0 <=0.27.1'  # Forced for angular dependancies
+ # collection: '^1.9.0' # Forced for angular dependancies
   args: '^0.13.2'
   mongo_dart: "0.2.9" # Forced for changes in dart SDK and objectory did not update it
   uri: "^0.11.0" # conflict between rpc and shelf_route
-  angular:
-    git:
-      url: git://github.com/rgroult/angular.dart.git
-      ref: master
+ # angular:
+  #  git:
+   #   url: git://github.com/rgroult/angular.dart.git
+    #  ref: master
   #    path: ../angular.dart-master
   #angular: "^1.1.2+2" # old Version incompatible with newer SDK ...
-transformers:
-- angular:
-    html_files:
-      - web/index.html
-      - web/pages/home.html
-      - web/pages/main_page.html
-      - web/pages/activation.html
-      - web/lib/components/add_artifact.html
-      - web/lib/components/application_create.html
-      - web/lib/components/application_detail.html
-      - web/lib/components/application_edition.html
-      - web/lib/components/application_list.html
-      - web/lib/components/application_version.html
-      - web/lib/components/artifact.html
-      - web/lib/components/artifact_download_qrcode.html
-      - web/lib/components/user_login.html
-      - web/lib/components/user_register.html
-      - web/lib/components/users_administration.html
-      - web/lib/components/user_detail.html
-      - web/lib/components/account_activation.html
-- $dart2js:
-    environment:
-      mode: javascript
 
 

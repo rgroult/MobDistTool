@@ -11,11 +11,14 @@ import 'lib/components/app_component.dart';
 import 'lib/components/modals_components.dart';
 import 'lib/services/modal_service.dart';
 import 'lib/services/src/mdt_http_client.dart';
+import 'lib/services/version_service.dart';
+import 'version.dart' as version;
 
 main() {
   bootstrap(AppComponent,
       [
         ROUTER_PROVIDERS,
+        provide(VersionService, useFactory: () => new  VersionService(version.MDT_VERSION), deps: []),
         provide(Client, useFactory: () => new  MDTHttpClient()/* BrowserClient()*/, deps: []),
         provide(LocationStrategy, useClass: HashLocationStrategy)
       ]);

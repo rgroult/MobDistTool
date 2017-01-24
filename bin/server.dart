@@ -32,7 +32,7 @@ import '../server/services/artifact_service.dart';
 import '../server/services/in_service.dart';
 import '../server/services/logs_service.dart';
 import '../server/utils/utils.dart' as utils;
-import '../conf/version.dart' as version;
+import '../web_angular2/web/version.dart' as version;
 import '../server/services/exeption_handler.dart' as exception_handler;
 
 const _API_PREFIX = '/api';
