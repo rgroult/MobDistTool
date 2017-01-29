@@ -111,9 +111,9 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
 
-  var legacyUiHandler =  shelf_static.createStaticHandler('build/web',
+  var legacyUiHandler =  shelf_static.createStaticHandler('build_legacy/web',
       defaultDocument: 'index.html');
-  var uiHandler =  shelf_static.createStaticHandler('build_new/web',
+  var uiHandler =  shelf_static.createStaticHandler('build/web',
       defaultDocument: 'index.html');
 
   var apiRouter = shelf_route.router()
@@ -128,8 +128,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   //disable authent for discovery ?
     ..add('api/discovery',null,apiHandler,exactMatch: false)
   //gui
-    ..add('web/',null,legacyUiHandler,exactMatch: false)
-    ..add('web2/',null,uiHandler,exactMatch: false)
+    ..add('weblegacy/',null,legacyUiHandler,exactMatch: false)
+    ..add('web/',null,uiHandler,exactMatch: false)
   //authenticate api
     ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
