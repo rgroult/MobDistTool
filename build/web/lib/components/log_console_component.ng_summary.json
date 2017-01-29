@@ -1,0 +1,98 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2_components/angular2_components.dart",
+        "5": false
+      },
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../commons.dart",
+        "5": false
+      },
+      {
+        "1": "../services/mdt_query.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "LogConsoleComponent",
+        "5": [
+          {
+            "1": "MDTQueryService",
+            "4": "_mdtQueryService"
+          }
+        ]
+      }
+    ],
+    "6": "log_console_component.dart"
+  },
+  "type": {
+    "LogConsoleComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "log_console",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "LogConsoleComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/log_console_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "MDTQueryService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<div class=\"col-md-2\">\n    <div class=\"dropdown\">\n        <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n            Log: {{logSelected}}\n            <span class=\"caret\"></span>\n        </button>\n        <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n            <li><a href1=\"#\" (click)=\"displayConsoleLogs()\">Console</a></li>\n            <li><a href1=\"#\" (click)=\"displayActivityLogs()\">Activity</a></li>\n        </ul>\n    </div>\n</div>\n<div class=\"col-md-6\">\n    <form class=\"navbar-form\"  (ngSubmit)=\"reloadLogs()\">\n        <div class=\"input-group\">\n\t\t                <span class=\"input-group-addon\">\n\t\t\t                <b>Max lines:  </b>\n\t\t                </span>\n            <input style=\"width:50px;text-align: center;\" type=\"text\" class=\"form-control\" [(ngModel)]=\"maxLines\" placeholder=\"\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-simple btn-fab btn-fab-mini btn-round btn-primary\">\n            <i class=\"material-icons\">refresh</i>\n        </button>\n    </form>\n</div>\n<div class=\"col-md-12\">\n<div style=\"background-color: #00a9bb;height:400px;overflow: scroll;resize: both\">\n    <xmp>{{logLines}}</xmp>\n</div>\n</div>\n",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/log_console_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

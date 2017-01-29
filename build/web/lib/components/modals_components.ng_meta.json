@@ -1,0 +1,181 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../services/modal_service.dart",
+        "5": false
+      },
+      {
+        "1": "user_login_component.dart",
+        "5": false
+      },
+      {
+        "1": "user_register_component.dart",
+        "5": false
+      },
+      {
+        "1": "edit_application_component.dart",
+        "5": false
+      },
+      {
+        "1": "artifact_download_qrcode_component.dart",
+        "5": false
+      },
+      {
+        "1": "add_artifact_component.dart",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "../model/mdt_model.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ModalsComponent",
+        "5": [
+          {
+            "1": "ModalService",
+            "4": "_modalService"
+          }
+        ],
+        "6": [
+          "OnInit"
+        ],
+        "7": [
+          {
+            "2": "UserLoginComponent"
+          },
+          {
+            "2": "UserRegisterComponent"
+          },
+          {
+            "2": "EditAppComponent"
+          },
+          {
+            "2": "ArtifactDownloadQRCodeComponent"
+          },
+          {
+            "2": "AddArtifactComponent"
+          }
+        ]
+      }
+    ],
+    "6": "modals_components.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../services/modal_service.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "user_login_component.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "user_register_component.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "edit_application_component.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "artifact_download_qrcode_component.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "add_artifact_component.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "../model/mdt_model.template.dart",
+        "4": "i7"
+      }
+    ]
+  },
+  "type": {
+    "ModalRequired": {
+      "class": "Identifier",
+      "name": "ModalRequired",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/modals_components.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ModalsComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "modal_comp",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "ModalsComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/modals_components.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ModalService",
+                "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/modal_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        0
+      ],
+      "template": {
+        "encapsulation": 2,
+        "template": "<div class=\" modal fade \" id=\"allModals\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\" >\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <button type=\"button\" id=\"allModalsCloseButton\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\"></button>\n            <login_comp *ngIf=\"isLoginModal\"></login_comp>\n            <register_comp *ngIf=\"isRegisterModal\"></register_comp>\n            <edit_app_comp *ngIf=\"isEditAppModal\" [parameters]=\"parameters\"></edit_app_comp>\n            <qr_code_component *ngIf=\"isQrCodeModal\" [parameters]=\"parameters\"></qr_code_component>\n            <add_artifact *ngIf=\"isAddArtifactModal\" [parameters]=\"parameters\"></add_artifact>\n        </div>\n    </div>\n</div>",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/modals_components.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,187 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "./focus.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/browser/dom_iterator/dom_iterator.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "FocusTrapComponent",
+        "6": [
+          "OnDestroy"
+        ],
+        "7": [
+          {
+            "2": "FocusContentWrapper"
+          },
+          {
+            "2": "AutoFocusDirective"
+          }
+        ]
+      },
+      {
+        "1": "FocusContentWrapper",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "elementRef"
+          }
+        ]
+      }
+    ],
+    "6": "focus_trap.dart"
+  },
+  "type": {
+    "FocusContentWrapper": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[focusContentWrapper]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "FocusContentWrapper",
+        "moduleUrl": "asset:angular2_components/lib/src/components/focus/focus_trap.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "FocusTrapComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "focus-trap",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "FocusTrapComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/components/focus/focus_trap.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 4,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<div (focus)=\"focusLast()\" tabindex=\"0\"></div>\n<div focusContentWrapper tabindex=\"-1\" style=\"outline: none\">\n  <ng-content></ng-content>\n</div>\n<div (focus)=\"focusFirst()\" tabindex=\"0\"></div>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/focus/focus_trap.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/focus/focus_trap.scss.css"
+        ],
+        "ngContentSelectors": [
+          "*"
+        ],
+        "preserveWhitespace": false
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "AutoFocusDirective",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": false,
+          "first": true,
+          "propertyName": "autoFocus",
+          "read": null
+        }
+      ],
+      "viewQueries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "FocusContentWrapper",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": true,
+          "first": true,
+          "propertyName": "content",
+          "read": null
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

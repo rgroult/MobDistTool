@@ -1,0 +1,55 @@
+{
+  "ngDeps": null,
+  "type": {
+    "hyphenate": {
+      "class": "Identifier",
+      "name": "hyphenate",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/strings/string_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "underscore": {
+      "class": "Identifier",
+      "name": "underscore",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/strings/string_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "camelCase": {
+      "class": "Identifier",
+      "name": "camelCase",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/strings/string_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "lowerCamelCase": {
+      "class": "Identifier",
+      "name": "lowerCamelCase",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/strings/string_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "titleCase": {
+      "class": "Identifier",
+      "name": "titleCase",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/strings/string_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "capitalizeFirstLetter": {
+      "class": "Identifier",
+      "name": "capitalizeFirstLetter",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/strings/string_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_split": {
+      "class": "Identifier",
+      "name": "_split",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/strings/string_utils.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

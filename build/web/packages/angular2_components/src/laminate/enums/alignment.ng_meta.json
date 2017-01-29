@@ -1,0 +1,86 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.enums.alignment",
+    "3": [
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "src/base.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "src/base.dart"
+      }
+    ],
+    "6": "alignment.dart",
+    "7": [
+      {
+        "1": "src/base.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "Alignment": {
+      "class": "Identifier",
+      "name": "Alignment",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/alignment.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_CustomAlignment": {
+      "class": "Identifier",
+      "name": "_CustomAlignment",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/alignment.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_BeforeCustomAlignment": {
+      "class": "Identifier",
+      "name": "_BeforeCustomAlignment",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/alignment.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_AfterCustomAlignment": {
+      "class": "Identifier",
+      "name": "_AfterCustomAlignment",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/alignment.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RelativePosition": {
+      "class": "Identifier",
+      "name": "RelativePosition",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/alignment.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_AnimationOrigins": {
+      "class": "Identifier",
+      "name": "_AnimationOrigins",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/alignment.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SetPropertyFn": {
+      "class": "Identifier",
+      "name": "SetPropertyFn",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/src/base.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ElementStyleEnum": {
+      "class": "Identifier",
+      "name": "ElementStyleEnum",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/src/base.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,34 @@
+{
+  "ngDeps": null,
+  "type": {
+    "DomTreeIterator": {
+      "class": "Identifier",
+      "name": "DomTreeIterator",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_iterator/dom_iterator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "lastDescendant": {
+      "class": "Identifier",
+      "name": "lastDescendant",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_iterator/dom_iterator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_firstChild": {
+      "class": "Identifier",
+      "name": "_firstChild",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_iterator/dom_iterator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_lastChild": {
+      "class": "Identifier",
+      "name": "_lastChild",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_iterator/dom_iterator.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

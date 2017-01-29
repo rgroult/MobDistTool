@@ -1,0 +1,161 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:validator/validator.dart",
+        "5": false
+      },
+      {
+        "1": "../commons.dart",
+        "5": false
+      },
+      {
+        "1": "dart:convert",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "UserRegisterComponent",
+        "5": [
+          {
+            "1": "MDTQueryService",
+            "4": "_mdtQueryService"
+          },
+          {
+            "1": "ModalService",
+            "4": "_modalService"
+          },
+          {
+            "1": "GlobalService",
+            "4": "globalService"
+          }
+        ],
+        "7": [
+          {
+            "2": "ErrorComponent"
+          }
+        ]
+      }
+    ],
+    "6": "user_register_component.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../commons.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "UserRegisterComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "register_comp",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "UserRegisterComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/user_register_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "MDTQueryService",
+                "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/mdt_query.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ModalService",
+                "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/modal_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "GlobalService",
+                "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/global_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<form  (ngSubmit)=\"register()\" #registerorm=\"ngForm\">\n    <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\"><i class=\"material-icons\">close</i></button>\n        <h4 class=\"modal-title\" id=\"myModalLabel\">Register</h4>\n    </div>\n    <div class=\"modal-body\">\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n\n                <div class=\"input-group\">\n\t\t                    <span class=\"input-group-addon\">\n                                <i class=\"material-icons\">account_circle</i>\n                            </span>\n                    <div class=\"form-group label-floating\">\n                        <label class=\"control-label\">User Name</label>\n                        <input type=\"text\" class=\"form-control\"  [(ngModel)]=\"username\" autofocus>\n                    </div>\n                </div>\n\n            </div>\n            <div class=\"col-lg-12\">\n\n                <div class=\"input-group\">\n\t\t                    <span class=\"input-group-addon\">\n                                <i class=\"material-icons\">email</i>\n                            </span>\n                    <div class=\"form-group label-floating\">\n                        <label class=\"control-label\">Email</label>\n                        <input type=\"email\" class=\"form-control\"  [(ngModel)]=\"email\" autofocus>\n                    </div>\n                </div>\n\n            </div>\n            <div class=\"col-lg-12\">\n                <div class=\"input-group\">\n\t\t<span class=\"input-group-addon\">\n            <i class=\"material-icons\">lock_outline</i>\n\t\t</span>\n                    <div class=\"form-group label-floating\">\n                        <label class=\"control-label\">Password</label>\n                        <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\">\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div>\n            Already a account ?<button type=\"button\" (click)=\"displayLogin()\" class=\"btn btn-primary btn-simple btn-sm\">Login</button>\n        </div>\n        <error_comp [error]=\"error\"></error_comp>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-default btn-simple\" data-dismiss=\"modal\">Cancel</button>\n        <button type=\"button\" *ngIf=\"!isHttpLoading\" class=\"btn btn-primary\" type=\"submit\" click=\"register()\"> Register </button>\n        <material-spinner *ngIf=\"isHttpLoading\" ></material-spinner>\n    </div>\n</form>",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/user_register_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

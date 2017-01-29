@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "AcuxZIndexConsts": {
+      "class": "Identifier",
+      "name": "AcuxZIndexConsts",
+      "moduleUrl": "asset:angular2_components/lib/src/css/acux/acux_css_const.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,258 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "components/top_bar_component.dart",
+        "5": false
+      },
+      {
+        "1": "components/bottom_bar_component.dart",
+        "5": false
+      },
+      {
+        "1": "components/route_bar_component.dart",
+        "5": false
+      },
+      {
+        "1": "components/user_login_component.dart",
+        "5": false
+      },
+      {
+        "1": "components/modals_components.dart",
+        "5": false
+      },
+      {
+        "1": "components/edit_application_component.dart",
+        "5": false
+      },
+      {
+        "1": "services/modal_service.dart",
+        "5": false
+      },
+      {
+        "1": "services/global_service.dart",
+        "5": false
+      },
+      {
+        "1": "services/mdt_query.dart",
+        "5": false
+      },
+      {
+        "1": "pages/home_component.dart",
+        "5": false
+      },
+      {
+        "1": "pages/application_list_component.dart",
+        "5": false
+      },
+      {
+        "1": "pages/application_detail_component.dart",
+        "5": false
+      },
+      {
+        "1": "pages/administration_component.dart",
+        "5": false
+      },
+      {
+        "1": "pages/account_component.dart",
+        "5": false
+      },
+      {
+        "1": "pages/activation_component.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "components/top_bar_component.dart"
+      },
+      {
+        "1": "components/bottom_bar_component.dart"
+      },
+      {
+        "1": "components/route_bar_component.dart"
+      },
+      {
+        "1": "components/user_login_component.dart"
+      },
+      {
+        "1": "components/edit_application_component.dart"
+      },
+      {
+        "1": "components/modals_components.dart",
+        "3": [
+          "ModalRequired"
+        ]
+      },
+      {
+        "1": "services/modal_service.dart"
+      },
+      {
+        "1": "services/global_service.dart"
+      },
+      {
+        "1": "services/mdt_query.dart"
+      },
+      {
+        "1": "pages/home_component.dart"
+      },
+      {
+        "1": "pages/application_list_component.dart"
+      },
+      {
+        "1": "pages/application_detail_component.dart"
+      },
+      {
+        "1": "pages/administration_component.dart"
+      },
+      {
+        "1": "pages/account_component.dart"
+      },
+      {
+        "1": "pages/activation_component.dart"
+      }
+    ],
+    "6": "all_angular_components.dart"
+  },
+  "type": {
+    "MDT_DIRECTIVES": {
+      "class": "Identifier",
+      "name": "MDT_DIRECTIVES",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/all_angular_components.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "BottomBarComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "RouteBarComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "TopBarComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "ModalsComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "HomeComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "ApplicationListComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "ApplicationDetailComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "AdministrationComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "AccountComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "EditAppComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "ActivationComponent",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    },
+    "MDT_PROVIDERS": {
+      "class": "Identifier",
+      "name": "MDT_PROVIDERS",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/all_angular_components.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "ModalService",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "GlobalService",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "MDTQueryService",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    }
+  },
+  "alias": {
+    "MDT_DIRECTIVES": [
+      "BottomBarComponent",
+      "RouteBarComponent",
+      "TopBarComponent",
+      "ModalsComponent",
+      "HomeComponent",
+      "ApplicationListComponent",
+      "ApplicationDetailComponent",
+      "AdministrationComponent",
+      "AccountComponent",
+      "EditAppComponent",
+      "ActivationComponent"
+    ],
+    "MDT_PROVIDERS": [
+      "ModalService",
+      "GlobalService",
+      "MDTQueryService"
+    ]
+  }
+}

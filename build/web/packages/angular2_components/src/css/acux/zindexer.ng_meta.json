@@ -1,0 +1,60 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.css.acux.zindexer",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:js/js.dart",
+        "5": false
+      },
+      {
+        "1": "acux_css_const.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ZIndexer",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "zindexer.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "acux_css_const.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "_currentZIndex": {
+      "class": "Identifier",
+      "name": "_currentZIndex",
+      "moduleUrl": "asset:angular2_components/lib/src/css/acux/zindexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ZIndexer": {
+      "class": "Type",
+      "name": "ZIndexer",
+      "moduleUrl": "asset:angular2_components/lib/src/css/acux/zindexer.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

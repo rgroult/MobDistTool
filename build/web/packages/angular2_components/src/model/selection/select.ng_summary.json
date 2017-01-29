@@ -1,0 +1,48 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.model.selection.select",
+    "3": [
+      {
+        "1": "../../utils/async/async.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "src/interfaces/selectable.dart"
+      }
+    ],
+    "6": "select.dart"
+  },
+  "type": {
+    "CountGetter": {
+      "class": "Identifier",
+      "name": "CountGetter",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/select.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Predicate": {
+      "class": "Identifier",
+      "name": "Predicate",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/select.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Filterable": {
+      "class": "Identifier",
+      "name": "Filterable",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/select.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Parent": {
+      "class": "Identifier",
+      "name": "Parent",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/select.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

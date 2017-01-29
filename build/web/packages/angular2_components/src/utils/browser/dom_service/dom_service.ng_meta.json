@@ -1,0 +1,103 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "2": [
+          "max",
+          "min"
+        ],
+        "5": false
+      },
+      {
+        "1": "../../angular/managed_zone/interface.dart",
+        "5": false
+      },
+      {
+        "1": "../../async/async.dart",
+        "5": false
+      },
+      {
+        "1": "../../disposer/disposable_callback.dart",
+        "5": false
+      },
+      {
+        "1": "../../disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "6": "dom_service.dart",
+    "7": [
+      {
+        "1": "../../angular/managed_zone/interface.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../../async/async.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../../disposer/disposable_callback.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../../disposer/disposer.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "DomReadWriteFn": {
+      "class": "Identifier",
+      "name": "DomReadWriteFn",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RequestAnimationFrame": {
+      "class": "Identifier",
+      "name": "RequestAnimationFrame",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DomServiceState": {
+      "class": "Identifier",
+      "name": "DomServiceState",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "IsDomMutatedPredicate": {
+      "class": "Identifier",
+      "name": "IsDomMutatedPredicate",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DomService": {
+      "class": "Identifier",
+      "name": "DomService",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ChangeTracker": {
+      "class": "Identifier",
+      "name": "_ChangeTracker",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

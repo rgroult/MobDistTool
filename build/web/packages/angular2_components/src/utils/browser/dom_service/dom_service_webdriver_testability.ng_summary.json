@@ -1,0 +1,33 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.utils.browser.dom_service.dom_service_webdriver_testability",
+    "3": [
+      {
+        "1": "../../../framework_stabilizers/testability.dart",
+        "5": false
+      },
+      {
+        "1": "./dom_service.dart",
+        "5": false
+      }
+    ],
+    "6": "dom_service_webdriver_testability.dart"
+  },
+  "type": {
+    "createDomServiceWebdriverTestability": {
+      "class": "Identifier",
+      "name": "createDomServiceWebdriverTestability",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service_webdriver_testability.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DomServiceWebdriverTestability": {
+      "class": "Identifier",
+      "name": "DomServiceWebdriverTestability",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service_webdriver_testability.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}
