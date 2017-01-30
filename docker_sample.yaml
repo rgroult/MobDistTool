@@ -3,9 +3,11 @@ services:
     mdt:
         image: "rgroult2/mobdisttool:latest"
         ports:
-            - "8080"
+            - "8080:8080"
         environment:
             - MDT_DATABASE_URI=mongodb://mongo/mobdisttool
+            - MDT_STORAGE_NAME=local_storage_manager
+            - 'MDT_STORAGE_CONFIG={"RootDirectory":"/data/MDT"}'
         links:
             - mongo
     mongo:

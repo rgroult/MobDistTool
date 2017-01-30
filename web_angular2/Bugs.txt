@@ -1,0 +1,15 @@
+After application creation : Icon too big is green
+Application List : other => All
+application List : missing platform icon
+application list: no delay mangement on refresh
+aplication list: problem after delete app
+Errors : As floating panel ?
+General : Bug of visible modal and setting drop down on bottom
+Add artifact : missing upload loading
+Add artifact : bug on file selection
+Add artifact: not cleaning error on appears
+Add artifact :problem on "add" button, sometimes disappear
+docker image : Change config to local storage to enable download test app
+Application detail: On delete last version => accordeon to "unknow version/no branch"
+administation : Width problem on log console with long logs
+Login modal: no error cleaning on appears
