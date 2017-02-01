@@ -69,6 +69,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-        <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit"  > Add <material-spinner *ngIf="isHttpLoading" ></material-spinner> </button>
+        <button type="button" *ngIf="!isHttpLoading" class="btn btn-primary" type="submit"  > Add  </button>
+        <material-spinner *ngIf="isHttpLoading" ></material-spinner>
     </div>
 </form>

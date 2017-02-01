@@ -43,12 +43,13 @@ class AddArtifactComponent extends BaseComponent {
     artifactFile = null;
     artifactFilename = "";
     lastVersion = false;
+    error = null;
   }
 
   Future onInputChange(dynamic event) {
-    var file = event.currentTarget.files.first;
+    var file = event.currentTarget?.files?.first;
     artifactFile = file;
-    artifactFilename = file.name;
+    artifactFilename = file?.name;
   }
 
   Future addArtifact() async{

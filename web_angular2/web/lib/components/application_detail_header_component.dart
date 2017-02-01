@@ -60,7 +60,7 @@ class ApplicationDetailHeaderComponent extends BaseComponent implements OnInit,E
   Future deleteApplication() async {
     bool applicationisDeleted = await _mdtQueryService.deleteApplication(application);
     if(applicationisDeleted){
-        global_service.loadAppsIfNeeded(forceRefresh: true);
+        await global_service.loadAppsIfNeeded(forceRefresh: true);
         _router.navigate(['Apps']);
     }else {
       error = new UIError("Error",'Unable to delete application',ErrorType.ERROR);
