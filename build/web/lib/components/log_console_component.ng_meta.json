@@ -31,6 +31,11 @@
             "1": "MDTQueryService",
             "4": "_mdtQueryService"
           }
+        ],
+        "7": [
+          {
+            "2": "materialDirectives"
+          }
         ]
       }
     ],
@@ -100,7 +105,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<div class=\"col-md-2\">\n    <div class=\"dropdown\">\n        <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n            Log: {{logSelected}}\n            <span class=\"caret\"></span>\n        </button>\n        <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n            <li><a href1=\"#\" (click)=\"displayConsoleLogs()\">Console</a></li>\n            <li><a href1=\"#\" (click)=\"displayActivityLogs()\">Activity</a></li>\n        </ul>\n    </div>\n</div>\n<div class=\"col-md-6\">\n    <form class=\"navbar-form\"  (ngSubmit)=\"reloadLogs()\">\n        <div class=\"input-group\">\n\t\t                <span class=\"input-group-addon\">\n\t\t\t                <b>Max lines:  </b>\n\t\t                </span>\n            <input style=\"width:50px;text-align: center;\" type=\"text\" class=\"form-control\" [(ngModel)]=\"maxLines\" placeholder=\"\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-simple btn-fab btn-fab-mini btn-round btn-primary\">\n            <i class=\"material-icons\">refresh</i>\n        </button>\n    </form>\n</div>\n<div class=\"col-md-12\">\n<div style=\"background-color: #00a9bb;height:400px;overflow: scroll;resize: both\">\n    <xmp>{{logLines}}</xmp>\n</div>\n</div>\n",
+        "template": "<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"col-md-2\">\n            <div class=\"dropdown\">\n                <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                    Log: {{logSelected}}\n                    <span class=\"caret\"></span>\n                </button>\n                <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n                    <li><a href1=\"#\" (click)=\"displayConsoleLogs()\">Console</a></li>\n                    <li><a href1=\"#\" (click)=\"displayActivityLogs()\">Activity</a></li>\n                </ul>\n            </div>\n        </div>\n        <div class=\"col-md-6\">\n            <form class=\"navbar-form\"  (ngSubmit)=\"reloadLogs()\">\n                <div class=\"input-group\">\n\t\t                <span class=\"input-group-addon\">\n\t\t\t                <b>Max lines:  </b>\n\t\t                </span>\n                    <input style=\"width:50px;text-align: center;\" type=\"text\" class=\"form-control\" [(ngModel)]=\"maxLines\" placeholder=\"\">\n                </div>\n                <button type=\"submit\" class=\"btn btn-simple btn-fab btn-fab-mini btn-round btn-primary\">\n                    <i class=\"material-icons\">refresh</i>\n                </button>\n            </form>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <div style=\"background-color: #00a9bb;height:400px;overflow: scroll;resize: vertical\">\n                <xmp>{{logLines}}</xmp>\n            </div>\n        </div>\n    </div>\n</div>\n",
         "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/log_console_component.html",
         "styles": [],
         "styleUrls": [],
