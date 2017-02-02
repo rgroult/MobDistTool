@@ -54,7 +54,7 @@ class GlobalService  {
    // loadMockApps();
     //return new Future.value(null);
 
-    if (forceRefresh == false &&_lastAppsRefresh != null && _lastAppsRefresh.add(new Duration(minutes: 5)).isBefore(new DateTime.now())) {
+    if (forceRefresh == false &&_lastAppsRefresh != null && _lastAppsRefresh.add(new Duration(minutes: 5)).isAfter(new DateTime.now())) {
       return new Future.value(null);
     }
     //update apps

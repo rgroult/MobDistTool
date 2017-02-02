@@ -6,7 +6,7 @@ packages:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.29.5"
+    version: "0.29.6"
   angular2:
     description:
       name: angular2
@@ -30,7 +30,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.3"
+    version: "1.12.0"
   barback:
     description:
       name: barback
@@ -72,13 +72,13 @@ packages:
       name: code_transformers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0+2"
+    version: "0.5.1"
   collection:
     description:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.1"
+    version: "1.13.0"
   convert:
     description:
       name: convert
@@ -96,7 +96,7 @@ packages:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.2+2"
+    version: "0.13.3+1"
   dart_sass_transformer:
     description:
       name: dart_sass_transformer
@@ -108,7 +108,7 @@ packages:
       name: dart_style
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.14"
+    version: "0.2.15"
   dart_to_js_script_rewriter:
     description:
       name: dart_to_js_script_rewriter
@@ -132,7 +132,7 @@ packages:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0"
+    version: "0.13.1"
   http:
     description:
       name: http
@@ -277,7 +277,7 @@ packages:
       name: stream_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0"
+    version: "1.6.1"
   stream_transformers:
     description:
       name: stream_transformers
@@ -345,4 +345,4 @@ packages:
     source: hosted
     version: "2.1.12"
 sdks:
-  dart: ">=1.20.0 <2.0.0"
+  dart: ">=1.21.0-dev.2.0 <2.0.0"

@@ -51,6 +51,25 @@ material-input {
     font-weight: bold;
     color: rgba(0,0,0,0.54);
 }
+.platformios_small {
+    float: left;
+    vertical-align:middle;
+    width:20px;
+    height:20px;
+    background-image: url(../../images/apple_64.png);
+    background-size: 100%;
+    margin-right: 10px;
+}
+
+.platformandroid_small {
+    float: left;
+    vertical-align:middle;
+    width:20px;
+    height:20px;
+    background-image: url(../../images/android_64.png);
+    background-size: 100%;
+    margin-right: 10px;
+}
 
 .platformandroid {
     float: left;
