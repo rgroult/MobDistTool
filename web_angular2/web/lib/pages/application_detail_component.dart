@@ -25,6 +25,32 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit,AddArti
   Map<String,List<MDTArtifact>> groupedArtifacts = new Map<String,List<MDTArtifact>>();
   List<String> allSortedIdentifier = new List<String>();
   List<String> filteredSortedIdentifier = new List<String>();
+  //filtered sortedIdentifier
+  List<String> get evenFilteredSortedIdentifier  {
+    var idx = 0;
+    var result =  new List<String>();
+    for (var identifier in filteredSortedIdentifier){
+        if (idx.isEven){
+          result.add(identifier);
+        }
+        idx++;
+    }
+   return result;
+  }
+
+  List<String> get oddFilteredSortedIdentifier  {
+    var idx = 0;
+    var result =  new List<String>();
+    for (var identifier in filteredSortedIdentifier){
+      if (idx.isOdd){
+        result.add(identifier);
+      }
+      idx++;
+    }
+
+    return result;
+  }
+
   List<MDTArtifact>  applicationsArtifacts = new List<MDTArtifact>();
   List<MDTArtifact>  applicationsLastestVersion = new List<MDTArtifact>();
 

@@ -7,6 +7,7 @@ Errors : As floating panel ?
 General : Bug of visible modal and setting drop down on bottom
 FIXED - Add artifact : missing upload loading
 Add artifact : bug on file selection
+FIXED - Artifact List, problem when filter, sometimes first colum is empty
 FIXED - Add artifact: not cleaning error on appears
 FIXED - Add artifact :problem on "add" button, sometimes disappear
 docker image : Change config to local storage to enable download test app

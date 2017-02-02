@@ -41,14 +41,14 @@
                 </material-expansionpanel>
             </div>
 
-            <div class="col-md-6 hidden-sm hidden-xs">
-                <material-expansionpanel wide *ngFor="let sortIdentifier of filteredSortedIdentifier; let even = even"  [ngClass]="even ? '':'hidden'" [showSaveCancel]="false" secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
+            <div *ngIf="evenFilteredSortedIdentifier.isNotEmpty" class="col-md-6 hidden-sm hidden-xs">
+                <material-expansionpanel wide *ngFor="let sortIdentifier of evenFilteredSortedIdentifier" [showSaveCancel]="false" secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
                     <artifact *ngFor="let artifact of groupedArtifacts[sortIdentifier]"  [sortIdentifier]="sortIdentifier" [artifact]="artifact" [canDelete]="canAdmin" (artifactDeleted)="artifactDeleted($event)"></artifact>
                 </material-expansionpanel>
             </div>
 
-            <div class="col-md-6 hidden-sm hidden-xs">
-                <material-expansionpanel wide *ngFor="let sortIdentifier of filteredSortedIdentifier; let odd = odd" [ngClass]="odd ? '':'hidden'" [showSaveCancel]="false" secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
+            <div *ngIf="oddFilteredSortedIdentifier.isNotEmpty" class="col-md-6 hidden-sm hidden-xs">
+                <material-expansionpanel wide *ngFor="let sortIdentifier of oddFilteredSortedIdentifier" [showSaveCancel]="false" secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
                     <artifact *ngFor="let artifact of groupedArtifacts[sortIdentifier]"  [sortIdentifier]="sortIdentifier" [artifact]="artifact" [canDelete]="canAdmin" (artifactDeleted)="artifactDeleted($event)"></artifact>
                 </material-expansionpanel>
             </div>
