@@ -15,4 +15,4 @@ Application detail: On delete last version => accordeon to "unknow version/no br
 FIXED - administation : Width problem on log console with long logs
 administration : Bad tab color
 CANCELLED - Login modal: no error cleaning on appears
-Login modal: focus on email field
+FIXED - Login modal: focus on email field

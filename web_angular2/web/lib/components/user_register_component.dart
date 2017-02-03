@@ -1,5 +1,6 @@
 import 'package:angular2/core.dart';
 import 'dart:async';
+import 'dart:html';
 import 'package:validator/validator.dart';
 import '../commons.dart';
 import 'dart:convert';
@@ -14,7 +15,16 @@ class UserRegisterComponent extends BaseComponent{
   String email="";
   String password="";
   String username ="";
-  var registerForm;
+
+  @Input()
+  void set parameters(Map<String,dynamic> params) {
+    email="";
+    password="";
+    username ="";
+    new Future.delayed(new Duration(milliseconds: 1000)).then( (content) {
+      querySelector("#UsernameInputField").focus();
+    });
+  }
 
   UserRegisterComponent(this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
 

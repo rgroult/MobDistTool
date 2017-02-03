@@ -1,6 +1,7 @@
 import 'package:angular2/core.dart';
 import 'package:angular2_components/angular2_components.dart';
 import 'dart:async';
+import 'dart:html';
 import '../commons.dart';
 
 @Component(
@@ -13,7 +14,16 @@ class UserLoginComponent extends BaseComponent{
   ModalService _modalService;
   String email="";
   String password="";
-  var loginForm;
+
+  @Input()
+  void set parameters(Map<String,dynamic> params) {
+    email="";
+    password="";
+    new Future.delayed(new Duration(milliseconds: 1000)).then( (content) {
+      querySelector("#EmailInputField").focus();
+    });
+   //
+  }
 
   UserLoginComponent(this._mdtQueryService,this._modalService, GlobalService globalService) : super.withGlobal(globalService);
 

@@ -14,7 +14,7 @@ class ModalService {
   }
 
   void displayLogin(){
-    _modalComponent.displayModal(ModalRequired.LOGIN);
+    _modalComponent.displayModal(ModalRequired.LOGIN,additionalsParameters:{});
   }
 
   void displayCreateApplication(EditAppComponentAware caller){
@@ -32,7 +32,7 @@ class ModalService {
   }
 
   void displayRegister(){
-    _modalComponent.displayModal(ModalRequired.REGISTER);
+    _modalComponent.displayModal(ModalRequired.REGISTER,additionalsParameters:{});
   }
 
   void displayQrCode(MDTArtifact artifact,String title){
