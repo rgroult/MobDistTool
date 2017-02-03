@@ -23,6 +23,10 @@ material-button.admin_button .material-icons{
 
 /*   checkbox */
 material-checkbox .material-icons{
+
+}
+material-checkbox .icon.filled .material-icons{
+  background-color: white;
   color:$brand-primary;
 }
 

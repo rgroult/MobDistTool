@@ -12,35 +12,35 @@ material-button .material-icons.md-48 { color: #7B1FA2; position: relative; top:
 material-button.admin_button .material-icons { color: red; }
 
 /*   checkbox */
-/* line 25 */
-material-checkbox .material-icons { color: #7B1FA2; }
+/* line 28 */
+material-checkbox .icon.filled .material-icons { background-color: white; color: #7B1FA2; }
 
 /*   round button */
-/* line 30 */
+/* line 34 */
 material-fab .material-icons.primary { color: #7B1FA2; }
 
-/* line 33 */
+/* line 37 */
 .btn-white .material-icons.primary { color: #7B1FA2; }
 
 /*   radio button */
-/* line 38 */
+/* line 42 */
 material-radio .material-icons { color: #7B1FA2; }
 
 /* panel */
-/* line 43 */
+/* line 47 */
 material-expansionpanel header .material-icons { color: #7B1FA2; }
 
 /*   input */
-/* line 48 */
+/* line 52 */
 material-input .label-text.focused { color: #7B1FA2 !important; }
 
-/* line 51 */
+/* line 55 */
 material-input .focused-underline { background-color: #7B1FA2 !important; }
 
 /* toggle */
-/* line 56 */
+/* line 60 */
 material-toggle .material-toggle.checked .tgl-btn, material-toggle .material-toggle.checked .tgl-bar { background-color: #7B1FA2 !important; }
 
 /* Qr Code : Not working*/
-/* line 61 */
+/* line 65 */
 .qr-code-button { /* https://materialdesignicons.com/icon/qrcode */ color: #7B1FA2; }
