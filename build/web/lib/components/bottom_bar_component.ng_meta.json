@@ -80,7 +80,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<footer class=\"footer footer-transparent\">\n    <div class=\"container\">\n        <nav class=\"pull-right\">\n            <div class=\"copyright\">\n                &copy; 2016 Mobile App Distribution Tool - version ({{currentVersion}})\n            </div>\n        </nav>\n\n    </div>\n</footer>",
+        "template": "<footer class=\"footer footer-transparent\">\n    <div class=\"container\">\n        <nav class=\"pull-right\">\n            <div class=\"copyright\">\n                &copy; 2017 Mobile App Distribution Tool - version ({{currentVersion}})\n            </div>\n        </nav>\n\n    </div>\n</footer>",
         "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/bottom_bar_component.html",
         "styles": [],
         "styleUrls": [],
