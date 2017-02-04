@@ -1,7 +1,7 @@
 version: '2'
 services:
     mdt:
-        image: "rgroult2/mobdisttool:latest"
+        image: "rgroult2/mobdisttool:stable"
         ports:
             - "8080:8080"
         environment:

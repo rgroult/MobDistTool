@@ -73,7 +73,31 @@ MDT web is written in Dart with Angular dart [AngularDart], [Angular UI] and and
 ### Getting and running MDT
 
 The easiest way to get ant test MDT is to use **[docker pre-built images][docker]**.
+
+A sample platform using docker compose in provided in **docker_sample.yaml**.
+
 Instructions to configure it is on configuration section.
+
+```
+cat docker_sample.yaml 
+
+version: '2'
+services:
+    mdt:
+        image: "rgroult2/mobdisttool:stable"
+        ports:
+            - "8080:8080"
+        environment:
+            - MDT_DATABASE_URI=mongodb://mongo/mobdisttool
+            - MDT_STORAGE_NAME=local_storage_manager
+            - 'MDT_STORAGE_CONFIG={"RootDirectory":"/data/MDT"}'
+        links:
+            - mongo
+    mongo:
+        environment:
+            - AUTH=no
+        image: 'tutum/mongodb:latest'
+```
 
 You can install manually MDT from the `master` branch and run:
 
