@@ -1,0 +1,1916 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "../annotations/rtl_annotation.dart",
+        "5": false
+      },
+      {
+        "1": "../content/deferred_content_aware.dart",
+        "5": false
+      },
+      {
+        "1": "../mixins/material_dropdown_base.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/components/popup/hierarchy.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/components/popup/popup.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/overlay/overlay.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/popup/popup.dart",
+        "2": [
+          "PopupEvent",
+          "PopupRef",
+          "PopupService",
+          "PopupSizeProvider"
+        ],
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/async/async.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/browser/dom_service/dom_service.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "../../laminate/popup/popup.dart",
+        "2": [
+          "PopupSourceDirective"
+        ]
+      }
+    ],
+    "5": [
+      {
+        "1": "MaterialPopupComponent",
+        "5": [
+          {
+            "1": "DomService",
+            "4": "domService"
+          },
+          {
+            "1": "PopupHierarchy",
+            "3": [
+              "const Optional()",
+              "const SkipSelf()"
+            ],
+            "4": "hierarchy"
+          },
+          {
+            "1": "PopupRef",
+            "3": [
+              "const Optional()",
+              "const SkipSelf()"
+            ],
+            "4": "parentPopup"
+          },
+          {
+            "1": "NgZone",
+            "4": "ngZone"
+          },
+          {
+            "1": "PopupService",
+            "4": "popupService"
+          },
+          {
+            "1": "OverlayService",
+            "4": "_overlayService"
+          },
+          {
+            "1": "PopupSizeProvider",
+            "3": [
+              "const Optional()"
+            ],
+            "4": "_popupSizeProvider"
+          },
+          {
+            "1": "bool",
+            "3": [
+              "const Optional()",
+              "const Inject(rtlToken)"
+            ],
+            "4": "rtl"
+          },
+          {
+            "1": "ChangeDetectorRef",
+            "4": "_changeDetector"
+          }
+        ],
+        "6": [
+          "OnDestroy",
+          "DropdownHandle"
+        ],
+        "7": [
+          {
+            "2": "PopupRefDirective"
+          },
+          {
+            "2": "NgClass"
+          }
+        ]
+      }
+    ],
+    "6": "material_popup.dart",
+    "7": [
+      {
+        "1": "../annotations/rtl_annotation.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../content/deferred_content_aware.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../mixins/material_dropdown_base.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../../laminate/components/popup/hierarchy.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "../../laminate/components/popup/popup.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "../../laminate/overlay/overlay.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "../../laminate/popup/popup.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "../../utils/angular/properties/properties.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "../../utils/async/async.template.dart",
+        "4": "i8"
+      },
+      {
+        "1": "../../utils/browser/dom_service/dom_service.template.dart",
+        "4": "i9"
+      },
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i10"
+      }
+    ]
+  },
+  "type": {
+    "MaterialPopupComponent_getResolvedPopupRef": {
+      "class": "Identifier",
+      "name": "MaterialPopupComponent_getResolvedPopupRef",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MaterialPopupComponent_getHierarchy": {
+      "class": "Identifier",
+      "name": "MaterialPopupComponent_getHierarchy",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MaterialPopupComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "material-popup",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialPopupComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "DomService",
+                "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupHierarchy",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/hierarchy.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": true,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupRef",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": true,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NgZone",
+                "moduleUrl": "asset:angular2/lib/src/core/zone/ng_zone.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupService",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "OverlayService",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupSizeProvider",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "rtlToken",
+                "moduleUrl": "asset:angular2_components/lib/src/components/annotations/rtl_annotation.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ChangeDetectorRef",
+                "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "alignContentX": "alignContentX",
+        "alignContentY": "alignContentY",
+        "autoDismiss": "autoDismiss",
+        "enforceSpaceConstraints": "enforceSpaceConstraints",
+        "matchSourceWidth": "matchSourceWidth",
+        "matchMinSourceWidth": "matchMinSourceWidth",
+        "offsetX": "offsetX",
+        "offsetY": "offsetY",
+        "preferredPositions": "preferredPositions",
+        "slide": "slide",
+        "source": "source",
+        "trackLayoutChanges": "trackLayoutChanges",
+        "visible": "visible",
+        "z": "z",
+        "inkBackground": "ink",
+        "hasBox": "hasBox",
+        "shadowCssClass": "shadowCssClass"
+      },
+      "inputTypes": {
+        "shadowCssClass": " String"
+      },
+      "outputs": {
+        "onAnimationComplete": "animationComplete",
+        "onOpen": "open",
+        "onOpened": "opened",
+        "onClose": "close",
+        "visibleChange": "visibleChange"
+      },
+      "hostListeners": {},
+      "hostProperties": {
+        "attr.pane-id": "uniqueId"
+      },
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<template [popupRef]=\"resolvedPopupRef\">\n  <div [attr.elevation]=\"z\"\n       class=\"popup-wrapper mixin\"\n       [class.shadow]=\"hasBox\"\n       [class.full-width]=\"matchMinSourceWidth\"\n       [class.ink]=\"inkBackground\"\n       [attr.slide]=\"slide\"\n       [attr.z-index]=\"zIndex\"\n       [style.transform-origin]=\"transformOrigin\"\n       [class.visible]=\"showPopup\"\n       [ngClass]=\"shadowCssClass\">\n      <div class=\"popup\"\n           [style.max-height.px]=\"contentHeight\"\n           [style.max-width.px]=\"contentWidth\">\n          <div class=\"material-popup-content content\">\n              <header>\n                  <ng-content select=\"[header]\"></ng-content>\n              </header>\n              <main>\n                  <ng-content></ng-content>\n              </main>\n              <footer>\n                  <ng-content select=\"[footer]\"></ng-content>\n              </footer>\n          </div>\n      </div>\n  </div>\n</template>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/material_popup/material_popup.scss.css"
+        ],
+        "ngContentSelectors": [
+          "[header]",
+          "*",
+          "[footer]"
+        ]
+      },
+      "providers": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "PopupComponent",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/popup.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "DomService",
+                      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupHierarchy",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/hierarchy.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupRef",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "NgZone",
+                      "moduleUrl": "asset:angular2/lib/src/core/zone/ng_zone.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "rtlToken",
+                      "moduleUrl": "asset:angular2_components/lib/src/components/annotations/rtl_annotation.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "MaterialPopupComponent",
+              "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "DomService",
+                      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupHierarchy",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/hierarchy.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupRef",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "NgZone",
+                      "moduleUrl": "asset:angular2/lib/src/core/zone/ng_zone.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "OverlayService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupSizeProvider",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "rtlToken",
+                      "moduleUrl": "asset:angular2_components/lib/src/components/annotations/rtl_annotation.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ChangeDetectorRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DropdownHandle",
+              "moduleUrl": "asset:angular2_components/lib/src/components/mixins/material_dropdown_base.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "MaterialPopupComponent",
+              "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "DomService",
+                      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupHierarchy",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/hierarchy.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupRef",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "NgZone",
+                      "moduleUrl": "asset:angular2/lib/src/core/zone/ng_zone.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "OverlayService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupSizeProvider",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "rtlToken",
+                      "moduleUrl": "asset:angular2_components/lib/src/components/annotations/rtl_annotation.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ChangeDetectorRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DeferredContentAware",
+              "moduleUrl": "asset:angular2_components/lib/src/components/content/deferred_content_aware.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "PopupComponent",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/popup.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "DomService",
+                      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupHierarchy",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/hierarchy.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupRef",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "NgZone",
+                      "moduleUrl": "asset:angular2/lib/src/core/zone/ng_zone.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "PopupService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "rtlToken",
+                      "moduleUrl": "asset:angular2_components/lib/src/components/annotations/rtl_annotation.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "PopupHierarchy",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/hierarchy.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": []
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Identifier",
+            "name": "MaterialPopupComponent_getHierarchy",
+            "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+            "prefix": null,
+            "value": null
+          },
+          "useProperty": null,
+          "multi": false,
+          "deps": [
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "PopupComponent",
+                  "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/popup.dart",
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            }
+          ]
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PopupRef",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Identifier",
+            "name": "MaterialPopupComponent_getResolvedPopupRef",
+            "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+            "prefix": null,
+            "value": null
+          },
+          "useProperty": null,
+          "multi": false,
+          "deps": [
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "PopupComponent",
+                  "moduleUrl": "asset:angular2_components/lib/src/laminate/components/popup/popup.dart",
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            }
+          ]
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "AsyncMeasureSize": {
+      "class": "Identifier",
+      "name": "AsyncMeasureSize",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_event.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DomPopupSourceFactory": {
+      "class": "Type",
+      "name": "DomPopupSourceFactory",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/dom_popup_source.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Window",
+              "moduleUrl": "dart:html",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DomRuler",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/ruler/dom_ruler.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "DomPopupSource": {
+      "class": "Identifier",
+      "name": "DomPopupSource",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/dom_popup_source.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[popup]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "PopupDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_directive.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "TemplateRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "DomPopupSourceFactory",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/dom_popup_source.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupService",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ViewContainerRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "alignX": "alignX",
+        "alignY": "alignY",
+        "autoDismiss": "autoDismiss",
+        "enforceSpaceConstraints": "enforceSpaceConstraints",
+        "matchSourceWidth": "matchSourceWidth",
+        "offsetX": "offsetX",
+        "offsetY": "offsetY",
+        "preferredPositions": "preferredPositions",
+        "relativeTo": "relativeTo",
+        "trackLayoutChanges": "trackLayoutChanges",
+        "visible": "visible"
+      },
+      "inputTypes": {},
+      "outputs": {
+        "onVisible": "visibleChange",
+        "onOpen": "open",
+        "onClose": "close",
+        "onReady": "ready"
+      },
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "PopupEvent": {
+      "class": "Identifier",
+      "name": "PopupEvent",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_event.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AsyncPopupEvent": {
+      "class": "Identifier",
+      "name": "AsyncPopupEvent",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_event.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupPosition": {
+      "class": "Identifier",
+      "name": "PopupPosition",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_position_mixin.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupPositionMixin": {
+      "class": "Identifier",
+      "name": "PopupPositionMixin",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_position_mixin.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ViewportBoundsGetter": {
+      "class": "Identifier",
+      "name": "ViewportBoundsGetter",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_DebouncedVisibilitySetter": {
+      "class": "Identifier",
+      "name": "_DebouncedVisibilitySetter",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupRef": {
+      "class": "Identifier",
+      "name": "PopupRef",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupRefImpl": {
+      "class": "Identifier",
+      "name": "PopupRefImpl",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_flatten": {
+      "class": "Identifier",
+      "name": "_flatten",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_Size": {
+      "class": "Identifier",
+      "name": "_Size",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "defaultPopupPositions": {
+      "class": "Identifier",
+      "name": "defaultPopupPositions",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupService": {
+      "class": "Type",
+      "name": "PopupService",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "defaultPopupPositions",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_service.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "OverlayService",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ZIndexer",
+              "moduleUrl": "asset:angular2_components/lib/src/css/acux/zindexer.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "PopupSizeProvider": {
+      "class": "Identifier",
+      "name": "PopupSizeProvider",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PercentagePopupSizeProvider": {
+      "class": "Identifier",
+      "name": "PercentagePopupSizeProvider",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupSizeProviderDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[popupMaxHeight],[popupMaxWidth]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "PopupSizeProviderDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider_directive.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": "popupMaxHeight",
+              "identifier": null,
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": true,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": "popupMaxWidth",
+              "identifier": null,
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": true,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupSizeProvider",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": true,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PopupSizeProvider",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "PopupSizeProviderDirective",
+            "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider_directive.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": "popupMaxHeight",
+                  "identifier": null,
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": true,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": "popupMaxWidth",
+                  "identifier": null,
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": true,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "PopupSizeProvider",
+                    "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": true,
+                "isOptional": true,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "_SizeDefinition": {
+      "class": "Identifier",
+      "name": "_SizeDefinition",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider_directive.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_PixelSizeDefinition": {
+      "class": "Identifier",
+      "name": "_PixelSizeDefinition",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider_directive.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_PercentSizeDefinition": {
+      "class": "Identifier",
+      "name": "_PercentSizeDefinition",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_size_provider_directive.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupSource": {
+      "class": "Identifier",
+      "name": "PopupSource",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_source.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ElementPopupSource": {
+      "class": "Identifier",
+      "name": "ElementPopupSource",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_source.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_RectanglePopupSource": {
+      "class": "Identifier",
+      "name": "_RectanglePopupSource",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_source.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupSourceDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[popupSource]",
+      "exportAs": "popupSource",
+      "type": {
+        "class": "Type",
+        "name": "PopupSourceDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_source_directive.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "DomPopupSourceFactory",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/dom_popup_source.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ReferenceDirective",
+                "moduleUrl": "asset:angular2_components/lib/src/utils/angular/reference/reference.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "alignX": "alignPositionX",
+        "alignY": "alignPositionY"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        6,
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "PopupState": {
+      "class": "Identifier",
+      "name": "PopupState",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_state.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,142 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/router.dart",
+        "5": false
+      },
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../services/global_service.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "RouteBarComponent",
+        "5": [
+          {
+            "1": "Router",
+            "4": "_router"
+          },
+          {
+            "1": "GlobalService",
+            "4": "_globalService"
+          }
+        ],
+        "6": [
+          "OnInit"
+        ],
+        "7": [
+          {
+            "2": "ROUTER_DIRECTIVES"
+          }
+        ]
+      }
+    ],
+    "6": "route_bar_component.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/router.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../services/global_service.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "RouteBarComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "route_bar",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "RouteBarComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/route_bar_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Router",
+                "moduleUrl": "asset:angular2/lib/src/router/router.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "GlobalService",
+                "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/services/global_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        0
+      ],
+      "template": {
+        "encapsulation": 2,
+        "template": "    <ol class=\"breadcrumb\">\n        <li *ngFor=\"let route of routeHistory\">\n            <a [routerLink]=\"routerLink(route['name'],route['params'])\">{{route['displayname']}}\n            </a>\n        </li>\n    </ol>",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/route_bar_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

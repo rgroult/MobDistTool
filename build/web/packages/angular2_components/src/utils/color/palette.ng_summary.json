@@ -1,0 +1,127 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "material.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "material.dart"
+      }
+    ],
+    "6": "palette.dart"
+  },
+  "type": {
+    "chartingPalette": {
+      "class": "Identifier",
+      "name": "chartingPalette",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/color/palette.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "blue500",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "red500",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "yellow500",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "green500",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "purple400",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "cyan600",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "deepOrange400",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "lime800",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "indigo400",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "pink300",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "teal700",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "pink700",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    }
+  },
+  "alias": {
+    "chartingPalette": [
+      "blue500",
+      "red500",
+      "yellow500",
+      "green500",
+      "purple400",
+      "cyan600",
+      "deepOrange400",
+      "lime800",
+      "indigo400",
+      "pink300",
+      "teal700",
+      "pink700"
+    ]
+  }
+}

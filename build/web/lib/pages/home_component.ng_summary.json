@@ -1,0 +1,62 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "HomeComponent"
+      }
+    ],
+    "6": "home_component.dart"
+  },
+  "type": {
+    "ModalRequired": {
+      "class": "Identifier",
+      "name": "ModalRequired",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HomeComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "home_comp",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "HomeComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css\" />\n<div class=\"row tim-row\" style=\"padding-top:30px\">\n        <h2 class=\"text-center\"><img style=\"vertical-align:baseline;\" src=\"images/logo_64.png\"/>Mobile App Distribution Tool</h2>\n        <br/>\n        <br/>\n        <p class=\"text-center\">Manage yours users, application and download artifacts.</p>\n\n\n    <a class=\"github-fork-ribbon  right-bottom \" href=\"https://github.com/rgroult/MobDistTool\" title=\"Fork me on GitHub\">Fork me on GitHub!</a>\n</div>\n",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

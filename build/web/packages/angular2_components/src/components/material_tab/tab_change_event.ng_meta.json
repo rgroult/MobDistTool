@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "TabChangeEvent": {
+      "class": "Identifier",
+      "name": "TabChangeEvent",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_tab/tab_change_event.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

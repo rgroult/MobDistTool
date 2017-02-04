@@ -1,0 +1,76 @@
+{
+  "ngDeps": null,
+  "type": {
+    "ErrorType": {
+      "class": "Identifier",
+      "name": "ErrorType",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BaseError": {
+      "class": "Identifier",
+      "name": "BaseError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ConnectionError": {
+      "class": "Identifier",
+      "name": "ConnectionError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LoginError": {
+      "class": "Identifier",
+      "name": "LoginError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RegisterError": {
+      "class": "Identifier",
+      "name": "RegisterError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "UsersError": {
+      "class": "Identifier",
+      "name": "UsersError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ActivationError": {
+      "class": "Identifier",
+      "name": "ActivationError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ApplicationError": {
+      "class": "Identifier",
+      "name": "ApplicationError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ArtifactsError": {
+      "class": "Identifier",
+      "name": "ArtifactsError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    },
+    "UIError": {
+      "class": "Identifier",
+      "name": "UIError",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/model/errors.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

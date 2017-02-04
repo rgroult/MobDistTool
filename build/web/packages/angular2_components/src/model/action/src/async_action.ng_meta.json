@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "AsyncAction": {
+      "class": "Identifier",
+      "name": "AsyncAction",
+      "moduleUrl": "asset:angular2_components/lib/src/model/action/src/async_action.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

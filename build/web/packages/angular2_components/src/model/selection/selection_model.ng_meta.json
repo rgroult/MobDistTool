@@ -1,0 +1,175 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.model.selection.selection_model",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:collection",
+        "5": false
+      },
+      {
+        "1": "package:observable/observable.dart",
+        "5": false
+      },
+      {
+        "1": "src/interfaces/selectable.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "src/delegating_selection_model.dart"
+      },
+      {
+        "1": "src/radio_group_single_selection_model.dart"
+      }
+    ],
+    "6": "selection_model.dart",
+    "7": [
+      {
+        "1": "src/interfaces/selectable.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "src/delegating_selection_model.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "src/radio_group_single_selection_model.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "KeyProvider": {
+      "class": "Identifier",
+      "name": "KeyProvider",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MatchCallback": {
+      "class": "Identifier",
+      "name": "MatchCallback",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_MultiSelectionModelImpl": {
+      "class": "Identifier",
+      "name": "_MultiSelectionModelImpl",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_NoopSelectionModelImpl": {
+      "class": "Identifier",
+      "name": "_NoopSelectionModelImpl",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectableChangeNotifier": {
+      "class": "Identifier",
+      "name": "SelectableChangeNotifier",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_SelectableChangeRecordImpl": {
+      "class": "Identifier",
+      "name": "_SelectableChangeRecordImpl",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectionObservable": {
+      "class": "Identifier",
+      "name": "SelectionObservable",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectionChangeNotifier": {
+      "class": "Identifier",
+      "name": "SelectionChangeNotifier",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_SelectionChangeRecordImpl": {
+      "class": "Identifier",
+      "name": "_SelectionChangeRecordImpl",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_SingleSelectionModelImpl": {
+      "class": "Identifier",
+      "name": "_SingleSelectionModelImpl",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_defaultKeyProvider": {
+      "class": "Identifier",
+      "name": "_defaultKeyProvider",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectionModel": {
+      "class": "Identifier",
+      "name": "SelectionModel",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MultiSelectionModel": {
+      "class": "Identifier",
+      "name": "MultiSelectionModel",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectionChangeRecord": {
+      "class": "Identifier",
+      "name": "SelectionChangeRecord",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectableChangeRecord": {
+      "class": "Identifier",
+      "name": "SelectableChangeRecord",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DelegatingSelectionModel": {
+      "class": "Identifier",
+      "name": "DelegatingSelectionModel",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/src/delegating_selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DelegatingMultiSelectionModel": {
+      "class": "Identifier",
+      "name": "DelegatingMultiSelectionModel",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/src/delegating_selection_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RadioGroupSingleSelectionModel": {
+      "class": "Identifier",
+      "name": "RadioGroupSingleSelectionModel",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/src/radio_group_single_selection_model.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

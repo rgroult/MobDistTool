@@ -32,7 +32,7 @@ import '../server/services/artifact_service.dart';
 import '../server/services/in_service.dart';
 import '../server/services/logs_service.dart';
 import '../server/utils/utils.dart' as utils;
-import '../web/version.dart' as version;
+import '../web_angular2/web/version.dart' as version;
 import '../server/services/exeption_handler.dart' as exception_handler;
 
 const _API_PREFIX = '/api';
@@ -111,7 +111,9 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   // Create a Shelf handler for your RPC API.
   var apiHandler = shelf_rpc.createRpcHandler(_apiServer);
 
-  var staticHandler =  shelf_static.createStaticHandler('build/web',
+  var legacyUiHandler =  shelf_static.createStaticHandler('build_legacy/web',
+      defaultDocument: 'index.html');
+  var uiHandler =  shelf_static.createStaticHandler('build/web',
       defaultDocument: 'index.html');
 
   var apiRouter = shelf_route.router()
@@ -126,7 +128,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   //disable authent for discovery ?
     ..add('api/discovery',null,apiHandler,exactMatch: false)
   //gui
-    ..add('web/',null,staticHandler,exactMatch: false)
+    ..add('weblegacy/',null,legacyUiHandler,exactMatch: false)
+    ..add('web/',null,uiHandler,exactMatch: false)
   //authenticate api
     ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 

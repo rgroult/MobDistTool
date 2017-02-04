@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.model.ui.highlight_assistant",
+    "3": [
+      {
+        "1": "./has_renderer.dart",
+        "5": false
+      },
+      {
+        "1": "./highlighted_text_model.dart",
+        "5": false
+      }
+    ],
+    "6": "highlight_assistant.dart"
+  },
+  "type": {
+    "HighlightAssistant": {
+      "class": "Identifier",
+      "name": "HighlightAssistant",
+      "moduleUrl": "asset:angular2_components/lib/src/model/ui/highlight_assistant.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../selection_model.dart",
+        "5": false
+      },
+      {
+        "1": "delegating_selection_model.dart",
+        "5": false
+      }
+    ],
+    "6": "radio_group_single_selection_model.dart"
+  },
+  "type": {
+    "RadioGroupSingleSelectionModel": {
+      "class": "Identifier",
+      "name": "RadioGroupSingleSelectionModel",
+      "moduleUrl": "asset:angular2_components/lib/src/model/selection/src/radio_group_single_selection_model.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

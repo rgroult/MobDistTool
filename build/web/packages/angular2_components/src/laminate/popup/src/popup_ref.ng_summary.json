@@ -1,0 +1,101 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.popup.src.popup_ref",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "../../../css/acux/zindexer.dart",
+        "5": false
+      },
+      {
+        "1": "../../enums/alignment.dart",
+        "5": false
+      },
+      {
+        "1": "../../enums/visibility.dart",
+        "5": false
+      },
+      {
+        "1": "../../overlay/overlay.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_event.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_state.dart",
+        "5": false
+      },
+      {
+        "1": "../../portal/portal.dart",
+        "5": false
+      },
+      {
+        "1": "../../../model/action/async_action.dart",
+        "5": false
+      },
+      {
+        "1": "../../../model/ui/toggle.dart",
+        "5": false
+      },
+      {
+        "1": "../../../utils/disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "6": "popup_ref.dart"
+  },
+  "type": {
+    "ViewportBoundsGetter": {
+      "class": "Identifier",
+      "name": "ViewportBoundsGetter",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_DebouncedVisibilitySetter": {
+      "class": "Identifier",
+      "name": "_DebouncedVisibilitySetter",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupRef": {
+      "class": "Identifier",
+      "name": "PopupRef",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupRefImpl": {
+      "class": "Identifier",
+      "name": "PopupRefImpl",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_flatten": {
+      "class": "Identifier",
+      "name": "_flatten",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_Size": {
+      "class": "Identifier",
+      "name": "_Size",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_ref.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

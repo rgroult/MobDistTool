@@ -1,0 +1,279 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/managed_zone/angular_2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/async/async.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/keyboard/keyboard.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:quiver/iterables.dart",
+        "2": [
+          "range"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ReorderListComponent",
+        "5": [
+          {
+            "1": "ManagedZone",
+            "4": "_managedZone"
+          }
+        ],
+        "6": [
+          "OnDestroy"
+        ]
+      },
+      {
+        "1": "ReorderItemDirective",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "elementRef"
+          }
+        ]
+      }
+    ],
+    "6": "reorder_list.dart"
+  },
+  "type": {
+    "ReorderListHandler": {
+      "class": "Identifier",
+      "name": "ReorderListHandler",
+      "moduleUrl": "asset:angular2_components/lib/src/components/reorder_list/reorder_list.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReorderEvent": {
+      "class": "Identifier",
+      "name": "ReorderEvent",
+      "moduleUrl": "asset:angular2_components/lib/src/components/reorder_list/reorder_list.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MultiReorderEvent": {
+      "class": "Identifier",
+      "name": "MultiReorderEvent",
+      "moduleUrl": "asset:angular2_components/lib/src/components/reorder_list/reorder_list.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ItemSelectionEvent": {
+      "class": "Identifier",
+      "name": "ItemSelectionEvent",
+      "moduleUrl": "asset:angular2_components/lib/src/components/reorder_list/reorder_list.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReorderItemDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[reorderItem]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "ReorderItemDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/components/reorder_list/reorder_list.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {
+        "tabindex": "0",
+        "role": "listitem",
+        "draggable": "true"
+      },
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "ReorderListComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "reorder-list",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "ReorderListComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/components/reorder_list/reorder_list.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ManagedZone",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "verticalItems": "verticalItems",
+        "multiSelect": "multiSelect"
+      },
+      "inputTypes": {
+        "verticalItems": " bool",
+        "multiSelect": " bool"
+      },
+      "outputs": {
+        "reorder": "reorder",
+        "reorderAttempt": "reorderAttempt",
+        "delete": "delete",
+        "itemSelectionChanged": "itemSelectionChanged"
+      },
+      "hostListeners": {},
+      "hostProperties": {
+        "class.vertical": "verticalItems",
+        "class.multiselect": "multiSelect"
+      },
+      "hostAttributes": {
+        "class": "themeable",
+        "role": "list"
+      },
+      "lifecycleHooks": [
+        1
+      ],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<ng-content></ng-content>\n<div #placeholder class=\"placeholder\" [class.hidden]=\"!showPlaceholder\">\n  <ng-content select=\"[reorderPlaceholder]\"></ng-content>\n</div>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/reorder_list/reorder_list.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/reorder_list/reorder_list.scss.css"
+        ],
+        "ngContentSelectors": [
+          "*",
+          "[reorderPlaceholder]"
+        ],
+        "preserveWhitespace": false
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ReorderItemDirective",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": false,
+          "first": false,
+          "propertyName": "items",
+          "read": null
+        }
+      ],
+      "viewQueries": [
+        {
+          "selectors": [
+            {
+              "value": "placeholder",
+              "identifier": null,
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": true,
+          "first": true,
+          "propertyName": "placeholder",
+          "read": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ElementRef",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          }
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

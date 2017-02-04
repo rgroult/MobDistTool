@@ -1,0 +1,73 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.popup.src.popup_controller_base",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../enums/alignment.dart",
+        "5": false
+      },
+      {
+        "1": "./dom_popup_source.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_event.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_ref.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_service.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_source.dart",
+        "5": false
+      },
+      {
+        "1": "../../portal/portal.dart",
+        "5": false
+      },
+      {
+        "1": "../../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../../utils/disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "6": "popup_controller_base.dart"
+  },
+  "type": {
+    "PopupControllerBase": {
+      "class": "Identifier",
+      "name": "PopupControllerBase",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_controller_base.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupController": {
+      "class": "Identifier",
+      "name": "PopupController",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_controller_base.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

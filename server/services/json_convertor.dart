@@ -4,7 +4,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:bson/bson.dart';
-import '../../packages/objectory/objectory.dart';
+import 'package:objectory/objectory.dart';
 
 Map propertiePerClass = {
   "MDTUser" :  ['name','email'],

@@ -1,0 +1,18 @@
+CANCELLED - After application creation : Icon too big is green
+FIXED - Application List : other => All
+FIXED - application List : missing platform icon
+FIXED - application list: no delay mangement on refresh
+FIXED - aplication list: problem after delete app
+Errors : As floating panel ?
+General : Bug of visible modal and setting drop down on bottom
+FIXED - Add artifact : missing upload loading
+Add artifact : bug on file selection
+FIXED - Artifact List, problem when filter, sometimes first colum is empty
+FIXED - Add artifact: not cleaning error on appears
+FIXED - Add artifact :problem on "add" button, sometimes disappear
+docker image : Change config to local storage to enable download test app
+Application detail: On delete last version => accordeon to "unknow version/no branch"
+FIXED - administation : Width problem on log console with long logs
+administration : Bad tab color
+CANCELLED - Login modal: no error cleaning on appears
+FIXED - Login modal: focus on email field

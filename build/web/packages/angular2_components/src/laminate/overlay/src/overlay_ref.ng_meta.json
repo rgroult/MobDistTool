@@ -1,0 +1,77 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.overlay.src.overlay_ref",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "../../enums/visibility.dart",
+        "5": false
+      },
+      {
+        "1": "./overlay_state.dart",
+        "5": false
+      },
+      {
+        "1": "../../portal/portal.dart",
+        "5": false
+      }
+    ],
+    "6": "overlay_ref.dart",
+    "7": [
+      {
+        "1": "../../enums/visibility.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "./overlay_state.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../../portal/portal.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "AsyncApplyState": {
+      "class": "Identifier",
+      "name": "AsyncApplyState",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AsyncMeasureSize": {
+      "class": "Identifier",
+      "name": "AsyncMeasureSize",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OverlayRef": {
+      "class": "Identifier",
+      "name": "OverlayRef",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BaseOverlayRef": {
+      "class": "Identifier",
+      "name": "BaseOverlayRef",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

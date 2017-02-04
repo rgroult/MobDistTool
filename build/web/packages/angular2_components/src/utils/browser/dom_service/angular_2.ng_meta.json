@@ -1,0 +1,458 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.utils.browser.dom_service.angular_2",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injector",
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view.dart",
+        "2": [
+          "domRootRendererIsDirty"
+        ],
+        "5": false
+      },
+      {
+        "1": "../../angular/managed_zone/interface.dart",
+        "5": false
+      },
+      {
+        "1": "./dom_service.dart",
+        "5": false
+      },
+      {
+        "1": "./dom_service_webdriver_testability.dart",
+        "5": false
+      },
+      {
+        "1": "../../disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "./dom_service.dart"
+      }
+    ],
+    "5": [
+      {
+        "1": "createDomService",
+        "3": true,
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "DomService",
+            "3": [
+              "const Optional()",
+              "const SkipSelf()"
+            ],
+            "4": "service"
+          },
+          {
+            "1": "Disposer",
+            "3": [
+              "const Optional()"
+            ],
+            "4": "disposer"
+          },
+          {
+            "1": "ManagedZone",
+            "4": "zone"
+          },
+          {
+            "1": "Window",
+            "4": "window"
+          }
+        ]
+      }
+    ],
+    "6": "angular_2.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../../angular/managed_zone/interface.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "./dom_service.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "./dom_service_webdriver_testability.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "../../disposer/disposer.template.dart",
+        "4": "i6"
+      }
+    ]
+  },
+  "type": {
+    "domServiceBinding": {
+      "class": "Identifier",
+      "name": "domServiceBinding",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/angular_2.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DomService",
+              "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Factory",
+            "name": "createDomService",
+            "prefix": null,
+            "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/angular_2.dart",
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "DomService",
+                    "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": true,
+                "isOptional": true,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "Disposer",
+                    "moduleUrl": "asset:angular2_components/lib/src/utils/disposer/disposer.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": true,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ManagedZone",
+                    "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "Window",
+                    "moduleUrl": "dart:html",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useProperty": null,
+          "multi": false,
+          "deps": [
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "DomService",
+                  "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": true,
+              "isOptional": true,
+              "isValue": false
+            },
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "Disposer",
+                  "moduleUrl": "asset:angular2_components/lib/src/utils/disposer/disposer.dart",
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": true,
+              "isValue": false
+            },
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "ManagedZone",
+                  "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            },
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "Window",
+                  "moduleUrl": "dart:html",
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            }
+          ]
+        }
+      ]
+    },
+    "createDomService": {
+      "class": "Factory",
+      "name": "createDomService",
+      "prefix": null,
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/angular_2.dart",
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DomService",
+              "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": true,
+          "isOptional": true,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Disposer",
+              "moduleUrl": "asset:angular2_components/lib/src/utils/disposer/disposer.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": true,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ManagedZone",
+              "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Window",
+              "moduleUrl": "dart:html",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "setupAcxRootDomRenderer": {
+      "class": "Identifier",
+      "name": "setupAcxRootDomRenderer",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/angular_2.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DomReadWriteFn": {
+      "class": "Identifier",
+      "name": "DomReadWriteFn",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RequestAnimationFrame": {
+      "class": "Identifier",
+      "name": "RequestAnimationFrame",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DomServiceState": {
+      "class": "Identifier",
+      "name": "DomServiceState",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "IsDomMutatedPredicate": {
+      "class": "Identifier",
+      "name": "IsDomMutatedPredicate",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DomService": {
+      "class": "Identifier",
+      "name": "DomService",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ChangeTracker": {
+      "class": "Identifier",
+      "name": "_ChangeTracker",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/browser/dom_service/dom_service.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

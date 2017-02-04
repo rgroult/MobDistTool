@@ -1,0 +1,71 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "../model/errors.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ErrorComponent"
+      }
+    ],
+    "6": "error_component.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../model/errors.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "ErrorComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "error_comp",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "ErrorComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/error_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "error": "error"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<div *ngIf=\"error!= null\" class=\"alert\" [ngClass] = \"'alert-'+error.typeAsString()\">\n    <div class=\"container-fluid\">\n        <div class=\"alert-icon\">\n            <i class=\"material-icons\">error_outline</i>\n        </div>\n        <button type=\"button\" class=\"close\" data-dismiss1=\"alert\" (click)=\"hide()\" aria-label=\"Close\">\n            <span aria-hidden=\"true\"><i class=\"material-icons\">clear</i></span>\n        </button>\n        <b>{{error.code}}:</b> {{error.reason}}\n    </div>\n</div>",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/error_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}
