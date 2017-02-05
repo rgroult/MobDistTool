@@ -1,0 +1,68 @@
+//$brand-primary: #F16E00 !default; //$purple !default;
+//$brand-secondary: #9e9e9e !default; //$purple !default;
+$brand-primary: #7B1FA2 !default;
+$brand-accent: #7B1FA2 !default; //#E040FB !default; //$purple !default;
+//https://www.materialpalette.com/
+//$brand-accent: $orange !default;
+/*   Material button */
+/*
+material-button  h2 {
+  color:$brand-accent;
+}*/
+material-button  .material-icons {
+  color:$brand-accent;
+}
+material-button  .material-icons.md-48 {
+  color:$brand-accent;
+  position: relative;
+  top:8px;
+}
+material-button.admin_button .material-icons{
+  color: red;
+}
+
+/*   checkbox */
+material-checkbox .material-icons{
+
+}
+material-checkbox .icon.filled .material-icons{
+  background-color: white;
+  color:$brand-primary;
+}
+
+/*   round button */
+material-fab .material-icons.primary{
+  color:$brand-accent;
+}
+.btn-white .material-icons.primary{
+  color:$brand-accent;
+}
+
+/*   radio button */
+material-radio .material-icons {
+  color:$brand-primary;
+}
+
+/* panel */
+material-expansionpanel header  .material-icons{
+  color:$brand-primary;
+}
+
+/*   input */
+material-input .label-text.focused {
+  color:$brand-primary !important;
+}
+material-input .focused-underline {
+  background-color:$brand-primary !important;
+}
+
+/* toggle */
+material-toggle .material-toggle.checked .tgl-btn, material-toggle .material-toggle.checked .tgl-bar{
+  background-color: $brand-primary !important;
+}
+
+  /* Qr Code : Not working*/
+.qr-code-button {
+  /* https://materialdesignicons.com/icon/qrcode */
+  color:$brand-accent;
+}

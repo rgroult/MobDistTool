@@ -1,0 +1,81 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.model.observable.observable",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "6": "observable.dart",
+    "7": [
+      {
+        "1": "../../utils/disposer/disposer.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "EqualsFn": {
+      "class": "Identifier",
+      "name": "EqualsFn",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ObserveAware": {
+      "class": "Identifier",
+      "name": "ObserveAware",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Change": {
+      "class": "Identifier",
+      "name": "Change",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ChangeAware": {
+      "class": "Identifier",
+      "name": "ChangeAware",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ChangeNotificationProvider": {
+      "class": "Identifier",
+      "name": "ChangeNotificationProvider",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ObservableView": {
+      "class": "Identifier",
+      "name": "ObservableView",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ObservableReference": {
+      "class": "Identifier",
+      "name": "ObservableReference",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ObservableComposite": {
+      "class": "Identifier",
+      "name": "ObservableComposite",
+      "moduleUrl": "asset:angular2_components/lib/src/model/observable/observable.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

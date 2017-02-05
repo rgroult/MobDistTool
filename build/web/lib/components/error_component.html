@@ -1,0 +1,11 @@
+<div *ngIf="error!= null" class="alert" [ngClass] = "'alert-'+error.typeAsString()">
+    <div class="container-fluid">
+        <div class="alert-icon">
+            <i class="material-icons">error_outline</i>
+        </div>
+        <button type="button" class="close" data-dismiss1="alert" (click)="hide()" aria-label="Close">
+            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+        </button>
+        <b>{{error.code}}:</b> {{error.reason}}
+    </div>
+</div>

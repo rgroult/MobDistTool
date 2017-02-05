@@ -1,0 +1,146 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../model/action/async_action.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      },
+      {
+        "1": "material_expansionpanel.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "MaterialExpansionPanelSet",
+        "6": [
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "material_expansionpanel_set.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../../model/action/async_action.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../../utils/disposer/disposer.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "material_expansionpanel.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "MaterialExpansionPanelSet": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "material-expansionpanel-set",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialExpansionPanelSet",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_expansionpanel/material_expansionpanel_set.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Type",
+                "name": "MaterialExpansionPanel",
+                "moduleUrl": "asset:angular2_components/lib/src/components/material_expansionpanel/material_expansionpanel.dart",
+                "prefix": null,
+                "isHost": false,
+                "value": null,
+                "diDeps": [
+                  {
+                    "token": {
+                      "value": null,
+                      "identifier": {
+                        "class": "Identifier",
+                        "name": "ManagedZone",
+                        "moduleUrl": "asset:angular2_components/lib/src/utils/angular/managed_zone/src/managed_zone.dart",
+                        "prefix": null,
+                        "value": null
+                      },
+                      "identifierIsInstance": false
+                    },
+                    "value": null,
+                    "isAttribute": false,
+                    "isSelf": false,
+                    "isHost": false,
+                    "isSkipSelf": false,
+                    "isOptional": false,
+                    "isValue": false
+                  },
+                  {
+                    "token": {
+                      "value": null,
+                      "identifier": {
+                        "class": "Identifier",
+                        "name": "ChangeDetectorRef",
+                        "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+                        "prefix": null,
+                        "value": null
+                      },
+                      "identifierIsInstance": false
+                    },
+                    "value": null,
+                    "isAttribute": false,
+                    "isSelf": false,
+                    "isHost": false,
+                    "isSkipSelf": false,
+                    "isOptional": false,
+                    "isValue": false
+                  }
+                ]
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": false,
+          "first": false,
+          "propertyName": "panels",
+          "read": null
+        }
+      ],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

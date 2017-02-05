@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Log: {{logSelected}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href1="#" (click)="displayConsoleLogs()">Console</a></li>
+                    <li><a href1="#" (click)="displayActivityLogs()">Activity</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form class="navbar-form"  (ngSubmit)="reloadLogs()">
+                <div class="input-group">
+		                <span class="input-group-addon">
+			                <b>Max lines:  </b>
+		                </span>
+                    <input style="width:50px;text-align: center;" type="text" class="form-control" [(ngModel)]="maxLines" placeholder="">
+                </div>
+                <button type="submit" class="btn btn-simple btn-fab btn-fab-mini btn-round btn-primary">
+                    <i class="material-icons">refresh</i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div style="background-color: #00a9bb;height:400px;overflow: scroll;resize: vertical">
+                <xmp>{{logLines}}</xmp>
+            </div>
+        </div>
+    </div>
+</div>

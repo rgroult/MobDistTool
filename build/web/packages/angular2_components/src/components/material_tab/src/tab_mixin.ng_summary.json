@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "TabMixin": {
+      "class": "Identifier",
+      "name": "TabMixin",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_tab/src/tab_mixin.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

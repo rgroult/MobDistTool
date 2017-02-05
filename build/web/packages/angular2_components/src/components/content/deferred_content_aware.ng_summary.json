@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "DeferredContentAware": {
+      "class": "Identifier",
+      "name": "DeferredContentAware",
+      "moduleUrl": "asset:angular2_components/lib/src/components/content/deferred_content_aware.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

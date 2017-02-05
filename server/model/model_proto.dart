@@ -3,7 +3,7 @@
 // MIT-style license that can be found in the LICENSE file.
 
 library MDT_model_proto;
-import '../../packages/objectory/src/domain_model_generator.dart';
+import 'package:objectory/src/domain_model_generator.dart';
 
 class MDTUser {
   String name;

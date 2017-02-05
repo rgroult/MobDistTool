@@ -1,0 +1,57 @@
+<div *ngIf="currentApp!=null" class="content">
+    <application_detail_header [application]="currentApp" (appUpdated)="appUpdated($event)" ></application_detail_header>
+
+    <error_comp [error]="error"></error_comp>
+    <hr/>
+    <h2>
+        <small>Versions</small> <button data-toggle="modal" data-target="#allModals" (click)="displayAddArtifactModal()" *ngIf="canAdmin" class="btn btn-danger btn-fab btn-fab-mini btn-round">
+        <i  class="material-icons">add</i>
+    </button>
+    </h2>
+    <div class="row">
+        <div class="col-sm-9 col-md-7">
+            <material-expansionpanel-set>
+                <material-expansionpanel wide [showSaveCancel]=false name="Latest Build">
+                    <artifact  *ngFor="let artifact of applicationsLastestVersion" [artifact]="artifact" [canDelete]="canAdmin" (artifactDeleted)="artifactDeleted($event)" ></artifact>
+                </material-expansionpanel>
+            </material-expansionpanel-set>
+        </div>
+    </div>
+    <h3>
+    <small>Sorted versions</small>
+    </h3>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Branch : {{currentSelectedBranch}}
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href1="#" (click)="selectFilter('')">All</a></li>
+
+            <li><a href1="#" *ngFor="let branch of allAvailableBranches" (click)="selectFilter(branch)">{{branch}}</a></li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <material-expansionpanel-set>
+
+            <div class="col-sm-12 visible-sm visible-xs">
+                <material-expansionpanel wide *ngFor="let sortIdentifier of filteredSortedIdentifier"  [showSaveCancel]=false secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
+                    <artifact *ngFor="let artifact of groupedArtifacts[sortIdentifier]"  [sortIdentifier]="sortIdentifier" [artifact]="artifact" [canDelete]="canAdmin" (artifactDeleted)="artifactDeleted($event)"></artifact>
+                </material-expansionpanel>
+            </div>
+
+            <div *ngIf="evenFilteredSortedIdentifier.isNotEmpty" class="col-md-6 hidden-sm hidden-xs">
+                <material-expansionpanel wide *ngFor="let sortIdentifier of evenFilteredSortedIdentifier" [showSaveCancel]="false" secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
+                    <artifact *ngFor="let artifact of groupedArtifacts[sortIdentifier]"  [sortIdentifier]="sortIdentifier" [artifact]="artifact" [canDelete]="canAdmin" (artifactDeleted)="artifactDeleted($event)"></artifact>
+                </material-expansionpanel>
+            </div>
+
+            <div *ngIf="oddFilteredSortedIdentifier.isNotEmpty" class="col-md-6 hidden-sm hidden-xs">
+                <material-expansionpanel wide *ngFor="let sortIdentifier of oddFilteredSortedIdentifier" [showSaveCancel]="false" secondaryText="{{branchForSortIdentifier(sortIdentifier)}}" name="{{versionForSortIdentifier(sortIdentifier)}}">
+                    <artifact *ngFor="let artifact of groupedArtifacts[sortIdentifier]"  [sortIdentifier]="sortIdentifier" [artifact]="artifact" [canDelete]="canAdmin" (artifactDeleted)="artifactDeleted($event)"></artifact>
+                </material-expansionpanel>
+            </div>
+        </material-expansionpanel-set>
+    </div>
+</div>

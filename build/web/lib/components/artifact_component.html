@@ -1,0 +1,45 @@
+<div *ngIf="artifact!=null">
+    <div>
+        <table class="table no_margin_bottom">
+            <tr>
+                <td><span class="label label-info ">{{artifact.name}}</span></td>
+                <td class="text-left">
+
+                    <span>
+             {{artifactSize}} Mo <br/> <small> Created: {{artifact.creationDate | date:'mediumDate'}}</small>
+        </span>
+                </td>
+                <td class="td-actions text-right">
+                        <material-button data-toggle="modal" data-target="#allModals" (click)="generateQrCode()" icon><img src="images/qrcode.png" /></material-button>
+                    <!--    <material-button data-toggle="modal" data-target="#allModals" (click)="generateQrCode()" icon><glyph icon="crop_free"></glyph></material-button> -->
+                        <material-button (click)="downloadOrInstall()" icon><glyph icon="get_app"></glyph></material-button>
+                        <material-button (click)="isCollapsed = !isCollapsed" icon ><glyph icon="more_vert"></glyph></material-button>
+                        <material-button class="admin_button" (click)="deleteArtifact()" icon *ngIf="canDelete"><glyph icon="delete"></glyph></material-button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="!isCollapsed" class="card-content table-responsive">
+            <table class="table">
+                <thead>
+                <tr><th>Key</th>
+                    <th>Value</th>
+                </tr></thead>
+                <tbody>
+                <tr *ngFor="let key of metaDataKeys">
+                    <td><b>{{key}}</b> </td> <td>{{artifact.metaDataTags[key]}} </td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+<!--
+        <material-fab raised class="qr-code-button">
+            <img href="../../images/qrcode_black.png"/>
+        </material-fab>
+        <a ngClass="canInstall ? 'hidden' : ''" type="button" (click)="generateQrCode()" class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">crop_free</i> QRCode</a>
+        <a ngClass="canInstall ? 'hidden' : ''" type="button" (click)="downloadArtifact()"  class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">file_download</i> Download</a>
+        <a ngClass="canInstall ? '' : 'hidden'" type="button" (click)="installArtifact()"  class=" btn btn-raised btn-default" aria-hidden="true"><i class="material-icons">file_download</i> Install</a>
+        <a type="button" (click)="isCollapsed = !isCollapsed" class="btn btn-raised btn-default"><i class="material-icons">more_vert</i></a>
+        <button type="button" (click)="deleteArtifact()" *ngIf="canDelete" class="btn btn-xs btn-flat btn-danger"><i class="material-icons">delete</i> Delete</button>
+-->
+</div>

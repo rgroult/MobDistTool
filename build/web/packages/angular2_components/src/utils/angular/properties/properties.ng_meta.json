@@ -1,0 +1,34 @@
+{
+  "ngDeps": null,
+  "type": {
+    "getDynamic": {
+      "class": "Identifier",
+      "name": "getDynamic",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/properties/properties.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_parseBool": {
+      "class": "Identifier",
+      "name": "_parseBool",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/properties/properties.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getBool": {
+      "class": "Identifier",
+      "name": "getBool",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/properties/properties.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getInt": {
+      "class": "Identifier",
+      "name": "getInt",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/angular/properties/properties.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

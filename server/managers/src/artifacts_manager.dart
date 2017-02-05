@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:uuid/uuid.dart';
-import '../../../packages/objectory/objectory_console.dart';
+import 'package:objectory/objectory_console.dart';
 import '../../model/model.dart';
 import 'storage/base_storage_manager.dart';
 import '../errors.dart';

@@ -1,0 +1,16 @@
+version: '2'
+services:
+    mdt:
+        image: "rgroult2/mobdisttool:stable"
+        ports:
+            - "8080:8080"
+        environment:
+            - MDT_DATABASE_URI=mongodb://mongo/mobdisttool
+            - MDT_STORAGE_NAME=local_storage_manager
+            - 'MDT_STORAGE_CONFIG={"RootDirectory":"/data/MDT"}'
+        links:
+            - mongo
+    mongo:
+        environment:
+            - AUTH=no
+        image: 'tutum/mongodb:latest'

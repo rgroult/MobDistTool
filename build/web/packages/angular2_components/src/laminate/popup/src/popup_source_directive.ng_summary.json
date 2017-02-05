@@ -1,0 +1,161 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.popup.src.popup_source_directive",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../enums/alignment.dart",
+        "5": false
+      },
+      {
+        "1": "./dom_popup_source.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_source.dart",
+        "5": false
+      },
+      {
+        "1": "../../../utils/angular/reference/reference.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "PopupSourceDirective",
+        "5": [
+          {
+            "1": "DomPopupSourceFactory",
+            "4": "_domPopupSourceFactory"
+          },
+          {
+            "1": "ElementRef",
+            "4": "_elementRef"
+          },
+          {
+            "1": "ReferenceDirective",
+            "3": [
+              "const Optional()"
+            ],
+            "4": "_referenceDirective"
+          }
+        ],
+        "6": [
+          "ElementPopupSource",
+          "AfterViewInit",
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "popup_source_directive.dart"
+  },
+  "type": {
+    "PopupSourceDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[popupSource]",
+      "exportAs": "popupSource",
+      "type": {
+        "class": "Type",
+        "name": "PopupSourceDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_source_directive.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "DomPopupSourceFactory",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ReferenceDirective",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "alignX": "alignPositionX",
+        "alignY": "alignPositionY"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        6,
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

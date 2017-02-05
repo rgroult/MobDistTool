@@ -1,0 +1,17 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.utils.angular.managed_zone.interface",
+    "4": [
+      {
+        "1": "src/managed_zone.dart",
+        "2": [
+          "ManagedZone",
+          "ManagedZoneBase"
+        ]
+      }
+    ],
+    "6": "interface.dart"
+  },
+  "type": {},
+  "alias": {}
+}

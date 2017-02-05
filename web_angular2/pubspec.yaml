@@ -1,0 +1,39 @@
+name: 'MobDistTool_Angular_2_Web_UI'
+version: '1.2.0'
+description: Platform which allows to distribute applications to beta testers (IOS, Android).
+
+environment:
+  sdk: '>=1.19.0 <2.0.0'
+dependencies:
+  angular2: ^2.0.0
+  angular2_components:
+  http: ^0.11.0
+  stream_transformers: ^0.3.0
+  validator: ">=0.0.4 <0.1.0"
+  qr:
+    git: git://github.com/rgroult/qr.dart.git
+ # bootjack: any
+ # modal_dialog:
+dev_dependencies:
+  dart_sass_transformer: any
+  browser: ^0.10.0
+  dart_to_js_script_rewriter:
+transformers:
+- dart_sass_transformer:
+    compass: false                 # Include compass
+    line-numbers: true            # Include line numbers in output
+    style: compact                # Style of generated CSS
+- angular2:
+    platform_directives:
+    - 'package:angular2/common.dart#COMMON_DIRECTIVES'
+    platform_pipes:
+    - 'package:angular2/common.dart#COMMON_PIPES'
+    entry_points: web/main.dart
+    resolved_identifiers:
+            BrowserClient: 'package:http/browser_client.dart'
+            Client: 'package:http/http.dart'
+            ModalService: 'lib/services/modal_service.dart'
+- dart_to_js_script_rewriter:
+    environment:
+      mode: javascript
+

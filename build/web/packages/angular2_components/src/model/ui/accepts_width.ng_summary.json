@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "AcceptsWidth": {
+      "class": "Identifier",
+      "name": "AcceptsWidth",
+      "moduleUrl": "asset:angular2_components/lib/src/model/ui/accepts_width.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

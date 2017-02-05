@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "MaterialInputWrapper": {
+      "class": "Identifier",
+      "name": "MaterialInputWrapper",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_input/input_wrapper.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

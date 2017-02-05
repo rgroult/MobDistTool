@@ -1,0 +1,115 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.overlay.overlay",
+    "4": [
+      {
+        "1": "src/overlay_ref.dart",
+        "2": [
+          "BaseOverlayRef",
+          "OverlayRef"
+        ]
+      },
+      {
+        "1": "src/overlay_service.dart",
+        "2": [
+          "OverlayService"
+        ]
+      },
+      {
+        "1": "src/overlay_state.dart",
+        "2": [
+          "OverlayState",
+          "MutableOverlayState"
+        ]
+      }
+    ],
+    "6": "overlay.dart",
+    "7": [
+      {
+        "1": "src/overlay_ref.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "src/overlay_service.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "src/overlay_state.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "AsyncApplyState": {
+      "class": "Identifier",
+      "name": "AsyncApplyState",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AsyncMeasureSize": {
+      "class": "Identifier",
+      "name": "AsyncMeasureSize",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OverlayRef": {
+      "class": "Identifier",
+      "name": "OverlayRef",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BaseOverlayRef": {
+      "class": "Identifier",
+      "name": "BaseOverlayRef",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_ref.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OverlayService": {
+      "class": "Identifier",
+      "name": "OverlayService",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_stateEquals": {
+      "class": "Identifier",
+      "name": "_stateEquals",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_state.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_stateHashCode": {
+      "class": "Identifier",
+      "name": "_stateHashCode",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_state.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OverlayState": {
+      "class": "Identifier",
+      "name": "OverlayState",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_state.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ImmutableOverlayState": {
+      "class": "Identifier",
+      "name": "_ImmutableOverlayState",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_state.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MutableOverlayState": {
+      "class": "Identifier",
+      "name": "MutableOverlayState",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_state.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}
