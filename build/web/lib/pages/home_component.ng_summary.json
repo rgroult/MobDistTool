@@ -46,7 +46,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css\" />\n<div class=\"row tim-row\" style=\"padding-top:30px\">\n        <h2 class=\"text-center\"><img style=\"vertical-align:baseline;\" src=\"images/logo_64.png\"/>Mobile App Distribution Tool</h2>\n        <br/>\n        <br/>\n        <p class=\"text-center\">Manage yours users, application and download artifacts.</p>\n\n\n    <a class=\"github-fork-ribbon  right-bottom \" href=\"https://github.com/rgroult/MobDistTool\" title=\"Fork me on GitHub\">Fork me on GitHub!</a>\n</div>\n",
+        "template": "<div class=\"row tim-row\" style=\"padding-top:30px\">\n        <h1 class=\"text-center\"><img style=\"vertical-align:baseline;\" src=\"images/nectarine_logo.png\"/> Welcome on Nectarine</h1>\n        <br/>\n        <br/>\n        <p align=\"right\">Powered by <a href=\"https://github.com/rgroult/MobDistTool\">Mobile App Distribution Tool</a> <img style=\"vertical-align:baseline;\" src=\"images/logo_32.png\"/></p>\n</div>\n",
         "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.html",
         "styles": [],
         "styleUrls": [],
