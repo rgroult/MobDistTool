@@ -36,10 +36,10 @@
 material-button  h2 { color:$brand-accent;
 }*/
 /* line 12, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/mdt-theme.scss */
-material-button .material-icons { color: #7B1FA2; }
+material-button .material-icons { color: #F16E00; }
 
 /* line 15, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/mdt-theme.scss */
-material-button .material-icons.md-48 { color: #7B1FA2; position: relative; top: 8px; }
+material-button .material-icons.md-48 { color: #F16E00; position: relative; top: 8px; }
 
 /* line 20, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/mdt-theme.scss */
 material-button.admin_button .material-icons { color: red; }
@@ -50,10 +50,10 @@ material-checkbox .icon.filled .material-icons { background-color: white; color:
 
 /*   round button */
 /* line 34, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/mdt-theme.scss */
-material-fab .material-icons.primary { color: #7B1FA2; }
+material-fab .material-icons.primary { color: #F16E00; }
 
 /* line 37, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/mdt-theme.scss */
-.btn-white .material-icons.primary { color: #7B1FA2; }
+.btn-white .material-icons.primary { color: #F16E00; }
 
 /*   radio button */
 /* line 42, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/mdt-theme.scss */
@@ -76,7 +76,7 @@ material-toggle .material-toggle.checked .tgl-btn, material-toggle .material-tog
 
 /* Qr Code : Not working*/
 /* line 65, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/mdt-theme.scss */
-.qr-code-button { /* https://materialdesignicons.com/icon/qrcode */ color: #7B1FA2; }
+.qr-code-button { /* https://materialdesignicons.com/icon/qrcode */ color: #F16E00; }
 
 /* Shadows (from mdl http://www.getmdl.io/) */
 /* line 3, /Users/gogetta/Developments/MobDistTool/web_angular2/web/assets/sass/material-kit/_core.scss */
