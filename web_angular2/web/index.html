@@ -23,7 +23,13 @@
     <!--  MDT CSS    -->
     <link href="assets/css/mdt-specific.css" rel="stylesheet"/>
     <script>
-        function initializeHomeIframe(){
+        function initializeHomeIframe(pixelImage){
+            if (pixelImage.complete != true)  {
+                return
+            }
+
+            var iframeElt = document.getElementById('additional_iframe')
+            iframeElt.style.display='block'
             //resizing
             window.onresize=function(){
                 var area = 1150*500
