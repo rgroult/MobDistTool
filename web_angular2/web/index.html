@@ -22,6 +22,23 @@
 
     <!--  MDT CSS    -->
     <link href="assets/css/mdt-specific.css" rel="stylesheet"/>
+    <script>
+        function initializeHomeIframe(){
+            //resizing
+            window.onresize=function(){
+                var area = 1150*500
+                var iframeElt = document.getElementById('additional_iframe')
+                var rect = iframeElt.getBoundingClientRect();
+                iframeElt.style.height = Math.round(area/rect.width) + 'px'
+            }
+            window.onresize()
+        }
+
+        function hideHomeFrame(){
+            var iframeElt = document.getElementById('additional_iframe')
+            iframeElt.style.display = 'none'
+        }
+    </script>
 </head>
 <body>
  <mdt_comp>
