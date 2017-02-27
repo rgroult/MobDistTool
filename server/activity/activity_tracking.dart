@@ -11,6 +11,18 @@ void trackUserRegistered(String email, bool connectionSucced){
   }
 }
 
+void trackUserForgotPassword(String email){
+  _logger.info("Forgot password request for $email");
+}
+
+void trackUserActivation(String email, bool activationSucced) {
+  if (activationSucced){
+    _logger.info("Activation Success for $email");
+  }else {
+    _logger.info("Activation Failed for $email");
+  }
+}
+
 void trackUserConnection(String email, bool connectionSucced){
   if (connectionSucced){
     _logger.info("Login Success for $email");

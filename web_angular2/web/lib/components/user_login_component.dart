@@ -1,5 +1,6 @@
 import 'package:angular2/core.dart';
 import 'package:angular2_components/angular2_components.dart';
+import 'package:validator/validator.dart';
 import 'dart:async';
 import 'dart:html';
 import '../commons.dart';
@@ -34,6 +35,22 @@ class UserLoginComponent extends BaseComponent{
 
   void displayRegister(){
     _modalService.displayRegister();
+  }
+
+  Future recoverPassword() async {
+    if (isEmail(email) == false) {
+      error = new UIError('Invalid email format',"",ErrorType.ERROR);
+      return;
+    }
+    try {
+      var message = await _mdtQueryService.forgotPassword(email);
+      error = new UIError('Sucess',message,ErrorType.SUCCESS);
+    } on UsersError catch (e){
+      error = new UIError(UsersError.errorCode,e.message,ErrorType.ERROR);
+    }catch(e){
+      error = new UIError("UNKNOWN ERROR","Unknown error $e",ErrorType.ERROR);
+    }
+
   }
 
   Future loginUser(String email, String password) async {

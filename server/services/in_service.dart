@@ -296,6 +296,7 @@ class InService {
       //retrieve user
       var user = await mgrs.findUserByEmail(userEmail);
       if (user == null){
+        trackUserActivation(userEmail,false);
         throw new NotFoundError();
       }
       if (user.isActivated){
@@ -307,9 +308,11 @@ class InService {
         user.activationToken = null;
         await user.save();
       }else {
+        trackUserActivation(userEmail,false);
         throw new RpcError(400, 'ACTIVATION_ERROR', "Invalid token");
       }
 
+      trackUserActivation(userEmail,true);
       return new OKResponse();
     }catch(e,stack){
       manageExceptions(e,stack);

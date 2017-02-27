@@ -19,16 +19,26 @@ Db mongoDb = null;
    return objectory.ensureInitialized();
   }
   //mongoDb =  new Db("mongodb://localhost:27017/mdt_dev");
-
+  var isDatabaseReady = false;
+  while(!isDatabaseReady) {
+   try {
   //const Uri = "mongodb://localhost:27017/mdt_dev";
   var Uri = config.currentLoadedConfig[config.MDT_DATABASE_URI];
-  printAndLog("mongo initializing on  $Uri");
-  objectory = new ObjectoryDirectConnectionImpl(Uri,registerClasses,false);
+  printAndLog("mongo located on  $Uri");
+  objectory = new ObjectoryDirectConnectionImpl(Uri, registerClasses, false);
   if (dropCollectionOnStartup == true) {
-    objectory.dropCollectionsOnStartup = true;
+   objectory.dropCollectionsOnStartup = true;
   }
-  //globalObjectory = objectory;
-  return objectory.initDomainModel();
+    printAndLog("mongo initializing... ");
+    //globalObjectory = objectory;
+    await objectory.initDomainModel();
+    isDatabaseReady = true;
+    printAndLog("mongo initialized");
+   } catch  (e){
+    printAndLog("mongo initializing failed [$e], waiting 3 secs before next try ..");
+    await new Future.delayed(new Duration(seconds: 3));
+   }
+  }
  // return await mongoDb.open();
 }
 
