@@ -119,6 +119,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
   var apiRouter = shelf_route.router()
   //disable authent for register
     ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
+    //disable for forgot password
+    ..add('api/users/v1/forgotPassword',null,apiHandler,exactMatch: false)
     ..get('api/in/v1/artifacts/{artifactid}/file{?token}',(request) => ArtifactService.downloadFile(shelf_route.getPathParameter(request, 'artifactid'),token: shelf_route.getPathParameter(request, 'token')))
    //disable authent for this specific route
     ..add('api/applications/v1/app/{appId}/maxversion/{name}',null,apiHandler,exactMatch: false)

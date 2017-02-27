@@ -48,7 +48,7 @@ abstract class MDTQueryServiceUsers{
     }
 
     var responseJson = parseResponse(response);
-    return responseJson["message"];
+    return (responseJson["data"] ?? {})["message"];
   }
 
   Future<Map> myProfile() async {

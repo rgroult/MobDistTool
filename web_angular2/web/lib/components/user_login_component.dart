@@ -38,17 +38,21 @@ class UserLoginComponent extends BaseComponent{
   }
 
   Future recoverPassword() async {
+    error = null;
     if (isEmail(email) == false) {
       error = new UIError('Invalid email format',"",ErrorType.ERROR);
       return;
     }
     try {
+      isHttpLoading = true;
       var message = await _mdtQueryService.forgotPassword(email);
       error = new UIError('Sucess',message,ErrorType.SUCCESS);
     } on UsersError catch (e){
       error = new UIError(UsersError.errorCode,e.message,ErrorType.ERROR);
     }catch(e){
       error = new UIError("UNKNOWN ERROR","Unknown error $e",ErrorType.ERROR);
+    }finally {
+      isHttpLoading = false;
     }
 
   }
