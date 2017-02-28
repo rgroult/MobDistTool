@@ -21,7 +21,7 @@ dev_dependencies:
 transformers:
 - dart_sass_transformer:
     compass: false                 # Include compass
-    line-numbers: true            # Include line numbers in output
+    line-numbers: false            # Include line numbers in output
     style: compact                # Style of generated CSS
 - angular2:
     platform_directives:

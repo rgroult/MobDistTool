@@ -17023,7 +17023,7 @@
                       "identifier": {
                         "class": "Identifier",
                         "name": "ElementRef",
-                        "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                        "moduleUrl": null,
                         "prefix": null,
                         "value": null
                       },
@@ -17043,7 +17043,7 @@
                       "identifier": {
                         "class": "Identifier",
                         "name": "ChangeDetectorRef",
-                        "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+                        "moduleUrl": null,
                         "prefix": null,
                         "value": null
                       },
@@ -17063,7 +17063,7 @@
                       "identifier": {
                         "class": "Identifier",
                         "name": "MaterialRadioGroupComponent",
-                        "moduleUrl": "asset:angular2_components/lib/src/components/material_radio/material_radio_group.dart",
+                        "moduleUrl": null,
                         "prefix": null,
                         "value": null
                       },
@@ -17083,7 +17083,7 @@
                       "identifier": {
                         "class": "Identifier",
                         "name": "NgControl",
-                        "moduleUrl": "asset:angular2/lib/src/common/forms/directives/ng_control.dart",
+                        "moduleUrl": null,
                         "prefix": null,
                         "value": null
                       },
