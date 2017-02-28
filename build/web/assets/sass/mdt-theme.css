@@ -2,45 +2,33 @@
 /*
 material-button  h2 { color:$brand-accent;
 }*/
-/* line 12 */
 material-button .material-icons { color: #F16E00; }
 
-/* line 15 */
 material-button .material-icons.md-48 { color: #F16E00; position: relative; top: 8px; }
 
-/* line 20 */
 material-button.admin_button .material-icons { color: red; }
 
 /*   checkbox */
-/* line 28 */
 material-checkbox .icon.filled .material-icons { background-color: white; color: #F16E00; }
 
 /*   round button */
-/* line 34 */
 material-fab .material-icons.primary { color: #F16E00; }
 
-/* line 37 */
 .btn-white .material-icons.primary { color: #F16E00; }
 
 /*   radio button */
-/* line 42 */
 material-radio .material-icons { color: #F16E00; }
 
 /* panel */
-/* line 47 */
 material-expansionpanel header .material-icons { color: #F16E00; }
 
 /*   input */
-/* line 52 */
 material-input .label-text.focused { color: #F16E00 !important; }
 
-/* line 55 */
 material-input .focused-underline { background-color: #F16E00 !important; }
 
 /* toggle */
-/* line 60 */
 material-toggle .material-toggle.checked .tgl-btn, material-toggle .material-toggle.checked .tgl-bar { background-color: #F16E00 !important; }
 
 /* Qr Code : Not working*/
-/* line 65 */
 .qr-code-button { /* https://materialdesignicons.com/icon/qrcode */ color: #F16E00; }
