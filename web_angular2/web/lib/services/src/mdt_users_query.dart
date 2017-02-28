@@ -34,6 +34,23 @@ abstract class MDTQueryServiceUsers{
     return new MDTUser(responseJson["data"]);
   }
 
+  Future<String> forgotPassword(email) async {
+    String url = '${mdtServerApiRootUrl}${usersPath}/forgotPassword';
+    var data = {"email" : email};
+    var response = await sendRequest('POST', url, body: JSON.encode(data));
+
+    if (response.statusCode == 404){
+      throw new UsersError("User not found, check your email");
+    }
+
+    if (response.statusCode != 200){
+      throw new UsersError("Unexpected error occured, please try later");
+    }
+
+    var responseJson = parseResponse(response);
+    return (responseJson["data"] ?? {})["message"];
+  }
+
   Future<Map> myProfile() async {
     String url = '${mdtServerApiRootUrl}${usersPath}/me';
     var response = await sendRequest('GET', url);

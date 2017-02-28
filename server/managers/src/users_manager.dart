@@ -77,6 +77,15 @@ Future deleteUserByEmail(String email) async {
   return user.remove();
 }
 
+Future<MDTUser> resetUser(MDTUser user,String newPassword) async {
+  user.password = generateHash(newPassword,user.salt);
+  user.activationToken = UuidGenerator.v4();
+  user.isActivated = false;
+
+  await user.save();
+  return user;
+}
+
 Future<MDTUser> createUser(String name, String email, String password,
     {bool isSystemAdmin: false,bool isActivated: true}) async {
   if (email == null || email.isEmpty) {
