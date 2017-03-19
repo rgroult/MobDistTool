@@ -26,6 +26,9 @@ Future<MDTUser> findUser(String email, String password) async {
   var user = await userCollection.findOne(where.eq("email", email));
   if (user != null) {
     if (user.password == generateHash(password,user.salt)) {
+      //update last login
+      user.lastLogin = new DateTime.now();
+      user.save();
       return user;
     }
   }
