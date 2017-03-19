@@ -117,6 +117,8 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
       defaultDocument: 'index.html');
 
   var apiRouter = shelf_route.router()
+    //Authenticate route: only this one
+    ..add('api/users/v1/login',['GET','POST'],apiHandler,exactMatch: true,middleware: loginMiddleware)
   //disable authent for register
     ..add('api/users/v1/register',null,apiHandler,exactMatch: false)
     //disable for forgot password
@@ -125,14 +127,13 @@ Future<HttpServer> startServer({bool resetDatabaseContent:false}) async {
    //disable authent for this specific route
     ..add('api/applications/v1/app/{appId}/maxversion/{name}',null,apiHandler,exactMatch: false)
     ..add('/api/in/',null,apiHandler,exactMatch: false)
-    ..add('api/users',['GET','POST'],apiHandler,exactMatch: false,middleware: loginMiddleware)
   //..add(_SIGNED_PREFIX,null,apiHandler,exactMatch: false,middleware:authenticatedMiddleware)
   //disable authent for discovery ?
     ..add('api/discovery',null,apiHandler,exactMatch: false)
   //gui
     ..add('weblegacy/',null,legacyUiHandler,exactMatch: false)
     ..add('web/',null,uiHandler,exactMatch: false)
-  //authenticate api
+  //authenticate Apis
     ..add('api/',null,apiHandler,exactMatch: false,middleware:defaultAuthMiddleware);
 
   shelf_route.printRoutes(apiRouter,printer:utils.printAndLog );
