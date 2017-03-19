@@ -12,6 +12,7 @@ dependencies:
   validator: ">=0.0.4 <0.1.0"
   qr:
     git: git://github.com/rgroult/qr.dart.git
+  intl:
  # bootjack: any
  # modal_dialog:
 dev_dependencies:
