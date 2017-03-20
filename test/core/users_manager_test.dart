@@ -89,6 +89,39 @@ void allTests()  {
       expect(allUsers.length,equals(1));
     });
 
+    test("search users", () async {
+      await mdt_mgr.createUser("user", "testa@test.com", "password");
+      await mdt_mgr.createUser("user", "testzzzzz@test.com", "password");
+      await mdt_mgr.createUser("user", "testc@test.com", "password");
+
+      var searchUsers = await mdt_mgr.searchUsers(1,0,20,"createdAt",true);
+      expect(searchUsers.first.email,equals("test@test.com"));
+      expect(searchUsers.last.email,equals("testc@test.com"));
+
+      searchUsers = await mdt_mgr.searchUsers(1,0,20,"createdAt",false);
+      expect(searchUsers.first.email,equals("testc@test.com"));
+      expect(searchUsers.last.email,equals("test@test.com"));
+
+      searchUsers = await mdt_mgr.searchUsers(1,0,20,"email",false);
+      /*print("Email descending");
+      for (var user in searchUsers){
+        print("${user.email}, ${user.getProperty("createdAt")}");
+      }*/
+      expect(searchUsers.first.email,equals("testzzzzz@test.com"));
+      expect(searchUsers.last.email,equals("test@test.com"));
+
+      searchUsers = await mdt_mgr.searchUsers(1,0,20,"email",true);
+      /* print("Email ascending");
+      for (var user in searchUsers){
+        print(user.email);
+      }*/
+      expect(searchUsers.first.email,equals("test@test.com"));
+      expect(searchUsers.last.email,equals("testzzzzz@test.com"));
+
+      searchUsers = await mdt_mgr.searchUsers(1,2,1,"email",true);
+      expect(searchUsers.last.email,equals("testc@test.com"));
+    });
+
     test("delete user", () async {
       var user = await mdt_mgr.findUserByEmail(email);
       expect(user.email, equals(email));
