@@ -106,8 +106,8 @@ abstract class MDTQueryServiceUsers{
     return responseJson;
   }
 
-  Future<UserListResponse> listUsers(int pageIndex, int maxResult) async{
-    String url = "${mdtServerApiRootUrl}${usersPath}/all?pageIndex=${pageIndex}&maxResult=${maxResult}";
+  Future<UserListResponse> listUsers(int pageIndex, int maxResult,String orderBy,bool ascending) async{
+    String url = "${mdtServerApiRootUrl}${usersPath}/all?pageIndex=${pageIndex}&maxResult=${maxResult}&orderBy=${orderBy}&ascending=${ascending}";
     var response = await sendRequest('GET', url);
     var responseJson = parseResponse(response);
 
