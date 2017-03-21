@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+    <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+</div>
+<div class="modal-body center-block">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" [style.width.%]="sliderValue" ></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <canvas class="center-block" height='300' id='content' width='300'></canvas>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+</div>

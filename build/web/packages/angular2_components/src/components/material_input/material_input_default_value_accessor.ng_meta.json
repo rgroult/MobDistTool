@@ -1,0 +1,131 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      },
+      {
+        "1": "base_material_input.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "MaterialInputDefaultValueAccessor",
+        "5": [
+          {
+            "1": "BaseMaterialInput",
+            "4": "_input"
+          },
+          {
+            "1": "NgControl",
+            "3": [
+              "const Self()",
+              "const Optional()"
+            ],
+            "4": "_cd"
+          }
+        ],
+        "6": [
+          "ControlValueAccessor",
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "material_input_default_value_accessor.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../../utils/disposer/disposer.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "base_material_input.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "MaterialInputDefaultValueAccessor": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "material-input",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialInputDefaultValueAccessor",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_input/material_input_default_value_accessor.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "BaseMaterialInput",
+                "moduleUrl": "asset:angular2_components/lib/src/components/material_input/base_material_input.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NgControl",
+                "moduleUrl": "asset:angular2/lib/src/common/forms/directives/ng_control.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": true,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

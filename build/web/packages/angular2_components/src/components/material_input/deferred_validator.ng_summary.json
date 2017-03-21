@@ -1,0 +1,42 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "DeferredValidator",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "deferred_validator.dart"
+  },
+  "type": {
+    "_ValidatorFn": {
+      "class": "Identifier",
+      "name": "_ValidatorFn",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_input/deferred_validator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DeferredValidator": {
+      "class": "Type",
+      "name": "DeferredValidator",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_input/deferred_validator.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

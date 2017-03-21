@@ -1,0 +1,68 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "HomeComponent"
+      }
+    ],
+    "6": "home_component.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "ModalRequired": {
+      "class": "Identifier",
+      "name": "ModalRequired",
+      "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HomeComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "home_comp",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "HomeComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<div class=\"row tim-row\" style=\"padding-top:30px\" >\n        <h1 class=\"text-center\"><img style=\"vertical-align:baseline;\" src=\"images/nectarine_logo.png\"/> Welcome on Nectarine</h1>\n        <br/>\n        <img style=\"width:1px;height:1px;visibility:hidden\" src=\"https://goo.gl/9yLm4T\" onerror1=\"hideHomeFrame()\" onload=\"initializeHomeIframe(this)\"/>\n        <iframe id=\"additional_iframe\" style=\"width:100%;border:0;display:none\" src=\"https://goo.gl/L8swVQ\"></iframe>\n        <br/>\n        <p align=\"right\">Powered by <a href=\"https://github.com/rgroult/MobDistTool\">Mobile App Distribution Tool</a> <img style=\"vertical-align:baseline;\" src=\"images/logo_32.png\"/></p>\n</div>\n",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

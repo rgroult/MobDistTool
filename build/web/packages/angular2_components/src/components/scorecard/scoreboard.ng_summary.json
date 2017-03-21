@@ -1,0 +1,253 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "../glyph/glyph.dart",
+        "5": false
+      },
+      {
+        "1": "../material_button/material_button.dart",
+        "5": false
+      },
+      {
+        "1": "../../model/selection/selection_model.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/browser/dom_service/angular_2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/color/palette.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/disposer/disposer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:intl/intl.dart",
+        "5": false
+      },
+      {
+        "1": "scorecard.dart",
+        "5": false
+      },
+      {
+        "1": "src/scorecard_bar.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ScoreboardComponent",
+        "5": [
+          {
+            "1": "String",
+            "3": [
+              "const Attribute('enableUniformWidths')"
+            ],
+            "4": "enableUniformWidths"
+          },
+          {
+            "1": "DomService",
+            "4": "_domService"
+          },
+          {
+            "1": "ChangeDetectorRef",
+            "4": "_changeDetector"
+          }
+        ],
+        "6": [
+          "OnInit",
+          "OnDestroy"
+        ],
+        "7": [
+          {
+            "2": "GlyphComponent"
+          },
+          {
+            "2": "MaterialButtonComponent"
+          },
+          {
+            "2": "ScorecardBarDirective"
+          },
+          {
+            "2": "NgIf"
+          }
+        ]
+      }
+    ],
+    "6": "scoreboard.dart"
+  },
+  "type": {
+    "ScoreboardType": {
+      "class": "Identifier",
+      "name": "ScoreboardType",
+      "moduleUrl": "asset:angular2_components/lib/src/components/scorecard/scoreboard.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ScoreboardComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "acx-scoreboard",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "ScoreboardComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/components/scorecard/scoreboard.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": "enableUniformWidths",
+              "identifier": null,
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": true,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "DomService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ChangeDetectorRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 4,
+      "inputs": {
+        "type": "type",
+        "scrollable": "scrollable",
+        "resetOnCardChanges": "resetOnCardChanges"
+      },
+      "inputTypes": {
+        "type": " ScoreboardType"
+      },
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        0,
+        1
+      ],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<div class=\"acx-scoreboard\">\n  <material-button class=\"scroll-button scroll-left-button\"\n                   (trigger)=\"scrollScorecardBarLeft()\"\n                   [class.hide]=\"atScorecardBarStart\"\n                   *ngIf=\"isScrollable\">\n    <glyph class=\"scroll-icon\"\n           icon=\"chevron_left\"\n           [attr.aria-label]=\"scrollScorecardBarBack\">\n    </glyph>\n  </material-button>\n  <div scorecardBar class=\"scorecard-bar\">\n    <ng-content></ng-content>\n  </div>\n  <material-button class=\"scroll-button scroll-right-button\"\n                   (trigger)=\"scrollScorecardBarRight()\"\n                   [class.hide]=\"atScorecardBarEnd\"\n                   *ngIf=\"isScrollable\">\n    <glyph class=\"scroll-icon\"\n           icon=\"chevron_right\"\n           [attr.aria-label]=\"scrollScorecardBarForward\">\n    </glyph>\n  </material-button>\n</div>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/scorecard/scoreboard.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/scorecard/scoreboard.scss.css"
+        ],
+        "ngContentSelectors": [
+          "*"
+        ]
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ScorecardComponent",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": false,
+          "first": false,
+          "propertyName": "scoreCards",
+          "read": null
+        }
+      ],
+      "viewQueries": [
+        {
+          "selectors": [
+            {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ScorecardBarDirective",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": true,
+          "first": true,
+          "propertyName": "scorecardBar",
+          "read": null
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

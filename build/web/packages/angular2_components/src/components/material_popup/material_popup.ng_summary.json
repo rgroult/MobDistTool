@@ -1,0 +1,605 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "../annotations/rtl_annotation.dart",
+        "5": false
+      },
+      {
+        "1": "../content/deferred_content_aware.dart",
+        "5": false
+      },
+      {
+        "1": "../mixins/material_dropdown_base.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/components/popup/hierarchy.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/components/popup/popup.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/overlay/overlay.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/popup/popup.dart",
+        "2": [
+          "PopupEvent",
+          "PopupRef",
+          "PopupService",
+          "PopupSizeProvider"
+        ],
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/async/async.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/browser/dom_service/dom_service.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "../../laminate/popup/popup.dart",
+        "2": [
+          "PopupSourceDirective"
+        ]
+      }
+    ],
+    "5": [
+      {
+        "1": "MaterialPopupComponent",
+        "5": [
+          {
+            "1": "DomService",
+            "4": "domService"
+          },
+          {
+            "1": "PopupHierarchy",
+            "3": [
+              "const Optional()",
+              "const SkipSelf()"
+            ],
+            "4": "hierarchy"
+          },
+          {
+            "1": "PopupRef",
+            "3": [
+              "const Optional()",
+              "const SkipSelf()"
+            ],
+            "4": "parentPopup"
+          },
+          {
+            "1": "NgZone",
+            "4": "ngZone"
+          },
+          {
+            "1": "PopupService",
+            "4": "popupService"
+          },
+          {
+            "1": "OverlayService",
+            "4": "_overlayService"
+          },
+          {
+            "1": "PopupSizeProvider",
+            "3": [
+              "const Optional()"
+            ],
+            "4": "_popupSizeProvider"
+          },
+          {
+            "1": "bool",
+            "3": [
+              "const Optional()",
+              "const Inject(rtlToken)"
+            ],
+            "4": "rtl"
+          },
+          {
+            "1": "ChangeDetectorRef",
+            "4": "_changeDetector"
+          }
+        ],
+        "6": [
+          "OnDestroy",
+          "DropdownHandle"
+        ],
+        "7": [
+          {
+            "2": "PopupRefDirective"
+          },
+          {
+            "2": "NgClass"
+          }
+        ]
+      }
+    ],
+    "6": "material_popup.dart"
+  },
+  "type": {
+    "MaterialPopupComponent_getResolvedPopupRef": {
+      "class": "Identifier",
+      "name": "MaterialPopupComponent_getResolvedPopupRef",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MaterialPopupComponent_getHierarchy": {
+      "class": "Identifier",
+      "name": "MaterialPopupComponent_getHierarchy",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MaterialPopupComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "material-popup",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialPopupComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "DomService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupHierarchy",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": true,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": true,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NgZone",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "OverlayService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "PopupSizeProvider",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "rtlToken",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ChangeDetectorRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "alignContentX": "alignContentX",
+        "alignContentY": "alignContentY",
+        "autoDismiss": "autoDismiss",
+        "enforceSpaceConstraints": "enforceSpaceConstraints",
+        "matchSourceWidth": "matchSourceWidth",
+        "matchMinSourceWidth": "matchMinSourceWidth",
+        "offsetX": "offsetX",
+        "offsetY": "offsetY",
+        "preferredPositions": "preferredPositions",
+        "slide": "slide",
+        "source": "source",
+        "trackLayoutChanges": "trackLayoutChanges",
+        "visible": "visible",
+        "z": "z",
+        "inkBackground": "ink",
+        "hasBox": "hasBox",
+        "shadowCssClass": "shadowCssClass"
+      },
+      "inputTypes": {
+        "shadowCssClass": " String"
+      },
+      "outputs": {
+        "onAnimationComplete": "animationComplete",
+        "onOpen": "open",
+        "onOpened": "opened",
+        "onClose": "close",
+        "visibleChange": "visibleChange"
+      },
+      "hostListeners": {},
+      "hostProperties": {
+        "attr.pane-id": "uniqueId"
+      },
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<template [popupRef]=\"resolvedPopupRef\">\n  <div [attr.elevation]=\"z\"\n       class=\"popup-wrapper mixin\"\n       [class.shadow]=\"hasBox\"\n       [class.full-width]=\"matchMinSourceWidth\"\n       [class.ink]=\"inkBackground\"\n       [attr.slide]=\"slide\"\n       [attr.z-index]=\"zIndex\"\n       [style.transform-origin]=\"transformOrigin\"\n       [class.visible]=\"showPopup\"\n       [ngClass]=\"shadowCssClass\">\n      <div class=\"popup\"\n           [style.max-height.px]=\"contentHeight\"\n           [style.max-width.px]=\"contentWidth\">\n          <div class=\"material-popup-content content\">\n              <header>\n                  <ng-content select=\"[header]\"></ng-content>\n              </header>\n              <main>\n                  <ng-content></ng-content>\n              </main>\n              <footer>\n                  <ng-content select=\"[footer]\"></ng-content>\n              </footer>\n          </div>\n      </div>\n  </div>\n</template>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/material_popup/material_popup.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/material_popup/material_popup.scss.css"
+        ],
+        "ngContentSelectors": [
+          "[header]",
+          "*",
+          "[footer]"
+        ]
+      },
+      "providers": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PopupComponent",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "MaterialPopupComponent",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DropdownHandle",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "MaterialPopupComponent",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DeferredContentAware",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PopupComponent",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PopupHierarchy",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Factory",
+            "name": "MaterialPopupComponent_getHierarchy",
+            "prefix": null,
+            "moduleUrl": null,
+            "value": null,
+            "diDeps": []
+          },
+          "useProperty": null,
+          "multi": false,
+          "deps": [
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "PopupComponent",
+                  "moduleUrl": null,
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            }
+          ]
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PopupRef",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Factory",
+            "name": "MaterialPopupComponent_getResolvedPopupRef",
+            "prefix": null,
+            "moduleUrl": null,
+            "value": null,
+            "diDeps": []
+          },
+          "useProperty": null,
+          "multi": false,
+          "deps": [
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "PopupComponent",
+                  "moduleUrl": null,
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            }
+          ]
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

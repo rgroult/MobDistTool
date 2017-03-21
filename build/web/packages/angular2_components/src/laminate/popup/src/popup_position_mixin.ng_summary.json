@@ -1,0 +1,37 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.popup.src.popup_position_mixin",
+    "3": [
+      {
+        "1": "dart:math",
+        "5": false
+      },
+      {
+        "1": "../../enums/alignment.dart",
+        "5": false
+      },
+      {
+        "1": "./popup_size_provider.dart",
+        "5": false
+      }
+    ],
+    "6": "popup_position_mixin.dart"
+  },
+  "type": {
+    "PopupPosition": {
+      "class": "Identifier",
+      "name": "PopupPosition",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_position_mixin.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PopupPositionMixin": {
+      "class": "Identifier",
+      "name": "PopupPositionMixin",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/popup/src/popup_position_mixin.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

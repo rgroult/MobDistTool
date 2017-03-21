@@ -1,0 +1,27 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "src/base.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "src/base.dart"
+      }
+    ],
+    "6": "position.dart"
+  },
+  "type": {
+    "Position": {
+      "class": "Identifier",
+      "name": "Position",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/enums/position.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

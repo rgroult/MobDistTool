@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.utils.async.src.disposable_future",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../../disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "6": "disposable_future.dart"
+  },
+  "type": {
+    "DisposableFuture": {
+      "class": "Identifier",
+      "name": "DisposableFuture",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/async/src/disposable_future.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

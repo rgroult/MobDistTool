@@ -1,0 +1,39 @@
+/*   Material button */
+/*
+material-button  h2 { color:$brand-accent;
+}*/
+material-button .material-icons { color: #F16E00; }
+
+material-button .material-icons.md-48 { color: #F16E00; position: relative; top: 8px; }
+
+material-button.admin_button .material-icons { color: red; }
+
+/*   checkbox */
+material-checkbox .icon.filled .material-icons { background-color: white; color: #F16E00; }
+
+/*   round button */
+material-fab .material-icons.primary { color: #F16E00; }
+
+.btn-white .material-icons.primary { color: #F16E00; }
+
+/*   radio button */
+material-radio .material-icons { color: #F16E00; }
+
+/* panel */
+material-expansionpanel header .material-icons { color: #F16E00; }
+
+/*   input */
+material-input .label-text.focused { color: #F16E00 !important; }
+
+material-input .focused-underline { background-color: #F16E00 !important; }
+
+/* toggle */
+material-toggle .material-toggle.checked .tgl-btn, material-toggle .material-toggle.checked .tgl-bar { background-color: #F16E00 !important; }
+
+/* tab */
+tab-button.active { color: #F16E00 !important; }
+
+.tab-indicator { background: #F16E00 !important; }
+
+/* Qr Code : Not working*/
+.qr-code-button { /* https://materialdesignicons.com/icon/qrcode */ color: #F16E00; }

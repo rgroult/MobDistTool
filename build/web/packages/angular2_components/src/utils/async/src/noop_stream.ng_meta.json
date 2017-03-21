@@ -1,0 +1,20 @@
+{
+  "ngDeps": null,
+  "type": {
+    "NoopStream": {
+      "class": "Identifier",
+      "name": "NoopStream",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/async/src/noop_stream.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NoopStreamSubscription": {
+      "class": "Identifier",
+      "name": "NoopStreamSubscription",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/async/src/noop_stream.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

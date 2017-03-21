@@ -1,0 +1,68 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:meta/meta.dart",
+        "5": false
+      }
+    ],
+    "6": "rate_limit_utils.dart"
+  },
+  "type": {
+    "UnaryFunction": {
+      "class": "Identifier",
+      "name": "UnaryFunction",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/rate_limit_utils/rate_limit_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DebouncedFunction": {
+      "class": "Identifier",
+      "name": "DebouncedFunction",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/rate_limit_utils/rate_limit_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RateLimitStrategy": {
+      "class": "Identifier",
+      "name": "RateLimitStrategy",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/rate_limit_utils/rate_limit_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "debounce": {
+      "class": "Identifier",
+      "name": "debounce",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/rate_limit_utils/rate_limit_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "throttle": {
+      "class": "Identifier",
+      "name": "throttle",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/rate_limit_utils/rate_limit_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "throttleGuaranteeLast": {
+      "class": "Identifier",
+      "name": "throttleGuaranteeLast",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/rate_limit_utils/rate_limit_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_throttle": {
+      "class": "Identifier",
+      "name": "_throttle",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/rate_limit_utils/rate_limit_utils.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,27 @@
+{
+  "ngDeps": null,
+  "type": {
+    "asyncWhere": {
+      "class": "Identifier",
+      "name": "asyncWhere",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/async/src/async_where.dart",
+      "prefix": null,
+      "value": null
+    },
+    "asyncFirst": {
+      "class": "Identifier",
+      "name": "asyncFirst",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/async/src/async_where.dart",
+      "prefix": null,
+      "value": null
+    },
+    "asyncSingle": {
+      "class": "Identifier",
+      "name": "asyncSingle",
+      "moduleUrl": "asset:angular2_components/lib/src/utils/async/src/async_where.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

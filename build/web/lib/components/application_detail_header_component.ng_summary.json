@@ -1,0 +1,206 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/router.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2_components/angular2_components.dart",
+        "5": false
+      },
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../services/modal_service.dart",
+        "5": false
+      },
+      {
+        "1": "../commons.dart",
+        "5": false
+      },
+      {
+        "1": "../components/edit_application_component.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ApplicationDetailHeaderComponent",
+        "5": [
+          {
+            "1": "Router",
+            "4": "_router"
+          },
+          {
+            "1": "MDTQueryService",
+            "4": "_mdtQueryService"
+          },
+          {
+            "1": "ModalService",
+            "4": "_modalService"
+          },
+          {
+            "1": "GlobalService",
+            "4": "globalService"
+          }
+        ],
+        "6": [
+          "OnInit",
+          "EditAppComponentAware"
+        ],
+        "7": [
+          {
+            "2": "ErrorComponent"
+          },
+          {
+            "2": "materialDirectives"
+          }
+        ]
+      }
+    ],
+    "6": "application_detail_header_component.dart"
+  },
+  "type": {
+    "ApplicationDetailHeaderComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "application_detail_header",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "ApplicationDetailHeaderComponent",
+        "moduleUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/application_detail_header_component.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Router",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "MDTQueryService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ModalService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "GlobalService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "application": "application"
+      },
+      "inputTypes": {
+        "application": " MDTApplication"
+      },
+      "outputs": {
+        "appUpdated": "appUpdated"
+      },
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        0
+      ],
+      "template": {
+        "encapsulation": 2,
+        "template": "<div class=\"media\">\n    <div class=\"media-left\">\n        <img class=\"media-object appDetailIcon\" src=\"{{application.appIcon}}\" alt=\"appIcon\" onError=\"this.onError=null;this.src='images/placeholder.jpg'\">\n    </div>\n    <div class=\"media-body\">\n        <h4 class=\"media-heading\">\n            <span class=\"platform{{application.platform}}\"></span>{{application.name}}\n        </h4>\n        {{application.description}}\n        <br/>\n        <div *ngIf=\"canAdmin\">\n            apiKey : {{application.apiKey}}\n            <div *ngIf=\"maxVersionEnabled\">\n                <button type=\"button\" (click)=\"isMaxVersionEnabledCollapsed = !isMaxVersionEnabledCollapsed\" class=\"btn btn-xs btn-primary btn-simple\">Max Version\n                    <i *ngIf=\"!isMaxVersionEnabledCollapsed\" class=\"material-icons\">keyboard_arrow_up</i>\n                    <i *ngIf=\"isMaxVersionEnabledCollapsed\" class=\"material-icons\">keyboard_arrow_down</i>\n                </button>\n                <div *ngIf=\"!isMaxVersionEnabledCollapsed\">\n                    appId : <b>{{application.uuid}}</b> <br/>\n                    share Secret : <b>{{application.maxVersionSecretKey}}</b>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<br/>\n<div class=\"tim row\">\n    <div class=\"col-sm-6 col-md-4 col-xs-10\">\n        <material-expansionpanel-set>\n            <material-expansionpanel  [showSaveCancel]=false name=\"Application Administrators\">\n                <table class=\"table table-striped table-condensed\">\n                    <tbody>\n                    <tr *ngFor=\"let admin of application.adminUsers\">\n                        <td>{{admin.name}}  </td> <td><b>{{admin.email}}</b> </td><td><material-button *ngIf=\"canAdmin\" (click)=\"deleteAdministrator(admin.email)\" icon><glyph icon=\"remove\"></glyph></material-button></td>\n                    </tr>\n                    </tbody>\n                </table>\n                <div class=\"input-group\" *ngIf=\"canAdmin\">\n\t\t            <span class=\"input-group-addon\">\n                        <i class=\"material-icons\">supervisor_account</i>\n\t\t            </span>\n                    <div class=\"form-group label-floating\">\n                        <label class=\"control-label\">new administrator Email</label>\n                        <input type=\"email\" class=\"form-control\"  [(ngModel)]=\"administratorToAdd\" autofocus>\n                    </div>\n                    <span class=\"input-group-addon\">\n                        <button *ngIf=\"canAdmin\" (click)=\"addAdministrator(administratorToAdd)\" class=\"btn btn-danger btn-fab btn-fab-mini btn-round\">\n                            <i  class=\"material-icons\">add</i>\n                        </button>\n                    </span>\n                </div>\n            </material-expansionpanel>\n        </material-expansionpanel-set>\n    </div>\n    <div class=\"col-sm-1 col-md-1 col-xs-2\">\n        <button (click)=\"toggleFavorite()\" class=\"btn btn-white btn-fab btn-fab-mini btn-round\">\n            <i *ngIf=\"isFavorite\" class=\"material-icons primary\">favorite</i>\n            <i *ngIf=\"!isFavorite\" class=\"material-icons primary\">favorite_border</i>\n        </button>\n    </div>\n</div>\n<div class=\"tim row\" *ngIf=\"canAdmin\">\n    <br/>\n    &nbsp; &nbsp;\n    <button *ngIf=\"canAdmin\" (click)=\"editApplication()\" data-toggle=\"modal\" data-target=\"#allModals\" class=\"btn btn-danger btn-fab btn-fab-mini btn-round\">\n        <i\n                class=\"material-icons\">mode_edit</i>\n    </button>\n    <button *ngIf=\"canAdmin\" (click)=\"showDeleteDialog = true\" class=\"btn btn-danger btn-fab btn-fab-mini btn-round\">\n        <i  class=\"material-icons\">delete</i>\n    </button>\n</div>\n<modal [(visible)]=\"showDeleteDialog\">\n    <material-dialog class=\"no-header-footer-dialog\" hideHeader=\"true\" hideFooter=\"true\">\n        <h3>Are you sure to delete {{application.name}}?</h3>\n            <p>All versions will be trash. This can't be undone.</p>\n        <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-default btn-simple\" (click)=\"showDeleteDialog = false\">Cancel</button>\n            <button type=\"button\" class=\"btn btn-primary\"  (click)=\"deleteApplication()\">Delete</button>\n        </div>\n    </material-dialog>\n</modal>\n<error_comp [error]=\"error\"></error_comp>",
+        "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/components/application_detail_header_component.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [
+        {
+          "class": "Identifier",
+          "name": "materialProviders",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

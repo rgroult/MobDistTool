@@ -1,0 +1,84 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../model/ui/icon.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "GlyphComponent"
+      }
+    ],
+    "6": "glyph.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../../model/ui/icon.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "GlyphSize": {
+      "class": "Identifier",
+      "name": "GlyphSize",
+      "moduleUrl": "asset:angular2_components/lib/src/components/glyph/glyph.dart",
+      "prefix": null,
+      "value": null
+    },
+    "GlyphComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "glyph",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "GlyphComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/components/glyph/glyph.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 4,
+      "inputs": {
+        "icon": "icon",
+        "iconSet": "iconSet"
+      },
+      "inputTypes": {
+        "iconSet": " String"
+      },
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<i [class.material-icons]=\"useMaterialIconsExtended\"\n   aria-hidden=\"true\">\n  {{iconName}}\n</i>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/glyph/glyph.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/glyph/glyph.scss.css"
+        ],
+        "ngContentSelectors": [],
+        "preserveWhitespace": false
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,172 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.all_components",
+    "4": [
+      {
+        "1": "components/annotations/rtl_annotation.dart"
+      },
+      {
+        "1": "components/auto_dismiss/auto_dismiss.dart"
+      },
+      {
+        "1": "components/button_decorator/button_decorator.dart"
+      },
+      {
+        "1": "components/content/deferred_content.dart"
+      },
+      {
+        "1": "components/content/deferred_content_aware.dart"
+      },
+      {
+        "1": "components/focus/focus.dart"
+      },
+      {
+        "1": "components/focus/focus_activable_item.dart"
+      },
+      {
+        "1": "components/focus/focus_item.dart"
+      },
+      {
+        "1": "components/focus/focus_list.dart"
+      },
+      {
+        "1": "components/focus/focus_trap.dart"
+      },
+      {
+        "1": "components/focus/keyboard_only_focus_indicator.dart"
+      },
+      {
+        "1": "components/glyph/glyph.dart"
+      },
+      {
+        "1": "components/material_button/material_button.dart"
+      },
+      {
+        "1": "components/material_button/material_button_base.dart"
+      },
+      {
+        "1": "components/material_button/material_fab.dart"
+      },
+      {
+        "1": "components/material_checkbox/material_checkbox.dart",
+        "2": [
+          "MaterialCheckboxComponent"
+        ]
+      },
+      {
+        "1": "components/material_chips/material_chip.dart"
+      },
+      {
+        "1": "components/material_chips/material_chips.dart"
+      },
+      {
+        "1": "components/material_dialog/material_dialog.dart"
+      },
+      {
+        "1": "components/material_expansionpanel/material_expansionpanel.dart"
+      },
+      {
+        "1": "components/material_expansionpanel/material_expansionpanel_set.dart"
+      },
+      {
+        "1": "components/material_input/base_material_input.dart"
+      },
+      {
+        "1": "components/material_input/deferred_validator.dart"
+      },
+      {
+        "1": "components/material_input/input_wrapper.dart"
+      },
+      {
+        "1": "components/material_input/material_input.dart",
+        "3": [
+          "materialInputErrorKey"
+        ]
+      },
+      {
+        "1": "components/material_input/material_input_default_value_accessor.dart"
+      },
+      {
+        "1": "components/material_input/material_input_multiline.dart"
+      },
+      {
+        "1": "components/material_popup/material_popup.dart"
+      },
+      {
+        "1": "components/material_progress/material_progress.dart"
+      },
+      {
+        "1": "components/material_radio/material_radio.dart"
+      },
+      {
+        "1": "components/material_radio/material_radio_group.dart"
+      },
+      {
+        "1": "components/material_ripple/material_ripple.dart"
+      },
+      {
+        "1": "components/material_ripple/module.dart"
+      },
+      {
+        "1": "components/material_spinner/material_spinner.dart"
+      },
+      {
+        "1": "components/material_tab/fixed_material_tab_strip.dart"
+      },
+      {
+        "1": "components/material_tab/material_tab.dart"
+      },
+      {
+        "1": "components/material_tab/material_tab_panel.dart"
+      },
+      {
+        "1": "components/material_tab/tab_change_event.dart"
+      },
+      {
+        "1": "components/material_toggle/material_toggle.dart"
+      },
+      {
+        "1": "components/material_yes_no_buttons/material_yes_no_buttons.dart"
+      },
+      {
+        "1": "components/mixins/focusable_mixin.dart"
+      },
+      {
+        "1": "components/mixins/has_tab_index.dart"
+      },
+      {
+        "1": "components/mixins/material_dropdown_base.dart"
+      },
+      {
+        "1": "components/reorder_list/reorder_list.dart"
+      },
+      {
+        "1": "components/scorecard/scoreboard.dart"
+      },
+      {
+        "1": "components/scorecard/scorecard.dart"
+      },
+      {
+        "1": "components/theme/dark_theme.dart"
+      },
+      {
+        "1": "components/theme/module.dart"
+      },
+      {
+        "1": "laminate/components/modal/modal.dart"
+      },
+      {
+        "1": "laminate/overlay/module.dart"
+      },
+      {
+        "1": "laminate/popup/module.dart"
+      },
+      {
+        "1": "laminate/popup/popup.dart"
+      }
+    ],
+    "6": "all_components.dart"
+  },
+  "type": {},
+  "alias": {}
+}

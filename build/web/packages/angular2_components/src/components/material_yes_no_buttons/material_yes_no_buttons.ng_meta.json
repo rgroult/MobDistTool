@@ -1,0 +1,522 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:intl/intl.dart",
+        "5": false
+      },
+      {
+        "1": "../material_button/material_button.dart",
+        "5": false
+      },
+      {
+        "1": "../material_spinner/material_spinner.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/async/async.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "MaterialYesNoButtonsComponent",
+        "7": [
+          {
+            "2": "MaterialButtonComponent"
+          },
+          {
+            "2": "MaterialSpinnerComponent"
+          },
+          {
+            "2": "NgClass"
+          },
+          {
+            "2": "NgIf"
+          }
+        ]
+      },
+      {
+        "1": "MaterialSaveCancelButtonsDirective",
+        "5": [
+          {
+            "1": "MaterialYesNoButtonsComponent",
+            "4": "yesNo"
+          }
+        ]
+      },
+      {
+        "1": "KeyUpBoundaryDirective",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "element"
+          }
+        ]
+      },
+      {
+        "1": "EscapeCancelsDirective",
+        "5": [
+          {
+            "1": "MaterialYesNoButtonsComponent",
+            "4": "_yesNo"
+          },
+          {
+            "1": "ElementRef",
+            "4": "element"
+          },
+          {
+            "1": "KeyUpBoundaryDirective",
+            "3": [
+              "const Optional()"
+            ],
+            "4": "boundary"
+          }
+        ],
+        "6": [
+          "OnDestroy"
+        ]
+      },
+      {
+        "1": "EnterAcceptsDirective",
+        "5": [
+          {
+            "1": "MaterialYesNoButtonsComponent",
+            "4": "_yesNo"
+          },
+          {
+            "1": "ElementRef",
+            "4": "element"
+          },
+          {
+            "1": "KeyUpBoundaryDirective",
+            "3": [
+              "const Optional()"
+            ],
+            "4": "boundary"
+          }
+        ],
+        "6": [
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "material_yes_no_buttons.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../material_button/material_button.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../material_spinner/material_spinner.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../../utils/angular/properties/properties.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "../../utils/async/async.template.dart",
+        "4": "i4"
+      }
+    ]
+  },
+  "type": {
+    "MaterialSaveCancelButtonsDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "material-yes-no-buttons[saveCancel]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialSaveCancelButtonsDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "MaterialYesNoButtonsComponent",
+                "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "BoundaryAwareKeyUpDirective": {
+      "class": "Identifier",
+      "name": "BoundaryAwareKeyUpDirective",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+      "prefix": null,
+      "value": null
+    },
+    "KeyUpBoundaryDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[keyupBoundary]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "KeyUpBoundaryDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "EscapeCancelsDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "material-yes-no-buttons[escCancels]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "EscapeCancelsDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "MaterialYesNoButtonsComponent",
+                "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "KeyUpBoundaryDirective",
+                "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "EnterAcceptsDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "material-yes-no-buttons[enterAccepts]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "EnterAcceptsDirective",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "MaterialYesNoButtonsComponent",
+                "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "KeyUpBoundaryDirective",
+                "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "_keyUpEventStream": {
+      "class": "Identifier",
+      "name": "_keyUpEventStream",
+      "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MaterialYesNoButtonsComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "material-yes-no-buttons",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "MaterialYesNoButtonsComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "changeDetection": 4,
+      "inputs": {
+        "yesText": "yesText",
+        "noText": "noText",
+        "yesHighlighted": "yesHighlighted",
+        "raised": "raised",
+        "yesRaised": "yesRaised",
+        "disabled": "disabled",
+        "yesDisabled": "yesDisabled",
+        "noDisplayed": "noDisplayed",
+        "pending": "pending"
+      },
+      "inputTypes": {
+        "yesText": " String",
+        "noText": " String"
+      },
+      "outputs": {
+        "yes": "yes",
+        "no": "no"
+      },
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 0,
+        "template": "<!--\n Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file\n for details. All rights reserved. Use of this source code is governed by a\n BSD-style license that can be found in the LICENSE file.\n-->\n<div *ngIf=\"pending\"\n     class=\"btn spinner\">\n  <material-spinner></material-spinner>\n</div>\n<material-button #yesButton\n                 *ngIf=\"!pending\"\n                 class=\"btn btn-yes\"\n                 [raised]=\"yesRaised || raised\"\n                 [class.highlighted]=\"yesHighlighted\"\n                 [disabled]=\"yesDisabled || disabled\"\n                 (trigger)=\"yes.add($event)\">\n  {{yesText}}\n</material-button>\n<material-button #noButton\n                 *ngIf=\"!pending && noDisplayed\"\n                 class=\"btn btn-no\"\n                 [raised]=\"raised\"\n                 [disabled]=\"disabled\"\n                 (trigger)=\"no.add($event)\">\n  {{noText}}\n</material-button>\n",
+        "templateUrl": "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.html",
+        "styles": [],
+        "styleUrls": [
+          "asset:angular2_components/lib/src/components/material_yes_no_buttons/material_yes_no_buttons.scss.css"
+        ],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": [
+        {
+          "selectors": [
+            {
+              "value": "yesButton",
+              "identifier": null,
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": true,
+          "first": true,
+          "propertyName": "yesButton",
+          "read": null
+        },
+        {
+          "selectors": [
+            {
+              "value": "noButton",
+              "identifier": null,
+              "identifierIsInstance": false
+            }
+          ],
+          "descendants": true,
+          "first": true,
+          "propertyName": "noButton",
+          "read": null
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

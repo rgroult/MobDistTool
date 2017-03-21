@@ -1,0 +1,437 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.components.modal.modal",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "../../../components/content/deferred_content_aware.dart",
+        "5": false
+      },
+      {
+        "1": "src/modal_controller_directive.dart",
+        "5": false
+      },
+      {
+        "1": "../../overlay/overlay.dart",
+        "5": false
+      },
+      {
+        "1": "../../../model/action/async_action.dart",
+        "5": false
+      },
+      {
+        "1": "../../../utils/async/async.dart",
+        "5": false
+      },
+      {
+        "1": "../../../utils/disposer/disposer.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "GlobalModalStack",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      },
+      {
+        "1": "ModalComponent",
+        "5": [
+          {
+            "1": "OverlayService",
+            "4": "overlayService"
+          },
+          {
+            "1": "Modal",
+            "3": [
+              "const Optional()",
+              "const SkipSelf()"
+            ],
+            "4": "_parentModal"
+          },
+          {
+            "1": "GlobalModalStack",
+            "3": [
+              "const Optional()"
+            ],
+            "4": "_stack"
+          }
+        ],
+        "6": [
+          "DeferredContentAware",
+          "Modal",
+          "OnDestroy"
+        ],
+        "7": [
+          {
+            "2": "ModalControllerDirective"
+          }
+        ]
+      }
+    ],
+    "6": "modal.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../../../components/content/deferred_content_aware.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "src/modal_controller_directive.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../../overlay/overlay.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "../../../model/action/async_action.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "../../../utils/async/async.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "../../../utils/disposer/disposer.template.dart",
+        "4": "i6"
+      }
+    ]
+  },
+  "type": {
+    "GlobalModalStack": {
+      "class": "Type",
+      "name": "GlobalModalStack",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "Modal": {
+      "class": "Identifier",
+      "name": "Modal",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ModalComponent": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "modal",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "ModalComponent",
+        "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "OverlayService",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Modal",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": true,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "GlobalModalStack",
+                "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "preventInteraction": "preventInteraction",
+        "visible": "visible"
+      },
+      "inputTypes": {},
+      "outputs": {
+        "shieldClick": "shieldClick",
+        "onOpen": "open",
+        "onClose": "close",
+        "onVisibleChanged": "visibleChange"
+      },
+      "hostListeners": {},
+      "hostProperties": {
+        "attr.pane-id": "uniquePaneId"
+      },
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": {
+        "encapsulation": 2,
+        "template": "    <template [modalController]=\"resolvedOverlayRef\">\n      <ng-content></ng-content>\n    </template>\n  ",
+        "templateUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": [
+          "*"
+        ]
+      },
+      "providers": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DeferredContentAware",
+              "moduleUrl": "asset:angular2_components/lib/src/components/content/deferred_content_aware.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "ModalComponent",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "OverlayService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "Modal",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "GlobalModalStack",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Modal",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "ModalComponent",
+              "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "OverlayService",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/overlay/src/overlay_service.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "Modal",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": true,
+                  "isOptional": true,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "GlobalModalStack",
+                      "moduleUrl": "asset:angular2_components/lib/src/laminate/components/modal/modal.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": true,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,100 @@
+{
+  "ngDeps": {
+    "1": "angular2_components.laminate.ruler.module",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "./dom_ruler.dart",
+        "5": false
+      },
+      {
+        "1": "./ng_ruler.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/managed_zone/angular_2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/browser/dom_service/angular_2.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/browser/window/module.dart",
+        "5": false
+      }
+    ],
+    "6": "module.dart"
+  },
+  "type": {
+    "rulerBindings": {
+      "class": "Identifier",
+      "name": "rulerBindings",
+      "moduleUrl": "asset:angular2_components/lib/src/laminate/ruler/module.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "DomRuler",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "domServiceBinding",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ManagedZone",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "Angular2ManagedZone",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "useProperty": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NgRuler",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "windowBindings",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

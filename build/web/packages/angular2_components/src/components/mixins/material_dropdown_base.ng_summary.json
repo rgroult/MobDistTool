@@ -1,0 +1,45 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../content/deferred_content_aware.dart",
+        "5": false
+      },
+      {
+        "1": "../../laminate/enums/alignment.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/angular/properties/properties.dart",
+        "5": false
+      },
+      {
+        "1": "../../utils/async/async.dart",
+        "5": false
+      }
+    ],
+    "6": "material_dropdown_base.dart"
+  },
+  "type": {
+    "DropdownHandle": {
+      "class": "Identifier",
+      "name": "DropdownHandle",
+      "moduleUrl": "asset:angular2_components/lib/src/components/mixins/material_dropdown_base.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MaterialDropdownBase": {
+      "class": "Identifier",
+      "name": "MaterialDropdownBase",
+      "moduleUrl": "asset:angular2_components/lib/src/components/mixins/material_dropdown_base.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}
