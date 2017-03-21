@@ -1,17 +1,39 @@
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 //Model
 class MDTUser {
+  var _dateFormatter = new DateFormat('MM/dd/yyyy HH:mm');
   String name;
   String email;
   bool isActivated;
   bool passwordStrengthFailed;
+  DateTime createdAt = null;
+  DateTime lastLogin = null;
   // String externalTokenId;
   bool isSystemAdmin;
   List<String> favoritesApplicationsUUID;
+  String createdAtFormatted(){
+    if  (createdAt != null) {
+      return _dateFormatter.format(createdAt);
+    }
+    return "";
+  }
+  String lastLoginFormatted(){
+    if  (lastLogin != null) {
+      return _dateFormatter.format(lastLogin);
+    }
+    return "";
+  }
   MDTUser(Map map){
     name = map["name"];
     email = map["email"];
+    if  (map["createdAt"] != null) {
+      createdAt = DateTime.parse(map["createdAt"]);
+    }
+    if  (map["lastLogin"] != null) {
+      lastLogin = DateTime.parse(map["lastLogin"]);
+    }
     isActivated = map["isActivated"];
     // externalTokenId = map["externalTokenId"];
     isSystemAdmin = map["isSystemAdmin"];

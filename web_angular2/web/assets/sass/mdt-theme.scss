@@ -61,6 +61,13 @@ material-toggle .material-toggle.checked .tgl-btn, material-toggle .material-tog
   background-color: $brand-primary !important;
 }
 
+/* tab */
+tab-button.active {
+  color: $brand-primary !important;
+}
+ .tab-indicator {
+   background: $brand-primary !important;
+}
   /* Qr Code : Not working*/
 .qr-code-button {
   /* https://materialdesignicons.com/icon/qrcode */

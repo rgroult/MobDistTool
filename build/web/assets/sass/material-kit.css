@@ -61,6 +61,11 @@ material-input .focused-underline { background-color: #F16E00 !important; }
 /* toggle */
 material-toggle .material-toggle.checked .tgl-btn, material-toggle .material-toggle.checked .tgl-bar { background-color: #F16E00 !important; }
 
+/* tab */
+tab-button.active { color: #F16E00 !important; }
+
+.tab-indicator { background: #F16E00 !important; }
+
 /* Qr Code : Not working*/
 .qr-code-button { /* https://materialdesignicons.com/icon/qrcode */ color: #F16E00; }
 

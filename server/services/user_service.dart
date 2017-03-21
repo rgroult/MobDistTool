@@ -3,6 +3,7 @@
 // MIT-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:math';
 import 'package:option/option.dart';
 import 'package:rpc/rpc.dart';
 import 'package:shelf_auth/shelf_auth.dart';
@@ -304,20 +305,36 @@ class UserService {
   }
 
   @ApiMethod(method: 'GET', path: 'all')
-  Future<ResponseListPagined> listUsers({int pageIndex,int maxResult}) async{
+  Future<ResponseListPagined> listUsers({int pageIndex,int maxResult,String orderBy,bool ascending:true}) async{
     try {
       checkSysAdmin();
       var page = 1;
       var limit = 25;
       if (maxResult != null) {
-        limit = maxResult + 1;
+        limit = maxResult.abs() + 1;
       }
-      if (pageIndex != null) {
-        page = pageIndex;
+      if (pageIndex != null) { //page index begins @ 1
+        page =  max(1,pageIndex.abs());
       }
       var numberToSkip = (page - 1) * (limit-1);
+      var orderUsersBy = "createdAt";
+      if (orderBy != null){
+        switch (orderBy.toUpperCase()) {
+          case "CREATEDAT":
+            orderUsersBy = "createdAt";
+            break;
+          case "EMAIL":
+            orderUsersBy = "email";
+            break;
+          case "LASTLOGIN":
+            orderUsersBy = "lastLogin";
+            break;
+          default:
+            break;
+        }
+      }
 
-      var usersList = await users.searchUsers(page, numberToSkip, limit);
+      var usersList = await users.searchUsers(page, numberToSkip, limit,orderUsersBy,ascending);
       bool hasMore = false;
       if (usersList.length == limit) {
         hasMore = true;
