@@ -8,7 +8,7 @@ import 'package:objectory/objectory.dart';
 
 Map propertiePerClass = {
   "MDTUser" :  ['name','email'],
-  "admin_MDTUser" :  ['isSystemAdmin','isActivated','favoritesApplicationsUUID'],
+  "admin_MDTUser" :  ['isSystemAdmin','isActivated','favoritesApplicationsUUID','createdAt','lastLogin'],
   'MDTApplication' :  ['name','platform','lastVersion','adminUsers','uuid','description'],
   'admin_MDTApplication' :  ['apiKey','maxVersionSecretKey'],
   //'MDTArtifact' : ['uuid','branch','name','creationDate','version','sortIdentifier','metaDataTags'],

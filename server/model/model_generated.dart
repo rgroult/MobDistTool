@@ -9,8 +9,9 @@ class $MDTUser {
   static String get activationToken => 'activationToken';
   static String get isSystemAdmin => 'isSystemAdmin';
   static String get isActivated => 'isActivated';
+  static String get lastLogin => 'lastLogin';
   static String get favoritesApplicationsUUID => 'favoritesApplicationsUUID';
-  static final List<String> allFields = [name, email, password, salt, activationToken, isSystemAdmin, isActivated, favoritesApplicationsUUID];
+  static final List<String> allFields = [name, email, password, salt, activationToken, isSystemAdmin, isActivated, lastLogin, favoritesApplicationsUUID];
   static final List<PropertyDescriptor> simpleFields = [
     const PropertyDescriptor('name', PropertyType.String, 'name')
     ,const PropertyDescriptor('email', PropertyType.String, 'email')
@@ -19,6 +20,7 @@ class $MDTUser {
     ,const PropertyDescriptor('activationToken', PropertyType.String, 'activationToken')
     ,const PropertyDescriptor('isSystemAdmin', PropertyType.bool, 'isSystemAdmin')
     ,const PropertyDescriptor('isActivated', PropertyType.bool, 'isActivated')
+    ,const PropertyDescriptor('lastLogin', PropertyType.DateTime, 'lastLogin')
     ,const PropertyDescriptor('favoritesApplicationsUUID', PropertyType.String, 'favoritesApplicationsUUID')
   ];
 }
@@ -40,6 +42,8 @@ class MDTUser extends PersistentObject {
   set isSystemAdmin (bool value) => setProperty('isSystemAdmin',value);
   bool get isActivated => getProperty('isActivated');
   set isActivated (bool value) => setProperty('isActivated',value);
+  DateTime get lastLogin => getProperty('lastLogin');
+  set lastLogin (DateTime value) => setProperty('lastLogin',value);
   String get favoritesApplicationsUUID => getProperty('favoritesApplicationsUUID');
   set favoritesApplicationsUUID (String value) => setProperty('favoritesApplicationsUUID',value);
 }

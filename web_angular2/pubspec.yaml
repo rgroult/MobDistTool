@@ -1,5 +1,5 @@
 name: 'MobDistTool_Angular_2_Web_UI'
-version: '1.2.2'
+version: '1.2.3'
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
 
 environment:
@@ -12,6 +12,7 @@ dependencies:
   validator: ">=0.0.4 <0.1.0"
   qr:
     git: git://github.com/rgroult/qr.dart.git
+  intl:
  # bootjack: any
  # modal_dialog:
 dev_dependencies:

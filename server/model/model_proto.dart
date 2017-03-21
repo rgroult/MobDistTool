@@ -14,6 +14,7 @@ class MDTUser {
   String activationToken;
   bool isSystemAdmin;
   bool isActivated;
+  DateTime lastLogin;
   String favoritesApplicationsUUID; //List<String> not handle by Model generator : generate PersistentList
 }
 

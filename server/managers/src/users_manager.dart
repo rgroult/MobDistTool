@@ -26,6 +26,9 @@ Future<MDTUser> findUser(String email, String password) async {
   var user = await userCollection.findOne(where.eq("email", email));
   if (user != null) {
     if (user.password == generateHash(password,user.salt)) {
+      //update last login
+      user.lastLogin = new DateTime.now();
+      user.save();
       return user;
     }
   }
@@ -141,10 +144,9 @@ Future updateFavoritesApp(MDTUser user, List<String> appUID) async{
 }
 
 //first page : pageIndex = 1
-Future<List<MDTUser>> searchUsers(int pageIndex,int numberToSkip, int limitPerPage) async{
-  //var page = max(1,pageIndex);
-
-  return userCollection.find(where.sortBy("email",descending:true).skip(numberToSkip).limit(limitPerPage));
+Future<List<MDTUser>> searchUsers(int pageIndex,int numberToSkip, int limitPerPage,String orderBy, bool ascending) async{
+  //print('SortBy : $orderBy, ascending: $ascending');
+  return userCollection.find(where.sortBy(orderBy,descending:!ascending).skip(numberToSkip).limit(limitPerPage));
 }
 
 String generateHash(String password,String salt) {

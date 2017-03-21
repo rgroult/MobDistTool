@@ -13,9 +13,11 @@ import 'user_detail_component.dart';
 class UsersAdministrationComponent  extends BaseComponent implements OnInit {
   MDTQueryService _mdtQueryService;
   var currentPage = 1;
-  var maxUsersPerPage = 25;
+  double maxUsersPerPage = 25.toDouble();
   var hasMore = true;
   List<MDTUser> allUsers = new List<MDTUser>();
+  var orderBy = "email";
+  var ascending = true;
 
   UsersAdministrationComponent(this._mdtQueryService);
 
@@ -54,7 +56,7 @@ class UsersAdministrationComponent  extends BaseComponent implements OnInit {
   Future loadNextUsersPage() async {
     try {
       isHttpLoading = true;
-      var listOfUsers = await _mdtQueryService.listUsers( currentPage, maxUsersPerPage);
+      var listOfUsers = await _mdtQueryService.listUsers( currentPage, maxUsersPerPage.round(),orderBy,ascending);
       allUsers.clear();
       allUsers.addAll(listOfUsers.users);
       hasMore = listOfUsers.hasMore;
@@ -77,5 +79,22 @@ class UsersAdministrationComponent  extends BaseComponent implements OnInit {
       //_parent.errorMessage = {'type': 'danger', 'msg': 'Unable to delete user: ${e.toString()}'};
     }
 
+  }
+
+  void sortUsers(String newOrderBy){
+      if (orderBy == newOrderBy){
+        ascending = !ascending;
+      }else {
+        orderBy = newOrderBy;
+        ascending = true;
+      }
+      reload();
+  }
+
+  String getOrderIcon(String testOrderBy){
+    if (testOrderBy == orderBy){
+      return ascending ? "keyboard_arrow_up" : "keyboard_arrow_down";
+    }
+    return "";
   }
 }

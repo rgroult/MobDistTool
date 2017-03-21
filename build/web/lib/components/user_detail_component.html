@@ -4,12 +4,14 @@
         <input style="text-align: center;width: 150px" type="text" class="form-compact form-control" [(ngModel)]="name">
     </div>
 </td>
+<td class="text-vertical-align">{{user?.createdAtFormatted()}}</td>
 <td class="text-vertical-align">{{user?.email}}</td>
 <td>
     <div class="form-group form-compact">
         <input style="text-align: center;width: 100px" class="form-control" type="password" placeholder="new password"  [(ngModel)]="password">
     </div>
 </td>
+<td class="text-vertical-align">{{user?.lastLoginFormatted()}}</td>
 <td class="td-actions text-right">
     <a><label class="checkbox-inline"><input [(ngModel)]="isAdmin" type="checkbox" value="">Admin</label></a>
     <a><label class="checkbox-inline"><input [(ngModel)]="isActivated" type="checkbox" value="">Activated</label></a>
