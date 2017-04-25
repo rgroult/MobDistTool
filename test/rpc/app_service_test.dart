@@ -184,7 +184,7 @@ void allTests() {
     expect(response.statusCode, equals(404));
   });
 
-  var iconFileName = "web/images/placeholder.jpg";
+  var iconFileName = "web_angular2/web/images/placeholder.jpg";
   test("Update app Icon OK", () async {
     var app = await getAppIOS();
     var icon = new File(iconFileName);
