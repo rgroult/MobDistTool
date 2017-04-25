@@ -18,6 +18,14 @@ class ApplicationListComponent extends BaseComponent implements OnInit,EditAppCo
     List<String> applicationFavorites = new List<String>();
     var isFavoritesExpanded = false;
     var isOthersAppExpanded = false;
+    String appSearchFilter="";
+    void set searchFilter(String filter) {
+      appSearchFilter = filter.toLowerCase();
+      filterApplications();
+    }
+    String get searchFilter{
+      return appSearchFilter;
+    }
 
     ApplicationListComponent(GlobalService globalService,this._modalService) : super.withGlobal(globalService);
     List<MDTApplication> allFilteredApplications = [];
@@ -62,6 +70,9 @@ class ApplicationListComponent extends BaseComponent implements OnInit,EditAppCo
         for (MDTApplication app in apps){
             if (currentPlatformFilter.length>0 && app.platform.matchAsPrefix(currentFilter) == null){
                 continue;
+            }
+            if (appSearchFilter.length>0 && !app.name.toLowerCase().contains(appSearchFilter)){
+              continue;
             }
             allFilteredApplications.add(app);
             //favoritesFilteredApplications.add(app);
