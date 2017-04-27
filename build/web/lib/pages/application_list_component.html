@@ -6,9 +6,18 @@
             <material-fab raised (click)="forceRefresh()"><glyph icon="refresh" ></glyph></material-fab>
         </div>
         <div class="row">
-            <material-radio-group>
-                <material-radio *ngFor="let filter of allPlatformsFilters" [checked]="filter == currentSelectedPlatform" (click)="selectFilter(filter)">{{filter}} </material-radio>
-            </material-radio-group>
+            <nav>
+                <material-radio-group class="navbar-form navbar-left">
+                    <material-radio *ngFor="let filter of allPlatformsFilters" [checked]="filter == currentSelectedPlatform" (click)="selectFilter(filter)">{{filter}} </material-radio>
+                </material-radio-group>
+
+                <div class="navbar-form navbar-right" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="searchFilter" placeholder="Search">
+                    </div>
+                    <button (click)="searchFilter=''" class="btn btn-simple btn-fab btn-fab-mini btn-round btn-primary"><i class="material-icons">clear</i></button>
+                </div>
+            </nav>
         </div>
         <div class="tim row">
             <material-button (click)="isFavoritesExpanded=!isFavoritesExpanded"><h2>Favorites <i *ngIf="isFavoritesExpanded" class="material-icons md-48">keyboard_arrow_up</i>
