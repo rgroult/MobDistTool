@@ -62,7 +62,7 @@ class GlobalService  {
       allApps.clear();
       var apps = await _mdtQueryService.getApplications();
       if (apps.isNotEmpty) {
-        apps.sort((a,b) => a.name.compareTo(b.name));
+        apps.sort((a,b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         allApps.addAll(apps);
       }
       _lastAppsRefresh = new DateTime.now();

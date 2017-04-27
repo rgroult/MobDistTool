@@ -27,6 +27,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 16px;
 }
 
 .mdt-card-stats .mdt-card-content {
