@@ -25,7 +25,8 @@ final Map defaultConfig = {
   // minimum strength password required
   //[0,1,2,3,4] if crack time is less than
   /// [10**2, 10**4, 10**6, 10**8, Infinity]. see https://github.com/exitlive/xcvbnm for more details
-  MDT_PASSWORD_MIN_STRENGTH:"0"
+  MDT_PASSWORD_MIN_STRENGTH:"0",
+  MDT_IPA_EXTRACT_USING_UNZIP:"false"
 };
 
 Map<String, Object> currentLoadedConfig = defaultConfig;
@@ -46,6 +47,7 @@ final String MDT_SYSADMIN_INITIAL_EMAIL = "MDT_SYSADMIN_INITIAL_EMAIL";
 final String MDT_LOG_TO_CONSOLE = "MDT_LOG_TO_CONSOLE";
 final String MDT_LOGIN_DELAY = "MDT_LOGIN_DELAY";
 final String MDT_PASSWORD_MIN_STRENGTH = "MDT_PASSWORD_MIN_STRENGTH";
+final String MDT_IPA_EXTRACT_USING_UNZIP = "MDT_IPA_EXTRACT_USING_UNZIP";
 
 Future loadConfig() async{
   //load 'config.json' file is present
@@ -110,6 +112,9 @@ Future loadConfig() async{
   }
   if (env[MDT_REGISTRATION_NEED_ACTIVATION] != null){
     currentLoadedConfig[MDT_REGISTRATION_NEED_ACTIVATION] = env[MDT_REGISTRATION_NEED_ACTIVATION];
+  }
+  if (env[MDT_IPA_EXTRACT_USING_UNZIP] != null){
+    currentLoadedConfig[MDT_IPA_EXTRACT_USING_UNZIP] = env[MDT_IPA_EXTRACT_USING_UNZIP];
   }
 
   //check config
