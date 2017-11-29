@@ -1,5 +1,5 @@
 name: 'MobDistTool'
-version: '1.2.4'
+version: '1.2.5'
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
     git:
         url: git://github.com/codecov/dart.git
         ref: master
-  apk_parser: "^0.0.2+2"
+ # apk_parser: "^0.0.2+2"
 #  browser: any
 #  angular: any
  # angular_ui: any

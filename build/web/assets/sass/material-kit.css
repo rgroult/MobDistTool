@@ -256,9 +256,9 @@ fieldset[disabled] .form-group.is-focused .radio label { color: rgba(0,0,0, 0.26
   100% { opacity: 0; } }
 legend { margin-bottom: 20px; font-size: 21px; }
 
-output { padding-top: 8px; font-size: 14px; line-height: 1.42857; }
+output { padding-top: 8px; font-size: 14px; line-height: 1.428571429; }
 
-.form-control { height: 36px; padding: 7px 0; font-size: 14px; line-height: 1.42857; }
+.form-control { height: 36px; padding: 7px 0; font-size: 14px; line-height: 1.428571429; }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) { input[type="date"].form-control, input[type="time"].form-control, input[type="datetime-local"].form-control, input[type="month"].form-control { line-height: 36px; }
   input[type="date"].input-sm, .input-group-sm input[type="date"], input[type="time"].input-sm, .input-group-sm input[type="time"], input[type="datetime-local"].input-sm, .input-group-sm input[type="datetime-local"], input[type="month"].input-sm, .input-group-sm input[type="month"] { line-height: 24px; }
@@ -276,19 +276,19 @@ output { padding-top: 8px; font-size: 14px; line-height: 1.42857; }
 .form-group-sm textarea.form-control, .form-group-sm select[multiple].form-control { height: auto; }
 .form-group-sm .form-control-static { height: 24px; min-height: 31px; padding: 4px 0; font-size: 11px; line-height: 1.5; }
 
-.input-lg .input-lg { height: 44px; padding: 9px 0; font-size: 18px; line-height: 1.33333; border-radius: 0; }
+.input-lg .input-lg { height: 44px; padding: 9px 0; font-size: 18px; line-height: 1.3333333; border-radius: 0; }
 .input-lg select.input-lg { height: 44px; line-height: 44px; }
 .input-lg textarea.input-lg, .input-lg select[multiple].input-lg { height: auto; }
 
-.form-group-lg .form-control { height: 44px; padding: 9px 0; font-size: 18px; line-height: 1.33333; }
+.form-group-lg .form-control { height: 44px; padding: 9px 0; font-size: 18px; line-height: 1.3333333; }
 .form-group-lg select.form-control { height: 44px; line-height: 44px; }
 .form-group-lg textarea.form-control, .form-group-lg select[multiple].form-control { height: auto; }
-.form-group-lg .form-control-static { height: 44px; min-height: 38px; padding: 10px 0; font-size: 18px; line-height: 1.33333; }
+.form-group-lg .form-control-static { height: 44px; min-height: 38px; padding: 10px 0; font-size: 18px; line-height: 1.3333333; }
 
 .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline { padding-top: 8px; }
 .form-horizontal .radio, .form-horizontal .checkbox { min-height: 28px; }
 @media (min-width: 768px) { .form-horizontal .control-label { padding-top: 8px; } }
-@media (min-width: 768px) { .form-horizontal .form-group-lg .control-label { padding-top: 13px; font-size: 18px; } }
+@media (min-width: 768px) { .form-horizontal .form-group-lg .control-label { padding-top: 12.9999997px; font-size: 18px; } }
 @media (min-width: 768px) { .form-horizontal .form-group-sm .control-label { padding-top: 4px; font-size: 11px; } }
 
 .label { border-radius: 2px; }
@@ -300,11 +300,11 @@ output { padding-top: 8px; font-size: 14px; line-height: 1.42857; }
 .label.label-warning { background-color: #fbc02d; }
 .label.label-danger { background-color: #f44336; }
 
-.form-control, .form-group .form-control { border: 0; background-image: linear-gradient(#F16E00, #F16E00), linear-gradient(#D2D2D2, #D2D2D2); background-size: 0 2px, 100% 1px; background-repeat: no-repeat; background-position: center bottom, center calc(100% - 1px); background-color: transparent; transition: background 0s ease-out; float: none; box-shadow: none; border-radius: 0; font-weight: 400; }
+.form-control, .form-group .form-control { border: 0; background-image: linear-gradient(#F16E00, #F16E00), linear-gradient(#D2D2D2, #D2D2D2); background-size: 0 2px, 100% 1px; background-repeat: no-repeat; background-position: center bottom, center calc(100% - 1px); background-color: rgba(0, 0, 0, 0); transition: background 0s ease-out; float: none; box-shadow: none; border-radius: 0; font-weight: 400; }
 .form-control::-moz-placeholder, .form-group .form-control::-moz-placeholder { color: #AAAAAA; font-weight: 400; }
 .form-control:-ms-input-placeholder, .form-group .form-control:-ms-input-placeholder { color: #AAAAAA; font-weight: 400; }
 .form-control::-webkit-input-placeholder, .form-group .form-control::-webkit-input-placeholder { color: #AAAAAA; font-weight: 400; }
-.form-control[readonly], .form-control[disabled], fieldset[disabled] .form-control, .form-group .form-control[readonly], .form-group .form-control[disabled], fieldset[disabled] .form-group .form-control { background-color: transparent; }
+.form-control[readonly], .form-control[disabled], fieldset[disabled] .form-control, .form-group .form-control[readonly], .form-group .form-control[disabled], fieldset[disabled] .form-group .form-control { background-color: rgba(0, 0, 0, 0); }
 .form-control[disabled], fieldset[disabled] .form-control, .form-group .form-control[disabled], fieldset[disabled] .form-group .form-control { background-image: none; border-bottom: 1px dotted #D2D2D2; }
 
 .form-group { position: relative; }
@@ -335,27 +335,27 @@ output { padding-top: 8px; font-size: 14px; line-height: 1.42857; }
 .form-group select ~ .material-input:after { display: none; }
 
 .form-control { margin-bottom: 7px; }
-.form-control::-moz-placeholder { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
-.form-control:-ms-input-placeholder { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
-.form-control::-webkit-input-placeholder { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
+.form-control::-moz-placeholder { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
+.form-control:-ms-input-placeholder { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
+.form-control::-webkit-input-placeholder { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
 
-.checkbox label, .radio label, label { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
+.checkbox label, .radio label, label { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
 
-label.control-label { font-size: 11px; line-height: 1.07143; color: #AAAAAA; font-weight: 400; margin: 16px 0 0 0; }
+label.control-label { font-size: 11px; line-height: 1.0714285718; color: #AAAAAA; font-weight: 400; margin: 16px 0 0 0; }
 
 .help-block { margin-top: 0; font-size: 11px; }
 
 .form-group { padding-bottom: 7px; margin: 27px 0 0 0; }
 .form-group .form-control { margin-bottom: 7px; }
-.form-group .form-control::-moz-placeholder { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
-.form-group .form-control:-ms-input-placeholder { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
-.form-group .form-control::-webkit-input-placeholder { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
-.form-group .checkbox label, .form-group .radio label, .form-group label { font-size: 14px; line-height: 1.42857; color: #AAAAAA; font-weight: 400; }
-.form-group label.control-label { font-size: 11px; line-height: 1.07143; color: #AAAAAA; font-weight: 400; margin: 16px 0 0 0; }
+.form-group .form-control::-moz-placeholder { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
+.form-group .form-control:-ms-input-placeholder { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
+.form-group .form-control::-webkit-input-placeholder { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
+.form-group .checkbox label, .form-group .radio label, .form-group label { font-size: 14px; line-height: 1.428571429; color: #AAAAAA; font-weight: 400; }
+.form-group label.control-label { font-size: 11px; line-height: 1.0714285718; color: #AAAAAA; font-weight: 400; margin: 16px 0 0 0; }
 .form-group .help-block { margin-top: 0; font-size: 11px; }
-.form-group.label-floating label.control-label, .form-group.label-placeholder label.control-label { top: -7px; font-size: 14px; line-height: 1.42857; }
-.form-group.label-static label.control-label, .form-group.label-floating.is-focused label.control-label, .form-group.label-floating:not(.is-empty) label.control-label { top: -28px; left: 0; font-size: 11px; line-height: 1.07143; }
-.form-group.label-floating input.form-control:-webkit-autofill ~ label.control-label label.control-label { top: -28px; left: 0; font-size: 11px; line-height: 1.07143; }
+.form-group.label-floating label.control-label, .form-group.label-placeholder label.control-label { top: -7px; font-size: 14px; line-height: 1.428571429; }
+.form-group.label-static label.control-label, .form-group.label-floating.is-focused label.control-label, .form-group.label-floating:not(.is-empty) label.control-label { top: -28px; left: 0; font-size: 11px; line-height: 1.0714285718; }
+.form-group.label-floating input.form-control:-webkit-autofill ~ label.control-label label.control-label { top: -28px; left: 0; font-size: 11px; line-height: 1.0714285718; }
 
 .form-group.form-group-sm { padding-bottom: 3px; margin: 21px 0 0 0; }
 .form-group.form-group-sm .form-control { margin-bottom: 3px; }
@@ -371,15 +371,15 @@ label.control-label { font-size: 11px; line-height: 1.07143; color: #AAAAAA; fon
 
 .form-group.form-group-lg { padding-bottom: 9px; margin: 30px 0 0 0; }
 .form-group.form-group-lg .form-control { margin-bottom: 9px; }
-.form-group.form-group-lg .form-control::-moz-placeholder { font-size: 18px; line-height: 1.33333; color: #AAAAAA; font-weight: 400; }
-.form-group.form-group-lg .form-control:-ms-input-placeholder { font-size: 18px; line-height: 1.33333; color: #AAAAAA; font-weight: 400; }
-.form-group.form-group-lg .form-control::-webkit-input-placeholder { font-size: 18px; line-height: 1.33333; color: #AAAAAA; font-weight: 400; }
-.form-group.form-group-lg .checkbox label, .form-group.form-group-lg .radio label, .form-group.form-group-lg label { font-size: 18px; line-height: 1.33333; color: #AAAAAA; font-weight: 400; }
-.form-group.form-group-lg label.control-label { font-size: 14px; line-height: 1; color: #AAAAAA; font-weight: 400; margin: 16px 0 0 0; }
+.form-group.form-group-lg .form-control::-moz-placeholder { font-size: 18px; line-height: 1.3333333; color: #AAAAAA; font-weight: 400; }
+.form-group.form-group-lg .form-control:-ms-input-placeholder { font-size: 18px; line-height: 1.3333333; color: #AAAAAA; font-weight: 400; }
+.form-group.form-group-lg .form-control::-webkit-input-placeholder { font-size: 18px; line-height: 1.3333333; color: #AAAAAA; font-weight: 400; }
+.form-group.form-group-lg .checkbox label, .form-group.form-group-lg .radio label, .form-group.form-group-lg label { font-size: 18px; line-height: 1.3333333; color: #AAAAAA; font-weight: 400; }
+.form-group.form-group-lg label.control-label { font-size: 14px; line-height: 0.999999975; color: #AAAAAA; font-weight: 400; margin: 16px 0 0 0; }
 .form-group.form-group-lg .help-block { margin-top: 0; font-size: 14px; }
-.form-group.form-group-lg.label-floating label.control-label, .form-group.form-group-lg.label-placeholder label.control-label { top: -5px; font-size: 18px; line-height: 1.33333; }
-.form-group.form-group-lg.label-static label.control-label, .form-group.form-group-lg.label-floating.is-focused label.control-label, .form-group.form-group-lg.label-floating:not(.is-empty) label.control-label { top: -32px; left: 0; font-size: 14px; line-height: 1; }
-.form-group.form-group-lg.label-floating input.form-control:-webkit-autofill ~ label.control-label label.control-label { top: -32px; left: 0; font-size: 14px; line-height: 1; }
+.form-group.form-group-lg.label-floating label.control-label, .form-group.form-group-lg.label-placeholder label.control-label { top: -5px; font-size: 18px; line-height: 1.3333333; }
+.form-group.form-group-lg.label-static label.control-label, .form-group.form-group-lg.label-floating.is-focused label.control-label, .form-group.form-group-lg.label-floating:not(.is-empty) label.control-label { top: -32px; left: 0; font-size: 14px; line-height: 0.999999975; }
+.form-group.form-group-lg.label-floating input.form-control:-webkit-autofill ~ label.control-label label.control-label { top: -32px; left: 0; font-size: 14px; line-height: 0.999999975; }
 
 select.form-control { border: 0; box-shadow: none; border-radius: 0; }
 .form-group.is-focused select.form-control { box-shadow: none; border-color: #D2D2D2; }
@@ -467,7 +467,7 @@ legend { border-bottom: 0; }
 .navbar .navbar-form { margin: 4px 0 0; }
 .navbar .navbar-form .form-group { margin: 0; padding: 0; }
 .navbar .navbar-form .form-group .material-input:before, .navbar .navbar-form .form-group.is-focused .material-input:after { background-color: inherit; }
-.navbar .navbar-form .form-group .form-control, .navbar .navbar-form .form-control { border-color: inherit; color: inherit; padding: 0; margin: 0; height: 28px; font-size: 14px; line-height: 1.42857; }
+.navbar .navbar-form .form-group .form-control, .navbar .navbar-form .form-control { border-color: inherit; color: inherit; padding: 0; margin: 0; height: 28px; font-size: 14px; line-height: 1.428571429; }
 .navbar, .navbar.navbar-default { background-color: #F16E00; color: #ffffff; }
 .navbar .navbar-form .form-group input.form-control::-moz-placeholder, .navbar .navbar-form input.form-control::-moz-placeholder, .navbar.navbar-default .navbar-form .form-group input.form-control::-moz-placeholder, .navbar.navbar-default .navbar-form input.form-control::-moz-placeholder { color: #ffffff; }
 .navbar .navbar-form .form-group input.form-control:-ms-input-placeholder, .navbar .navbar-form input.form-control:-ms-input-placeholder, .navbar.navbar-default .navbar-form .form-group input.form-control:-ms-input-placeholder, .navbar.navbar-default .navbar-form input.form-control:-ms-input-placeholder { color: #ffffff; }
