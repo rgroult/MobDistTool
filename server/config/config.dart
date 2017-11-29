@@ -26,7 +26,8 @@ final Map defaultConfig = {
   //[0,1,2,3,4] if crack time is less than
   /// [10**2, 10**4, 10**6, 10**8, Infinity]. see https://github.com/exitlive/xcvbnm for more details
   MDT_PASSWORD_MIN_STRENGTH:"0",
-  MDT_IPA_EXTRACT_USING_UNZIP:"false"
+  MDT_IPA_EXTRACT_USING_UNZIP:"false",
+  MDT_AAPT_FULL_PATH:"aapt" //search in path
 };
 
 Map<String, Object> currentLoadedConfig = defaultConfig;
@@ -48,6 +49,7 @@ final String MDT_LOG_TO_CONSOLE = "MDT_LOG_TO_CONSOLE";
 final String MDT_LOGIN_DELAY = "MDT_LOGIN_DELAY";
 final String MDT_PASSWORD_MIN_STRENGTH = "MDT_PASSWORD_MIN_STRENGTH";
 final String MDT_IPA_EXTRACT_USING_UNZIP = "MDT_IPA_EXTRACT_USING_UNZIP";
+final String MDT_AAPT_FULL_PATH = "MDT_AAPT_FULL_PATH";
 
 Future loadConfig() async{
   //load 'config.json' file is present
@@ -115,6 +117,9 @@ Future loadConfig() async{
   }
   if (env[MDT_IPA_EXTRACT_USING_UNZIP] != null){
     currentLoadedConfig[MDT_IPA_EXTRACT_USING_UNZIP] = env[MDT_IPA_EXTRACT_USING_UNZIP];
+  }
+  if (env[MDT_AAPT_FULL_PATH] != null){
+    currentLoadedConfig[MDT_AAPT_FULL_PATH] = env[MDT_AAPT_FULL_PATH];
   }
 
   //check config

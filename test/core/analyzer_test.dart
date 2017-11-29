@@ -12,7 +12,7 @@ void main() {
   var storage;
   test("test IOS analyzer OK", () async {
    // var file = new File(Directory.current.path+'/test/core/marmiton.ipa');
-    var file = new File('/Users/gogetta/Desktop/FollowerSC2.ipa');
+    var file = new File("path to apks..);
     var result = await analyzer.analyzeAndExtractIOSArtifactInfos(file);
     expect(result,isNotNull);
     expect(result.length,equals(3));
@@ -34,17 +34,21 @@ void main() {
   });
 
   test("test Android analyzer OK", () async {
-    var file = new File("/Users/shallay/Desktop/dev/test_dart/bin/MyOfficePhone-prod_1.0.3_RC1_releaseSigned.apk");
-    var result = await analyzer.analyzeAndExtractArtifactInfos(file, "android");
-    expect(result,isNotNull);
-    //expect(result.length,equals(3));
-    print("$result");
+    var filenames = ["path to apks.."];
+    for (var filename in filenames) {
+      var file = new File(filename);
+      var result = await analyzer.analyzeAndExtractArtifactInfos(file, "android");
+      expect(result,isNotNull);
+      //expect(result.length,equals(3));
+      print("$result");
+    }
+
   });
 
   test("test Android analyzer KO : bad OS", () async {
     var result = true;
     try {
-      var file = new File("/Users/shallay/Desktop/dev/test_dart/bin/MyOfficePhone-prod_1.0.3_RC1_releaseSigned.apk");
+      var file = new File("path to apks..");
       var tags = await analyzer.analyzeAndExtractArtifactInfos(file, "ios");
       expect(tags,isNotNull);
     }catch(e){

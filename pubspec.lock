@@ -13,12 +13,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.1"
-  apk_parser:
-    description:
-      name: apk_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2+2"
   archive:
     description:
       name: archive
@@ -146,12 +140,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.8"
-  event_stream:
-    description:
-      name: event_stream
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.2"
   fixnum:
     description:
       name: fixnum
@@ -543,12 +531,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.3"
-  xmlstream:
-    description:
-      name: xmlstream
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0"
   yaml:
     description:
       name: yaml
