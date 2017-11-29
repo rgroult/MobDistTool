@@ -1,5 +1,5 @@
 name: 'MobDistTool'
-version: '1.2.4'
+version: '1.2.5'
 description: Platform which allows to distribute applications to beta testers (IOS, Android).
 
 environment:
