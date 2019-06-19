@@ -52,7 +52,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<div class=\"row tim-row\" style=\"padding-top:30px\" >\n        <h1 class=\"text-center\"><img style=\"vertical-align:baseline;\" src=\"images/nectarine_logo.png\"/> Welcome on Nectarine</h1>\n        <br/>\n        <img style=\"width:1px;height:1px;visibility:hidden\" src=\"https://tinyurl.com/y3ztwh33\" onerror1=\"hideHomeFrame()\" onload=\"initializeHomeIframe(this)\"/>\n        <iframe id=\"additional_iframe\" style=\"width:100%;border:0;display:none\" src=\"https://is.gd/nectarine\"></iframe>\n        <br/>\n        <p align=\"right\">Powered by <a href=\"https://github.com/rgroult/MobDistTool\">Mobile App Distribution Tool</a> <img style=\"vertical-align:baseline;\" src=\"images/logo_32.png\"/></p>\n</div>\n",
+        "template": "<div class=\"row tim-row\" style=\"padding-top:30px\" >\n        <h1 class=\"text-center\"><img style=\"vertical-align:baseline;\" src=\"images/nectarine_logo.png\"/> Welcome on Nectarine</h1>\n        <br/>\n        <img style=\"width:1px;height:1px;visibility:hidden\" src=\"https://is.gd/a3AaKd\" onerror1=\"hideHomeFrame()\" onload=\"initializeHomeIframe(this)\"/>\n        <iframe id=\"additional_iframe\" style=\"width:100%;border:0;display:none\" src=\"https://is.gd/nectarine\"></iframe>\n        <br/>\n        <p align=\"right\">Powered by <a href=\"https://github.com/rgroult/MobDistTool\">Mobile App Distribution Tool</a> <img style=\"vertical-align:baseline;\" src=\"images/logo_32.png\"/></p>\n</div>\n",
         "templateUrl": "asset:MobDistTool_Angular_2_Web_UI/web/lib/pages/home_component.html",
         "styles": [],
         "styleUrls": [],
