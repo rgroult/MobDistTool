@@ -109,7 +109,7 @@ class ApplicationDetailComponent extends BaseComponent implements OnInit,AddArti
       isHttpLoading = true;
       applicationsArtifacts.clear();
       applicationsLastestVersion.clear();
-      List<MDTArtifact> artifacts = await _mdtQueryService.listArtifacts(currentApp.uuid,pageIndex:0,limitPerPage:50);
+      List<MDTArtifact> artifacts = await _mdtQueryService.listArtifacts(currentApp.uuid,pageIndex:0,limitPerPage:200);
       if (artifacts.isNotEmpty){
         applicationsArtifacts.addAll(artifacts);
       }else {
