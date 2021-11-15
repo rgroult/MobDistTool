@@ -1,4 +1,4 @@
-# Project is Depracated, being rewriting into swift backend [here](https://github.com/rgroult/MobDistToolCore)
+# Project is Deprecated, being rewriting into swift backend [here](https://github.com/rgroult/MobDistToolCore)
 
 ![MDT icon](doc/MDT_banner.png)  
   
