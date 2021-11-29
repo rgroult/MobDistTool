@@ -62,7 +62,7 @@ MDT server is written in [Dart] with mongoDB database for Users,Application an a
 
 MDT web is written in Dart with Angular dart [AngularDart], [Angular UI] and and bootstrap with material theme. Web GUI is also compiled in javascript for running in all browsers (build/web).
 
-**Note**:A mobile application written with [Flutter] will be available in next months: Abandonned yet, due to not enough free time.
+**Note**:A mobile application written with [Flutter] will be available in next months: Abandoned yet, due to not enough free time.
 
 [Dart]: https://www.dartlang.org
 [AngularDart]:https://angulardart.org
